@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Rarámuri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Aprende Rarámuri</h1>
+        <nav>
+            <button data-section="about">Sobre el Proyecto</button>
+            <button data-section="lexicon">Léxico</button>
+            <button data-section="phrases">Frases</button> <!-- BOTÓN NUEVO -->
+            <button data-section="memorama">Memorama</button>
+            <button data-section="quiz">Quiz</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección Sobre el Proyecto -->
+        <section id="about-section" class="content-section">
+            <h2>Sobre el Proyecto</h2>
+            <p>Esta aplicación busca ser una herramienta sencilla y accesible para el aprendizaje básico de la lengua rarámuri (tarahumara).</p>
+            <p>El rarámuri es una lengua de la Sierra Tarahumara en Chihuahua, México.</p>
+            <p><strong>¡Chabochi kuira!</strong> (¡Hola a todos! / Saludo a no-indígenas)</p>
+            <p><em>Agradecimientos especiales a [Menciona colaboradores si los tienes].</em></p>
+        </section>
+
+        <!-- Sección Léxico -->
+        <section id="lexicon-section" class="content-section">
+            <h2>Léxico Básico</h2>
+            <input type="text" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar palabra en el léxico">
+            <div id="lexicon-entries">
+                <!-- Las entradas léxicas se cargarán aquí con JavaScript -->
+            </div>
+        </section>
+
+        <!-- Sección Frases -->
+        <section id="phrases-section" class="content-section"> <!-- SECCIÓN NUEVA -->
+            <h2>Frases Útiles</h2>
+            <div id="phrase-entries">
+                <!-- Las entradas de frases se cargarán aquí con JavaScript -->
+            </div>
+        </section>
+
+        <!-- Sección Memorama -->
+        <section id="memorama-section" class="content-section">
+            <h2>Memorama Rarámuri</h2>
+            <button id="start-memorama">Iniciar Juego</button>
+            <p id="memorama-status"></p>
+            <div id="memorama-board">
+                <!-- Las cartas se generarán aquí -->
+            </div>
+        </section>
+
+        <!-- Sección Quiz -->
+        <section id="quiz-section" class="content-section">
+            <h2>Quiz Rápido</h2>
+            <div id="quiz-container">
+                <div id="quiz-question"></div>
+                <div id="quiz-options"></div>
+                <button id="quiz-next">Siguiente</button>
+                <div id="quiz-feedback"></div>
+                <div id="quiz-score"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Proyecto con fines educativos - 2024</p> <!-- Actualizado año :) -->
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
