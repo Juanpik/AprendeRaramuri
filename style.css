@@ -307,7 +307,7 @@ nav button.active {
 }
 
 /* ------------------------- */
-/* Memorama Section (Revisado) */
+/* Memorama Section (Revisado V2) */
 /* ------------------------- */
 #memorama-setup {
     margin-bottom: var(--space-lg);
@@ -368,7 +368,7 @@ nav button.active {
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-xs); /* For wrapping */
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
 }
@@ -379,29 +379,34 @@ nav button.active {
 }
 #memorama-controls p {
     margin: 0;
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-xs); /* For wrapping */
     font-weight: 600;
     color: var(--text-color);
 }
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: var(--space-lg);
+    /* Ajuste para cartas más cuadradas: tamaño mínimo más cercano a la altura */
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); /* Ajustado minmax */
+    gap: var(--space-lg); /* Más espacio entre cartas */
     perspective: 1200px;
-    max-width: 850px;
-    margin: 0 auto;
+    max-width: 850px; /* Permitir ancho suficiente */
+    margin: 0 auto; /* Centrar */
 }
 
 .memorama-card {
     background-color: var(--blue-dark);
-    height: 170px; /* Aumentado para imagen cuadrada */
+    /* Ajuste para aspecto más cuadrado */
+    height: 160px; /* Altura ligeramente ajustada */
+    aspect-ratio: 1 / 1; /* Forzar relación de aspecto 1:1 (cuadrada) si el navegador lo soporta */
+    /* Si aspect-ratio no funciona, la combinación height + minmax se aproxima */
     border-radius: var(--border-radius-md);
     cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-md);
+    overflow: hidden; /* Prevenir desbordamiento si algo sale mal */
 }
 
 .memorama-card.flipped, .memorama-card.matched {
@@ -410,9 +415,10 @@ nav button.active {
     box-shadow: var(--shadow-sm);
 }
 .memorama-card.matched {
-     opacity: 0.65;
+     opacity: 0.6; /* Un poco más transparente */
      border: 3px solid var(--success-green);
 }
+
 
 .card-face {
     position: absolute;
@@ -421,14 +427,14 @@ nav button.active {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
+    /* Ajuste: Centrar contenido verticalmente */
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md);
-    font-size: 1em;
-    padding: var(--space-sm);
+    border-radius: var(--border-radius-md); /* Heredar borde redondeado */
+    padding: var(--space-sm); /* Reducir padding ligeramente para más espacio imagen */
     box-sizing: border-box;
     text-align: center;
-    overflow: hidden;
+    overflow: hidden; /* Asegurar que nada se salga */
 }
 
 .card-front {
@@ -436,37 +442,44 @@ nav button.active {
     color: var(--text-color);
     transform: rotateY(180deg);
     border: 1px solid var(--grey-medium);
-    justify-content: space-between;
+    /* Ajuste: Usar space-evenly para distribuir espacio, o mantener center */
+    justify-content: center; /* Centrar verticalmente si hay espacio extra */
 }
 .card-front img {
-    max-width: 85%; /* Aumentado */
-    max-height: 75%; /* Aumentado */
+    /* Ajuste: Hacer imagen ligeramente más grande */
+    max-width: 90%;   /* Permitir más ancho */
+    max-height: 70%;  /* Ajustar altura máxima, dejando espacio para texto */
     width: auto;
     height: auto;
     display: block;
     object-fit: contain;
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-xs); /* Espacio consistente debajo imagen */
     border-radius: var(--border-radius-sm);
 }
-.card-front p {
-    margin: 0;
-    font-weight: 600;
-    font-size: 0.9em;
+.card-front p { /* El texto (palabra raramuri) */
+    /* Ajuste: Usar fuente Poppins para texto de carta */
+    font-family: var(--font-heading);
+    font-weight: 500; /* Peso normal de Poppins */
+    font-size: 0.95em; /* Ajustar tamaño si es necesario */
     line-height: 1.2;
-    width: 100%;
+    margin: 0; /* Quitar margen por defecto de P */
+    padding: 0 var(--space-xs); /* Padding horizontal pequeño */
+    width: 100%; /* Ocupar ancho para centrar */
     word-wrap: break-word;
+    color: var(--text-color); /* Asegurar color */
 }
+
 
 .card-back {
     background-color: var(--blue-dark);
     color: white;
     background-image: url('images/card_back.png');
-    background-size: contain;
+    background-size: 60%; /* Hacer el logo/imagen del reverso un poco más pequeño */
     background-repeat: no-repeat;
     background-position: center;
 }
 .card-back::before {
-   content: ''; /* Quitar el '?' si tienes imagen */
+   content: ''; /* Sin texto si hay imagen */
 }
 
 #memorama-win-message {
@@ -735,12 +748,14 @@ footer {
 @media (max-width: 900px) {
     #memorama-grid {
         max-width: 90%;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Reducido */
         gap: var(--space-md);
     }
     .memorama-card {
-        height: 150px;
+        height: 145px; /* Ajustado */
     }
+    .card-front img { max-height: 68%; }
+    .card-front p { font-size: 0.9em; }
 }
 
 @media (max-width: 768px) {
@@ -759,27 +774,34 @@ footer {
 
 @media (max-width: 600px) {
     #memorama-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); /* Reducido */
         gap: var(--space-sm);
     }
     .memorama-card {
-        height: 130px;
+        height: 120px; /* Reducido */
     }
-     .card-front img {
-        max-width: 80%;
-        max-height: 70%;
-    }
-    .card-front p {
-        font-size: 0.85em;
-    }
+     .card-front img { max-height: 65%; }
+     .card-front p { font-size: 0.85em; }
 }
 
 @media (max-width: 480px) {
-    header h1 { font-size: 1.8em; }
-    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+     header h1 { font-size: 1.8em; }
+     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 80px; height: 80px; }
-    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); }
-    .memorama-card { height: 110px; }
-     .card-front img { max-width: 75%; max-height: 65%; }
-     .card-back::before { font-size: 2em; /* Show '?' again on very small cards if no image */ }
+     #memorama-grid {
+        grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); /* Minmax más pequeño */
+        gap: var(--space-sm); /* Menos gap */
+    }
+     .memorama-card {
+        height: 100px; /* Reducido */
+        border-radius: var(--border-radius-sm); /* Menos redondeo */
+    }
+     .card-front img {
+        max-height: 60%;
+        border-radius: 2px; /* Menos redondeo imagen */
+    }
+     .card-front p {
+         font-size: 0.8em;
+     }
+     .card-back { background-size: 50%; }
 }
