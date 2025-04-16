@@ -351,7 +351,7 @@ nav button.active {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--space-lg);
-    perspective: 1200px; /* RESTAURADO */
+    perspective: 1200px; /* <<< RESTAURADO */
     max-width: 900px;
     margin: var(--space-lg) auto 0 auto;
 }
@@ -362,7 +362,7 @@ nav button.active {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     position: relative;
-    transform-style: preserve-3d; /* RESTAURADO */
+    transform-style: preserve-3d; /* <<< RESTAURADO */
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* RESTAURADO */
     box-shadow: var(--shadow-md);
     border: 1px solid transparent;
@@ -374,7 +374,7 @@ nav button.active {
 }
 
 .memorama-card.flipped {
-    transform: rotateY(180deg); /* Rotación del contenedor */
+    transform: rotateY(180deg); /* <<< ESTA es la rotación principal */
 }
 
 .memorama-card.matched {
@@ -384,7 +384,7 @@ nav button.active {
      box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
 }
 .memorama-card.flipped.matched {
-    transform: rotateY(180deg); /* Mantener rotación */
+    transform: rotateY(180deg); /* Asegurar que se mantiene volteada */
 }
 
 .card-face {
@@ -393,8 +393,8 @@ nav button.active {
     left: 0;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* RESTAURADO */
-    backface-visibility: hidden;         /* RESTAURADO */
+    -webkit-backface-visibility: hidden; /* <<< RESTAURADO */
+    backface-visibility: hidden;         /* <<< RESTAURADO */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -404,14 +404,14 @@ nav button.active {
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    /* border: none; <<-- Quitar borde de debug */
+    /* border: none; Quitar borde de debug */
 }
 
-/* Cara FRONTAL: Pre-rotada */
+/* Cara FRONTAL: Pre-rotada y encima */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg); /* <<< RESTAURADO! */
+    transform: rotateY(180deg); /* <<< ¡IMPORTANTE RESTAURAR ESTO! */
     border: 1px solid var(--grey-light);
     z-index: 2;
 }
@@ -425,7 +425,7 @@ nav button.active {
     object-fit: contain;
     margin-bottom: var(--space-sm);
     border-radius: var(--border-radius-sm);
-    /* border: none; <<-- Quitar borde de debug */
+    /* border: none; Quitar borde de debug */
 }
 
 .card-front p {
@@ -440,14 +440,14 @@ nav button.active {
     color: var(--text-color);
     flex-shrink: 0;
     text-align: center;
-    /* background-color: transparent; <<-- Quitar fondo de debug */
+    /* background-color: transparent; Quitar fondo de debug */
 }
 
-/* Cara TRASERA: Sin rotación inicial */
+/* Cara TRASERA: Estado inicial */
 .card-back {
     background-color: var(--teal-dark);
     color: white;
-    transform: rotateY(0deg); /* Estado inicial */
+    transform: rotateY(0deg); /* Estado inicial explícito */
     z-index: 1;
     display: flex;
     justify-content: center;
