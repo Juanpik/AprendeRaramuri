@@ -8,52 +8,53 @@
 }
 
 :root {
-    /* Color Palette */
-    --blue-primary: #3498DB; /* Peter River */
-    --blue-dark: #2980B9;    /* Belize Hole */
-    --blue-darker: #2471A3;
-    --blue-light-bg: #EAF2F8;
+    /* Color Palette - Nuevo Tema */
+    --teal-primary: #1ABC9C;   /* Green Sea */
+    --teal-dark: #16A085;     /* Darker Green Sea */
+    --teal-darker: #117A65;
+    --teal-light-bg: #E8F8F5; /* Very Light Teal */
     --orange-accent: #E67E22; /* Carrot */
     --orange-dark: #D35400;   /* Pumpkin */
-    --grey-background: #F4F7F6; /* Very light grey/off-white */
-    --grey-light: #ECF0F1;   /* Clouds */
-    --grey-medium: #BDC3C7;  /* Silver */
-    --grey-dark: #7F8C8D;    /* Asbestos */
-    --text-color: #34495E;   /* Wet Asphalt */
+    --grey-background: #F8F9FA; /* Lighter, cleaner background */
+    --grey-light: #E9ECEF;   /* Light Grey for borders/bg */
+    --grey-medium: #CED4DA;  /* Medium Grey for borders */
+    --grey-dark: #6C757D;    /* Dark Grey for secondary text */
+    --text-color: #343A40;   /* Darker grey for main text */
     --white: #FFFFFF;
-    --success-green: #2ECC71; /* Emerald */
-    --error-red: #E74C3C;     /* Alizarin */
-    --success-bg: #D5F5E3;
-    --error-bg: #FADBD8;
+    --success-green: #28A745; /* Bootstrap Success Green */
+    --error-red: #DC3545;     /* Bootstrap Danger Red */
+    --success-bg: #D4EDDA;
+    --error-bg: #F8D7DA;
 
     /* Typography */
-    --font-body: 'Nunito', sans-serif;
+    --font-body: 'Nunito Sans', sans-serif;
     --font-heading: 'Poppins', sans-serif;
-    --font-title: 'Fredoka One', cursive;
+    /* --font-title is removed, using Poppins for h1 */
 
     /* Spacing */
     --space-xs: 0.5rem;  /* 8px */
-    --space-sm: 0.75rem; /* 12px */
-    --space-md: 1rem;    /* 16px */
-    --space-lg: 1.5rem;  /* 24px */
-    --space-xl: 2rem;    /* 32px */
-    --space-xxl: 3rem;   /* 48px */
+    --space-sm: 0.8rem;  /* 12.8px ~ 13px */
+    --space-md: 1.1rem;  /* 17.6px ~ 18px */
+    --space-lg: 1.6rem;  /* 25.6px ~ 26px */
+    --space-xl: 2.2rem;  /* 35.2px ~ 35px */
+    --space-xxl: 3.2rem; /* 51.2px ~ 51px */
 
     /* Borders */
-    --border-radius-sm: 4px;
-    --border-radius-md: 8px;
-    --border-radius-lg: 16px;
+    --border-radius-sm: 5px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 20px;
     --border-radius-pill: 50px;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+    /* Shadows - More Subtle */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-interactive: 0 3px 7px rgba(0, 0, 0, 0.05);
 }
 
 body {
     font-family: var(--font-body);
-    line-height: 1.65;
+    line-height: 1.7; /* Slightly more line height */
     background-color: var(--grey-background);
     color: var(--text-color);
     display: flex;
@@ -65,39 +66,41 @@ body {
 
 main {
     flex-grow: 1;
-    max-width: 1100px;
+    max-width: 1140px; /* Standard container width */
     width: 95%;
-    margin: var(--space-xl) auto;
+    margin: var(--space-xl) auto var(--space-xxl) auto; /* More margin bottom */
     padding: var(--space-lg) var(--space-xl);
     background-color: var(--white);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg); /* More rounded */
     box-shadow: var(--shadow-md);
+    border: 1px solid var(--grey-light);
 }
 
 h1, h2, h3 {
-    line-height: 1.3;
+    font-family: var(--font-heading);
+    line-height: 1.4;
+    font-weight: 700; /* Bolder headings */
 }
 
 h2 {
-    font-family: var(--font-heading);
-    color: var(--blue-primary);
-    font-weight: 700;
-    font-size: 1.9em;
+    color: var(--teal-primary);
+    font-size: 2em; /* Slightly larger */
     border-bottom: 2px solid var(--grey-light);
-    padding-bottom: var(--space-sm);
-    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md); /* More padding bottom */
+    margin-bottom: var(--space-xl); /* More space below h2 */
+    letter-spacing: -0.5px;
 }
 
 h3 {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    color: var(--blue-dark);
-    font-size: 1.3em;
-    margin-bottom: var(--space-md);
+    font-weight: 500; /* Medium weight for h3 */
+    color: var(--teal-dark);
+    font-size: 1.4em;
+    margin-bottom: var(--space-lg);
 }
 
 p {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg); /* More space between paragraphs */
+    font-size: 1.05em; /* Slightly larger body text */
 }
 
 ul {
@@ -105,57 +108,68 @@ ul {
     padding: 0;
 }
 
+/* Helper Class for Centering */
+.text-center {
+    text-align: center;
+}
+
+
 /* ------------------------- */
 /* Header & Navigation       */
 /* ------------------------- */
 header {
-    background: linear-gradient(90deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
+    background: var(--teal-primary); /* Solid color, cleaner */
     color: var(--white);
-    padding: var(--space-md) 0 var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg); /* Adjusted padding */
     text-align: center;
     box-shadow: var(--shadow-sm);
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1000; /* Ensure it's above other content */
 }
 
 header h1 {
-    font-family: var(--font-title);
-    font-size: 2.8em;
+    /* Use Poppins Bold for title */
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.1em; /* Adjusted size */
     margin: 0;
     padding-bottom: var(--space-sm);
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.5px;
 }
 
 nav {
-    margin-top: var(--space-sm);
+    margin-top: var(--space-xs);
 }
 
 nav button {
     font-family: var(--font-heading);
     font-weight: 500;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: transparent; /* Transparent background */
     color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: var(--space-sm) var(--space-lg);
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Visible border */
+    padding: var(--space-xs) var(--space-lg); /* Adjusted padding */
     margin: var(--space-xs);
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.3s ease;
-    font-size: 0.95em;
+    transition: all 0.25s ease-in-out;
+    font-size: 0.9em;
+    text-transform: uppercase; /* Uppercase nav items */
+    letter-spacing: 0.5px;
 }
 
 nav button:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--white);
+    transform: translateY(-1px);
 }
 
 nav button.active {
     background-color: var(--white);
-    color: var(--blue-dark);
+    color: var(--teal-dark);
     border-color: var(--white);
-    font-weight: 700;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    font-weight: 700; /* Bold active */
+    box-shadow: var(--shadow-interactive);
     transform: translateY(0);
 }
 
@@ -163,16 +177,18 @@ nav button.active {
 /* Loading / Error States    */
 /* ------------------------- */
 #loading-message, #error-message {
+    font-family: var(--font-heading);
     font-size: 1.1em;
-    font-weight: 600;
-    padding: var(--space-xl);
+    font-weight: 500; /* Medium weight */
+    padding: var(--space-lg);
     border-radius: var(--border-radius-md);
     text-align: center;
+    margin: var(--space-xl) 0;
 }
 #error-message {
     background-color: var(--error-bg);
     border: 1px solid var(--error-red);
-    color: var(--error-red);
+    color: #721C24; /* Darker red text */
 }
 
 /* ------------------------- */
@@ -180,8 +196,8 @@ nav button.active {
 /* ------------------------- */
 .content-section {
     display: none;
-    animation: fadeIn 0.6s ease-out;
-    padding-top: var(--space-md);
+    animation: fadeIn 0.5s ease-out;
+    padding-top: var(--space-lg); /* More space at top of section */
 }
 
 .content-section.active {
@@ -189,20 +205,25 @@ nav button.active {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; /* transform: translateY(10px); Optional subtle up-shift */ }
+    to { opacity: 1; /* transform: translateY(0); */ }
 }
 
+#about {
+    padding: var(--space-lg) 0; /* Padding for about section */
+}
 #about p {
-    font-size: 1.05em;
-    max-width: 750px;
+    font-size: 1.1em; /* Larger text for intro */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    color: var(--grey-dark);
 }
 #about em {
     color: var(--orange-accent);
-    font-weight: 600;
+    font-weight: 700; /* Bold */
+    font-style: normal;
 }
 
 /* ------------------------- */
@@ -218,64 +239,68 @@ nav button.active {
     padding: var(--space-sm) var(--space-lg);
     border: 1px solid var(--grey-medium);
     border-radius: var(--border-radius-pill);
-    width: 70%;
-    max-width: 500px;
-    font-size: 1em;
+    width: 80%;
+    max-width: 600px; /* Wider search */
+    font-size: 1.05em; /* Larger search text */
     transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
 }
 #lexicon-search:focus {
     outline: none;
-    border-color: var(--blue-primary);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    border-color: var(--teal-primary);
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25);
 }
 
 #lexicon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); /* Wider items */
+    gap: var(--space-xl); /* More gap */
+    margin-top: var(--space-lg);
 }
 
 .lexicon-item {
     background-color: var(--white);
     border: 1px solid var(--grey-light);
     border-radius: var(--border-radius-md);
-    padding: var(--space-md);
+    padding: var(--space-lg); /* More padding */
     text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative; /* For potential future additions */
 }
 .lexicon-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-5px) scale(1.02); /* More hover effect */
+    box-shadow: var(--shadow-lg);
 }
 
 .lexicon-item img {
-    width: 130px;
-    height: 130px;
+    width: 150px; /* Larger image */
+    height: 150px;
     object-fit: cover;
     display: block;
-    margin-bottom: var(--space-md);
-    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--space-lg);
+    border-radius: 50%; /* Circular images */
     background-color: var(--grey-light);
-    border: 1px solid var(--grey-light);
+    border: 3px solid var(--white); /* White border around image */
+    box-shadow: var(--shadow-sm);
 }
 
 .lexicon-item .raramuri-word {
-    font-weight: 600;
+    font-family: var(--font-heading); /* Poppins for words */
+    font-weight: 600; /* Semibold */
     color: var(--orange-accent);
-    font-size: 1.2em;
+    font-size: 1.25em;
     margin-bottom: var(--space-xs);
     word-wrap: break-word;
 }
 
 .lexicon-item .spanish-word {
-    font-style: italic;
+    font-style: normal; /* No italics */
     color: var(--grey-dark);
-    font-size: 0.95em;
+    font-size: 1em;
     word-wrap: break-word;
 }
 
@@ -283,81 +308,90 @@ nav button.active {
 /* Frases Section            */
 /* ------------------------- */
 #phrases-list li {
-    background-color: var(--blue-light-bg);
-    margin-bottom: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    border-left: 5px solid var(--blue-primary);
-    border-radius: var(--border-radius-sm);
-    transition: background-color 0.2s ease;
+    background-color: var(--white);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-lg);
+    border: 1px solid var(--grey-light);
+    /* border-left: 6px solid var(--teal-primary); Removed left border for cleaner look */
+    border-radius: var(--border-radius-md);
+    transition: box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
 }
 #phrases-list li:hover {
-     background-color: #D6EAF8;
+     box-shadow: var(--shadow-md);
 }
 
 #phrases-list .raramuri-phrase {
+    font-family: var(--font-heading);
     font-weight: 600;
     display: block;
-    margin-bottom: var(--space-xs);
-    font-size: 1.1em;
+    margin-bottom: var(--space-sm); /* More space */
+    font-size: 1.2em;
     color: var(--text-color);
 }
 
 #phrases-list .spanish-phrase {
     color: var(--grey-dark);
-    font-size: 1em;
+    font-size: 1.05em;
 }
 
 /* ------------------------- */
-/* Memorama Section (Revisado V3 - Debug) */
+/* Memorama Section (Designer V3) */
 /* ------------------------- */
 #memorama-setup {
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl); /* More space */
     text-align: center;
     border-bottom: 1px solid var(--grey-light);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-xl);
 }
 #memorama-setup p {
-    margin-bottom: var(--space-md);
-    font-weight: 600;
+    margin-bottom: var(--space-lg);
+    font-weight: 500; /* Medium weight */
+    font-size: 1.1em;
     color: var(--text-color);
 }
 #memorama-setup button.difficulty-btn {
     font-family: var(--font-heading);
-    background-color: var(--blue-primary);
+    background-color: var(--teal-primary);
     color: var(--white);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-sm) var(--space-xl); /* Wider button */
     border: none;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-pill);
     cursor: pointer;
-    margin: 0 var(--space-xs);
+    margin: 0 var(--space-sm);
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-interactive);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 #memorama-setup button.difficulty-btn:hover {
-    background-color: var(--blue-dark);
-    transform: translateY(-2px);
+    background-color: var(--teal-dark);
+    transform: translateY(-2px) scale(1.03);
     box-shadow: var(--shadow-md);
 }
 #memorama-setup button.difficulty-btn.selected {
-    background-color: var(--blue-darker);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-    transform: translateY(0);
+    background-color: var(--teal-darker);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
+    transform: translateY(0) scale(1);
 }
 
 #memorama-game-area > p {
     text-align: center;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     color: var(--grey-dark);
-    font-style: italic;
+    font-style: normal; /* No italics */
+    font-size: 1.05em;
 }
 
 #memorama-controls {
-    margin: var(--space-md) 0 var(--space-lg) 0;
+    margin: var(--space-lg) 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: var(--space-md) 0;
+    gap: var(--space-md); /* Gap for wrapping */
+    padding: var(--space-lg) 0;
     border-top: 1px solid var(--grey-light);
     border-bottom: 1px solid var(--grey-light);
 }
@@ -367,11 +401,11 @@ nav button.active {
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     border: none;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-pill); /* Pill shape */
     cursor: pointer;
-    margin-bottom: var(--space-xs);
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-interactive);
+    font-weight: 500;
 }
 #memorama-controls button#reset-memorama:hover {
      background-color: var(--orange-dark);
@@ -380,43 +414,52 @@ nav button.active {
 }
 #memorama-controls p {
     margin: 0;
-    margin-bottom: var(--space-xs);
-    font-weight: 600;
+    font-weight: 700; /* Bolder attempts */
     color: var(--text-color);
+    font-size: 1.1em;
 }
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Start with slightly larger min */
     gap: var(--space-lg);
-    perspective: 1200px;
-    max-width: 850px;
+    perspective: 1500px; /* More dramatic perspective */
+    max-width: 900px; /* Allow more width */
     margin: 0 auto;
 }
 
 .memorama-card {
-    background-color: var(--blue-dark);
-    height: 160px;
-    aspect-ratio: 1 / 1;
+    background-color: var(--teal-dark); /* Use primary theme color */
+    height: 170px; /* Define height */
+    aspect-ratio: 1 / 1; /* Try to force square */
     border-radius: var(--border-radius-md);
     cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease; /* Bouncier flip */
     box-shadow: var(--shadow-md);
     overflow: hidden;
+    border: 2px solid transparent; /* Prepare for matched border */
+}
+.memorama-card:hover {
+    box-shadow: var(--shadow-lg); /* More shadow on hover */
+    /* transform: scale(1.03); Remove scale on hover, interferes with flip */
 }
 
-.memorama-card.flipped,
-.memorama-card.matched {
+
+.memorama-card.flipped {
     transform: rotateY(180deg);
-    cursor: default;
     box-shadow: var(--shadow-sm);
 }
 .memorama-card.matched {
-     opacity: 0.7;
-     border: 3px solid var(--success-green);
-     box-sizing: border-box;
+     opacity: 0.85; /* Less transparent */
+     border-color: var(--success-green); /* Use border color instead of full border */
+     box-shadow: 0 0 10px rgba(40, 167, 69, 0.3); /* Subtle glow for matched */
+     cursor: default;
+}
+/* Keep transform when matched */
+.memorama-card.flipped.matched {
+    transform: rotateY(180deg);
 }
 
 .card-face {
@@ -425,83 +468,91 @@ nav button.active {
     left: 0;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Prefijo para Safari/iOS */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md);
+    border-radius: calc(var(--border-radius-md) - 2px); /* Adjust for border */
     padding: var(--space-sm);
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    /* Forzar renderizado de hardware puede ayudar en algunos casos */
-    /* transform: translateZ(0); */
 }
 
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
     transform: rotateY(180deg);
-    border: 1px solid var(--grey-medium);
+    border: 1px solid var(--grey-light);
     justify-content: center;
-     /* Asegurarse que sea visible */
-    z-index: 2; /* Poner la cara frontal ligeramente por encima */
+    z-index: 2;
 }
 
 .card-front img {
     display: block;
-    max-width: 90%;
-    max-height: 70%;
+    max-width: 95%; /* Even larger */
+    max-height: 75%; /* Allow good height */
     width: auto;
     height: auto;
     object-fit: contain;
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm); /* More space */
     border-radius: var(--border-radius-sm);
 }
 
 .card-front p {
     font-family: var(--font-heading);
     font-weight: 500;
-    font-size: 0.95em;
-    line-height: 1.2;
+    font-size: 1em; /* Slightly larger */
+    line-height: 1.3;
     margin: 0;
     padding: 0 var(--space-xs);
     width: 100%;
     word-wrap: break-word;
-    color: var(--text-color); /* Doble verificación del color */
+    color: var(--text-color);
 }
 
 .card-back {
-    background-color: var(--blue-dark);
-    color: white;
-    background-image: url('images/card_back.png');
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
-    /* Asegurarse que sea visible inicialmente */
+    background-color: var(--teal-dark);
+    background-image: none; /* Remove PNG, use color/pattern */
+    /* Optional: Subtle SVG Pattern */
+    /* background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2316A085' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 40 L40 0 H20 L0 20 M40 40 V20 L20 40'/%3E%3C/g%3E%3C/svg%3E"); */
     z-index: 1;
+    /* Simple Icon Fallback */
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
+/* Add an SVG or Font Awesome icon maybe? For now, leave blank */
 .card-back::before {
-   content: '';
+   content: ''; /* No ? */
+   /* Example using a placeholder character - replace with SVG/Icon if desired */
+   /* content: '❖';
+   font-size: 3em;
+   color: rgba(255, 255, 255, 0.3); */
 }
 
 #memorama-win-message {
      background-color: var(--success-bg);
      border: 1px solid var(--success-green);
-     color: var(--success-green);
+     color: #155724; /* Darker Green */
      font-weight: 600;
      padding: var(--space-md) var(--space-lg);
-     border-radius: var(--border-radius-sm);
-     margin-top: var(--space-lg);
+     border-radius: var(--border-radius-md);
+     margin-top: var(--space-xl);
      font-size: 1.1em;
      text-align: center;
+     box-shadow: var(--shadow-sm);
 }
 #memorama-data-error {
     margin-top: var(--space-md);
     color: var(--error-red);
     font-weight: 600;
+    text-align: center;
+    background-color: var(--error-bg);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-sm);
 }
 
 /* ------------------------- */
@@ -509,39 +560,41 @@ nav button.active {
 /* ------------------------- */
 #quiz-container {
     background-color: var(--white);
-    padding: var(--space-lg);
+    padding: var(--space-xl); /* More padding */
     border-radius: var(--border-radius-md);
     border: 1px solid var(--grey-light);
-    box-shadow: var(--shadow-sm);
+    box-shadow: none; /* Remove shadow from container, add to elements */
 }
 
 #quiz-setup {
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--grey-light);
     text-align: center;
 }
-#quiz-setup p { font-weight: 600; margin-bottom: var(--space-md); }
-#quiz-setup label { margin-right: var(--space-xs); color: var(--grey-dark); }
+#quiz-setup p { font-weight: 500; margin-bottom: var(--space-lg); font-size: 1.1em; }
+#quiz-setup label { margin-right: var(--space-sm); color: var(--grey-dark); font-size: 0.95em;}
 #quiz-setup select {
-    padding: var(--space-sm);
-    margin-right: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-right: var(--space-lg);
     border: 1px solid var(--grey-medium);
     border-radius: var(--border-radius-sm);
     background-color: var(--white);
     font-family: var(--font-body);
+    font-size: 1em;
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading);
     background-color: var(--orange-accent);
     color: var(--white);
-    padding: var(--space-sm) var(--space-xl);
+    padding: var(--space-md) var(--space-xl);
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 1.05em;
+    font-size: 1.1em; /* Larger start button */
+    font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-interactive);
 }
 #quiz-setup button#start-quiz:hover {
      background-color: var(--orange-dark);
@@ -550,125 +603,142 @@ nav button.active {
 }
 #quiz-data-error {
     margin-top: var(--space-md);
-    color: var(--error-red);
+    color: #721C24;
+    background-color: var(--error-bg);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
 }
 
 #quiz-image-container img {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 220px; /* Larger image */
+    max-height: 220px;
     border: 1px solid var(--grey-light);
     border-radius: var(--border-radius-md);
     background-color: var(--white);
-    margin: 0 auto var(--space-lg) auto;
+    margin: 0 auto var(--space-xl) auto; /* More margin bottom */
     display: block;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
 }
 #quiz-question {
     text-align: center;
-    margin-bottom: var(--space-lg);
-    font-size: 1.3em;
+    margin-bottom: var(--space-xl);
+    font-size: 1.4em; /* Larger question */
     font-weight: 600;
     color: var(--text-color);
+    line-height: 1.5;
 }
 
 /* Quiz Options */
 #quiz-options {
-    margin-top: var(--space-md);
-    max-width: 600px;
+    margin-top: var(--space-lg);
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
 }
 #quiz-options button {
     display: block;
     width: 100%;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-md); /* More space between options */
     text-align: left;
     background-color: var(--white);
     color: var(--text-color);
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg); /* More padding */
     border: 1px solid var(--grey-medium);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md); /* More rounded */
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.05em; /* Larger option text */
+    font-family: var(--font-body);
+    box-shadow: var(--shadow-sm);
 }
 #quiz-options button:hover:not(:disabled) {
-    background-color: var(--blue-light-bg);
-    border-color: var(--blue-primary);
-    transform: translateX(3px);
+    background-color: var(--teal-light-bg);
+    border-color: var(--teal-primary);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-interactive);
 }
 #quiz-options button:disabled {
     cursor: default;
-    opacity: 0.7;
+    opacity: 0.8; /* Less opaque when disabled */
 }
 #quiz-options button.correct:disabled {
     background-color: var(--success-bg) !important;
-    color: var(--success-green) !important;
+    color: #155724 !important;
     border-color: var(--success-green) !important;
-    font-weight: 600;
+    font-weight: 700; /* Bolder correct */
     opacity: 1;
+    box-shadow: var(--shadow-sm);
+    transform: translateX(0); /* Reset transform */
 }
 #quiz-options button.incorrect:disabled {
     background-color: var(--error-bg) !important;
-    color: var(--error-red) !important;
+    color: #721C24 !important;
     border-color: var(--error-red) !important;
     font-weight: 600;
     opacity: 1;
     text-decoration: line-through;
     text-decoration-thickness: 2px;
+    box-shadow: var(--shadow-sm);
+    transform: translateX(0); /* Reset transform */
 }
 #quiz-options button:disabled:not(.correct):not(.incorrect) {
-     opacity: 0.5;
+     opacity: 0.6; /* Dim other options more */
      background-color: var(--grey-light);
      border-color: var(--grey-medium);
+     box-shadow: none;
+     transform: translateX(0);
 }
 
 /* Quiz Text Input Area */
 #quiz-text-input-area {
     display: flex;
-    gap: var(--space-sm);
+    gap: var(--space-md);
     align-items: center;
-    margin: var(--space-lg) auto;
-    max-width: 600px;
+    margin: var(--space-xl) auto;
+    max-width: 650px;
 }
 #quiz-text-answer {
     flex-grow: 1;
     padding: var(--space-md);
     border: 1px solid var(--grey-medium);
     border-radius: var(--border-radius-sm);
-    font-size: 1em;
+    font-size: 1.1em; /* Larger input text */
     font-family: var(--font-body);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
 }
-#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); }
+#quiz-text-answer:focus { outline: none; border-color: var(--teal-primary); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25); }
 
 #quiz-text-input-area button#submit-text-answer {
     font-family: var(--font-heading);
-    padding: var(--space-md) var(--space-lg);
-    background-color: var(--blue-primary);
+    padding: calc(var(--space-md) - 1px) var(--space-lg); /* Align height better */
+    background-color: var(--teal-primary);
     color: var(--white);
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 0.95em;
+    font-size: 1em;
     white-space: nowrap;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-interactive);
+    font-weight: 500;
 }
 #quiz-text-input-area button#submit-text-answer:hover {
-    background-color: var(--blue-dark);
+    background-color: var(--teal-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
-#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: var(--success-green); font-weight: 600; }
-#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: var(--error-red); font-weight: 600;}
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
 
 /* Quiz Feedback & Next Button */
 #quiz-feedback {
-    margin: var(--space-lg) 0;
-    font-weight: 600;
-    min-height: 1.4em;
+    margin: var(--space-xl) 0; /* More margin */
+    font-weight: 700; /* Bold feedback */
+    min-height: 1.5em; /* Ensure space */
     text-align: center;
-    font-size: 1.15em;
+    font-size: 1.2em;
 }
 #quiz-feedback.correct { color: var(--success-green); }
 #quiz-feedback.incorrect { color: var(--error-red); }
@@ -678,21 +748,22 @@ button#next-question {
     font-family: var(--font-heading);
     display: block;
     width: auto;
-    min-width: 150px;
+    min-width: 180px; /* Wider next button */
     margin: var(--space-lg) auto 0 auto;
-    padding: var(--space-sm) var(--space-xl);
-    background-color: var(--blue-dark);
+    padding: var(--space-md) var(--space-xl);
+    background-color: var(--teal-dark);
     color: var(--white);
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 1.05em;
+    font-size: 1.1em;
     font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-interactive);
+    letter-spacing: 0.5px;
 }
 button#next-question:hover {
-    background-color: var(--blue-darker);
+    background-color: var(--teal-darker);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -700,29 +771,30 @@ button#next-question:hover {
 /* Quiz Results */
 #quiz-results {
     text-align: center;
-    padding: var(--space-lg) 0;
+    padding: var(--space-xl) 0; /* More padding */
 }
 #quiz-results h3 {
-    color: var(--blue-primary);
-    margin-bottom: var(--space-md);
-    font-size: 1.8em;
+    color: var(--teal-primary);
+    margin-bottom: var(--space-lg);
+    font-size: 2em; /* Larger results title */
 }
 #quiz-results p {
-    margin-bottom: var(--space-lg);
-    font-size: 1.25em;
+    margin-bottom: var(--space-xl);
+    font-size: 1.3em; /* Larger results text */
 }
 #quiz-results button {
     font-family: var(--font-heading);
-    margin: var(--space-sm);
+    margin: var(--space-sm) var(--space-md); /* Adjusted margin */
     padding: var(--space-md) var(--space-lg);
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.05em;
     font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-    min-width: 180px;
+    box-shadow: var(--shadow-interactive);
+    min-width: 200px; /* Wider results buttons */
+    letter-spacing: 0.5px;
 }
 #quiz-results button:hover {
      transform: translateY(-2px);
@@ -731,82 +803,60 @@ button#next-question:hover {
 
 button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
 button#restart-quiz:hover { background-color: var(--orange-dark); }
-button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
-button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
+button#retry-missed-quiz { background-color: var(--teal-primary); color: var(--white); }
+button#retry-missed-quiz:hover { background-color: var(--teal-dark); }
 
 /* ------------------------- */
 /* Footer                    */
 /* ------------------------- */
 footer {
     text-align: center;
-    margin-top: var(--space-xl);
+    margin-top: var(--space-xxl); /* More space before footer */
     padding: var(--space-lg);
     background-color: var(--grey-light);
     color: var(--grey-dark);
-    font-size: 0.9em;
+    font-size: 0.95em; /* Slightly larger footer text */
     border-top: 1px solid var(--grey-medium);
 }
 
 /* ------------------------- */
 /* Responsive Adjustments    */
 /* ------------------------- */
-@media (max-width: 900px) {
+@media (max-width: 992px) { /* Adjusted breakpoint */
     #memorama-grid {
-        max-width: 90%;
+        max-width: 95%; /* More fluid */
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: var(--space-md);
     }
-    .memorama-card {
-        height: 145px;
-    }
-    .card-front img { max-height: 68%; }
-    .card-front p { font-size: 0.9em; }
+    .memorama-card { height: 145px; }
 }
 
 @media (max-width: 768px) {
-    header h1 { font-size: 2.2em; }
-    nav button { padding: var(--space-xs) var(--space-md); font-size: 0.9em; }
-    main { padding: var(--space-md); margin: var(--space-lg) auto; }
-    h2 { font-size: 1.6em; }
-    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-md); }
-    .lexicon-item img { width: 100px; height: 100px; }
-    #quiz-options button { padding: var(--space-sm); }
-    #quiz-text-input-area { flex-direction: column; gap: var(--space-sm); }
-    #quiz-text-answer { width: 100%; }
-    #quiz-text-input-area button#submit-text-answer { width: 100%; }
-    #quiz-results button { width: calc(50% - var(--space-md)); }
+    header h1 { font-size: 1.8em; } /* Smaller title */
+    nav button { padding: var(--space-xs) var(--space-md); font-size: 0.85em; }
+    main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; } /* More padding, less margin */
+    h2 { font-size: 1.7em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--space-lg);} /* Adjust lexicon grid */
+    .lexicon-item img { width: 110px; height: 110px; }
+    #quiz-options button { padding: var(--space-md); }
+    #quiz-text-input-area { flex-direction: column; gap: var(--space-md); } /* Stack input/button */
+    #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
+    #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; } /* Adjust results buttons */
+    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
+    .memorama-card { height: 130px; }
 }
 
-@media (max-width: 600px) {
-    #memorama-grid {
-        grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
-        gap: var(--space-sm);
-    }
-    .memorama-card {
-        height: 120px;
-    }
-     .card-front img { max-height: 65%; }
-     .card-front p { font-size: 0.85em; }
-}
-
-@media (max-width: 480px) {
-     header h1 { font-size: 1.8em; }
-     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-    .lexicon-item img { width: 80px; height: 80px; }
-     #memorama-grid {
-        grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
-        gap: var(--space-sm);
-    }
-     .memorama-card {
-        height: 100px;
-        border-radius: var(--border-radius-sm);
-    }
-     .card-front img {
-        max-height: 60%;
-        border-radius: 2px;
-    }
-     .card-front p {
-         font-size: 0.8em;
-     }
-     .card-back { background-size: 50%; }
+@media (max-width: 576px) {
+    header h1 { font-size: 1.6em; }
+    nav button { margin: 2px; padding: 5px 10px; font-size: 0.8em;} /* Smaller nav buttons */
+    main { padding: var(--space-md); }
+    h2 { font-size: 1.5em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); } /* Smaller lexicon items */
+    .lexicon-item img { width: 90px; height: 90px; }
+    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); } /* Force 3 cols */
+    .memorama-card { height: 110px; }
+    .card-front img { max-height: 60%; }
+    .card-front p { font-size: 0.8em; }
+    #quiz-options { max-width: 95%; }
+    #quiz-text-input-area { max-width: 95%; }
+    #quiz-results button { width: 90%; margin: var(--space-xs) auto; display: block;} /* Stack results buttons */
 }
