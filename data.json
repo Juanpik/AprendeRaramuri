@@ -5,12 +5,12 @@
     { "id": 3, "raramuri": "reme", "spanish": "tortilla", "image": "images/reme.jpg" },
     { "id": 4, "raramuri": "sewa", "spanish": "flor", "image": "images/sewa.jpg" },
     { "id": 5, "raramuri": "sunu", "spanish": "maíz", "image": "images/sunu.jpg" },
-    { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg" } // <-- Asegúrate SIN coma
-  ], // <-- Asegúrate SIN coma después de este corchete
+    { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg" }
+  ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
     { "id": 102, "raramuri": "Matetera ba.", "spanish": "Gracias." },
     { "id": 105, "raramuri": "Ní __ ne aní.", "spanish": "Yo como frijol.", "blank": "muni", "word": "frijol" },
-    { "id": 106, "raramuri": "Semati __ aléa.", "spanish": "La flor es bonita.", "blank": "sewa", "word": "flor" } // <-- Asegúrate SIN coma si es el último
-  ] // <-- Asegúrate SIN coma después de este corchete si es lo último del archivo
-} // <-- Llave final del objeto principal
+    { "id": 106, "raramuri": "Semati __ aléa.", "spanish": "La flor es bonita.", "blank": "sewa", "word": "flor" }
+  ]
+}
