@@ -334,13 +334,10 @@ nav button.active {
 }
 
 /* ------------------------- */
-/* Memorama Section (Revisado V4 - CSS Reforzado) */
+/* Memorama Section (CSS Only Back) */
 /* ------------------------- */
 #memorama-setup {
-    margin-bottom: var(--space-xl);
-    text-align: center;
-    border-bottom: 1px solid var(--grey-light);
-    padding-bottom: var(--space-xl);
+    margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl);
 }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
 #memorama-setup button.difficulty-btn { font-family: var(--font-heading); background-color: var(--teal-primary); color: var(--white); padding: var(--space-sm) var(--space-xl); border: none; border-radius: var(--border-radius-pill); cursor: pointer; margin: 0 var(--space-sm); transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -371,9 +368,8 @@ nav button.active {
     transition: transform 0.6s;
     box-shadow: var(--shadow-md);
     border: 1px solid transparent;
-    background-color: var(--teal-dark); /* Fallback bg */
-    overflow: hidden; /* Prevenir contenido saliente */
-
+    background-color: var(--teal-dark);
+    overflow: hidden;
 }
 
 .memorama-card.flipped {
@@ -381,13 +377,13 @@ nav button.active {
 }
 
 .memorama-card.matched {
-     opacity: 0.8; /* Ligeramente menos opaco */
+     opacity: 0.8;
      border-color: var(--success-green);
      cursor: default;
 }
 .memorama-card.flipped.matched {
-    transform: rotateY(180deg); /* Asegurar que se mantenga volteada */
-    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); /* Sutil glow */
+    transform: rotateY(180deg);
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
 }
 
 .card-face {
@@ -402,7 +398,7 @@ nav button.active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: inherit; /* Heredar redondeo del padre */
+    border-radius: inherit;
     padding: var(--space-sm);
     box-sizing: border-box;
     text-align: center;
@@ -412,46 +408,53 @@ nav button.active {
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg); /* Pre-rotada */
-    border: 1px solid var(--grey-light); /* Borde sutil */
-    z-index: 2; /* Importante: Encima */
+    transform: rotateY(180deg);
+    border: 1px solid var(--grey-light);
+    z-index: 2;
 }
 
 .card-front img {
     display: block;
     max-width: 90%;
-    max-height: 68%; /* Dejar espacio claro para texto */
+    max-height: 68%;
     width: auto;
     height: auto;
     object-fit: contain;
-    margin-bottom: var(--space-sm); /* Más espacio */
+    margin-bottom: var(--space-sm);
     border-radius: var(--border-radius-sm);
 }
 
 .card-front p {
-    font-family: var(--font-heading); /* Poppins */
+    font-family: var(--font-heading);
     font-weight: 500;
     font-size: 0.95em;
-    line-height: 1.25; /* Ligeramente más espacio */
+    line-height: 1.25;
     margin: 0;
     padding: 0 var(--space-xs);
     width: 100%;
     word-wrap: break-word;
     color: var(--text-color);
-    align-self: center; /* Centrar el texto en el espacio restante */
+    align-self: center;
 }
 
 .card-back {
-    background-color: var(--teal-dark);
-    background-image: url('images/card_back.png'); /* Asegúrate que exista */
-    background-size: 65%; /* Ajustar tamaño */
-    background-repeat: no-repeat;
-    background-position: center;
-    transform: rotateY(0deg); /* Estado inicial */
-    z-index: 1; /* Detrás */
+    background-color: var(--teal-dark); /* Color de fondo */
+    color: white;
+    transform: rotateY(0deg);
+    z-index: 1;
+    /* Añadido flex para centrar el ::before */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Quitado background-image */
 }
 .card-back::before {
-   content: '';
+   content: '?'; /* Símbolo para el reverso */
+   font-family: var(--font-heading);
+   font-size: 3.5em;
+   font-weight: bold;
+   color: rgba(255, 255, 255, 0.3);
+   line-height: 1;
 }
 
 #memorama-win-message {
@@ -461,33 +464,20 @@ nav button.active {
     margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm);
 }
 
+
 /* ------------------------- */
 /* Quiz Section              */
 /* ------------------------- */
-#quiz-container {
-    background-color: var(--white);
-    padding: var(--space-xl);
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--grey-light);
-    box-shadow: none;
-}
-
-#quiz-setup {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--grey-light);
-    text-align: center;
-}
+#quiz-container { background-color: var(--white); padding: var(--space-xl); border-radius: var(--border-radius-md); border: 1px solid var(--grey-light); box-shadow: none; }
+#quiz-setup { margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--grey-light); text-align: center; }
 #quiz-setup p { font-weight: 500; margin-bottom: var(--space-lg); font-size: 1.1em; }
 #quiz-setup label { margin-right: var(--space-sm); color: var(--grey-dark); font-size: 0.95em;}
 #quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; }
 #quiz-setup button#start-quiz { font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; }
-
 #quiz-image-container img { max-width: 220px; max-height: 220px; border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); }
 #quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 600; color: var(--text-color); line-height: 1.5; }
-
 #quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
 #quiz-options button { display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white); color: var(--text-color); padding: var(--space-md) var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out; font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm); }
 #quiz-options button:hover:not(:disabled) { background-color: var(--teal-light-bg); border-color: var(--teal-primary); transform: translateX(4px); box-shadow: var(--shadow-interactive); }
@@ -495,7 +485,6 @@ nav button.active {
 #quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
 #quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 2px; box-shadow: var(--shadow-sm); transform: translateX(0); }
 #quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--grey-light); border-color: var(--grey-medium); box-shadow: none; transform: translateX(0); }
-
 #quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
 #quiz-text-answer { flex-grow: 1; padding: var(--space-md); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-sm); font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
 #quiz-text-answer:focus { outline: none; border-color: var(--teal-primary); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25); }
@@ -503,15 +492,12 @@ nav button.active {
 #quiz-text-input-area button#submit-text-answer:hover { background-color: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
 #quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
-
 #quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; }
 #quiz-feedback.correct { color: var(--success-green); }
 #quiz-feedback.incorrect { color: var(--error-red); }
 #quiz-feedback strong { font-weight: 700; }
-
 button#next-question { font-family: var(--font-heading); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto; padding: var(--space-md) var(--space-xl); background-color: var(--teal-dark); color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; }
 button#next-question:hover { background-color: var(--teal-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
 #quiz-results { text-align: center; padding: var(--space-xl) 0; }
 #quiz-results h3 { color: var(--teal-primary); margin-bottom: var(--space-lg); font-size: 2em; }
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; }
