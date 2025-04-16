@@ -10,7 +10,7 @@
     <header>
         <h1>Aprende Rarámuri</h1>
         <nav>
-            <button data-section="about">.l.</button>
+            <button data-section="about">Sobre el Proyecto</button>
             <button data-section="lexicon">Léxico</button>
             <button data-section="phrases">Frases</button>
             <button data-section="memorama">Memorama</button>
@@ -19,64 +19,109 @@
     </header>
 
     <main>
-        <!-- Sección: Sobre el Proyecto -->
-        <section id="about" class="content-section active">
-            <h2>Sobre el Proyecto</h2>
-            <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del Rarámuri (Tarahumara).</p>
-        </section>
+        <!-- Mensaje de carga -->
+        <div id="loading-message" style="text-align: center; padding: 2rem; color: #666;">Cargando datos...</div>
+        <div id="error-message" style="text-align: center; padding: 2rem; color: red; display: none; border: 1px solid red; background-color: #ffeaea;"></div>
 
-        <!-- Sección: Léxico -->
-        <section id="lexicon" class="content-section">
-            <h2>Léxico</h2>
-            <div id="lexicon-grid">
-                <!-- El contenido se generará con JavaScript -->
-            </div>
-        </section>
+        <!-- Contenido principal (inicialmente podría estar oculto o vacío) -->
+        <div id="main-content" style="display: none;">
 
-        <!-- Sección: Frases -->
-        <section id="phrases" class="content-section">
-            <h2>Frases </h2>
-            <ul id="phrases-list">
-                <!-- El contenido se generará con JavaScript -->
-            </ul>
-        </section>
+            <!-- Sección: Sobre el Proyecto -->
+            <section id="about" class="content-section">
+                <h2>Sobre el Proyecto</h2>
+                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del idioma Rarámuri (Tarahumara), utilizando tecnología web moderna.</p>
+                <p>Explora las diferentes secciones para familiarizarte con palabras, frases y poner a prueba tus conocimientos con los juegos interactivos.</p>
+                <p>Los datos léxicos y de frases se cargan desde un archivo externo para facilitar su actualización.</p>
+                <p><em>¡Matétera ba! (¡Gracias!)</em></p>
+            </section>
 
-        <!-- Sección: Memorama -->
-        <section id="memorama" class="content-section">
-            <h2>Memorama</h2>
-            <p>Encuentra los pares (Imagen - Palabra en Rarámuri).</p>
-            <div id="memorama-controls">
-                <button id="reset-memorama">Reiniciar Juego</button>
-                <p>Intentos: <span id="memorama-attempts">0</span></p>
-            </div>
-            <div id="memorama-grid">
-                <!-- Las cartas se generarán con JavaScript -->
-            </div>
-        </section>
-
-        <!-- Sección: Quiz -->
-        <section id="quiz" class="content-section">
-            <h2>Quiz</h2>
-            <div id="quiz-container">
-                <p>¡Ponte a prueba!</p>
-                <button id="start-quiz">Empezar Quiz</button>
-                <div id="quiz-question-area" style="display: none;">
-                    <h3 id="quiz-question"></h3>
-                    <div id="quiz-options"></div>
-                    <p id="quiz-feedback"></p>
-                    <button id="next-question" style="display: none;">Siguiente</button>
+            <!-- Sección: Léxico -->
+            <section id="lexicon" class="content-section">
+                <h2>Léxico (Chú'umi)</h2>
+                <div class="search-container">
+                    <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
                 </div>
-                <div id="quiz-results" style="display: none;">
-                    <h3>Resultados</h3>
-                    <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
-                    <button id="restart-quiz">Volver a Intentar</button>
+                <div id="lexicon-grid">
+                    <!-- El contenido se generará con JavaScript -->
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Sección: Frases -->
+            <section id="phrases" class="content-section">
+                <h2>Frases Comunes (Né Rú)</h2>
+                <ul id="phrases-list">
+                    <!-- El contenido se generará con JavaScript -->
+                </ul>
+            </section>
+
+            <!-- Sección: Memorama -->
+            <section id="memorama" class="content-section">
+                <h2>Memorama (Nátari)</h2>
+                <div id="memorama-setup">
+                    <p>Elige la dificultad (número de pares):</p>
+                    <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
+                    <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
+                    <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
+                </div>
+                <div id="memorama-game-area" style="display: none;">
+                    <p>Encuentra los pares (Imagen - Palabra en Rarámuri).</p>
+                    <div id="memorama-controls">
+                        <button id="reset-memorama">Reiniciar Juego</button>
+                        <p>Intentos: <span id="memorama-attempts">0</span></p>
+                    </div>
+                    <div id="memorama-grid">
+                        <!-- Las cartas se generarán con JavaScript -->
+                    </div>
+                    <div id="memorama-win-message" style="display: none; margin-top: 1rem; text-align: center; font-weight: bold; color: green;">
+                        <!-- Mensaje de victoria aquí -->
+                    </div>
+                </div>
+                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad.</p>
+            </section>
+
+            <!-- Sección: Quiz -->
+            <section id="quiz" class="content-section">
+                <h2>Quiz (Natánali)</h2>
+                <div id="quiz-container">
+                    <div id="quiz-setup">
+                        <p>¡Ponte a prueba!</p>
+                        <label for="quiz-length">Número de preguntas:</label>
+                        <select id="quiz-length">
+                            <option value="5">5 Preguntas</option>
+                            <option value="10">10 Preguntas</option>
+                            <option value="all">Todas</option>
+                        </select>
+                        <button id="start-quiz">Empezar Quiz</button>
+                         <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
+                    </div>
+
+                    <div id="quiz-question-area" style="display: none;">
+                        <div id="quiz-image-container" style="text-align: center; margin-bottom: 1rem;"></div>
+                        <h3 id="quiz-question"></h3>
+                        <p id="quiz-phrase-blank" class="phrase-context" style="display: none; margin: 1rem 0; font-style: italic;"></p>
+                        <div id="quiz-options"></div>
+                        <div id="quiz-text-input-area" style="display: none; margin-top: 1rem;">
+                            <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
+                            <button id="submit-text-answer">Comprobar</button>
+                        </div>
+                        <p id="quiz-feedback"></p>
+                        <button id="next-question" style="display: none;">Siguiente</button>
+                    </div>
+
+                    <div id="quiz-results" style="display: none;">
+                        <h3>Resultados</h3>
+                        <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
+                        <button id="restart-quiz">Volver a Empezar</button>
+                        <button id="retry-missed-quiz" style="display: none;">Reintentar Falladas</button>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- Fin #main-content -->
     </main>
 
     <footer>
-        <p>EAHNM, SEMLE, 2025</p>
+        <p>Proyecto de Aprendizaje Rarámuri - 2024</p>
     </footer>
 
     <script src="script.js"></script>

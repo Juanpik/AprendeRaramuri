@@ -1,21 +1,32 @@
-body {
-    font-family: sans-serif;
-    line-height: 1.6;
+/* Reset básico */
+* {
     margin: 0;
-    background-color: #f4f4f4;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8; /* Ligeramente más claro */
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
-    background-color: #5a8a6a; /* Un verde inspirado en la naturaleza */
+    background-color: #5a8a6a; /* Verde inspirado en la naturaleza */
     color: #fff;
     padding: 1rem 0;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     margin: 0;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.8rem;
+    font-weight: 600;
 }
 
 nav button {
@@ -23,80 +34,127 @@ nav button {
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
-    margin: 0 0.5rem;
+    margin: 0.3rem 0.5rem; /* Ajuste para wrapping */
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 20px; /* Más redondeado */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-size: 0.95em;
 }
 
-nav button:hover, nav button.active {
+nav button:hover {
     background-color: #3a6a4a;
+    transform: translateY(-1px);
 }
+nav button.active {
+    background-color: #3a6a4a;
+    font-weight: bold;
+     box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
 
 main {
-    max-width: 900px;
+    flex-grow: 1; /* Empuja el footer hacia abajo */
+    max-width: 950px;
+    width: 95%; /* Más adaptable */
     margin: 2rem auto;
-    padding: 1rem;
+    padding: 1.5rem; /* Más padding interno */
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
+/* Mensajes de carga/error */
+#loading-message, #error-message {
+    font-size: 1.1em;
+}
+
+
 .content-section {
-    display: none; /* Ocultar secciones por defecto */
+    display: none;
     animation: fadeIn 0.5s ease-in-out;
+    padding-top: 1rem; /* Espacio superior dentro de la sección */
 }
 
 .content-section.active {
-    display: block; /* Mostrar la sección activa */
+    display: block;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
     color: #5a8a6a;
     border-bottom: 2px solid #eee;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.5rem; /* Más espacio */
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
 /* Estilos Léxico */
+.search-container {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+#lexicon-search {
+    padding: 0.8rem 1.2rem; /* Ligeramente más alto */
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Más redondo */
+    width: 80%;
+    max-width: 550px;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+}
+#lexicon-search:focus {
+    outline: none;
+    border-color: #5a8a6a;
+    box-shadow: 0 0 8px rgba(90, 138, 106, 0.4);
+}
+
 #lexicon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Un poco más ancho */
     gap: 1.5rem;
+     margin-top: 1rem;
 }
 
 .lexicon-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: #fdfdfd;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.lexicon-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 
 .lexicon-item img {
     max-width: 100px;
-    height: auto;
+    height: 100px; /* Altura fija para consistencia */
+    object-fit: cover; /* Escala la imagen cubriendo el espacio */
     display: block;
-    margin: 0 auto 0.5rem auto;
+    margin: 0 auto 0.8rem auto; /* Más espacio abajo */
     border-radius: 4px;
+    background-color: #f0f0f0; /* Fondo por si la imagen tarda */
 }
 
 .lexicon-item .raramuri-word {
     font-weight: bold;
-    color: #d66800; /* Un color tierra */
-    font-size: 1.1em;
+    color: #d66800; /* Color tierra */
+    font-size: 1.15em; /* Ligeramente más grande */
+    margin-bottom: 0.2rem;
 }
 
 .lexicon-item .spanish-word {
     font-style: italic;
     color: #555;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 
 /* Estilos Frases */
@@ -107,161 +165,399 @@ h2 {
 
 #phrases-list li {
     background-color: #eef3f0;
-    margin-bottom: 0.8rem;
-    padding: 1rem;
-    border-left: 4px solid #5a8a6a;
+    margin-bottom: 1rem; /* Más separación */
+    padding: 1.2rem; /* Más padding */
+    border-left: 5px solid #5a8a6a;
     border-radius: 4px;
+    transition: background-color 0.2s ease;
 }
+#phrases-list li:hover {
+     background-color: #e6ece9;
+}
+
 
 #phrases-list .raramuri-phrase {
     font-weight: bold;
     display: block;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
+    font-size: 1.1em;
+    color: #333;
 }
 
 #phrases-list .spanish-phrase {
     color: #444;
-    font-size: 0.95em;
+    font-size: 1em; /* Tamaño normal */
 }
 
-/* Estilos Memorama */
-#memorama-controls {
+/* Estilos Memorama Mejorados */
+#memorama-setup {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+#memorama-setup p {
+    margin-bottom: 0.8rem; /* Más espacio */
+    font-weight: bold;
+}
+#memorama-setup button.difficulty-btn {
+    background-color: #5a8a6a;
+    color: white;
+    padding: 0.7rem 1.2rem; /* Ligeramente más padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+#memorama-setup button.difficulty-btn:hover,
+#memorama-setup button.difficulty-btn.selected {
+    background-color: #3a6a4a;
+     box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+#memorama-game-area > p { /* El párrafo de instrucciones */
+    text-align: center;
     margin-bottom: 1rem;
+    color: #555;
+}
+
+#memorama-controls {
+    margin-bottom: 1.5rem; /* Más espacio */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 0.5rem 0; /* Padding vertical */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 #memorama-controls button {
      background-color: #e87e1a; /* Naranja */
      color: white;
-     padding: 0.5rem 1rem;
+     padding: 0.6rem 1.1rem;
      border: none;
      border-radius: 4px;
      cursor: pointer;
+     margin-bottom: 5px;
+     transition: background-color 0.3s ease;
 }
 #memorama-controls button:hover {
      background-color: #d66800;
 }
+#memorama-controls p {
+    margin: 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Ajusta según cuántos pares quieras */
-    gap: 10px;
-    perspective: 1000px; /* Para el efecto 3D del volteo */
+    gap: 12px; /* Un poco más de espacio */
+    perspective: 1000px;
+    max-width: 600px; /* Limitar ancho del grid */
+    margin: 0 auto; /* Centrar el grid */
 }
 
 .memorama-card {
     background-color: #4a7a5a;
-    height: 120px;
+    height: 115px; /* Ajustar altura si es necesario */
     border-radius: 8px;
     cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 7px rgba(0,0,0,0.15);
 }
 
 .memorama-card.flipped, .memorama-card.matched {
     transform: rotateY(180deg);
     cursor: default;
+     box-shadow: 0 3px 7px rgba(0,0,0,0.1); /* Sombra diferente al voltear */
 }
+.memorama-card.matched {
+     opacity: 0.7; /* Atenuar las emparejadas */
+     border: 2px solid #8fbc8f; /* Borde verde claro */
+}
+
 
 .card-face {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* Oculta la cara trasera al voltear */
+    backface-visibility: hidden;
     display: flex;
+    flex-direction: column; /* Para poner imagen arriba y texto abajo */
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    font-size: 1em; /* Ajustado */
-    padding: 5px; /* Añadido */
-    box-sizing: border-box; /* Añadido */
-    text-align: center; /* Añadido */
-    overflow: hidden; /* Añadido */
+    font-size: 0.95em;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
 }
 
 .card-front {
     background-color: #fff;
     color: #333;
-    transform: rotateY(180deg); /* Gira la cara frontal para que se vea al voltear */
+    transform: rotateY(180deg);
 }
 .card-front img {
-    max-width: 60%; /* Ajusta tamaño de imagen */
-    max-height: 60%;
+    max-width: 60%;
+    max-height: 55%; /* Ajustar para dejar espacio al texto */
     display: block;
-    margin-bottom: 5px; /* Espacio entre imagen y texto */
+    margin-bottom: 5px;
+    object-fit: contain; /* Asegurar que la imagen se vea completa */
 }
 
 .card-back {
     background-color: #5a8a6a;
     color: white;
-    /* Puedes poner una imagen de fondo aquí */
+    /* Imagen de fondo para el reverso */
      background-image: url('images/card_back.png'); /* Asegúrate de tener esta imagen */
-     background-size: contain;
+     background-size: contain; /* O 'cover' si prefieres */
      background-repeat: no-repeat;
      background-position: center;
 }
+.card-back::before { /* Alternativa si no usas imagen: un símbolo */
+    /* content: '?'; */
+    /* font-size: 2em; */
+    /* color: rgba(255, 255, 255, 0.7); */
+}
 
 
-/* Estilos Quiz */
+#memorama-win-message {
+     background-color: #e8f8e8;
+     border: 1px solid #5a8a6a;
+     padding: 1rem 1.5rem; /* Más padding */
+     border-radius: 5px;
+     margin-top: 1.5rem; /* Más espacio arriba */
+     font-size: 1.1em;
+}
+
+/* Estilos Quiz Mejorados */
 #quiz-container {
-    background-color: #f9f9f9;
+    background-color: #fcfcfc;
     padding: 1.5rem;
     border-radius: 5px;
     border: 1px solid #eee;
 }
-#quiz-container button {
-     background-color: #e87e1a; /* Naranja */
-     color: white;
-     padding: 0.7rem 1.5rem;
-     border: none;
-     border-radius: 4px;
-     cursor: pointer;
-     margin-top: 1rem;
-     font-size: 1em;
+
+#quiz-setup {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    text-align: center;
 }
-#quiz-container button:hover {
+#quiz-setup p { font-weight: bold; margin-bottom: 0.8rem; }
+#quiz-setup label { margin-right: 0.5rem; color: #555; }
+#quiz-setup select {
+    padding: 0.6rem; /* Más padding */
+    margin-right: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+#quiz-setup button#start-quiz {
+    background-color: #e87e1a; /* Naranja */
+    color: white;
+    padding: 0.8rem 1.8rem; /* Más padding horizontal */
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     font-size: 1em;
+     transition: background-color 0.3s ease;
+}
+#quiz-setup button#start-quiz:hover {
      background-color: #d66800;
+}
+
+#quiz-image-container img {
+    max-width: 180px; /* Un poco más grande */
+    max-height: 180px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 0 auto 1rem auto; /* Centrar y dar espacio */
+    display: block;
+}
+#quiz-question {
+    text-align: center;
+    margin-bottom: 1.5rem; /* Más espacio */
+    font-size: 1.2em;
+    color: #444;
+}
+
+
+/* Frase con hueco */
+.phrase-context {
+    background-color: #f5f5f5; /* Gris muy claro */
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 4px solid #e87e1a; /* Naranja */
+    color: #333;
+    margin: 1.5rem 0; /* Más margen vertical */
+    font-style: italic;
+    font-size: 1.05em;
+    text-align: center;
+}
+.phrase-context strong { /* Para resaltar el hueco */
+    color: #d66800;
+    font-weight: bold;
+    font-style: normal; /* Quitar cursiva al hueco */
+    padding: 0 0.3em; /* Espacio alrededor del hueco */
+    background-color: #fff;
+    border-bottom: 1px dashed #d66800;
+}
+
+
+/* Opciones Múltiples */
+#quiz-options {
+    margin-top: 1rem;
 }
 #quiz-options button {
     display: block;
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem; /* Más espacio */
     text-align: left;
-    background-color: #eee;
+    background-color: #fff;
     color: #333;
-    padding: 0.8rem;
+    padding: 1rem; /* Más padding */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease;
+    font-size: 1em;
 }
-#quiz-options button:hover {
-    background-color: #ddd;
+#quiz-options button:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #bbb;
+    transform: translateX(2px);
 }
-#quiz-options button.correct {
-    background-color: #8fbc8f; /* Verde claro */
-    color: black;
+#quiz-options button:disabled {
+    cursor: default;
+    opacity: 0.6;
 }
-#quiz-options button.incorrect {
-    background-color: #f08080; /* Rojo claro */
-    color: black;
-}
-#quiz-feedback {
-    margin-top: 1rem;
+/* Estilos para correcta/incorrecta MÁS CLAROS */
+#quiz-options button.correct:disabled {
+    background-color: #d4edda !important; /* Verde pastel */
+    color: #155724 !important; /* Verde oscuro */
+    border-color: #c3e6cb !important;
     font-weight: bold;
+    opacity: 1;
 }
-#quiz-feedback.correct {
-    color: green;
+#quiz-options button.incorrect:disabled {
+    background-color: #f8d7da !important; /* Rojo pastel */
+    color: #721c24 !important; /* Rojo oscuro */
+    border-color: #f5c6cb !important;
+    font-weight: bold;
+    opacity: 1;
+    text-decoration: line-through;
 }
-#quiz-feedback.incorrect {
-    color: red;
+#quiz-options button:disabled:not(.correct):not(.incorrect) {
+     opacity: 0.5;
 }
 
 
+/* Área de Input de Texto */
+#quiz-text-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 1.5rem; /* Más espacio */
+}
+#quiz-text-answer {
+    flex-grow: 1;
+    padding: 0.9rem; /* Más padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+#quiz-text-answer:focus { outline: none; border-color: #5a8a6a; }
+#quiz-text-input-area button {
+    padding: 0.9rem 1.2rem;
+    background-color: #5a8a6a; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+#quiz-text-input-area button:hover { background-color: #4a7a5a; }
+/* Estilo input correcto/incorrecto */
+#quiz-text-answer.correct { border-color: #155724; background-color: #d4edda; }
+#quiz-text-answer.incorrect { border-color: #721c24; background-color: #f8d7da; }
+
+
+/* Feedback y Botón Siguiente */
+#quiz-feedback {
+    margin-top: 1.5rem; /* Más espacio */
+    font-weight: bold;
+    min-height: 1.2em;
+    text-align: center;
+    font-size: 1.1em;
+}
+#quiz-feedback.correct { color: #155724; }
+#quiz-feedback.incorrect { color: #721c24; }
+#quiz-feedback strong { font-weight: 600; } /* Para resaltar respuesta correcta en feedback */
+
+#next-question {
+    display: block; /* Ocupar ancho completo */
+    width: auto; /* Ancho automático */
+    margin: 1.5rem auto 0 auto; /* Centrar y espaciar */
+    padding: 0.8rem 2rem;
+    background-color: #4a7a5a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+#next-question:hover { background-color: #3a6a4a; }
+
+/* Resultados */
+#quiz-results {
+    text-align: center;
+    padding: 1rem 0;
+}
+#quiz-results h3 {
+    color: #5a8a6a;
+    margin-bottom: 1rem;
+    font-size: 1.6em;
+}
+#quiz-results p {
+    margin-bottom: 1.5rem;
+    font-size: 1.2em;
+}
+#quiz-results button {
+    margin: 0.5rem;
+    padding: 0.9rem 1.8rem; /* Ligeramente más grande */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+#quiz-results button:hover {
+     transform: translateY(-1px);
+}
+
+#restart-quiz { background-color: #e87e1a; color: white; }
+#restart-quiz:hover { background-color: #d66800; }
+#retry-missed-quiz { background-color: #5a8a6a; color: white; }
+#retry-missed-quiz:hover { background-color: #4a7a5a; }
+
+/* Footer */
 footer {
     text-align: center;
     margin-top: 2rem;
-    padding: 1rem;
-    background-color: #ddd;
+    padding: 1.5rem;
+    background-color: #e9e9e9;
     color: #555;
     font-size: 0.9em;
 }

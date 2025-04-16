@@ -1,0 +1,16 @@
+{
+  "lexicon": [
+    { "id": 1, "raramuri": "bawi", "spanish": "agua", "image": "images/bawi.jpg" },
+    { "id": 2, "raramuri": "muni", "spanish": "frijol", "image": "images/muni.jpg" },
+    { "id": 3, "raramuri": "reme", "spanish": "tortilla", "image": "images/reme.jpg" },
+    { "id": 4, "raramuri": "sewa", "spanish": "flor", "image": "images/sewa.jpg" },
+    { "id": 5, "raramuri": "sunu", "spanish": "maíz", "image": "images/sunu.jpg" },
+    { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg" },
+  ],
+  "phrases": [
+    { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
+    { "id": 102, "raramuri": "Matetera ba.", "spanish": "Gracias." },
+    { "id": 105, "raramuri": "Ní __ ne aní.", "spanish": "Yo como frijol.", "blank": "muni", "word": "frijol" },
+    { "id": 106, "raramuri": "Semati __ aléa.", "spanish": "La flor es bonita.", "blank": "sewa", "word": "flor" },
+  ]
+}
