@@ -8,7 +8,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f8f8f8; /* Ligeramente más claro */
+    background-color: #f8f8f8;
     color: #333;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@ body {
 }
 
 header {
-    background-color: #5a8a6a; /* Verde inspirado en la naturaleza */
+    background-color: #5a8a6a;
     color: #fff;
     padding: 1rem 0;
     text-align: center;
@@ -34,9 +34,9 @@ nav button {
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
-    margin: 0.3rem 0.5rem; /* Ajuste para wrapping */
+    margin: 0.3rem 0.5rem;
     cursor: pointer;
-    border-radius: 20px; /* Más redondeado */
+    border-radius: 20px;
     transition: background-color 0.3s ease, transform 0.1s ease;
     font-size: 0.95em;
 }
@@ -51,28 +51,25 @@ nav button.active {
      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
-
 main {
-    flex-grow: 1; /* Empuja el footer hacia abajo */
+    flex-grow: 1;
     max-width: 950px;
-    width: 95%; /* Más adaptable */
+    width: 95%;
     margin: 2rem auto;
-    padding: 1.5rem; /* Más padding interno */
+    padding: 1.5rem;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* Mensajes de carga/error */
 #loading-message, #error-message {
     font-size: 1.1em;
 }
 
-
 .content-section {
     display: none;
     animation: fadeIn 0.5s ease-in-out;
-    padding-top: 1rem; /* Espacio superior dentro de la sección */
+    padding-top: 1rem;
 }
 
 .content-section.active {
@@ -88,7 +85,7 @@ h2 {
     color: #5a8a6a;
     border-bottom: 2px solid #eee;
     padding-bottom: 0.7rem;
-    margin-bottom: 1.5rem; /* Más espacio */
+    margin-bottom: 1.5rem;
     font-size: 1.8em;
     font-weight: 600;
 }
@@ -99,9 +96,9 @@ h2 {
     text-align: center;
 }
 #lexicon-search {
-    padding: 0.8rem 1.2rem; /* Ligeramente más alto */
+    padding: 0.8rem 1.2rem;
     border: 1px solid #ccc;
-    border-radius: 25px; /* Más redondo */
+    border-radius: 25px;
     width: 80%;
     max-width: 550px;
     font-size: 1em;
@@ -115,7 +112,7 @@ h2 {
 
 #lexicon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Un poco más ancho */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1.5rem;
      margin-top: 1rem;
 }
@@ -136,18 +133,18 @@ h2 {
 
 .lexicon-item img {
     max-width: 100px;
-    height: 100px; /* Altura fija para consistencia */
-    object-fit: cover; /* Escala la imagen cubriendo el espacio */
+    height: 100px;
+    object-fit: cover;
     display: block;
-    margin: 0 auto 0.8rem auto; /* Más espacio abajo */
+    margin: 0 auto 0.8rem auto;
     border-radius: 4px;
-    background-color: #f0f0f0; /* Fondo por si la imagen tarda */
+    background-color: #f0f0f0;
 }
 
 .lexicon-item .raramuri-word {
     font-weight: bold;
-    color: #d66800; /* Color tierra */
-    font-size: 1.15em; /* Ligeramente más grande */
+    color: #d66800;
+    font-size: 1.15em;
     margin-bottom: 0.2rem;
 }
 
@@ -165,8 +162,8 @@ h2 {
 
 #phrases-list li {
     background-color: #eef3f0;
-    margin-bottom: 1rem; /* Más separación */
-    padding: 1.2rem; /* Más padding */
+    margin-bottom: 1rem;
+    padding: 1.2rem;
     border-left: 5px solid #5a8a6a;
     border-radius: 4px;
     transition: background-color 0.2s ease;
@@ -174,7 +171,6 @@ h2 {
 #phrases-list li:hover {
      background-color: #e6ece9;
 }
-
 
 #phrases-list .raramuri-phrase {
     font-weight: bold;
@@ -186,7 +182,7 @@ h2 {
 
 #phrases-list .spanish-phrase {
     color: #444;
-    font-size: 1em; /* Tamaño normal */
+    font-size: 1em;
 }
 
 /* Estilos Memorama Mejorados */
@@ -197,13 +193,13 @@ h2 {
     padding-bottom: 1rem;
 }
 #memorama-setup p {
-    margin-bottom: 0.8rem; /* Más espacio */
+    margin-bottom: 0.8rem;
     font-weight: bold;
 }
 #memorama-setup button.difficulty-btn {
     background-color: #5a8a6a;
     color: white;
-    padding: 0.7rem 1.2rem; /* Ligeramente más padding */
+    padding: 0.7rem 1.2rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -216,24 +212,24 @@ h2 {
      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
-#memorama-game-area > p { /* El párrafo de instrucciones */
+#memorama-game-area > p {
     text-align: center;
     margin-bottom: 1rem;
     color: #555;
 }
 
 #memorama-controls {
-    margin-bottom: 1.5rem; /* Más espacio */
+    margin-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0.5rem 0; /* Padding vertical */
+    padding: 0.5rem 0;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
 #memorama-controls button {
-     background-color: #e87e1a; /* Naranja */
+     background-color: #e87e1a;
      color: white;
      padding: 0.6rem 1.1rem;
      border: none;
@@ -254,15 +250,15 @@ h2 {
 
 #memorama-grid {
     display: grid;
-    gap: 12px; /* Un poco más de espacio */
+    gap: 12px;
     perspective: 1000px;
-    max-width: 600px; /* Limitar ancho del grid */
-    margin: 0 auto; /* Centrar el grid */
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .memorama-card {
     background-color: #4a7a5a;
-    height: 115px; /* Ajustar altura si es necesario */
+    height: 115px;
     border-radius: 8px;
     cursor: pointer;
     position: relative;
@@ -274,13 +270,12 @@ h2 {
 .memorama-card.flipped, .memorama-card.matched {
     transform: rotateY(180deg);
     cursor: default;
-     box-shadow: 0 3px 7px rgba(0,0,0,0.1); /* Sombra diferente al voltear */
+     box-shadow: 0 3px 7px rgba(0,0,0,0.1);
 }
 .memorama-card.matched {
-     opacity: 0.7; /* Atenuar las emparejadas */
-     border: 2px solid #8fbc8f; /* Borde verde claro */
+     opacity: 0.7;
+     border: 2px solid #8fbc8f;
 }
-
 
 .card-face {
     position: absolute;
@@ -288,7 +283,7 @@ h2 {
     height: 100%;
     backface-visibility: hidden;
     display: flex;
-    flex-direction: column; /* Para poner imagen arriba y texto abajo */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
@@ -306,34 +301,27 @@ h2 {
 }
 .card-front img {
     max-width: 60%;
-    max-height: 55%; /* Ajustar para dejar espacio al texto */
+    max-height: 55%;
     display: block;
     margin-bottom: 5px;
-    object-fit: contain; /* Asegurar que la imagen se vea completa */
+    object-fit: contain;
 }
 
 .card-back {
     background-color: #5a8a6a;
     color: white;
-    /* Imagen de fondo para el reverso */
-     background-image: url('images/card_back.png'); /* Asegúrate de tener esta imagen */
-     background-size: contain; /* O 'cover' si prefieres */
+     background-image: url('images/card_back.png');
+     background-size: contain;
      background-repeat: no-repeat;
      background-position: center;
 }
-.card-back::before { /* Alternativa si no usas imagen: un símbolo */
-    /* content: '?'; */
-    /* font-size: 2em; */
-    /* color: rgba(255, 255, 255, 0.7); */
-}
-
 
 #memorama-win-message {
      background-color: #e8f8e8;
      border: 1px solid #5a8a6a;
-     padding: 1rem 1.5rem; /* Más padding */
+     padding: 1rem 1.5rem;
      border-radius: 5px;
-     margin-top: 1.5rem; /* Más espacio arriba */
+     margin-top: 1.5rem;
      font-size: 1.1em;
 }
 
@@ -354,16 +342,16 @@ h2 {
 #quiz-setup p { font-weight: bold; margin-bottom: 0.8rem; }
 #quiz-setup label { margin-right: 0.5rem; color: #555; }
 #quiz-setup select {
-    padding: 0.6rem; /* Más padding */
+    padding: 0.6rem;
     margin-right: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
 }
 #quiz-setup button#start-quiz {
-    background-color: #e87e1a; /* Naranja */
+    background-color: #e87e1a;
     color: white;
-    padding: 0.8rem 1.8rem; /* Más padding horizontal */
+    padding: 0.8rem 1.8rem;
      border: none;
      border-radius: 5px;
      cursor: pointer;
@@ -375,43 +363,22 @@ h2 {
 }
 
 #quiz-image-container img {
-    max-width: 180px; /* Un poco más grande */
+    max-width: 180px;
     max-height: 180px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
-    margin: 0 auto 1rem auto; /* Centrar y dar espacio */
+    margin: 0 auto 1rem auto;
     display: block;
 }
 #quiz-question {
     text-align: center;
-    margin-bottom: 1.5rem; /* Más espacio */
+    margin-bottom: 1.5rem;
     font-size: 1.2em;
     color: #444;
 }
 
-
-/* Frase con hueco */
-.phrase-context {
-    background-color: #f5f5f5; /* Gris muy claro */
-    padding: 1rem;
-    border-radius: 4px;
-    border-left: 4px solid #e87e1a; /* Naranja */
-    color: #333;
-    margin: 1.5rem 0; /* Más margen vertical */
-    font-style: italic;
-    font-size: 1.05em;
-    text-align: center;
-}
-.phrase-context strong { /* Para resaltar el hueco */
-    color: #d66800;
-    font-weight: bold;
-    font-style: normal; /* Quitar cursiva al hueco */
-    padding: 0 0.3em; /* Espacio alrededor del hueco */
-    background-color: #fff;
-    border-bottom: 1px dashed #d66800;
-}
-
+/* SE ELIMINARON LOS ESTILOS .phrase-context */
 
 /* Opciones Múltiples */
 #quiz-options {
@@ -420,11 +387,11 @@ h2 {
 #quiz-options button {
     display: block;
     width: 100%;
-    margin-bottom: 0.7rem; /* Más espacio */
+    margin-bottom: 0.7rem;
     text-align: left;
     background-color: #fff;
     color: #333;
-    padding: 1rem; /* Más padding */
+    padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
@@ -440,17 +407,16 @@ h2 {
     cursor: default;
     opacity: 0.6;
 }
-/* Estilos para correcta/incorrecta MÁS CLAROS */
 #quiz-options button.correct:disabled {
-    background-color: #d4edda !important; /* Verde pastel */
-    color: #155724 !important; /* Verde oscuro */
+    background-color: #d4edda !important;
+    color: #155724 !important;
     border-color: #c3e6cb !important;
     font-weight: bold;
     opacity: 1;
 }
 #quiz-options button.incorrect:disabled {
-    background-color: #f8d7da !important; /* Rojo pastel */
-    color: #721c24 !important; /* Rojo oscuro */
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
     border-color: #f5c6cb !important;
     font-weight: bold;
     opacity: 1;
@@ -460,17 +426,16 @@ h2 {
      opacity: 0.5;
 }
 
-
 /* Área de Input de Texto */
 #quiz-text-input-area {
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-top: 1.5rem; /* Más espacio */
+    margin-top: 1.5rem;
 }
 #quiz-text-answer {
     flex-grow: 1;
-    padding: 0.9rem; /* Más padding */
+    padding: 0.9rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1em;
@@ -478,7 +443,7 @@ h2 {
 #quiz-text-answer:focus { outline: none; border-color: #5a8a6a; }
 #quiz-text-input-area button {
     padding: 0.9rem 1.2rem;
-    background-color: #5a8a6a; /* Verde */
+    background-color: #5a8a6a;
     color: white;
     border: none;
     border-radius: 4px;
@@ -488,14 +453,12 @@ h2 {
     transition: background-color 0.3s ease;
 }
 #quiz-text-input-area button:hover { background-color: #4a7a5a; }
-/* Estilo input correcto/incorrecto */
 #quiz-text-answer.correct { border-color: #155724; background-color: #d4edda; }
 #quiz-text-answer.incorrect { border-color: #721c24; background-color: #f8d7da; }
 
-
 /* Feedback y Botón Siguiente */
 #quiz-feedback {
-    margin-top: 1.5rem; /* Más espacio */
+    margin-top: 1.5rem;
     font-weight: bold;
     min-height: 1.2em;
     text-align: center;
@@ -503,12 +466,12 @@ h2 {
 }
 #quiz-feedback.correct { color: #155724; }
 #quiz-feedback.incorrect { color: #721c24; }
-#quiz-feedback strong { font-weight: 600; } /* Para resaltar respuesta correcta en feedback */
+#quiz-feedback strong { font-weight: 600; }
 
 #next-question {
-    display: block; /* Ocupar ancho completo */
-    width: auto; /* Ancho automático */
-    margin: 1.5rem auto 0 auto; /* Centrar y espaciar */
+    display: block;
+    width: auto;
+    margin: 1.5rem auto 0 auto;
     padding: 0.8rem 2rem;
     background-color: #4a7a5a;
     color: white;
@@ -536,7 +499,7 @@ h2 {
 }
 #quiz-results button {
     margin: 0.5rem;
-    padding: 0.9rem 1.8rem; /* Ligeramente más grande */
+    padding: 0.9rem 1.8rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -546,7 +509,6 @@ h2 {
 #quiz-results button:hover {
      transform: translateY(-1px);
 }
-
 #restart-quiz { background-color: #e87e1a; color: white; }
 #restart-quiz:hover { background-color: #d66800; }
 #retry-missed-quiz { background-color: #5a8a6a; color: white; }
