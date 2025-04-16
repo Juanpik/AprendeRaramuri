@@ -334,7 +334,7 @@ nav button.active {
 }
 
 /* ------------------------- */
-/* Memorama Section (V5 - SIMPLIFIED FLIP DEBUG) */
+/* Memorama Section (V6 - Fix Flip & Centering) */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl); }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
@@ -349,141 +349,122 @@ nav button.active {
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Minmax ajustado */
     gap: var(--space-lg);
-    /* perspective: 1200px; <<-- TEMPORALMENTE QUITADO */
-    max-width: 850px;
-    margin: var(--space-lg) auto 0 auto;
+    perspective: 1200px; /* Necesario para 3D */
+    max-width: 900px; /* Ajustar ancho máximo si es necesario */
+    margin: var(--space-lg) auto 0 auto; /* Añadir margen superior */
 }
 
 .memorama-card {
-    height: 160px;
+    height: 170px; /* Altura para proporción cuadrada */
     aspect-ratio: 1 / 1;
     border-radius: var(--border-radius-md);
     cursor: pointer;
-    position: relative; /* Necesario */
-    transition: transform 0.6s; /* Transición simple */
+    position: relative;
+    transform-style: preserve-3d; /* Necesario para 3D */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
     box-shadow: var(--shadow-md);
-    /* transform-style: preserve-3d; <<-- TEMPORALMENTE QUITADO */
-    border: 1px solid transparent; /* Ajustar para matched */
-    background-color: transparent; /* Hacer transparente el contenedor */
-    overflow: hidden; /* Mantener por si acaso */
+    border: 1px solid transparent;
+    background-color: transparent; /* El contenedor no necesita color de fondo */
+    overflow: hidden;
+}
+.memorama-card:hover {
+    box-shadow: var(--shadow-lg);
 }
 
-/* Solo aplicar rotación con .flipped */
+/* Estado volteado */
 .memorama-card.flipped {
     transform: rotateY(180deg);
 }
 
+/* Estado emparejado (mantiene la rotación si también está .flipped) */
 .memorama-card.matched {
      opacity: 0.8;
-     border-color: var(--success-green); /* Cambiar color borde */
+     border-color: var(--success-green); /* Usar color del borde */
      cursor: default;
+     box-shadow: 0 0 8px rgba(40, 167, 69, 0.2); /* Glow sutil */
 }
-/* Asegurarse que matched también esté rotada si tiene flipped */
+/* Asegurarse que matched también esté volteada si tiene flipped */
 .memorama-card.flipped.matched {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* Asegurar que sigue volteada */
 }
 
-/* Simplificar caras */
+/* Estilos comunes para ambas caras */
 .card-face {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* backface-visibility: hidden; <<-- TEMPORALMENTE QUITADO */
+    -webkit-backface-visibility: hidden; /* ¡IMPORTANTE! Oculta la cara de atrás */
+    backface-visibility: hidden;         /* ¡IMPORTANTE! */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 5px; /* Padding mínimo */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    border-radius: inherit; /* Heredar redondeo */
+    padding: var(--space-sm); /* Padding interno */
     box-sizing: border-box;
     text-align: center;
-    border-radius: inherit; /* Heredar redondeo */
     overflow: hidden;
-    transition: opacity 0.3s ease-in-out, z-index 0.3s step-end; /* Transición para visibilidad */
-    /* border: 1px dashed orange; DEBUG: Ver el área de CADA cara */
 }
 
-/* Cara FRONTAL: Inicialmente OCULTA, se muestra al voltear */
+/* Cara FRONTAL: SIN pre-rotación y encima */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    /* transform: rotateY(180deg); <<-- QUITAR pre-rotación */
-    z-index: 1; /* Inicialmente detrás */
-    opacity: 0; /* Inicialmente invisible */
-    border: 1px solid var(--grey-light); /* Borde ligero */
-}
-/* Mostrar cara frontal cuando la CARTA PADRE esté volteada */
-.memorama-card.flipped .card-front {
-    opacity: 1; /* Hacer visible */
-    z-index: 2; /* Poner encima */
-    transition-delay: 0.15s; /* Mostrar después de la mitad del giro */
-}
-/* Mantener visible si está emparejada */
-.memorama-card.matched .card-front {
-     opacity: 1;
-     z-index: 2;
+    /* transform: rotateY(180deg); <<-- ELIMINADO! */
+    border: 1px solid var(--grey-light); /* Borde sutil */
+    z-index: 2; /* Asegura que esté encima */
 }
 
-
+/* Imagen dentro de la cara frontal */
 .card-front img {
-    display: block; /* Asegurar display */
-    max-width: 80%; /* Tamaño razonable */
-    max-height: 65%;
-    object-fit: contain;
-    /* border: 1px solid green; DEBUG: Borde para ver imagen */
-    margin-bottom: var(--space-sm); /* Espacio bajo imagen */
+    display: block;
+    max-width: 90%; /* Más grande */
+    max-height: 70%; /* Más grande, ajustar si el texto no cabe */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Mantiene proporción */
+    margin-bottom: var(--space-sm); /* Espacio entre img y texto */
     border-radius: var(--border-radius-sm);
 }
 
+/* Texto dentro de la cara frontal */
 .card-front p {
-    font-family: var(--font-heading);
-    font-size: 1em; /* Tamaño base */
+    font-family: var(--font-heading); /* Poppins */
     font-weight: 500;
-    color: var(--text-color); /* Asegurar color visible */
-    margin: 0; /* Sin margen vertical */
-    padding: 0 5px; /* Padding horizontal */
+    font-size: 1em; /* Tamaño base, se ajusta en media queries */
+    line-height: 1.3; /* Espaciado línea */
+    margin: 0;
+    padding: 0 var(--space-xs);
     width: 100%;
-    line-height: 1.3;
     word-wrap: break-word;
-    /* background-color: rgba(0, 255, 0, 0.1); DEBUG: Fondo para ver texto */
+    color: var(--text-color);
+    flex-shrink: 0; /* Evitar que el texto se encoja demasiado */
+    text-align: center; /* Doble verificación centrado */
 }
 
-/* Cara TRASERA: Inicialmente VISIBLE, se oculta al voltear */
+/* Cara TRASERA: Estado inicial */
 .card-back {
-    background-color: var(--teal-dark); /* Color de fondo */
-    /* background-image: none; Sin imagen de fondo por ahora */
-    z-index: 2; /* Inicialmente encima */
-    opacity: 1; /* Inicialmente visible */
+    background-color: var(--teal-dark);
     color: white;
-    /* Añadido flex para centrar el ::before */
-    display: flex;
+    transform: rotateY(0deg); /* Estado inicial explícito */
+    z-index: 1; /* Detrás */
+    display: flex; /* Para centrar el ::before */
     justify-content: center;
     align-items: center;
 }
-/* Ocultar cara trasera cuando la CARTA PADRE esté volteada */
-.memorama-card.flipped .card-back {
-    opacity: 0; /* Hacer invisible */
-    z-index: 1; /* Poner detrás */
-     transition-delay: 0s; /* Ocultar inmediatamente */
+/* Símbolo del reverso */
+.card-back::before {
+   content: '?';
+   font-family: var(--font-heading);
+   font-size: 4em; /* Más grande */
+   font-weight: bold;
+   color: rgba(255, 255, 255, 0.25); /* Más sutil */
+   line-height: 1;
 }
-/* Mantener oculta si está emparejada */
- .memorama-card.matched .card-back {
-     opacity: 0;
-     z-index: 1;
-}
-
-.card-back::before{
-    content: '?'; /* Mostrar '?' como reverso */
-    font-family: var(--font-heading);
-    font-size: 3.5em;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.3);
-    line-height: 1;
-}
-
 
 /* Mensajes */
 #memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm); }
