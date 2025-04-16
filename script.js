@@ -65,13 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FUNCIÓN PARA CARGAR DATOS ---
     async function loadData() {
         try {
-            // Añadir 'cache: no-cache' para intentar evitar problemas de caché durante el desarrollo
             const response = await fetch('data.json', { cache: 'no-cache' });
             if (!response.ok) {
                 throw new Error(`Error al cargar data.json: ${response.status} ${response.statusText}`);
             }
             const data = await response.json();
-            // Validar estructura básica
             if (!data || typeof data !== 'object') {
                 throw new Error("El archivo data.json no contiene un objeto JSON válido.");
             }
@@ -99,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // -- Utilidades --
     function shuffleArray(array) {
-        // Crear una copia para no modificar el array original
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -146,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // -- Léxico --
     function displayLexiconItems(itemsToShow) {
+        if (!lexiconGrid) return; // Salir si el grid no existe
         lexiconGrid.innerHTML = '';
         if (!itemsToShow || itemsToShow.length === 0) {
              lexiconGrid.innerHTML = '<p style="text-align: center; color: var(--grey-dark);">No se encontraron coincidencias.</p>';
@@ -158,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const spanishText = item.spanish || '???';
             const raramuriText = item.raramuri || '???';
             div.innerHTML = `
-                <img src="${imgSrc}" alt="${spanishText}" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar ${raramuriText}'; this.parentElement.insertAdjacentHTML('beforeend', '<p style=\'font-size:0.8em; color:var(--error-red);\'>Img error</p>');">
+                <img src="${imgSrc}" alt="${spanishText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar ${raramuriText}'; this.parentElement.insertAdjacentHTML('beforeend', '<p style=\'font-size:0.8em; color:var(--error-red);\'>Img error</p>');">
                 <p class="raramuri-word">${raramuriText}</p>
                 <p class="spanish-word">${spanishText}</p>
             `;
@@ -166,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     function handleSearch() {
+        if (!lexiconSearchInput) return; // Verificar
         const searchTerm = lexiconSearchInput.value.toLowerCase().trim();
         const filteredItems = lexiconData.filter(item => {
             const raramuriMatch = (item.raramuri || '').toLowerCase().includes(searchTerm);
@@ -175,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayLexiconItems(filteredItems);
     }
     function setupSearch() {
-        if (lexiconSearchInput) { // Verificar que el elemento existe
+        if (lexiconSearchInput) {
             lexiconSearchInput.addEventListener('input', handleSearch);
         } else {
             console.error("Elemento de búsqueda del léxico no encontrado.");
@@ -184,13 +183,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // -- Frases --
     function populatePhrases() {
+        if (!phrasesList) return; // Verificar
         phrasesList.innerHTML = '';
         if (!phrasesData || phrasesData.length === 0) {
              phrasesList.innerHTML = '<li>No hay frases disponibles.</li>';
              return;
         }
         phrasesData.forEach(phrase => {
-            // Solo mostrar frases que tengan tanto raramuri como español
             if (phrase.raramuri && phrase.spanish) {
                 const li = document.createElement('li');
                 li.innerHTML = `
@@ -202,53 +201,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Memorama ---
-
-    // Función auxiliar para crear y añadir contenido a la cara frontal
+    // -- Memorama --
     function createFrontFaceContent(cardInfo, frontFaceElement) {
         if (!cardInfo || !frontFaceElement) {
-            console.error("Error interno: Faltan cardInfo o frontFaceElement en createFrontFaceContent");
+            console.error("[Memorama Error] Faltan cardInfo o frontFaceElement en createFrontFaceContent");
             return;
         }
-
-        // Limpiar contenido previo (por si acaso)
         frontFaceElement.innerHTML = '';
 
-        if (cardInfo.type === 'image' && cardInfo.value) {
-            // console.log(`Creando imagen para ID ${cardInfo.id}: ${cardInfo.value}`); // DEBUG
-            const img = document.createElement('img');
-            img.src = cardInfo.value;
-            img.alt = cardInfo.altText || "Imagen Memorama";
-            img.loading = 'lazy';
-            img.onerror = function() {
-                console.error(`MEMORAMA: Error al cargar imagen: ${this.src} (ID: ${cardInfo.id})`);
-                this.style.display = 'none'; // Ocultar imagen rota
-                const errorText = document.createElement('p');
-                errorText.textContent = `Error img`; // Mensaje corto
-                errorText.style.fontSize = '0.8em';
-                errorText.style.color = 'var(--error-red)';
-                frontFaceElement.appendChild(errorText);
-            };
-            img.onload = function() {
-                // console.log(`Imagen cargada: ${this.src}`); // DEBUG (opcional)
+        try {
+            if (cardInfo.type === 'image' && cardInfo.value) {
+                // console.log(`[Memorama] Creando IMG para ID ${cardInfo.id}: ${cardInfo.value}`);
+                const img = document.createElement('img');
+                img.src = cardInfo.value;
+                img.alt = cardInfo.altText || "Imagen Memorama";
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    console.error(`[Memorama Error] No se pudo cargar imagen: ${this.src} (ID: ${cardInfo.id})`);
+                    this.style.display = 'none';
+                    const errorText = document.createElement('p');
+                    errorText.textContent = `Error img`;
+                    errorText.style.fontSize = '0.8em';
+                    errorText.style.color = 'var(--error-red)';
+                    frontFaceElement.appendChild(errorText);
+                };
+                frontFaceElement.appendChild(img);
+
+            } else if (cardInfo.type === 'text' && cardInfo.value) {
+                // console.log(`[Memorama] Creando TEXT para ID ${cardInfo.id}: ${cardInfo.value}`);
+                const textP = document.createElement('p');
+                textP.textContent = cardInfo.value;
+                frontFaceElement.appendChild(textP);
+
+            } else {
+                console.warn(`[Memorama Warn] Contenido inválido/faltante para carta (ID: ${cardInfo.id}):`, cardInfo);
+                const fallbackText = document.createElement('p');
+                fallbackText.textContent = '??';
+                fallbackText.style.opacity = '0.5';
+                frontFaceElement.appendChild(fallbackText);
             }
-            frontFaceElement.appendChild(img);
+            if (frontFaceElement.children.length === 0) {
+                 console.warn(`[Memorama Warn] frontFaceElement quedó vacío para ID ${cardInfo.id}`);
+            }
 
-        } else if (cardInfo.type === 'text' && cardInfo.value) {
-            // console.log(`Creando texto para ID ${cardInfo.id}: ${cardInfo.value}`); // DEBUG
-            const textP = document.createElement('p');
-            textP.textContent = cardInfo.value;
-            frontFaceElement.appendChild(textP);
-
-        } else {
-            console.warn(`Contenido inválido o faltante para carta memorama (ID: ${cardInfo.id}):`, cardInfo);
-            const fallbackText = document.createElement('p');
-            fallbackText.textContent = '???';
-            fallbackText.style.opacity = '0.5';
-            frontFaceElement.appendChild(fallbackText);
+        } catch (e) {
+             console.error("[Memorama Error] Excepción en createFrontFaceContent:", e, cardInfo);
         }
     }
-
 
     function createMemoramaCards() {
         const itemsWithImages = lexiconData.filter(item =>
@@ -256,10 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         if (itemsWithImages.length < totalPairs) {
-            console.warn(`Memorama Create: No hay suficientes items completos (${itemsWithImages.length}) para ${totalPairs} pares.`);
-            totalPairs = itemsWithImages.length; // Reducir para jugar con lo que hay
+            console.warn(`Memorama Create: No hay suficientes items (${itemsWithImages.length}) para ${totalPairs} pares.`);
+            totalPairs = itemsWithImages.length;
             if (totalPairs < 1) return [];
-             // El mensaje de error al usuario se mostrará en startMemorama si es necesario
         }
 
         const shuffledLexicon = shuffleArray([...itemsWithImages]);
@@ -270,12 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
             cardData.push({ type: 'image', value: item.image, id: item.id, altText: item.spanish });
             cardData.push({ type: 'text', value: item.raramuri, id: item.id });
         });
-        // console.log("Card Data Generada:", cardData); // DEBUG
         return shuffleArray(cardData);
     }
 
     function initMemorama() {
-        console.log("Iniciando Memorama..."); // DEBUG
+        console.log("[Memorama] Iniciando initMemorama...");
+        if (!memoramaGrid || !memoramaWinMessage || !memoramaAttemptsEl || !memoramaDataErrorEl) {
+             console.error("[Memorama Error] Faltan elementos DOM para initMemorama.");
+             return;
+        }
+
         memoramaGrid.innerHTML = '';
         memoramaWinMessage.style.display = 'none';
         flippedCards = [];
@@ -283,29 +285,27 @@ document.addEventListener('DOMContentLoaded', () => {
         memoramaAttempts = 0;
         memoramaAttemptsEl.textContent = memoramaAttempts;
         lockBoard = false;
-        memoramaDataErrorEl.style.display = 'none'; // Ocultar errores previos
+        memoramaDataErrorEl.style.display = 'none';
 
         memoramaCards = createMemoramaCards();
 
         if (memoramaCards.length === 0 || memoramaCards.length % 2 !== 0) {
-            console.error("Error final al generar cartas de memorama o número impar. Cartas:", memoramaCards);
-            memoramaGrid.innerHTML = '<p>Error al generar cartas. Verifica los datos léxicos.</p>';
-            memoramaGameArea.style.display = 'none';
+            console.error("[Memorama Error] Error final al generar cartas o número impar. Cartas:", memoramaCards);
+            memoramaGrid.innerHTML = '<p>Error al generar cartas. Verifica datos.</p>';
+            if(memoramaGameArea) memoramaGameArea.style.display = 'none';
             memoramaDataErrorEl.textContent = "Error interno al generar cartas.";
             memoramaDataErrorEl.style.display = 'block';
             return;
         }
-        memoramaGameArea.style.display = 'block';
-        console.log(`Generando ${memoramaCards.length} cartas para ${totalPairs} pares.`); // DEBUG
+        if(memoramaGameArea) memoramaGameArea.style.display = 'block';
+        console.log(`[Memorama] Generando ${memoramaCards.length} cartas DOM para ${totalPairs} pares.`);
 
         memoramaCards.forEach((cardInfo, index) => {
-            // console.log(`Creando elemento para carta ${index}, ID: ${cardInfo.id}, Tipo: ${cardInfo.type}`); // DEBUG
             const cardElement = document.createElement('div');
             cardElement.classList.add('memorama-card');
-            // Asegurarse de que cardInfo.id existe antes de asignarlo
             if (cardInfo.id === undefined || cardInfo.id === null) {
-                console.error(`Error: ID indefinido para carta ${index}`, cardInfo);
-                return; // Saltar esta carta si no tiene ID
+                console.error(`[Memorama Error] ID indefinido para carta ${index}`, cardInfo);
+                return;
             }
             cardElement.dataset.id = cardInfo.id;
             cardElement.dataset.index = index;
@@ -316,21 +316,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const backFace = document.createElement('div');
             backFace.classList.add('card-face', 'card-back');
 
-            // Llamar a la función para poblar la cara frontal
             createFrontFaceContent(cardInfo, frontFace);
 
-            // Añadir las caras al elemento de la carta
             cardElement.appendChild(frontFace);
             cardElement.appendChild(backFace);
-
-            // Añadir el listener
             cardElement.addEventListener('click', handleCardClick);
-
-            // Añadir la carta completa al grid
             memoramaGrid.appendChild(cardElement);
         });
 
-        // Ajustar columnas del grid
         let columns = 4;
         const numCards = memoramaCards.length;
         if (numCards <= 6) columns = 3;
@@ -339,124 +332,123 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (numCards <= 16) columns = 4;
         else columns = 5;
         memoramaGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        console.log("Memorama inicializado correctamente."); // DEBUG
+        console.log("[Memorama] initMemorama completado.");
     }
 
     function startMemorama(numPairs) {
-         console.log(`Intentando iniciar memorama con ${numPairs} pares.`); // DEBUG
-        const itemsWithImages = lexiconData.filter(item => item && item.id && item.image && item.raramuri && item.spanish);
+         console.log(`[Memorama] Intentando startMemorama con ${numPairs} pares.`);
+         const itemsWithImages = lexiconData.filter(item => item && item.id && item.image && item.raramuri && item.spanish);
          if (itemsWithImages.length < numPairs) {
-             console.warn(`Memorama Start: No hay suficientes items completos (${itemsWithImages.length}) para ${numPairs} pares.`);
-             memoramaDataErrorEl.textContent = `No hay suficientes datos léxicos completos (${itemsWithImages.length}) para esta dificultad (${numPairs} pares).`;
-             memoramaDataErrorEl.style.display = 'block';
-             memoramaGameArea.style.display = 'none';
-             memoramaSetup.style.display = 'block';
+             console.warn(`Memorama Start: No hay suficientes items (${itemsWithImages.length}) para ${numPairs} pares.`);
+             if(memoramaDataErrorEl) {
+                memoramaDataErrorEl.textContent = `No hay suficientes datos léxicos completos (${itemsWithImages.length}) para esta dificultad (${numPairs} pares).`;
+                memoramaDataErrorEl.style.display = 'block';
+             }
+             if(memoramaGameArea) memoramaGameArea.style.display = 'none';
+             if(memoramaSetup) memoramaSetup.style.display = 'block';
              difficultyButtons.forEach(btn => btn.classList.remove('selected'));
              return;
          }
 
         totalPairs = numPairs;
-        memoramaSetup.style.display = 'none';
-        // No mostramos gameArea aquí, initMemorama lo hará si todo va bien
-        memoramaGameArea.style.display = 'none';
-        memoramaWinMessage.style.display = 'none';
-        memoramaDataErrorEl.style.display = 'none';
-        initMemorama(); // initMemorama se encarga de mostrar gameArea si tiene éxito
+        if(memoramaSetup) memoramaSetup.style.display = 'none';
+        if(memoramaGameArea) memoramaGameArea.style.display = 'none';
+        if(memoramaWinMessage) memoramaWinMessage.style.display = 'none';
+        if(memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
+        initMemorama();
     }
 
     function handleCardClick(event) {
         const clickedCard = event.currentTarget;
-        // console.log("Card Clicked:", clickedCard.dataset.index, "ID:", clickedCard.dataset.id); // DEBUG
+        console.log(`[Memorama] Click en carta ${clickedCard.dataset.index} (ID: ${clickedCard.dataset.id})`);
         if (lockBoard || clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) {
-             // console.log("Click ignorado (locked/flipped/matched)"); // DEBUG
+             console.log("[Memorama] Click ignorado (locked/flipped/matched)");
             return;
         }
         flipCard(clickedCard);
         flippedCards.push(clickedCard);
-        // console.log("Flipped Cards:", flippedCards.map(c => c.dataset.index)); // DEBUG
         if (flippedCards.length === 2) {
             lockBoard = true;
             memoramaAttempts++;
-            memoramaAttemptsEl.textContent = memoramaAttempts;
-            // console.log("Checking for match..."); // DEBUG
+            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = memoramaAttempts;
+            console.log("[Memorama] 2 cartas volteadas, comprobando par...");
             checkForMatch();
         }
     }
     function flipCard(card) {
-        // console.log("Flipping card:", card.dataset.index); // DEBUG
+        console.log(`[Memorama] Añadiendo clase 'flipped' a carta ${card.dataset.index}`);
         card.classList.add('flipped');
     }
     function unflipCards() {
-        // console.log("Unflipping cards"); // DEBUG
+        console.log("[Memorama] Iniciando unflipping...");
         setTimeout(() => {
-            flippedCards.forEach(card => card.classList.remove('flipped'));
+            flippedCards.forEach(card => {
+                console.log(`[Memorama] Quitandoflipped' de carta ${card.dataset.index}`);
+                card.classList.remove('flipped');
+            });
             flippedCards = [];
             lockBoard = false;
+             console.log("[Memorama] Unflip completado.");
         }, 1100);
     }
-    // function disableCards() { // Ya no se usa, se maneja en checkForMatch
-    //     console.log("Disabling cards (handled by matched class now)"); // DEBUG
-    //     // flippedCards.forEach(card => card.classList.add('matched')); // No quitar flipped
-    //     // flippedCards = [];
-    //     // lockBoard = false;
-    // }
     function checkForMatch() {
         const [card1, card2] = flippedCards;
-        if (!card1 || !card2) { // Salvaguarda
-            console.error("Error en checkForMatch: Faltan cartas en flippedCards.");
+        if (!card1 || !card2) {
+            console.error("[Memorama Error] Error en checkForMatch: Faltan cartas.");
             lockBoard = false;
             flippedCards = [];
             return;
         }
         const isMatch = card1.dataset.id && card1.dataset.id === card2.dataset.id;
-        // console.log(`Match check: ID ${card1.dataset.id} vs ${card2.dataset.id}. Result: ${isMatch}`); // DEBUG
+        console.log(`[Memorama] Check Match: ID ${card1.dataset.id} vs ${card2.dataset.id}. Resultado: ${isMatch}`);
 
         if (isMatch) {
             matchedPairs++;
-             console.log(`Match found! Pair ${matchedPairs}/${totalPairs}`); // DEBUG
-             // Dejar las cartas 'flipped' y añadir 'matched' con un pequeño delay
+             console.log(`[Memorama] ¡Par encontrado! ${matchedPairs}/${totalPairs}`);
              setTimeout(() => {
+                 console.log(`[Memorama] Añadiendo clase 'matched' a cartas ${card1.dataset.index} y ${card2.dataset.index}`);
                 card1.classList.add('matched');
                 card2.classList.add('matched');
-                 // Limpiar flippedCards y desbloquear *después* de marcar como matched
-                 flippedCards = [];
-                 lockBoard = false;
+                flippedCards = [];
+                lockBoard = false;
                 if (matchedPairs === totalPairs) {
-                    console.log("Game Won!"); // DEBUG
-                    memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${totalPairs} pares en ${memoramaAttempts} intentos.`;
-                    memoramaWinMessage.style.display = 'block';
+                    console.log("[Memorama] ¡Juego ganado!");
+                    if(memoramaWinMessage){
+                        memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${totalPairs} pares en ${memoramaAttempts} intentos.`;
+                        memoramaWinMessage.style.display = 'block';
+                    }
                 }
-            }, 300); // Delay para que se vea el match antes del borde/opacidad (opcional)
+            }, 150);
+
         } else {
-            // console.log("No match."); // DEBUG
-            unflipCards(); // Esto quita 'flipped' y limpia flippedCards/lockBoard
+            console.log("[Memorama] No es par.");
+            unflipCards();
         }
     }
     function resetMemoramaView() {
-        console.log("Reseteando vista de Memorama."); // DEBUG
-        memoramaSetup.style.display = 'block';
-        memoramaGameArea.style.display = 'none';
-        memoramaWinMessage.style.display = 'none';
-        memoramaDataErrorEl.style.display = 'none';
+        console.log("[Memorama] Reseteando vista.");
+        if(memoramaSetup) memoramaSetup.style.display = 'block';
+        if(memoramaGameArea) memoramaGameArea.style.display = 'none';
+        if(memoramaWinMessage) memoramaWinMessage.style.display = 'none';
+        if(memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
         difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-        memoramaGrid.innerHTML = '';
-        // Resetear variables de estado por si acaso
+        if(memoramaGrid) memoramaGrid.innerHTML = '';
         flippedCards = [];
         matchedPairs = 0;
         memoramaAttempts = 0;
-        totalPairs = 0; // Resetear totalPairs también
+        totalPairs = 0;
         lockBoard = false;
     }
     function setupMemoramaControls() {
-        if (!memoramaSetup || !resetMemoramaBtn) {
-             console.error("Faltan elementos de control del memorama.");
+        if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0) {
+             console.error("[Memorama Error] Faltan elementos de control (setup, resetBtn, difficultyBtns).");
              return;
         }
         difficultyButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const pairs = parseInt(button.getAttribute('data-pairs'));
                 if (isNaN(pairs)) {
-                    console.error("Valor de pares inválido en botón:", button);
+                    console.error("[Memorama Error] Valor de pares inválido:", button);
                     return;
                 }
                 difficultyButtons.forEach(btn => btn.classList.remove('selected'));
@@ -469,37 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
              if (selectedBtn) {
                  const pairs = parseInt(selectedBtn.getAttribute('data-pairs'));
                   if (!isNaN(pairs)) {
-                    startMemorama(pairs); // Reinicia con la dificultad seleccionada
-                  } else {
-                      resetMemoramaView(); // Fallback si el valor no es numérico
-                  }
-             } else {
-                 resetMemoramaView(); // Si no hay dificultad seleccionada, solo resetea
-             }
+                    startMemorama(pairs);
+                  } else { resetMemoramaView(); }
+             } else { resetMemoramaView(); }
         });
     }
 
-    // --- (Resto del código JS: Quiz, Inicialización, etc. sin cambios) ---
-    // Asegúrate de que la función initializeApplication llame a setupMemoramaControls()
-     function initializeApplication() {
-         // Verificar que los elementos principales existen antes de continuar
-        if (!mainContentEl || !lexiconGrid || !phrasesList || !memoramaGrid || !quizContainer) {
-            console.error("Faltan elementos esenciales del DOM. Verifica tu HTML.");
-            errorMessageEl.textContent = "Error: Faltan elementos HTML esenciales.";
-            errorMessageEl.style.display = 'block';
-            return;
-        }
-
-        setupNavigation();
-        displayLexiconItems(lexiconData);
-        populatePhrases();
-        setupSearch();
-        setupMemoramaControls(); // <--- Llamada importante
-        setupQuizControls();
-        console.log("Aplicación inicializada.");
-    }
-
-    // --- (El resto del JS, como las funciones del Quiz, loadData, etc., se mantienen igual que en la respuesta anterior) ---
     // --- Quiz ---
     function getWrongOptions(correctItem, count, sourceData, field) {
         if (!correctItem || !field) return [];
@@ -544,11 +511,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (availableLexiconItems.length < 2) {
              console.error("Quiz: Se necesitan al menos 2 entradas léxicas completas.");
-             quizDataErrorEl.textContent = "No hay suficientes datos léxicos para generar el quiz (se necesitan al menos 2 entradas completas).";
-             quizDataErrorEl.style.display = 'block';
+             if(quizDataErrorEl) {
+                 quizDataErrorEl.textContent = "No hay suficientes datos léxicos para generar el quiz (se necesitan al menos 2 entradas completas).";
+                 quizDataErrorEl.style.display = 'block';
+             }
              return [];
         } else {
-            quizDataErrorEl.style.display = 'none';
+            if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
         }
 
         const potentialQuestions = [];
@@ -600,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const validFinalQuestions = finalQuestions.filter(q => !q.options || q.options.length >= 1);
-        console.log("Generated Valid Quiz Questions:", validFinalQuestions);
+        console.log("[Quiz] Generated Valid Questions:", validFinalQuestions);
         return validFinalQuestions;
      }
     function startQuiz(isRetry = false) {
@@ -621,29 +590,31 @@ document.addEventListener('DOMContentLoaded', () => {
                  resetQuizView();
                  return;
              }
-             console.log("Retrying missed questions:", currentQuizSet);
+             console.log("[Quiz] Retrying missed questions:", currentQuizSet);
          }
 
          if (!currentQuizSet || currentQuizSet.length === 0) {
-             quizQuestionArea.style.display = 'none';
-             quizSetup.style.display = 'block';
-             quizResultsEl.style.display = 'none';
-             retryMissedQuizBtn.style.display = 'none';
-             quizDataErrorEl.style.display = quizDataErrorEl.textContent ? 'block' : 'none';
-             if (!quizDataErrorEl.textContent) {
-                 quizDataErrorEl.textContent = "No se pudieron generar preguntas.";
-                 quizDataErrorEl.style.display = 'block';
+             if(quizQuestionArea) quizQuestionArea.style.display = 'none';
+             if(quizSetup) quizSetup.style.display = 'block';
+             if(quizResultsEl) quizResultsEl.style.display = 'none';
+             if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none';
+             if(quizDataErrorEl) {
+                 quizDataErrorEl.style.display = quizDataErrorEl.textContent ? 'block' : 'none';
+                 if (!quizDataErrorEl.textContent) {
+                     quizDataErrorEl.textContent = "No se pudieron generar preguntas.";
+                     quizDataErrorEl.style.display = 'block';
+                 }
              }
              quizActive = false;
              return;
          }
 
-         quizSetup.style.display = 'none';
-         quizResultsEl.style.display = 'none';
-         retryMissedQuizBtn.style.display = 'none';
-         quizQuestionArea.style.display = 'block';
-         nextQuestionBtn.style.display = 'none';
-         quizDataErrorEl.style.display = 'none';
+         if(quizSetup) quizSetup.style.display = 'none';
+         if(quizResultsEl) quizResultsEl.style.display = 'none';
+         if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none';
+         if(quizQuestionArea) quizQuestionArea.style.display = 'block';
+         if(nextQuestionBtn) nextQuestionBtn.style.display = 'none';
+         if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
 
          displayQuestion();
      }
@@ -655,40 +626,46 @@ document.addEventListener('DOMContentLoaded', () => {
         quizActive = true;
         const q = currentQuizSet[currentQuestionIndex];
 
-        if (!q || !q.type || !q.question || typeof q.answer === 'undefined') { // typeof para permitir respuesta ""
-            console.error("Pregunta inválida encontrada en displayQuestion:", q);
+        if (!q || !q.type || !q.question || typeof q.answer === 'undefined') {
+            console.error("[Quiz Error] Pregunta inválida en displayQuestion:", q);
             goToNextQuestion();
             return;
         }
 
-        quizQuestionEl.textContent = q.question;
-        quizImageContainer.innerHTML = '';
-        quizOptionsEl.innerHTML = '';
-        quizOptionsEl.style.display = 'none';
-        quizTextInputArea.style.display = 'none';
-        quizTextAnswerInput.value = '';
-        quizTextAnswerInput.className = '';
-        quizFeedbackEl.textContent = '';
-        quizFeedbackEl.className = '';
-        nextQuestionBtn.style.display = 'none';
+        if(quizQuestionEl) quizQuestionEl.textContent = q.question;
+        if(quizImageContainer) quizImageContainer.innerHTML = '';
+        if(quizOptionsEl) {
+            quizOptionsEl.innerHTML = '';
+            quizOptionsEl.style.display = 'none';
+        }
+        if(quizTextInputArea) quizTextInputArea.style.display = 'none';
+        if(quizTextAnswerInput) {
+            quizTextAnswerInput.value = '';
+            quizTextAnswerInput.className = '';
+        }
+        if(quizFeedbackEl) {
+            quizFeedbackEl.textContent = '';
+            quizFeedbackEl.className = '';
+        }
+        if(nextQuestionBtn) nextQuestionBtn.style.display = 'none';
 
-        if (q.image) {
+        if (q.image && quizImageContainer) {
             const img = document.createElement('img');
             img.src = q.image;
             img.alt = `Imagen para la pregunta`;
             img.loading = 'lazy';
             img.onerror = function() {
-                console.error(`Error al cargar imagen del quiz: ${this.src}`);
-                this.alt = 'Error al cargar imagen';
+                console.error(`[Quiz Error] No se pudo cargar imagen: ${this.src}`);
+                this.alt = 'Error img';
                 this.src='images/placeholder.png';
             };
             quizImageContainer.appendChild(img);
         }
 
-        if (q.type.startsWith('MC_')) {
+        if (q.type.startsWith('MC_') && quizOptionsEl) {
             quizOptionsEl.style.display = 'block';
             if (!q.options || q.options.length === 0) {
-                 console.error("Pregunta MC sin opciones:", q);
+                 console.error("[Quiz Error] Pregunta MC sin opciones:", q);
                  quizOptionsEl.innerHTML = '<p style="color:var(--error-red)">Error: Faltan opciones.</p>';
             } else {
                 q.options.forEach(option => {
@@ -699,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     quizOptionsEl.appendChild(button);
                 });
             }
-        } else if (q.type.startsWith('TXT_')) {
+        } else if (q.type.startsWith('TXT_') && quizTextInputArea && quizTextAnswerInput && submitTextAnswerBtn) {
             quizTextInputArea.style.display = 'flex';
             quizTextAnswerInput.disabled = false;
             submitTextAnswerBtn.disabled = false;
@@ -707,15 +684,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function handleMCAnswer(event) {
-        if (!quizActive) return;
+        if (!quizActive || !quizOptionsEl || !quizFeedbackEl || !nextQuestionBtn) return;
         quizActive = false;
         const selectedButton = event.target;
         const selectedAnswer = selectedButton.textContent;
         const currentQuestion = currentQuizSet[currentQuestionIndex];
         if (!currentQuestion || typeof currentQuestion.answer === 'undefined') {
-            console.error("Error interno: Pregunta o respuesta no definida en handleMCAnswer.");
-            goToNextQuestion();
-            return;
+            console.error("[Quiz Error] handleMCAnswer: Pregunta/respuesta inválida.");
+            goToNextQuestion(); return;
         }
         const correctAnswer = currentQuestion.answer;
 
@@ -743,13 +719,12 @@ document.addEventListener('DOMContentLoaded', () => {
         nextQuestionBtn.style.display = 'inline-block';
     }
     function handleTextAnswer() {
-         if (!quizActive) return;
+         if (!quizActive || !quizTextAnswerInput || !submitTextAnswerBtn || !quizFeedbackEl || !nextQuestionBtn) return;
          quizActive = false;
          const currentQuestion = currentQuizSet[currentQuestionIndex];
          if (!currentQuestion || typeof currentQuestion.answer === 'undefined') {
-            console.error("Error interno: Pregunta o respuesta no definida en handleTextAnswer.");
-            goToNextQuestion();
-            return;
+             console.error("[Quiz Error] handleTextAnswer: Pregunta/respuesta inválida.");
+             goToNextQuestion(); return;
          }
          const userAnswer = normalizeAnswer(quizTextAnswerInput.value);
          const correctAnswer = normalizeAnswer(currentQuestion.answer);
@@ -778,10 +753,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(displayQuestion, 50);
     }
     function showResults() {
-        quizQuestionArea.style.display = 'none';
-        quizResultsEl.style.display = 'block';
-        quizScoreEl.textContent = score;
-        quizTotalEl.textContent = currentQuizSet.length;
+        if(quizQuestionArea) quizQuestionArea.style.display = 'none';
+        if(quizResultsEl) quizResultsEl.style.display = 'block';
+        if(quizScoreEl) quizScoreEl.textContent = score;
+        if(quizTotalEl) quizTotalEl.textContent = currentQuizSet.length;
         quizActive = false;
 
          const wasMainQuizRound = (currentQuizSet === allQuizQuestions);
@@ -798,10 +773,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
          missedQuestions = uniqueMissedQuestions;
 
-         if (missedQuestions.length > 0 && wasMainQuizRound) {
+         if (missedQuestions.length > 0 && wasMainQuizRound && retryMissedQuizBtn) {
               retryMissedQuizBtn.style.display = 'inline-block';
-         } else {
+         } else if(retryMissedQuizBtn) {
               retryMissedQuizBtn.style.display = 'none';
+              // Limpiar si no hay fallos únicos o si ya era ronda de reintento
               if (missedQuestions.length === 0) missedQuestions = [];
          }
     }
@@ -809,23 +785,21 @@ document.addEventListener('DOMContentLoaded', () => {
         quizActive = false;
         allQuizQuestions = [];
         currentQuizSet = [];
-        quizSetup.style.display = 'block';
-        quizQuestionArea.style.display = 'none';
-        quizResultsEl.style.display = 'none';
-        retryMissedQuizBtn.style.display = 'none';
-        quizDataErrorEl.style.display = 'none';
-        quizImageContainer.innerHTML = '';
-        quizFeedbackEl.textContent = '';
-        quizFeedbackEl.className = '';
-        quizOptionsEl.innerHTML = '';
-        quizTextAnswerInput.value = '';
-        quizTextAnswerInput.className = '';
-        quizQuestionEl.textContent = '';
-        quizLengthSelect.value = "5";
+        if(quizSetup) quizSetup.style.display = 'block';
+        if(quizQuestionArea) quizQuestionArea.style.display = 'none';
+        if(quizResultsEl) quizResultsEl.style.display = 'none';
+        if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none';
+        if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
+        if(quizImageContainer) quizImageContainer.innerHTML = '';
+        if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; }
+        if(quizOptionsEl) quizOptionsEl.innerHTML = '';
+        if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; }
+        if(quizQuestionEl) quizQuestionEl.textContent = '';
+        if(quizLengthSelect) quizLengthSelect.value = "5";
     }
     function setupQuizControls() {
          if (!startQuizBtn || !nextQuestionBtn || !restartQuizBtn || !retryMissedQuizBtn || !submitTextAnswerBtn || !quizTextAnswerInput) {
-             console.error("Faltan elementos de control del Quiz.");
+             console.error("[Quiz Error] Faltan elementos de control del Quiz en setupQuizControls.");
              return;
          }
          startQuizBtn.addEventListener('click', () => startQuiz(false));
@@ -842,18 +816,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Inicialización App ---
     function initializeApplication() {
+        // Verificar existencia de elementos esenciales
         if (!mainContentEl || !lexiconGrid || !phrasesList || !memoramaGrid || !quizContainer) {
             console.error("Faltan elementos esenciales del DOM. Verifica tu HTML.");
-            errorMessageEl.textContent = "Error: Faltan elementos HTML esenciales.";
-            errorMessageEl.style.display = 'block';
-            return;
+            if(errorMessageEl) { // Mostrar error si es posible
+                errorMessageEl.textContent = "Error: Faltan elementos HTML esenciales.";
+                errorMessageEl.style.display = 'block';
+            }
+            return; // Detener inicialización
         }
+
         setupNavigation();
-        displayLexiconItems(lexiconData);
-        populatePhrases();
-        setupSearch();
-        setupMemoramaControls();
-        setupQuizControls();
+        displayLexiconItems(lexiconData); // Mostrar léxico inicial
+        populatePhrases(); // Mostrar frases iniciales
+        setupSearch(); // Configurar búsqueda
+        setupMemoramaControls(); // Configurar botones de Memorama
+        setupQuizControls(); // Configurar botones de Quiz
         console.log("Aplicación inicializada.");
     }
 
