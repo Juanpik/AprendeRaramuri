@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprende Rarámuri</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- /Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,14 +31,11 @@
 
             <section id="about" class="content-section">
                 <h2>Sobre el Proyecto</h2>
-                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico de la lengua Rarámuri (Tarahumara)</p>
-                <p>Explora las diferentes secciones para familiarizarte con palabras, frases y poner a prueba tus conocimientos con los juegos interactivos.</p>
-                
-                <p><em>Creditos:</em></p>
+                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del idioma Rarámuri (Tarahumara).</p>
             </section>
 
             <section id="lexicon" class="content-section">
-                <h2>Léxico (Chú'umi)</h2>
+                <h2>Léxico</h2>
                 <div class="search-container">
                     <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
                 </div>
@@ -41,12 +43,12 @@
             </section>
 
             <section id="phrases" class="content-section">
-                <h2>Frases Comunes (Né Rú)</h2>
+                <h2>Frases Comunes</h2>
                 <ul id="phrases-list"></ul>
             </section>
 
             <section id="memorama" class="content-section">
-                <h2>Memorama (Nátari)</h2>
+                <h2>Memorama</h2>
                 <div id="memorama-setup">
                     <p>Elige la dificultad (número de pares):</p>
                     <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
@@ -54,19 +56,19 @@
                     <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
                 </div>
                 <div id="memorama-game-area" style="display: none;">
-                    <p>Encuentra los pares (Imagen - Palabra en Rarámuri).</p>
+                    <p>Encuentra los pares.</p>
                     <div id="memorama-controls">
                         <button id="reset-memorama">Reiniciar Juego</button>
                         <p>Intentos: <span id="memorama-attempts">0</span></p>
                     </div>
                     <div id="memorama-grid"></div>
-                    <div id="memorama-win-message" style="display: none; margin-top: 1rem; text-align: center; font-weight: bold; color: green;"></div>
+                    <div id="memorama-win-message" style="display: none;"></div>
                 </div>
                  <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad.</p>
             </section>
 
             <section id="quiz" class="content-section">
-                <h2>Quiz (Natánali)</h2>
+                <h2>Quiz</h2>
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
@@ -81,11 +83,10 @@
                     </div>
 
                     <div id="quiz-question-area" style="display: none;">
-                        <div id="quiz-image-container" style="text-align: center; margin-bottom: 1rem;"></div>
+                        <div id="quiz-image-container"></div>
                         <h3 id="quiz-question"></h3>
-                        <!-- SE ELIMINÓ EL <p id="quiz-phrase-blank"> DE AQUÍ -->
                         <div id="quiz-options"></div>
-                        <div id="quiz-text-input-area" style="display: none; margin-top: 1rem;">
+                        <div id="quiz-text-input-area" style="display: none;">
                             <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
                             <button id="submit-text-answer">Comprobar</button>
                         </div>
