@@ -29,7 +29,6 @@
     /* Typography */
     --font-body: 'Nunito Sans', sans-serif;
     --font-heading: 'Poppins', sans-serif;
-    /* --font-title is removed, using Poppins for h1 */
 
     /* Spacing */
     --space-xs: 0.5rem;  /* 8px */
@@ -54,7 +53,7 @@
 
 body {
     font-family: var(--font-body);
-    line-height: 1.7; /* Slightly more line height */
+    line-height: 1.7;
     background-color: var(--grey-background);
     color: var(--text-color);
     display: flex;
@@ -66,275 +65,62 @@ body {
 
 main {
     flex-grow: 1;
-    max-width: 1140px; /* Standard container width */
+    max-width: 1140px;
     width: 95%;
-    margin: var(--space-xl) auto var(--space-xxl) auto; /* More margin bottom */
+    margin: var(--space-xl) auto var(--space-xxl) auto;
     padding: var(--space-lg) var(--space-xl);
     background-color: var(--white);
-    border-radius: var(--border-radius-lg); /* More rounded */
+    border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--grey-light);
 }
 
-h1, h2, h3 {
-    font-family: var(--font-heading);
-    line-height: 1.4;
-    font-weight: 700; /* Bolder headings */
-}
+h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 700; }
+h2 { color: var(--teal-primary); font-size: 2em; border-bottom: 2px solid var(--grey-light); padding-bottom: var(--space-md); margin-bottom: var(--space-xl); letter-spacing: -0.5px; }
+h3 { font-weight: 500; color: var(--teal-dark); font-size: 1.4em; margin-bottom: var(--space-lg); }
+p { margin-bottom: var(--space-lg); font-size: 1.05em; }
+ul { list-style: none; padding: 0; }
+.text-center { text-align: center; }
 
-h2 {
-    color: var(--teal-primary);
-    font-size: 2em; /* Slightly larger */
-    border-bottom: 2px solid var(--grey-light);
-    padding-bottom: var(--space-md); /* More padding bottom */
-    margin-bottom: var(--space-xl); /* More space below h2 */
-    letter-spacing: -0.5px;
-}
+/* Header & Nav */
+header { background: var(--teal-primary); color: var(--white); padding: var(--space-md) var(--space-lg); text-align: center; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+header h1 { font-family: var(--font-heading); font-weight: 700; font-size: 2.1em; margin: 0; padding-bottom: var(--space-sm); letter-spacing: -0.5px; }
+nav { margin-top: var(--space-xs); }
+nav button { font-family: var(--font-heading); font-weight: 500; background-color: transparent; color: var(--white); border: 2px solid rgba(255, 255, 255, 0.5); padding: var(--space-xs) var(--space-lg); margin: var(--space-xs); cursor: pointer; border-radius: var(--border-radius-pill); transition: all 0.25s ease-in-out; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; }
+nav button:hover { background-color: rgba(255, 255, 255, 0.15); border-color: var(--white); transform: translateY(-1px); }
+nav button.active { background-color: var(--white); color: var(--teal-dark); border-color: var(--white); font-weight: 700; box-shadow: var(--shadow-interactive); transform: translateY(0); }
 
-h3 {
-    font-weight: 500; /* Medium weight for h3 */
-    color: var(--teal-dark);
-    font-size: 1.4em;
-    margin-bottom: var(--space-lg);
-}
+/* Loading/Error */
+#loading-message, #error-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; }
+#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; }
 
-p {
-    margin-bottom: var(--space-lg); /* More space between paragraphs */
-    font-size: 1.05em; /* Slightly larger body text */
-}
+/* Sections */
+.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
+.content-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+#about { padding: var(--space-lg) 0; }
+#about p { font-size: 1.1em; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; color: var(--grey-dark); }
+#about em { color: var(--orange-accent); font-weight: 700; font-style: normal; }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
+/* Léxico */
+.search-container { margin-bottom: var(--space-xl); text-align: center; }
+#lexicon-search { font-family: var(--font-body); padding: var(--space-sm) var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-pill); width: 80%; max-width: 600px; font-size: 1.05em; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+#lexicon-search:focus { outline: none; border-color: var(--teal-primary); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25); }
+#lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
+.lexicon-item { background-color: var(--white); border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md); transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column; align-items: center; position: relative; }
+.lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
+.lexicon-item img { width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg); border-radius: 50%; background-color: var(--grey-light); border: 3px solid var(--white); box-shadow: var(--shadow-sm); }
+.lexicon-item .raramuri-word { font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent); font-size: 1.25em; margin-bottom: var(--space-xs); word-wrap: break-word; }
+.lexicon-item .spanish-word { font-style: normal; color: var(--grey-dark); font-size: 1em; word-wrap: break-word; }
 
-/* Helper Class for Centering */
-.text-center {
-    text-align: center;
-}
-
-
-/* ------------------------- */
-/* Header & Navigation       */
-/* ------------------------- */
-header {
-    background: var(--teal-primary); /* Solid color, cleaner */
-    color: var(--white);
-    padding: var(--space-md) var(--space-lg); /* Adjusted padding */
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    position: sticky; /* Make header sticky */
-    top: 0;
-    z-index: 1000; /* Ensure it's above other content */
-}
-
-header h1 {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 2.1em; /* Adjusted size */
-    margin: 0;
-    padding-bottom: var(--space-sm);
-    letter-spacing: -0.5px;
-}
-
-nav {
-    margin-top: var(--space-xs);
-}
-
-nav button {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    background-color: transparent; /* Transparent background */
-    color: var(--white);
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Visible border */
-    padding: var(--space-xs) var(--space-lg); /* Adjusted padding */
-    margin: var(--space-xs);
-    cursor: pointer;
-    border-radius: var(--border-radius-pill);
-    transition: all 0.25s ease-in-out;
-    font-size: 0.9em;
-    text-transform: uppercase; /* Uppercase nav items */
-    letter-spacing: 0.5px;
-}
-
-nav button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: var(--white);
-    transform: translateY(-1px);
-}
-
-nav button.active {
-    background-color: var(--white);
-    color: var(--teal-dark);
-    border-color: var(--white);
-    font-weight: 700; /* Bold active */
-    box-shadow: var(--shadow-interactive);
-    transform: translateY(0);
-}
+/* Frases */
+#phrases-list li { background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg); border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); transition: box-shadow 0.2s ease; box-shadow: var(--shadow-sm); }
+#phrases-list li:hover { box-shadow: var(--shadow-md); }
+#phrases-list .raramuri-phrase { font-family: var(--font-heading); font-weight: 600; display: block; margin-bottom: var(--space-sm); font-size: 1.2em; color: var(--text-color); }
+#phrases-list .spanish-phrase { color: var(--grey-dark); font-size: 1.05em; }
 
 /* ------------------------- */
-/* Loading / Error States    */
-/* ------------------------- */
-#loading-message, #error-message {
-    font-family: var(--font-heading);
-    font-size: 1.1em;
-    font-weight: 500; /* Medium weight */
-    padding: var(--space-lg);
-    border-radius: var(--border-radius-md);
-    text-align: center;
-    margin: var(--space-xl) 0;
-}
-#error-message {
-    background-color: var(--error-bg);
-    border: 1px solid var(--error-red);
-    color: #721C24; /* Darker red text */
-}
-
-/* ------------------------- */
-/* General Content Sections  */
-/* ------------------------- */
-.content-section {
-    display: none; /* Hidden by default */
-    animation: fadeIn 0.5s ease-out;
-    padding-top: var(--space-lg); /* More space at top of section */
-}
-
-.content-section.active {
-    display: block; /* Show active section */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; /* transform: translateY(10px); Optional subtle up-shift */ }
-    to { opacity: 1; /* transform: translateY(0); */ }
-}
-
-#about {
-    padding: var(--space-lg) 0; /* Padding for about section */
-}
-#about p {
-    font-size: 1.1em; /* Larger text for intro */
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: var(--grey-dark);
-}
-#about em {
-    color: var(--orange-accent);
-    font-weight: 700; /* Bold */
-    font-style: normal;
-}
-
-/* ------------------------- */
-/* Léxico Section            */
-/* ------------------------- */
-.search-container {
-    margin-bottom: var(--space-xl);
-    text-align: center;
-}
-
-#lexicon-search {
-    font-family: var(--font-body);
-    padding: var(--space-sm) var(--space-lg);
-    border: 1px solid var(--grey-medium);
-    border-radius: var(--border-radius-pill);
-    width: 80%;
-    max-width: 600px; /* Wider search */
-    font-size: 1.05em; /* Larger search text */
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-}
-#lexicon-search:focus {
-    outline: none;
-    border-color: var(--teal-primary);
-    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25);
-}
-
-#lexicon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); /* Wider items */
-    gap: var(--space-xl); /* More gap */
-    margin-top: var(--space-lg);
-}
-
-.lexicon-item {
-    background-color: var(--white);
-    border: 1px solid var(--grey-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--space-lg); /* More padding */
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative; /* For potential future additions */
-}
-.lexicon-item:hover {
-    transform: translateY(-5px) scale(1.02); /* More hover effect */
-    box-shadow: var(--shadow-lg);
-}
-
-.lexicon-item img {
-    width: 150px; /* Larger image */
-    height: 150px;
-    object-fit: cover;
-    display: block;
-    margin-bottom: var(--space-lg);
-    border-radius: 50%; /* Circular images */
-    background-color: var(--grey-light);
-    border: 3px solid var(--white); /* White border around image */
-    box-shadow: var(--shadow-sm);
-}
-
-.lexicon-item .raramuri-word {
-    font-family: var(--font-heading); /* Poppins for words */
-    font-weight: 600; /* Semibold */
-    color: var(--orange-accent);
-    font-size: 1.25em;
-    margin-bottom: var(--space-xs);
-    word-wrap: break-word;
-}
-
-.lexicon-item .spanish-word {
-    font-style: normal; /* No italics */
-    color: var(--grey-dark);
-    font-size: 1em;
-    word-wrap: break-word;
-}
-
-/* ------------------------- */
-/* Frases Section            */
-/* ------------------------- */
-#phrases-list li {
-    background-color: var(--white);
-    margin-bottom: var(--space-lg);
-    padding: var(--space-lg);
-    border: 1px solid var(--grey-light);
-    border-radius: var(--border-radius-md);
-    transition: box-shadow 0.2s ease;
-    box-shadow: var(--shadow-sm);
-}
-#phrases-list li:hover {
-     box-shadow: var(--shadow-md);
-}
-
-#phrases-list .raramuri-phrase {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    display: block;
-    margin-bottom: var(--space-sm);
-    font-size: 1.2em;
-    color: var(--text-color);
-}
-
-#phrases-list .spanish-phrase {
-    color: var(--grey-dark);
-    font-size: 1.05em;
-}
-
-/* ------------------------- */
-/* Memorama Section (V7 - FINAL CORRECT 3D FLIP) */
+/* Memorama Section (V8 - ULTRA SIMPLE VISIBILITY DEBUG) */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl); }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
@@ -351,7 +137,7 @@ nav button.active {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--space-lg);
-    perspective: 1200px; /* <<< RESTAURADO */
+    /* perspective: 1200px; --- QUITADO --- */
     max-width: 900px;
     margin: var(--space-lg) auto 0 auto;
 }
@@ -361,30 +147,20 @@ nav button.active {
     aspect-ratio: 1 / 1;
     border-radius: var(--border-radius-md);
     cursor: pointer;
-    position: relative;
-    transform-style: preserve-3d; /* <<< RESTAURADO */
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* RESTAURADO */
+    position: relative; /* Necesario */
     box-shadow: var(--shadow-md);
-    border: 1px solid transparent;
-    background-color: transparent;
+    border: 1px solid var(--grey-medium); /* Borde visible */
+    background-color: transparent; /* Contenedor transparente */
     overflow: hidden;
-}
-.memorama-card:hover {
-    box-shadow: var(--shadow-lg);
-}
-
-.memorama-card.flipped {
-    transform: rotateY(180deg); /* <<< ESTA es la rotación principal */
+    /* transition: transform 0.6s; --- QUITADO --- */
+    /* transform-style: preserve-3d; --- QUITADO --- */
 }
 
+/* No se usa .flipped para rotar, solo para controlar visibilidad */
 .memorama-card.matched {
      opacity: 0.8;
      border-color: var(--success-green);
      cursor: default;
-     box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
-}
-.memorama-card.flipped.matched {
-    transform: rotateY(180deg); /* Asegurar que se mantiene volteada */
 }
 
 .card-face {
@@ -393,8 +169,7 @@ nav button.active {
     left: 0;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* <<< RESTAURADO */
-    backface-visibility: hidden;         /* <<< RESTAURADO */
+    /* backface-visibility: hidden; --- QUITADO --- */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -404,30 +179,44 @@ nav button.active {
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    /* border: none; Quitar borde de debug */
+    transition: opacity 0.3s ease-in-out; /* Transición SÓLO de opacidad */
 }
 
-/* Cara FRONTAL: Pre-rotada y encima */
+/* Cara FRONTAL: Inicialmente OCULTA */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg); /* <<< ¡IMPORTANTE RESTAURAR ESTO! */
+    /* transform: rotateY(180deg); --- QUITADO --- */
+    opacity: 0; /* Oculta */
+    z-index: 1; /* Detrás */
     border: 1px solid var(--grey-light);
-    z-index: 2;
 }
 
+/* Mostrar FRONTAL cuando el PADRE tiene .flipped */
+.memorama-card.flipped .card-front {
+    opacity: 1;
+    z-index: 3; /* Encima */
+}
+/* Mantener visible si está matched (ya debería tener .flipped) */
+.memorama-card.matched .card-front {
+     opacity: 1;
+     z-index: 3;
+}
+
+/* Imagen dentro de la cara frontal */
 .card-front img {
     display: block;
-    max-width: 90%;
-    max-height: 70%;
+    max-width: 85%; /* Ajustar tamaño */
+    max-height: 68%;
     width: auto;
     height: auto;
     object-fit: contain;
     margin-bottom: var(--space-sm);
     border-radius: var(--border-radius-sm);
-    /* border: none; Quitar borde de debug */
+    /* border: 1px solid blue; DEBUG */
 }
 
+/* Texto dentro de la cara frontal */
 .card-front p {
     font-family: var(--font-heading);
     font-weight: 500;
@@ -440,19 +229,32 @@ nav button.active {
     color: var(--text-color);
     flex-shrink: 0;
     text-align: center;
-    /* background-color: transparent; Quitar fondo de debug */
+    /* background-color: rgba(0, 255, 0, 0.1); DEBUG */
 }
 
-/* Cara TRASERA: Estado inicial */
+/* Cara TRASERA: Visible inicialmente */
 .card-back {
     background-color: var(--teal-dark);
     color: white;
-    transform: rotateY(0deg); /* Estado inicial explícito */
-    z-index: 1;
+    /* transform: rotateY(0deg); --- QUITADO --- */
+    z-index: 2; /* Encima inicialmente */
+    opacity: 1; /* Visible inicialmente */
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* Ocultar TRASERA cuando el PADRE tiene .flipped */
+.memorama-card.flipped .card-back {
+    opacity: 0;
+    z-index: 1; /* Detrás */
+}
+/* Mantener oculta si está matched */
+.memorama-card.matched .card-back {
+     opacity: 0;
+     z-index: 1;
+}
+
 .card-back::before {
    content: '?';
    font-family: var(--font-heading);
