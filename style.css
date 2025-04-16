@@ -336,224 +336,122 @@ nav button.active {
 }
 
 /* ------------------------- */
-/* Memorama Section (Designer V3) */
+/* Memorama Section (Revisado V4 - SUPER DEBUG) */
 /* ------------------------- */
-#memorama-setup {
-    margin-bottom: var(--space-xl); /* More space */
-    text-align: center;
-    border-bottom: 1px solid var(--grey-light);
-    padding-bottom: var(--space-xl);
+#memorama-setup { /* Mantener setup igual */
+    margin-bottom: var(--space-lg); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-lg);
 }
-#memorama-setup p {
-    margin-bottom: var(--space-lg);
-    font-weight: 500; /* Medium weight */
-    font-size: 1.1em;
-    color: var(--text-color);
-}
-#memorama-setup button.difficulty-btn {
-    font-family: var(--font-heading);
-    background-color: var(--teal-primary);
-    color: var(--white);
-    padding: var(--space-sm) var(--space-xl); /* Wider button */
-    border: none;
-    border-radius: var(--border-radius-pill);
-    cursor: pointer;
-    margin: 0 var(--space-sm);
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-interactive);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-#memorama-setup button.difficulty-btn:hover {
-    background-color: var(--teal-dark);
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: var(--shadow-md);
-}
-#memorama-setup button.difficulty-btn.selected {
-    background-color: var(--teal-darker);
-    box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
-    transform: translateY(0) scale(1);
-}
-
-#memorama-game-area > p {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    color: var(--grey-dark);
-    font-style: normal; /* No italics */
-    font-size: 1.05em;
-}
-
-#memorama-controls {
-    margin: var(--space-lg) 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-md); /* Gap for wrapping */
-    padding: var(--space-lg) 0;
-    border-top: 1px solid var(--grey-light);
-    border-bottom: 1px solid var(--grey-light);
-}
-#memorama-controls button#reset-memorama {
-    font-family: var(--font-heading);
-    background-color: var(--orange-accent);
-    color: var(--white);
-    padding: var(--space-sm) var(--space-lg);
-    border: none;
-    border-radius: var(--border-radius-pill); /* Pill shape */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-interactive);
-    font-weight: 500;
-}
-#memorama-controls button#reset-memorama:hover {
-     background-color: var(--orange-dark);
-     transform: translateY(-2px);
-     box-shadow: var(--shadow-md);
-}
-#memorama-controls p {
-    margin: 0;
-    font-weight: 700; /* Bolder attempts */
-    color: var(--text-color);
-    font-size: 1.1em;
-}
+#memorama-setup p { margin-bottom: var(--space-md); font-weight: 600; color: var(--text-color); }
+#memorama-setup button.difficulty-btn { font-family: var(--font-heading); background-color: var(--teal-primary); color: var(--white); padding: var(--space-sm) var(--space-lg); border: none; border-radius: var(--border-radius-sm); cursor: pointer; margin: 0 var(--space-xs); transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+#memorama-setup button.difficulty-btn:hover { background-color: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#memorama-setup button.difficulty-btn.selected { background-color: var(--teal-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
+#memorama-game-area > p { text-align: center; margin-bottom: var(--space-md); color: var(--grey-dark); font-style: normal; font-size: 1.05em; }
+#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--grey-light); border-bottom: 1px solid var(--grey-light); }
+#memorama-controls button#reset-memorama { font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-sm) var(--space-lg); border: none; border-radius: var(--border-radius-pill); cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; }
+#memorama-controls button#reset-memorama:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#memorama-controls p { margin: 0; font-weight: 700; color: var(--text-color); font-size: 1.1em; }
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Start with slightly larger min */
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
     gap: var(--space-lg);
-    perspective: 1500px; /* More dramatic perspective */
-    max-width: 900px; /* Allow more width */
+    max-width: 850px;
     margin: 0 auto;
+    /* perspective: 1200px; QUITAR TEMPORALMENTE PERSPECTIVE */
 }
 
 .memorama-card {
-    background-color: var(--teal-dark); /* Use primary theme color */
-    height: 170px; /* Define height */
-    aspect-ratio: 1 / 1; /* Try to force square */
+    height: 160px;
+    aspect-ratio: 1 / 1;
     border-radius: var(--border-radius-md);
     cursor: pointer;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease; /* Bouncier flip */
+    position: relative; /* Necesario */
+    transition: transform 0.6s; /* Transición simple */
     box-shadow: var(--shadow-md);
-    overflow: hidden;
-    border: 2px solid transparent; /* Prepare for matched border */
-}
-.memorama-card:hover {
-    box-shadow: var(--shadow-lg); /* More shadow on hover */
-    /* transform: scale(1.03); Remove scale on hover, interferes with flip */
+    /* transform-style: preserve-3d; QUITAR TEMPORALMENTE */
+    border: 2px solid blue; /* DEBUG: Borde para ver la carta */
 }
 
-
+/* Solo aplicar rotación con .flipped */
 .memorama-card.flipped {
     transform: rotateY(180deg);
-    box-shadow: var(--shadow-sm);
-}
-.memorama-card.matched {
-     opacity: 0.85; /* Less transparent */
-     border-color: var(--success-green); /* Use border color instead of full border */
-     box-shadow: 0 0 10px rgba(40, 167, 69, 0.3); /* Subtle glow for matched */
-     cursor: default;
-}
-/* Keep transform when matched */
-.memorama-card.flipped.matched {
-    transform: rotateY(180deg);
 }
 
+.memorama-card.matched {
+     opacity: 0.7;
+     border-color: var(--success-green); /* Cambiar color borde */
+     cursor: default;
+}
+
+/* Simplificar caras */
 .card-face {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    /* backface-visibility: hidden; QUITAR TEMPORALMENTE */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: calc(var(--border-radius-md) - 2px); /* Adjust for border */
-    padding: var(--space-sm);
+    padding: 5px; /* Padding mínimo */
     box-sizing: border-box;
     text-align: center;
+    border-radius: calc(var(--border-radius-md) - 2px); /* Ajustar a borde padre */
     overflow: hidden;
+    border: 1px dashed red; /* DEBUG: Borde para ver las caras */
 }
 
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg);
-    border: 1px solid var(--grey-light);
-    justify-content: center;
-    z-index: 2;
+    /* transform: rotateY(180deg); QUITAR TEMPORALMENTE */
+    /* Rotaremos el padre, no la cara individualmente ahora */
+    z-index: 2; /* Asegurar que esté encima */
 }
 
+/* Estilos MÍNIMOS para contenido frontal */
 .card-front img {
-    display: block;
-    max-width: 95%; /* Even larger */
-    max-height: 75%; /* Allow good height */
-    width: auto;
-    height: auto;
+    display: block; /* Asegurar display */
+    max-width: 80%; /* Tamaño razonable */
+    max-height: 65%;
     object-fit: contain;
-    margin-bottom: var(--space-sm); /* More space */
-    border-radius: var(--border-radius-sm);
+    border: 1px solid green; /* DEBUG: Borde para ver imagen */
 }
 
 .card-front p {
     font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1em; /* Slightly larger */
-    line-height: 1.3;
-    margin: 0;
-    padding: 0 var(--space-xs);
-    width: 100%;
-    word-wrap: break-word;
-    color: var(--text-color);
+    font-size: 1em;
+    color: var(--text-color); /* Asegurar color visible */
+    margin-top: 5px; /* Pequeño espacio */
+    background-color: rgba(0, 255, 0, 0.1); /* DEBUG: Fondo para ver texto */
 }
 
 .card-back {
-    background-color: var(--teal-dark);
-    background-image: none; /* Remove PNG, use color/pattern */
-    /* Optional: Subtle SVG Pattern */
-    /* background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2316A085' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 40 L40 0 H20 L0 20 M40 40 V20 L20 40'/%3E%3C/g%3E%3C/svg%3E"); */
-    z-index: 1;
-    /* Simple Icon Fallback */
-     display: flex;
-     justify-content: center;
-     align-items: center;
+    background-color: var(--teal-dark); /* Color de fondo */
+    /* background-image: none; Sin imagen de fondo por ahora */
+    z-index: 1; /* Detrás */
+    /* Contenido de reverso simple */
+    color: white;
+    font-size: 3em;
+    font-weight: bold;
 }
-/* Add an SVG or Font Awesome icon maybe? For now, leave blank */
-.card-back::before {
-   content: ''; /* No ? */
-   /* Example using a placeholder character - replace with SVG/Icon if desired */
-   /* content: '❖';
-   font-size: 3em;
-   color: rgba(255, 255, 255, 0.3); */
+.card-back::before{
+    content: '?'; /* Mostrar '?' como reverso */
 }
 
+
+/* Mensajes */
 #memorama-win-message {
-     background-color: var(--success-bg);
-     border: 1px solid var(--success-green);
-     color: #155724; /* Darker Green */
-     font-weight: 600;
-     padding: var(--space-md) var(--space-lg);
-     border-radius: var(--border-radius-md);
-     margin-top: var(--space-xl);
-     font-size: 1.1em;
-     text-align: center;
-     box-shadow: var(--shadow-sm);
+     background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm);
 }
 #memorama-data-error {
-    margin-top: var(--space-md);
-    color: var(--error-red);
-    font-weight: 600;
-    text-align: center;
-    background-color: var(--error-bg);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-sm);
+    margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm);
 }
+
+/* --- (Resto del CSS y Media Queries se mantienen igual) --- */
+/* ... Asegúrate de tener el resto de tu CSS aquí ... */
 
 /* ------------------------- */
 /* Quiz Section              */
