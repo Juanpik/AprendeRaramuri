@@ -48,12 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- VARIABLES GLOBALES JUEGOS ---
     // Memorama
-    let memoramaCards = [];
-    let flippedCards = [];
-    let matchedPairs = 0;
-    let totalPairs = 0;
-    let memoramaAttempts = 0;
-    let lockBoard = false;
+    let memoramaActive = false; // Indica si un juego está en curso
+    let mCards = []; // Array para los datos de las cartas (id, type, value)
+    let mFlippedElements = []; // Array para los ELEMENTOS DOM volteados (máx 2)
+    let mMatchedPairsCount = 0;
+    let mTotalPairs = 0;
+    let mAttempts = 0;
+    let mLockBoard = false; // Para prevenir clicks rápidos
     // Quiz
     let allQuizQuestions = [];
     let currentQuizSet = [];
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // -- Léxico --
     function displayLexiconItems(itemsToShow) {
-        if (!lexiconGrid) return; // Salir si el grid no existe
+        if (!lexiconGrid) return;
         lexiconGrid.innerHTML = '';
         if (!itemsToShow || itemsToShow.length === 0) {
              lexiconGrid.innerHTML = '<p style="text-align: center; color: var(--grey-dark);">No se encontraron coincidencias.</p>';
@@ -164,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     function handleSearch() {
-        if (!lexiconSearchInput) return; // Verificar
+        if (!lexiconSearchInput) return;
         const searchTerm = lexiconSearchInput.value.toLowerCase().trim();
         const filteredItems = lexiconData.filter(item => {
             const raramuriMatch = (item.raramuri || '').toLowerCase().includes(searchTerm);
@@ -183,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // -- Frases --
     function populatePhrases() {
-        if (!phrasesList) return; // Verificar
+        if (!phrasesList) return;
         phrasesList.innerHTML = '';
         if (!phrasesData || phrasesData.length === 0) {
              phrasesList.innerHTML = '<li>No hay frases disponibles.</li>';
@@ -201,55 +202,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // -- Memorama --
-       // --- Memorama ---
+    // =============================================
+    // ========= SECCIÓN MEMORAMA (Desde Cero V2 - Reforzado) =========
+    // =============================================
 
-    function createFrontFaceContent(cardInfo, frontFaceElement) {
+    /**
+     * Reinicia la vista del memorama, mostrando la selección de dificultad.
+     */
+    function resetMemoramaView() {
+        console.log("[Memorama V2] Reseteando Vista");
+        if(memoramaSetup) memoramaSetup.style.display = 'block';
+        if(memoramaGameArea) memoramaGameArea.style.display = 'none';
+        if(memoramaWinMessage) memoramaWinMessage.style.display = 'none';
+        if(memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
+        if(memoramaGrid) memoramaGrid.innerHTML = '';
+        difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+        memoramaActive = false;
+        mCards = [];
+        mFlippedElements = [];
+        mMatchedPairsCount = 0;
+        mTotalPairs = 0;
+        mAttempts = 0;
+        mLockBoard = false;
+        if(memoramaAttemptsEl) memoramaAttemptsEl.textContent = '0';
+    }
+
+     /**
+     * Función auxiliar para crear y añadir contenido a la cara frontal
+     */
+     function createFrontFaceContent(cardInfo, frontFaceElement) {
         if (!cardInfo || !frontFaceElement) {
             console.error("[Memorama Error Critico] Faltan parámetros en createFrontFaceContent");
-            return; // Salir inmediatamente
+            return;
         }
-        // Limpiar ANTES de añadir
         frontFaceElement.innerHTML = '';
-        let contentAdded = false; // Flag para verificar si se añadió algo
+        let contentAdded = false;
 
         try {
             if (cardInfo.type === 'image' && cardInfo.value) {
-                console.log(`[Memorama DEBUG] Intentando añadir IMG: ${cardInfo.value} a frontFace`);
+                // console.log(`[Memorama V2 DEBUG] Intentando añadir IMG: ${cardInfo.value} a frontFace`);
                 const img = document.createElement('img');
                 img.src = cardInfo.value;
                 img.alt = cardInfo.altText || "Memorama Img";
                 img.loading = 'lazy';
                 img.onerror = function() {
                     console.error(`[Memorama Error Critico] Falló la carga de IMG: ${this.src} (ID: ${cardInfo.id})`);
-                    this.style.display='none'; // Ocultar el icono de imagen rota
-                    // Añadir texto de error en lugar de la imagen
+                    this.style.display='none';
                     const errorP = document.createElement('p');
                     errorP.textContent = 'Error Img!';
                     errorP.style.color = 'red';
                     errorP.style.fontSize = '10px';
                     frontFaceElement.appendChild(errorP);
-                    contentAdded = true; // Se añadió el texto de error
+                    contentAdded = true;
                 };
                 img.onload = function() {
-                     console.log(`[Memorama DEBUG] Imagen ${this.src} CARGADA OK.`);
-                     // Forzar re-renderizado (puede o no ayudar, pero es un intento)
-                     // frontFaceElement.style.display = 'none';
-                     // frontFaceElement.offsetHeight; // Force reflow
-                     // frontFaceElement.style.display = '';
+                     // console.log(`[Memorama DEBUG] Imagen ${this.src} CARGADA OK.`);
                 };
                 frontFaceElement.appendChild(img);
                 contentAdded = true;
 
             } else if (cardInfo.type === 'text' && cardInfo.value) {
-                console.log(`[Memorama DEBUG] Intentando añadir TEXT: ${cardInfo.value} a frontFace`);
+                // console.log(`[Memorama V2 DEBUG] Intentando añadir TEXT: ${cardInfo.value} a frontFace`);
                 const textP = document.createElement('p');
                 textP.textContent = cardInfo.value;
                 frontFaceElement.appendChild(textP);
                 contentAdded = true;
 
             } else {
-                console.warn(`[Memorama Warn] Contenido inválido para carta (ID: ${cardInfo.id}):`, cardInfo);
+                console.warn(`[Memorama V2 Warn] Contenido inválido para carta (ID: ${cardInfo.id}):`, cardInfo);
                 const fallbackP = document.createElement('p');
                 fallbackP.textContent = '??';
                 fallbackP.style.opacity = '0.5';
@@ -257,84 +277,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 contentAdded = true;
             }
 
-            // Verificar DESPUÉS de intentar añadir
             if (!contentAdded || frontFaceElement.children.length === 0) {
-                 console.warn(`[Memorama Warn Critico] frontFaceElement (ID: ${cardInfo.id}) quedó vacío después de intentar añadir contenido.`);
-            } else {
-                 // console.log(`[Memorama DEBUG] Contenido añadido a frontFace ID ${cardInfo.id}:`, frontFaceElement.innerHTML);
+                 console.warn(`[Memorama V2 Warn Critico] frontFaceElement (ID: ${cardInfo.id}) quedó vacío.`);
             }
 
         } catch (e) {
              console.error("[Memorama Error Critico] Excepción en createFrontFaceContent:", e, cardInfo);
-             // Intentar añadir un mensaje de error si falla todo
-             try {
-                 const errorP = document.createElement('p');
-                 errorP.textContent = 'Error JS!';
-                 errorP.style.color = 'red';
-                 frontFaceElement.appendChild(errorP);
-             } catch (finalError) {}
+             try { frontFaceElement.innerHTML = '<p style="color:red; font-size:10px;">Error JS!</p>'; } catch (finalError) {}
         }
     }
 
-    function createMemoramaCards() {
-        const itemsWithImages = lexiconData.filter(item =>
-            item && item.id && item.image && item.raramuri && item.spanish
+
+    /**
+     * Selecciona los items del léxico y valida si hay suficientes.
+     * @param {number} requestedPairs Pares solicitados.
+     * @returns {Array|null} Array de items léxicos para el juego o null si no hay suficientes.
+     */
+    function prepareCardData(requestedPairs) {
+        const validItems = lexiconData.filter(item =>
+            item && item.id != null && item.image && item.raramuri && item.spanish
         );
 
-        if (itemsWithImages.length < totalPairs) {
-            console.warn(`Memorama Create: No hay suficientes items (${itemsWithImages.length}) para ${totalPairs} pares.`);
-            totalPairs = itemsWithImages.length;
-            if (totalPairs < 1) return [];
+        if (validItems.length < requestedPairs) {
+            console.warn(`[Memorama V2] Datos insuficientes. Necesarios: ${requestedPairs}, Disponibles: ${validItems.length}`);
+            if(memoramaDataErrorEl) {
+                memoramaDataErrorEl.textContent = `No hay suficientes datos léxicos completos (${validItems.length}) para ${requestedPairs} pares.`;
+                memoramaDataErrorEl.style.display = 'block';
+            }
+             if(memoramaSetup) memoramaSetup.style.display = 'block';
+             difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+            return null;
         }
-
-        const shuffledLexicon = shuffleArray([...itemsWithImages]);
-        const itemsForGame = shuffledLexicon.slice(0, totalPairs);
-
-        const cardData = [];
-        itemsForGame.forEach(item => {
-            cardData.push({ type: 'image', value: item.image, id: item.id, altText: item.spanish });
-            cardData.push({ type: 'text', value: item.raramuri, id: item.id });
-        });
-        return shuffleArray(cardData);
+        return shuffleArray(validItems).slice(0, requestedPairs);
     }
 
-    function initMemorama() {
-        console.log("[Memorama] Iniciando initMemorama...");
-        if (!memoramaGrid || !memoramaWinMessage || !memoramaAttemptsEl || !memoramaDataErrorEl) {
-             console.error("[Memorama Error Critico] Faltan elementos DOM esenciales para initMemorama.");
-             return; // No continuar si falta algo básico
-        }
 
-        memoramaGrid.innerHTML = '';
-        memoramaWinMessage.style.display = 'none';
-        flippedCards = [];
-        matchedPairs = 0;
-        memoramaAttempts = 0;
-        memoramaAttemptsEl.textContent = memoramaAttempts;
-        lockBoard = false;
-        memoramaDataErrorEl.style.display = 'none';
-
-        memoramaCards = createMemoramaCards();
-
-        if (memoramaCards.length === 0 || memoramaCards.length % 2 !== 0) {
-            console.error("[Memorama Error Critico] No se generaron cartas válidas o número impar.", memoramaCards);
-            memoramaGrid.innerHTML = '<p>Error al generar cartas. Verifica datos.</p>';
-            if(memoramaGameArea) memoramaGameArea.style.display = 'none';
-            memoramaDataErrorEl.textContent = "Error interno al generar cartas.";
-            memoramaDataErrorEl.style.display = 'block';
+     /**
+     * Construye el grid de cartas en el DOM.
+     */
+    function buildMemoramaGrid() {
+        if (!memoramaGrid) {
+            console.error("[Memorama V2 Error] Elemento #memorama-grid no encontrado.");
             return;
         }
-        if(memoramaGameArea) memoramaGameArea.style.display = 'block';
-        console.log(`[Memorama] Generando ${memoramaCards.length} cartas DOM para ${totalPairs} pares.`);
+        memoramaGrid.innerHTML = '';
 
-        memoramaCards.forEach((cardInfo, index) => {
+        mCards.forEach((cardData, index) => {
             const cardElement = document.createElement('div');
             cardElement.classList.add('memorama-card');
-            if (cardInfo.id === undefined || cardInfo.id === null) {
-                console.error(`[Memorama Error Critico] ID indefinido para carta ${index}`, cardInfo);
+            if (cardData.id === undefined || cardData.id === null) {
+                console.error(`[Memorama V2 Error] ID indefinido para carta ${index}`, cardData);
                 return; // Saltar esta carta
             }
-            cardElement.dataset.id = cardInfo.id;
+            cardElement.dataset.id = cardData.id;
             cardElement.dataset.index = index;
 
             const frontFace = document.createElement('div');
@@ -343,141 +338,147 @@ document.addEventListener('DOMContentLoaded', () => {
             const backFace = document.createElement('div');
             backFace.classList.add('card-face', 'card-back');
 
-            // Llamar a la función para poblar la cara frontal ANTES de añadir al DOM principal
-            createFrontFaceContent(cardInfo, frontFace);
+            // Poblar cara frontal ANTES de añadir al DOM principal
+            createFrontFaceContent(cardData, frontFace);
 
             cardElement.appendChild(frontFace);
             cardElement.appendChild(backFace);
-            cardElement.addEventListener('click', handleCardClick);
+            cardElement.addEventListener('click', handleMemoramaCardClick);
             memoramaGrid.appendChild(cardElement);
         });
 
+        // Ajustar columnas CSS
         let columns = 4;
-        const numCards = memoramaCards.length;
+        const numCards = mCards.length;
         if (numCards <= 6) columns = 3;
         else if (numCards <= 9) columns = 3;
         else if (numCards <= 12) columns = 4;
         else if (numCards <= 16) columns = 4;
         else columns = 5;
         memoramaGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        console.log("[Memorama] initMemorama completado OK.");
     }
 
+    /**
+     * Inicia un nuevo juego de Memorama.
+     * @param {number} numPairs Número de pares deseado.
+     */
     function startMemorama(numPairs) {
-         console.log(`[Memorama] Intentando startMemorama con ${numPairs} pares.`);
-         const itemsWithImages = lexiconData.filter(item => item && item.id && item.image && item.raramuri && item.spanish);
-         if (itemsWithImages.length < numPairs) {
-             console.warn(`Memorama Start: No hay suficientes items (${itemsWithImages.length}) para ${numPairs} pares.`);
-             if(memoramaDataErrorEl) {
-                memoramaDataErrorEl.textContent = `No hay suficientes datos léxicos completos (${itemsWithImages.length}) para esta dificultad (${numPairs} pares).`;
-                memoramaDataErrorEl.style.display = 'block';
-             }
-             if(memoramaGameArea) memoramaGameArea.style.display = 'none';
-             if(memoramaSetup) memoramaSetup.style.display = 'block';
-             difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-             return;
-         }
+        console.log(`[Memorama V2] Iniciando startMemorama con ${numPairs} pares.`);
+        resetMemoramaView(); // Siempre resetear vista primero
 
-        totalPairs = numPairs;
+        const itemsForGame = prepareCardData(numPairs);
+        if (!itemsForGame) {
+            memoramaActive = false;
+            return; // Detener si no hay datos
+        }
+
+        mTotalPairs = itemsForGame.length;
+        memoramaActive = true;
+        mCards = [];
+
+        itemsForGame.forEach(item => {
+            mCards.push({ id: item.id, type: 'image', value: item.image, altText: item.spanish });
+            mCards.push({ id: item.id, type: 'text', value: item.raramuri });
+        });
+
+        mCards = shuffleArray(mCards);
+        buildMemoramaGrid(); // Construir el grid
+
+        // Mostrar área de juego sólo si todo fue bien
         if(memoramaSetup) memoramaSetup.style.display = 'none';
-        if(memoramaGameArea) memoramaGameArea.style.display = 'none';
-        if(memoramaWinMessage) memoramaWinMessage.style.display = 'none';
-        if(memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
-        initMemorama();
+        if(memoramaGameArea) memoramaGameArea.style.display = 'block';
+        console.log(`[Memorama V2] Juego listo con ${mTotalPairs} pares.`);
     }
 
-    function handleCardClick(event) {
-        const clickedCard = event.currentTarget;
-        console.log(`[Memorama] Click en carta ${clickedCard.dataset.index} (ID: ${clickedCard.dataset.id})`);
-        if (lockBoard || clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) {
-             console.log("[Memorama] Click ignorado (locked/flipped/matched)");
+
+    /**
+     * Manejador de click en una carta.
+     * @param {Event} event
+     */
+    function handleMemoramaCardClick(event) {
+        if (!memoramaActive || mLockBoard) return;
+
+        const clickedCardElement = event.currentTarget;
+
+        if (clickedCardElement.classList.contains('flipped') || clickedCardElement.classList.contains('matched')) {
             return;
         }
-        flipCard(clickedCard);
-        flippedCards.push(clickedCard);
-        if (flippedCards.length === 2) {
-            lockBoard = true;
-            memoramaAttempts++;
-            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = memoramaAttempts;
-            console.log("[Memorama] 2 cartas volteadas, comprobando par...");
-            checkForMatch();
+
+        // Voltear
+        clickedCardElement.classList.add('flipped');
+        mFlippedElements.push(clickedCardElement);
+        console.log(`[Memorama V2] Carta ${clickedCardElement.dataset.index} volteada. Flipped: ${mFlippedElements.length}`);
+
+        // Comprobar si hay 2 volteadas
+        if (mFlippedElements.length === 2) {
+            mLockBoard = true;
+            mAttempts++;
+            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts;
+            checkMemoramaMatch();
         }
     }
-    function flipCard(card) {
-        console.log(`[Memorama] Añadiendo clase 'flipped' a carta ${card.dataset.index}`);
-        card.classList.add('flipped');
-    }
-    function unflipCards() {
-        console.log("[Memorama] Iniciando unflipping...");
-        setTimeout(() => {
-            flippedCards.forEach(card => {
-                // console.log(`[Memorama] Quitando 'flipped' de carta ${card.dataset.index}`);
-                card.classList.remove('flipped');
-            });
-            flippedCards = [];
-            lockBoard = false;
-             console.log("[Memorama] Unflip completado.");
-        }, 1100);
-    }
-    function checkForMatch() {
-        const [card1, card2] = flippedCards;
+
+    /**
+     * Comprueba si las dos cartas en mFlippedElements coinciden.
+     */
+    function checkMemoramaMatch() {
+        console.log("[Memorama V2] checkMemoramaMatch");
+        const [card1, card2] = mFlippedElements;
         if (!card1 || !card2) {
-            console.error("[Memorama Error Critico] Error en checkForMatch: Faltan cartas.");
-            lockBoard = false;
-            flippedCards = [];
-            return;
+            console.error("[Memorama V2 Error Critico] Faltan cartas en checkMemoramaMatch");
+            mFlippedElements = []; mLockBoard = false; return;
         }
-        const isMatch = card1.dataset.id && card1.dataset.id === card2.dataset.id;
-        console.log(`[Memorama] Check Match: ID ${card1.dataset.id} vs ${card2.dataset.id}. Resultado: ${isMatch}`);
+        const isMatch = card1.dataset.id === card2.dataset.id;
+        console.log(`[Memorama V2] Comparando ${card1.dataset.id} vs ${card2.dataset.id}. Coinciden: ${isMatch}`);
 
         if (isMatch) {
-            matchedPairs++;
-             console.log(`[Memorama] ¡Par encontrado! ${matchedPairs}/${totalPairs}`);
-             setTimeout(() => {
-                 console.log(`[Memorama] Añadiendo clase 'matched' a cartas ${card1.dataset.index} y ${card2.dataset.index}`);
+            // Es un par
+            mMatchedPairsCount++;
+            console.log(`[Memorama V2] ¡Par! (${mMatchedPairsCount}/${mTotalPairs})`);
+             // Aplicar 'matched' y desbloquear después de un pequeño delay
+            setTimeout(() => {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
-                // Importante: Limpiar flippedCards aquí, después de marcar como matched
-                flippedCards = [];
-                lockBoard = false; // Desbloquear DESPUÉS de procesar el par
-                if (matchedPairs === totalPairs) {
-                    console.log("[Memorama] ¡Juego ganado!");
-                    if(memoramaWinMessage){
-                        memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${totalPairs} pares en ${memoramaAttempts} intentos.`;
+                mFlippedElements = [];
+                mLockBoard = false;
+                // Comprobar victoria
+                if (mMatchedPairsCount === mTotalPairs) {
+                    console.log("[Memorama V2] ¡Juego Completado!");
+                    if(memoramaWinMessage) {
+                        memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${mTotalPairs} pares en ${mAttempts} intentos.`;
                         memoramaWinMessage.style.display = 'block';
                     }
+                    memoramaActive = false;
                 }
-            }, 150); // Delay corto para que se vea el 'match' antes del estilo final
-
+            }, 200);
         } else {
-            console.log("[Memorama] No es par.");
-            unflipCards(); // Esto limpia flippedCards y desbloquea lockBoard dentro del timeout
+            // No es par, voltear de nuevo
+            console.log("[Memorama V2] No es par.");
+            setTimeout(() => {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                mFlippedElements = [];
+                mLockBoard = false;
+            }, 1000); // Delay más largo para verlas
         }
     }
-    function resetMemoramaView() {
-        console.log("[Memorama] Reseteando vista.");
-        if(memoramaSetup) memoramaSetup.style.display = 'block';
-        if(memoramaGameArea) memoramaGameArea.style.display = 'none';
-        if(memoramaWinMessage) memoramaWinMessage.style.display = 'none';
-        if(memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
-        difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-        if(memoramaGrid) memoramaGrid.innerHTML = '';
-        flippedCards = [];
-        matchedPairs = 0;
-        memoramaAttempts = 0;
-        totalPairs = 0;
-        lockBoard = false;
-    }
+
+
+    /**
+     * Configura los listeners para los botones de control del memorama.
+     */
     function setupMemoramaControls() {
         if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0) {
-             console.error("[Memorama Error Critico] Faltan elementos de control (setup, resetBtn, difficultyBtns).");
+             console.error("[Memorama V2 Error Critico] Faltan elementos HTML para controles.");
              return;
         }
+        console.log("[Memorama V2] Configurando controles.");
+
         difficultyButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const pairs = parseInt(button.getAttribute('data-pairs'));
-                if (isNaN(pairs)) {
-                    console.error("[Memorama Error Critico] Valor de pares inválido:", button);
+                if (isNaN(pairs) || pairs <= 0) {
+                    console.error("[Memorama V2 Error] Pares inválidos en botón:", button);
                     return;
                 }
                 difficultyButtons.forEach(btn => btn.classList.remove('selected'));
@@ -485,21 +486,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 startMemorama(pairs);
             });
         });
+
         resetMemoramaBtn.addEventListener('click', () => {
-             const selectedBtn = document.querySelector('.difficulty-btn.selected');
+             console.log("[Memorama V2] Botón Reset presionado.");
+             const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected');
              if (selectedBtn) {
                  const pairs = parseInt(selectedBtn.getAttribute('data-pairs'));
-                  if (!isNaN(pairs)) {
+                  if (!isNaN(pairs) && pairs > 0) {
                     startMemorama(pairs);
                   } else { resetMemoramaView(); }
              } else { resetMemoramaView(); }
         });
     }
 
-    // --- (Resto del JS: Quiz, Inicialización, loadData, etc. - Sin cambios necesarios) ---
-    // ... (Asegúrate de que el resto del JS de la respuesta anterior esté aquí) ...
+    // =============================================
+    // ========= FIN SECCIÓN MEMORAMA (Desde Cero V2) =========
+    // =============================================
 
-     // --- Quiz ---
+
+    // --- Quiz ---
     function getWrongOptions(correctItem, count, sourceData, field) {
         if (!correctItem || !field) return [];
          const correctValueNorm = normalizeAnswer(correctItem[field]);
@@ -740,7 +745,6 @@ document.addEventListener('DOMContentLoaded', () => {
             quizFeedbackEl.innerHTML = `Incorrecto. La respuesta correcta es: <strong>${correctAnswer}</strong>`;
             quizFeedbackEl.className = 'incorrect';
             if (currentQuestion.item) {
-                 // Solo añadir si no está ya en la lista (para evitar duplicados si reintentan y fallan de nuevo)
                 if (!missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) {
                     missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion)));
                 }
@@ -778,7 +782,6 @@ document.addEventListener('DOMContentLoaded', () => {
              quizFeedbackEl.innerHTML = `Incorrecto. La respuesta correcta es: <strong>${originalCorrectAnswer}</strong>`;
              quizFeedbackEl.className = 'incorrect';
             if (currentQuestion.item) {
-                 // Solo añadir si no está ya en la lista
                 if (!missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) {
                     missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion)));
                 }
@@ -794,25 +797,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if(quizQuestionArea) quizQuestionArea.style.display = 'none';
         if(quizResultsEl) quizResultsEl.style.display = 'block';
         if(quizScoreEl) quizScoreEl.textContent = score;
-        // Asegurar que currentQuizSet existe y tiene length antes de accederlo
         if(quizTotalEl && currentQuizSet) quizTotalEl.textContent = currentQuizSet.length;
         quizActive = false;
 
          const wasMainQuizRound = (currentQuizSet === allQuizQuestions);
-         // La lógica para uniqueMissedQuestions ya no es necesaria aquí porque prevenimos duplicados al añadirlos
 
          if (missedQuestions.length > 0 && wasMainQuizRound && retryMissedQuizBtn) {
               retryMissedQuizBtn.style.display = 'inline-block';
          } else if(retryMissedQuizBtn) {
               retryMissedQuizBtn.style.display = 'none';
          }
-         // No limpiar missedQuestions aquí, se limpia al iniciar nuevo quiz normal
     }
     function resetQuizView() {
         quizActive = false;
         allQuizQuestions = [];
         currentQuizSet = [];
-        // No limpiar missedQuestions aquí
+        // No limpiar missedQuestions aquí, se hace al iniciar nuevo quiz normal
         if(quizSetup) quizSetup.style.display = 'block';
         if(quizQuestionArea) quizQuestionArea.style.display = 'none';
         if(quizResultsEl) quizResultsEl.style.display = 'none';
@@ -856,7 +856,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayLexiconItems(lexiconData);
         populatePhrases();
         setupSearch();
-        setupMemoramaControls();
+        setupMemoramaControls(); // Llamar a la función de configuración del Memorama V2
         setupQuizControls();
         console.log("Aplicación inicializada.");
     }
