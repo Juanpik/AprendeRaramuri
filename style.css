@@ -137,7 +137,7 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--space-lg);
-    perspective: 1200px; /* Necesario */
+    perspective: 1200px; /* Mantener perspectiva */
     max-width: 900px;
     margin: var(--space-lg) auto 0 auto;
 }
@@ -148,11 +148,11 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     border-radius: var(--border-radius-md);
     cursor: pointer;
     position: relative;
-    transform-style: preserve-3d; /* Necesario */
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Animación */
+    transform-style: preserve-3d; /* Mantener 3D */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Mantener transición */
     box-shadow: var(--shadow-md);
     border: 1px solid transparent;
-    background-color: transparent; /* Contenedor transparente */
+    background-color: transparent;
     overflow: hidden;
 }
 .memorama-card:hover {
@@ -179,8 +179,9 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     left: 0;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Ocultar cara trasera */
-    backface-visibility: hidden;
+    /* Quitar backface-visibility temporalmente para usar opacity */
+    /* -webkit-backface-visibility: hidden; */
+    /* backface-visibility: hidden; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -190,20 +191,31 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    /* AÑADIR TRANSICIÓN DE OPACIDAD COMO FALLBACK VISUAL */
-    /* transition: opacity 0.1s linear; */ /* Puede causar parpadeo, probar */
+    transition: opacity 0.1s linear 0.15s, z-index 0s linear 0.15s; /* Transición rápida opacity CON delay */
 }
 
-/* Cara FRONTAL: Pre-rotada y encima */
+/* Cara FRONTAL: Pre-rotada pero inicialmente invisible */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg); /* <<< ESENCIAL: Pre-rotar */
+    transform: rotateY(180deg); /* Mantener pre-rotación */
     border: 1px solid var(--grey-light);
-    z-index: 2; /* Ponerla LIGERAMENTE encima por si acaso */
+    z-index: 1; /* Inicialmente detrás */
+    opacity: 0; /* Inicialmente invisible */
+}
+/* Mostrar FRONTAL cuando padre está volteado */
+.memorama-card.flipped .card-front {
+    opacity: 1;
+    z-index: 3; /* Asegurar que esté encima */
+    transition-delay: 0.15s; /* Mostrar a mitad de giro */
+}
+/* Mantener visible si está matched */
+.memorama-card.matched .card-front {
+     opacity: 1;
+     z-index: 3;
 }
 
-/* Imagen dentro de la cara frontal */
+
 .card-front img {
     display: block;
     max-width: 90%;
@@ -215,7 +227,6 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     border-radius: var(--border-radius-sm);
 }
 
-/* Texto dentro de la cara frontal */
 .card-front p {
     font-family: var(--font-heading);
     font-weight: 500;
@@ -230,17 +241,29 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     text-align: center;
 }
 
-/* Cara TRASERA: Sin rotación inicial y detrás */
+/* Cara TRASERA: Visible inicialmente */
 .card-back {
     background-color: var(--teal-dark);
     color: white;
     transform: rotateY(0deg); /* Estado inicial */
-    z-index: 1; /* Detrás de la frontal */
+    z-index: 2; /* Inicialmente encima */
+    opacity: 1; /* Visible inicialmente */
     display: flex;
     justify-content: center;
     align-items: center;
+    transition-delay: 0s; /* Ocultar rápido */
 }
-/* Símbolo del reverso */
+/* Ocultar TRASERA cuando padre está volteado */
+.memorama-card.flipped .card-back {
+    opacity: 0;
+    z-index: 1; /* Detrás */
+}
+/* Mantener oculta si está matched */
+ .memorama-card.matched .card-back {
+     opacity: 0;
+     z-index: 1;
+}
+
 .card-back::before {
    content: '?';
    font-family: var(--font-heading);
