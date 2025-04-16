@@ -148,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         phrasesData.forEach(phrase => { if (phrase.raramuri && phrase.spanish) { const li = document.createElement('li'); li.innerHTML = `<span class="raramuri-phrase">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`; phrasesList.appendChild(li); } });
     }
 
-    // =============================================
-    // ========= SECCIÓN MEMORAMA (V3 DEBUG) =========
+   // =============================================
+    // ========= SECCIÓN MEMORAMA (V3 DEBUG JS - MANTENER) =========
     // =============================================
     function resetMemoramaView() {
         console.log("[Memorama V3] Reseteando Vista");
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (cardInfo.type === 'image' && cardInfo.value) {
                 const img = document.createElement('img'); img.src = cardInfo.value; img.alt = cardInfo.altText || "Memorama Img"; img.loading = 'lazy';
-                img.onerror = function() { console.error(`[Memorama V3 Critico] Falló carga IMG: ${this.src} (ID: ${cardInfo.id})`); this.style.display = 'none'; const errorP = document.createElement('p'); errorP.textContent = 'Err Img!'; errorP.style.color = 'red'; errorP.style.fontSize = '10px'; frontFaceElement.appendChild(errorP); contentAdded = true; };
+                img.onerror = function() { console.error(`[Memorama V3 Critico] Falló carga IMG: ${this.src} (ID: ${cardInfo.id})`); this.style.display = 'none'; const errorP = document.createElement('p'); errorP.textContent = 'Error Img!'; errorP.style.color = 'red'; errorP.style.fontSize = '10px'; frontFaceElement.appendChild(errorP); contentAdded = true; };
                 img.onload = () => { /* console.log(`[Memorama V3 DEBUG] IMG ${img.src} cargada.`); */ };
                 frontFaceElement.appendChild(img); contentAdded = true;
                 console.log(`[Memorama V3 DEBUG] IMG ${cardInfo.value} añadida a FrontFace.`);
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cardElement.dataset.id = cardData.id; cardElement.dataset.index = index;
             const frontFace = document.createElement('div'); frontFace.classList.add('card-face', 'card-front');
             const backFace = document.createElement('div'); backFace.classList.add('card-face', 'card-back');
-            createFrontFaceContent(cardData, frontFace); // Poblar ANTES de añadir
+            createFrontFaceContent(cardData, frontFace); // Poblar ANTES de añadir al DOM principal
             cardElement.appendChild(frontFace); cardElement.appendChild(backFace);
             cardElement.addEventListener('click', handleMemoramaCardClick);
             memoramaGrid.appendChild(cardElement);
@@ -251,11 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resetMemoramaBtn.addEventListener('click', () => { console.log("[Memorama V3] Reset presionado."); const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected'); if (selectedBtn) { const pairs = parseInt(selectedBtn.getAttribute('data-pairs')); if (!isNaN(pairs) && pairs > 0) startMemorama(pairs); else resetMemoramaView(); } else resetMemoramaView(); });
     }
     // =============================================
-    // ========= FIN SECCIÓN MEMORAMA (V3 DEBUG) =========
+    // ===== FIN SECCIÓN MEMORAMA (V3 DEBUG JS) ======
     // =============================================
 
-
-    // --- Quiz --- (Sin cambios desde la última versión completa)
+     // --- Quiz --- (Sin cambios desde la última versión completa)
     function getWrongOptions(correctItem, count, sourceData, field) {
         if (!correctItem || !field) return [];
          const correctValueNorm = normalizeAnswer(correctItem[field]);
@@ -340,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayLexiconItems(lexiconData);
         populatePhrases();
         setupSearch();
-        setupMemoramaControls(); // Llamar a la V3
+        setupMemoramaControls(); // Llamar a la V3 DEBUG
         setupQuizControls();
         console.log("Aplicación inicializada.");
     }
