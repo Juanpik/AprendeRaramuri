@@ -5,12 +5,12 @@
     { "id": 3, "raramuri": "reme", "spanish": "tortilla", "image": "images/reme.jpg" },
     { "id": 4, "raramuri": "sewa", "spanish": "flor", "image": "images/sewa.jpg" },
     { "id": 5, "raramuri": "sunu", "spanish": "maíz", "image": "images/sunu.jpg" },
-    { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg" },
+    { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg" } // <-- Sin coma aquí
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
     { "id": 102, "raramuri": "Matetera ba.", "spanish": "Gracias." },
     { "id": 105, "raramuri": "Ní __ ne aní.", "spanish": "Yo como frijol.", "blank": "muni", "word": "frijol" },
-    { "id": 106, "raramuri": "Semati __ aléa.", "spanish": "La flor es bonita.", "blank": "sewa", "word": "flor" }
+    { "id": 106, "raramuri": "Semati __ aléa.", "spanish": "La flor es bonita.", "blank": "sewa", "word": "flor" } // <-- Aquí TAMBIÉN quita la coma si es el último elemento del array 'phrases'
   ]
 }
