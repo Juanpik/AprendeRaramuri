@@ -120,7 +120,7 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
 #phrases-list .spanish-phrase { color: var(--grey-dark); font-size: 1.05em; }
 
 /* ------------------------- */
-/* Memorama Section (V9 - 3D Flip + Opacity Control) */
+/* Memorama Section (V10 - Larger Img/Text) */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl); }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
@@ -135,21 +135,21 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
 
 #memorama-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); /* Un poco más grande min */
     gap: var(--space-lg);
-    perspective: 1200px; /* Mantener perspectiva */
-    max-width: 900px;
+    perspective: 1200px;
+    max-width: 950px; /* Permitir más ancho */
     margin: var(--space-lg) auto 0 auto;
 }
 
 .memorama-card {
-    height: 170px;
+    height: 180px; /* Aumentar altura */
     aspect-ratio: 1 / 1;
     border-radius: var(--border-radius-md);
     cursor: pointer;
     position: relative;
-    transform-style: preserve-3d; /* Mantener 3D */
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Mantener transición */
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-md);
     border: 1px solid transparent;
     background-color: transparent;
@@ -160,7 +160,7 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
 }
 
 .memorama-card.flipped {
-    transform: rotateY(180deg); /* Rotación del contenedor */
+    transform: rotateY(180deg);
 }
 
 .memorama-card.matched {
@@ -170,7 +170,7 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
      box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
 }
 .memorama-card.flipped.matched {
-    transform: rotateY(180deg); /* Mantener rotación */
+    transform: rotateY(180deg);
 }
 
 .card-face {
@@ -179,91 +179,65 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     left: 0;
     width: 100%;
     height: 100%;
-    /* Quitar backface-visibility temporalmente para usar opacity */
-    /* -webkit-backface-visibility: hidden; */
-    /* backface-visibility: hidden; */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
     border-radius: inherit;
-    padding: var(--space-sm);
+    padding: var(--space-xs); /* << REDUCIR padding para más espacio */
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    transition: opacity 0.1s linear 0.15s, z-index 0s linear 0.15s; /* Transición rápida opacity CON delay */
 }
 
-/* Cara FRONTAL: Pre-rotada pero inicialmente invisible */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    transform: rotateY(180deg); /* Mantener pre-rotación */
+    transform: rotateY(180deg); /* Esencial para el flip 3D */
     border: 1px solid var(--grey-light);
-    z-index: 1; /* Inicialmente detrás */
-    opacity: 0; /* Inicialmente invisible */
+    z-index: 2;
+    /* Usar space-around o space-between puede ayudar si hay mucho espacio vertical */
+    /* justify-content: space-around; */
 }
-/* Mostrar FRONTAL cuando padre está volteado */
-.memorama-card.flipped .card-front {
-    opacity: 1;
-    z-index: 3; /* Asegurar que esté encima */
-    transition-delay: 0.15s; /* Mostrar a mitad de giro */
-}
-/* Mantener visible si está matched */
-.memorama-card.matched .card-front {
-     opacity: 1;
-     z-index: 3;
-}
-
 
 .card-front img {
     display: block;
-    max-width: 90%;
-    max-height: 70%;
+    max-width: 95%; /* << Permitir MUCHO más ancho */
+    max-height: 75%; /* << Permitir MÁS altura (ajustar si choca con texto) */
     width: auto;
     height: auto;
     object-fit: contain;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs); /* Reducir margen si es necesario */
     border-radius: var(--border-radius-sm);
 }
 
 .card-front p {
     font-family: var(--font-heading);
     font-weight: 500;
-    font-size: 1em;
-    line-height: 1.3;
+    font-size: 1.1em; /* << AUMENTAR TAMAÑO TEXTO */
+    line-height: 1.25; /* Ajustar si es necesario */
     margin: 0;
     padding: 0 var(--space-xs);
     width: 100%;
     word-wrap: break-word;
     color: var(--text-color);
-    flex-shrink: 0;
+    flex-shrink: 0; /* Evitar que se encoja */
     text-align: center;
+    margin-top: auto; /* Empujar texto hacia abajo si se usa space-around/between arriba */
+    padding-bottom: 2px; /* Pequeño espacio inferior */
 }
 
-/* Cara TRASERA: Visible inicialmente */
 .card-back {
     background-color: var(--teal-dark);
     color: white;
-    transform: rotateY(0deg); /* Estado inicial */
-    z-index: 2; /* Inicialmente encima */
-    opacity: 1; /* Visible inicialmente */
+    transform: rotateY(0deg);
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition-delay: 0s; /* Ocultar rápido */
 }
-/* Ocultar TRASERA cuando padre está volteado */
-.memorama-card.flipped .card-back {
-    opacity: 0;
-    z-index: 1; /* Detrás */
-}
-/* Mantener oculta si está matched */
- .memorama-card.matched .card-back {
-     opacity: 0;
-     z-index: 1;
-}
-
 .card-back::before {
    content: '?';
    font-family: var(--font-heading);
@@ -273,7 +247,6 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
    line-height: 1;
 }
 
-/* Mensajes */
 #memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm); }
 #memorama-data-error { margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); }
 
@@ -330,9 +303,9 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 /* Responsive Adjustments    */
 /* ------------------------- */
 @media (max-width: 992px) {
-    #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); }
-    .memorama-card { height: 150px; }
-    .card-front p { font-size: 0.9em; }
+    #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } /* Ajustado memorama */
+    .memorama-card { height: 155px; } /* Ajustado memorama */
+    .card-front p { font-size: 0.95em; }
 }
 @media (max-width: 768px) {
     header h1 { font-size: 1.8em; }
@@ -345,8 +318,8 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
     #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; }
-    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-    .memorama-card { height: 135px; }
+    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); } /* Ajustado memorama */
+    .memorama-card { height: 140px; } /* Ajustado memorama */
     .card-front img { max-height: 65%; }
 }
 @media (max-width: 576px) {
@@ -356,10 +329,10 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
-    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
-    .memorama-card { height: 120px; }
+    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); } /* Ajustado memorama */
+    .memorama-card { height: 125px; } /* Ajustado memorama */
     .card-front img { max-height: 62%; }
-    .card-front p { font-size: 0.8em; }
+    .card-front p { font-size: 0.85em; }
     .card-back::before { font-size: 3em; }
     #quiz-options { max-width: 95%; }
     #quiz-text-input-area { max-width: 95%; }
@@ -367,8 +340,8 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 }
 @media (max-width: 420px) { /* Breakpoint extra pequeño */
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
-     .memorama-card { height: 100px; border-radius: var(--border-radius-sm); }
-     .card-front img { max-height: 58%; border-radius: 2px; }
-     .card-front p { font-size: 0.75em; }
+     .memorama-card { height: 105px; border-radius: var(--border-radius-sm); } /* Ajustado memorama */
+     .card-front img { max-height: 60%; border-radius: 2px; }
+     .card-front p { font-size: 0.8em; }
      .card-back::before { font-size: 2.5em; }
 }
