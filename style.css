@@ -39,7 +39,35 @@
     --space-xxl: 3.2rem; /* 51.2px ~ 51px */
 
     /* Borders */
-    --border-radius-sm: 5px;
+    --border-radius-smprimary); font-size: 2em; border-bottom: 2px solid var(--grey-light); padding-bottom: var(--space-md); margin-bottom: var(--space-xl); letter-spacing: -0.5px; }
+h3 { font-weight: 500; color: var(--teal-dark); font-size: 1.4em; margin-bottom: var(--space-lg); }
+p { margin-bottom: var(--space-lg); font-size: 1.05em; }
+ul { list-style: none; padding: 0; }
+.text-center { text-align: center; }
+
+/* Header & Nav */
+header { background: var(--teal-primary); color: var(--white); padding: var(--space-md) var(--space-lg); text-align: center; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+header h1 { font-family: var(--font-heading); font-weight: 700; font-size: 2.1em; margin: 0; padding-bottom: var(--space-sm); letter-spacing: -0.5px; }
+nav { margin-top: var(--space-xs); }
+nav button { font-family: var(--font-heading); font-weight: 500; background-color: transparent; color: var(--white); border: 2px solid rgba(255, 255, 255, 0.5); padding: var(--space-xs) var(--space-lg); margin: var(--space-xs); cursor: pointer; border-radius: var(--border-radius-pill); transition: all 0.25s ease-in-out; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; }
+nav button:hover { background-color: rgba(255, 255, 255, 0.15); border-color: var(--white); transform: translateY(-1px); }
+nav button.active { background-color: var(--white); color: var(--teal-dark); border-color: var(--white); font-weight: 700; box-shadow: var(--shadow-interactive); transform: translateY(0); }
+
+/* Loading/Error */
+#loading-message, #error-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; }
+#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; }
+
+/* Sections */
+.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
+.content-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+#about { padding: var(--space-lg) 0; }
+#about p { font-size: 1.1em; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; color: var(--grey-dark); }
+#about em { color: var(--orange-accent); font-weight: 700; font-style: normal; }
+
+/* Léxico */
+.search-container { margin-bottom: var(--space-xl); text-align: center; }
+#lexicon-search { font-family: var(--font-body); padding: var(--space-sm) var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-pill); width: 5px;
     --border-radius-md: 10px;
     --border-radius-lg: 20px;
     --border-radius-pill: 50px;
@@ -84,7 +112,32 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav */
 header { background: var(--teal-primary); color: var(--white); padding: var(--space-md) var(--space-lg); text-align: center; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
-header h1 { font-family: var(--font-heading); font-weight: 700; font-size: 2.1em; margin: 0; padding-bottom: var(--space-sm); letter-spacing: -0.5px; }
+header h1 { font-family: var(--font-heading); font-weight: 700; font-size: 2.1em; margin: 0; padding-bottom: var(--space-sm); letter-spacing: -0.5px; }: 80%; max-width: 600px; font-size: 1.05em; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+#lexicon-search:focus { outline: none; border-color: var(--teal-primary); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25); }
+#lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
+.lexicon-item { background-color: var(--white); border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md); transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column; align-items: center; position: relative; }
+.lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
+.lexicon-item img { width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg); border-radius: 50%; background-color: var(--grey-light); border: 3px solid var(--white); box-shadow: var(--shadow-sm); }
+.lexicon-item .raramuri-word { font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent); font-size: 1.25em; margin-bottom: var(--space-xs); word-wrap: break-word; }
+.lexicon-item .spanish-word { font-style: normal; color: var(--grey-dark); font-size: 1em; word-wrap: break-word; }
+
+/* Frases */
+#phrases-list li { background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg); border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); transition: box-shadow 0.2s ease; box-shadow: var(--shadow-sm); }
+#phrases-list li:hover { box-shadow: var(--shadow-md); }
+#phrases-list .raramuri-phrase { font-family: var(--font-heading); font-weight: 600; display: block; margin-bottom: var(--space-sm); font-size: 1.2em; color: var(--text-color); }
+#phrases-list .spanish-phrase { color: var(--grey-dark); font-size: 1.05em; }
+
+/* ------------------------- */
+/* Memorama Section (V12 - Standard 3D + Force Render) */
+/* ------------------------- */
+#memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl); }
+#memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
+#memorama-setup button.difficulty-btn { font-family: var(--font-heading); background-color: var(--teal-primary); color: var(--white); padding: var(--space-sm) var(--space-xl); border: none; border-radius: var(--border-radius-pill); cursor: pointer; margin: 0 var(--space-sm); transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+#memorama-setup button.difficulty-btn:hover { background-color: var(--teal-dark); transform: translateY(-2px) scale(1.03); box-shadow: var(--shadow-md); }
+#memorama-setup button.difficulty-btn.selected { background-color: var(--teal-darker); box-shadow: inset 0 3px 5px rgba(0,0,0,0.15); transform: translateY(0) scale(1); }
+#memorama-game-area > p { text-align: center; margin-bottom: var(--space-lg); color: var(--grey-dark); font-style: normal; font-size: 1.05em; }
+#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--grey-light); border-bottom: 1px solid var(--grey-light); }
+#memorama-controls button#reset-memorama { font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-sm) var(--space-lg); border: none; border-radius: var(--border-radius-pill); cursor: pointer
 nav { margin-top: var(--space-xs); }
 nav button { font-family: var(--font-heading); font-weight: 500; background-color: transparent; color: var(--white); border: 2px solid rgba(255, 255, 255, 0.5); padding: var(--space-xs) var(--space-lg); margin: var(--space-xs); cursor: pointer; border-radius: var(--border-radius-pill); transition: all 0.25s ease-in-out; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; }
 nav button:hover { background-color: rgba(255, 255, 255, 0.15); border-color: var(--white); transform: translateY(-1px); }
@@ -100,7 +153,84 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 #about { padding: var(--space-lg) 0; }
 #about p { font-size: 1.1em; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; color: var(--grey-dark); }
-#about em { color: var(--orange-accent); font-weight: 700; font-style: normal; }
+#about em { color: var(--orange-accent); font-weight: ; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; }
+#memorama-controls button#reset-memorama:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#memorama-controls p { margin: 0; font-weight: 700; color: var(--text-color); font-size: 1.1em; }
+
+#memorama-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-lg);
+    perspective: 1200px; /* Necesario para 3D */
+    max-width: 900px;
+    margin: var(--space-lg) auto 0 auto;
+}
+
+.memorama-card {
+    height: 170px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d; /* Necesario para 3D */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Animación suave */
+    box-shadow: var(--shadow-md);
+    border: 1px solid transparent;
+    background-color: transparent;
+    overflow: hidden;
+    /* Intento de forzar aceleración por hardware */
+    transform: translateZ(0);
+    will-change: transform;
+}
+.memorama-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.memorama-card.flipped {
+    transform: rotateY(180deg); /* Rotación del contenedor */
+}
+
+.memorama-card.matched {
+     opacity: 0.8;
+     border-color: var(--success-green);
+     cursor: default;
+     box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+}
+.memorama-card.flipped.matched {
+    transform: rotateY(180deg); /* Mantener rotación */
+}
+
+/* Estilos comunes para AMBAS caras */
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Ocultar cara trasera */
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: inherit; /* Heredar borde redondeado */
+    padding: var(--space-sm); /* Padding interno */
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    /* Forzar renderizado en capa separada */
+    transform: translateZ(0);
+    /* Indicar al navegador que estas propiedades pueden cambiar */
+    will-change: transform, opacity;
+}
+
+/* Cara FRONTAL: Pre-rotada */
+.card-front {
+    background-color: var(--white);
+    color: var(--text-color);
+    transform: rotateY(180deg); /* ¡ESENCIAL! */
+    border: 1px solid var(--grey-light);
+    /* z-index: 2700; font-style: normal; }
 
 /* Léxico */
 .search-container { margin-bottom: var(--space-xl); text-align: center; }
@@ -120,10 +250,80 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
 #phrases-list .spanish-phrase { color: var(--grey-dark); font-size: 1.05em; }
 
 /* ------------------------- */
-/* Memorama Section (V11 - NO 3D, JS VISIBILITY ONLY) */
+/* Memorama Section (V12 - 3D + Render Hints) */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--grey-light); padding-bottom: var(--space-xl); }
-#memorama-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
+#memorama; No debería ser necesario con backface-visibility */
+}
+
+/* Imagen dentro de la cara frontal */
+.card-front img {
+    display: block;
+    max-width: 90%;
+    max-height: 70%; /* Ajustar si texto no cabe */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    /* Forzar visibilidad */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Texto dentro de la cara frontal */
+.card-front p {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0 var(--space-xs);
+    width: 100%;
+    word-wrap: break-word;
+    color: var(--text-color);
+    flex-shrink: 0;
+    text-align: center;
+    /* Forzar visibilidad */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Cara TRASERA: Sin rotación inicial */
+.card-back {
+    background-color: var(--teal-dark);
+    color: white;
+    transform: rotateY(0deg);
+    /* z-index: 1; No debería ser necesario con backface-visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Símbolo del reverso */
+.card-back::before {
+   content: '?';
+   font-family: var(--font-heading);
+   font-size: 4em;
+   font-weight: bold;
+   color: rgba(255, 255, 255, 0.25);
+   line-height: 1;
+}
+
+/* Mensajes */
+#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm); }
+#memorama-data-error { margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); }
+
+
+/* ------------------------- */
+/* Quiz Section              */
+/* ------------------------- */
+#quiz-container { background-color: var(--white); padding: var(--space-xl); border-radius: var(--border-radius-md); border: 1px solid var(--grey-light); box-shadow: none; }
+#quiz-setup { margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--grey-light); text-align: center; }
+#quiz-setup p { font-weight: 500; margin-bottom: var(--space-lg); font-size: 1.1em; }
+#quiz-setup label { margin-right: var(--space-sm); color: var(--grey-dark); font-size: 0.95em;}
+#quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; }
+#quiz-setup button#start-quiz { font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); }
+#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2-setup p { margin-bottom: var(--space-lg); font-weight: 500; font-size: 1.1em; color: var(--text-color); }
 #memorama-setup button.difficulty-btn { font-family: var(--font-heading); background-color: var(--teal-primary); color: var(--white); padding: var(--space-sm) var(--space-xl); border: none; border-radius: var(--border-radius-pill); cursor: pointer; margin: 0 var(--space-sm); transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 #memorama-setup button.difficulty-btn:hover { background-color: var(--teal-dark); transform: translateY(-2px) scale(1.03); box-shadow: var(--shadow-md); }
 #memorama-setup button.difficulty-btn.selected { background-color: var(--teal-darker); box-shadow: inset 0 3px 5px rgba(0,0,0,0.15); transform: translateY(0) scale(1); }
@@ -137,7 +337,7 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--space-lg);
-    /* perspective: 1200px; --- QUITADO --- */
+    perspective: 1200px; /* Esencial */
     max-width: 900px;
     margin: var(--space-lg) auto 0 auto;
 }
@@ -147,23 +347,30 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     aspect-ratio: 1 / 1;
     border-radius: var(--border-radius-md);
     cursor: pointer;
-    position: relative; /* Necesario */
-    /* transition: transform 0.6s; --- QUITADO --- */
+    position: relative;
+    transform-style: preserve-3d; /* Esencial */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-md);
     border: 1px solid transparent;
-    background-color: transparent; /* Contenedor transparente */
+    background-color: transparent;
     overflow: hidden;
-    /* transform-style: preserve-3d; --- QUITADO --- */
+}
+.memorama-card:hover {
+    box-shadow: var(--shadow-lg);
 }
 
-/* Quitar la clase .flipped del CSS, JS controla visibilidad */
-/* .memorama-card.flipped { transform: rotateY(180deg); } */
+.memorama-card.flipped {
+    transform: rotateY(180deg); /* Rotación del contenedor */
+}
 
-/* Estilo para matched SÍ se mantiene */
 .memorama-card.matched {
-     opacity: 0.8;
+     opacity: 0.85; /* Menos transparente */
      border-color: var(--success-green);
      cursor: default;
+     box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+}
+.memorama-card.flipped.matched {
+    transform: rotateY(180deg);
 }
 
 .card-face {
@@ -172,39 +379,42 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     left: 0;
     width: 100%;
     height: 100%;
-    /* backface-visibility: hidden; --- QUITADO --- */
+    -webkit-backface-visibility: hidden; /* Esencial */
+    backface-visibility: hidden;         /* Esencial */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: inherit;
-    padding: var(--space-xs); /* Padding mínimo */
+    padding: var(--space-sm);
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
-    /* Quitar transición CSS, JS controla directamente */
-    /* transition: opacity 0.3s ease-in-out, z-index 0.3s step-end; */
-    border: 1px dashed grey; /* DEBUG BORDER */
+    /* Truco para forzar renderizado en capa separada */
+    transform: translateZ(0);
+    will-change: transform; /* Indicar cambio */
 }
 
-/* Cara FRONTAL: Controlada por JS */
+/* Cara FRONTAL: Pre-rotada */
 .card-front {
     background-color: var(--white);
     color: var(--text-color);
-    /* transform: rotateY(180deg); --- QUITADO --- */
+    transform: rotateY(180deg) translateZ(1px); /* << Pre-rotar y LIGERO translateZ */
     border: 1px solid var(--grey-light);
-    /* Opacity y z-index se definen en línea por JS */
+    /* z-index no debería ser estrictamente necesario con backface-visibility */
 }
 
 .card-front img {
     display: block;
-    max-width: 85%;
-    max-height: 68%;
+    max-width: 90%;
+    max-height: 70%;
     width: auto;
     height: auto;
     object-fit: contain;
     margin-bottom: var(--space-sm);
     border-radius: var(--border-radius-sm);
+     /* Forzar que la imagen también esté en el contexto 3D */
+    transform: translateZ(0);
 }
 
 .card-front p {
@@ -219,26 +429,58 @@ nav button.active { background-color: var(--white); color: var(--teal-dark); bor
     color: var(--text-color);
     flex-shrink: 0;
     text-align: center;
+    /* Forzar que el texto también esté en el contexto 3D */
+    transform: translateZ(0);
 }
 
-/* Cara TRASERA: Controlada por JS */
+/* Cara TRASERA: Sin rotación */
 .card-back {
     background-color: var(--teal-dark);
     color: white;
-    /* transform: rotateY(0deg); --- QUITADO --- */
+    transform: rotateY(0deg) translateZ(0); /* Estado inicial explícito + render hint */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Opacity y z-index se definen en línea por JS */
 }
-
 .card-back::before {
    content: '?';
    font-family: var(--font-heading);
    font-size: 4em;
    font-weight: bold;
-   color: rgba(255, 255, 255, 0.25);
+   color: rgba(255, 255, 2px); box-shadow: var(--shadow-md); }
+#quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; }
+#quiz-image-container img { max-width: 220px; max-height: 220px; border: 1px solid var(--grey-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); }
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 600; color: var(--text-color); line-height: 1.5; }
+#quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
+#quiz-options button { display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white); color: var(--text-color); padding: var(--space-md) var(--space-lg); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out; font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm); }
+#quiz-options button:hover:not(:disabled) { background-color: var(--teal-light-bg); border-color: var(--teal-primary); transform: translateX(4px); box-shadow: var(--shadow-interactive); }
+#quiz-options button:disabled { cursor: default; opacity: 0.8; }
+#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 2px; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--grey-light); border-color: var(--grey-medium); box-shadow: none; transform: translateX(0); }
+#quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
+#quiz-text-answer { flex-grow: 1; padding: var(--space-md); border: 1px solid var(--grey-medium); border-radius: var(--border-radius-sm); font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
+#quiz-text-answer:focus { outline: none; border-color: var(--teal-primary); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25); }
+#quiz-text-input-area button#submit-text-answer { font-family: var(--font-heading); padding: calc(var(--space-md) - 1px) var(--space-lg); background-color: var(--teal-primary); color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1em; white-space: nowrap; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; }
+#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
+#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; }
+#quiz-feedback.correct { color: var(--success-green); }
+#quiz-feedback.incorrect { color: var(--error-red); }
+#quiz-feedback strong { font-weight: 700; }
+button#next-question { font-family: var(--font-heading); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto; padding: var(--space-md) var(--space-xl); background-color: var(--teal-dark); color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; }
+button#next-question:hover { background-color: var(--teal-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-results { text-align: center; padding: var(--space-xl) 0; }
+#quiz-results h3 { color: var(--teal-primary); margin-bottom: var(--space-lg); font-size: 2em; }
+#quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; }
+#quiz-results button { font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; }
+#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
+button#restart-quiz:hover { background-color55, 0.25);
    line-height: 1;
+   /* Forzar que el pseudo-elemento también esté en el contexto 3D */
+   transform: translateZ(0);
 }
 
 /* Mensajes */
@@ -282,10 +524,7 @@ button#next-question:hover { background-color: var(--teal-darker); transform: tr
 #quiz-results { text-align: center; padding: var(--space-xl) 0; }
 #quiz-results h3 { color: var(--teal-primary); margin-bottom: var(--space-lg); font-size: 2em; }
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; }
-#quiz-results button { font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; }
-#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
-button#restart-quiz:hover { background-color: var(--orange-dark); }
+#quiz-results button { font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.: var(--orange-dark); }
 button#retry-missed-quiz { background-color: var(--teal-primary); color: var(--white); }
 button#retry-missed-quiz:hover { background-color: var(--teal-dark); }
 
