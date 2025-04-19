@@ -79,7 +79,8 @@ main {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-light);
-    background-image: url(images/'texture.jpg')
+    background-image: url('images/texture.jpg');
+    background-repeat: repeat;
 }
 
 /* H1, H2, H3 con fuente Poppins (excepto el H1 del header) */
