@@ -90,10 +90,10 @@ h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 70
 header > h1 {
   font-family: var(--font-title); /* Patrick Hand SC */
   font-size: 3em; /* Tamaño grande y ajustable */
-  font-weight: 400; /* Esta fuente suele ser 400 */
+  font-weight: 600; /* Esta fuente suele ser 400 */
   margin: 0 0 var(--space-xs) 0; /* Margen inferior ligero */
   padding-bottom: 0;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   color: var(--white);
   line-height: 1.1; /* Ajustar si es necesario */
 }
@@ -114,6 +114,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    background-image: url('images/texturetop.jpg'); 
+    background-repeat: repeat; 
 }
 /* h1 dentro del header ya estilizado arriba */
 
