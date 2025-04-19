@@ -36,7 +36,7 @@
     --font-heading: 'Poppins', sans-serif; /* Original */
     --font-title: 'Patrick Hand SC', cursive; /* Nueva fuente para H1 */
 
-    /* Spacing (sin cambios) */
+    /* Spacing */
     --space-xs: 0.5rem;
     --space-sm: 0.8rem;
     --space-md: 1.1rem;
@@ -44,13 +44,13 @@
     --space-xl: 2.2rem;
     --space-xxl: 3.2rem;
 
-    /* Borders (sin cambios) */
+    /* Borders */
     --border-radius-sm: 5px;
     --border-radius-md: 10px;
     --border-radius-lg: 20px;
     --border-radius-pill: 50px;
 
-    /* Shadows (sin cambios) */
+    /* Shadows */
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -67,8 +67,8 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: url('images/texture.jpg'); 
-    background-repeat: repeat; 
+    background-image: url('images/texture.jpg');
+    background-repeat: repeat;
 }
 
 main {
@@ -90,15 +90,25 @@ h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 70
 header > h1 {
   font-family: var(--font-title); /* Patrick Hand SC */
   font-size: 3em; /* Tamaño grande y ajustable */
-  font-weight: 600; /* Esta fuente suele ser 400 */
+  font-weight: 400; /* Esta fuente suele ser 400 */
   margin: 0 0 var(--space-xs) 0; /* Margen inferior ligero */
   padding-bottom: 0;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: var(--white);
   line-height: 1.1; /* Ajustar si es necesario */
 }
 
-h2 { color: var(--blue-dark); font-size: 2em; border-bottom: 2px solid var(--border-light); padding-bottom: var(--space-md); margin-bottom: var(--space-xl); letter-spacing: -0.5px; font-weight: 700; }
+/* Estilos generales para H2 (aplican a todas las secciones excepto si se sobreescriben) */
+h2 {
+    color: var(--blue-dark);
+    font-size: 2em;
+    border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.5px;
+    font-weight: 700;
+}
+
 h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
 p { margin-bottom: var(--space-lg); font-size: 1.05em; }
 ul { list-style: none; padding: 0; }
@@ -114,10 +124,9 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-image: url('images/texturetop.jpg'); 
-    background-repeat: repeat; 
+    background-image: url('images/texturetop.jpg');
+    background-repeat: repeat;
 }
-/* h1 dentro del header ya estilizado arriba */
 
 nav {
     margin-top: 0;
@@ -159,9 +168,77 @@ nav button.active {
 .content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
 .content-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-#about { padding: var(--space-lg) 0; }
-#about p { font-size: 1.1em; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; color: var(--text-secondary); }
-#about em { color: var(--orange-accent); font-weight: 700; font-style: normal; } /* Naranja para énfasis */
+
+/* --- About Section Specific Styles --- */
+#about {
+  /* padding: var(--space-lg) 0; */ /* Usar padding general de section */
+  text-align: center; /* Centrar todo en esta sección */
+}
+
+/* Sobreescribir H2 solo para la sección #about */
+#about h2 {
+  color: var(--blue-dark);
+  font-size: 2em;
+  border-bottom: none; /* Quitar borde inferior gris */
+  padding-bottom: var(--space-sm); /* Menos padding inferior */
+  margin-bottom: var(--space-sm); /* Reducir margen inferior */
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  display: inline-block; /* Para que el borde no ocupe todo el ancho */
+  position: relative; /* Necesario para el pseudo-elemento ::after */
+}
+
+/* Línea decorativa naranja debajo del H2 en #about */
+#about h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Ajustar posición vertical justo debajo */
+    left: 15%; /* Empezar más adentro */
+    width: 70%; /* No ocupar todo el ancho */
+    height: 2px; /* Grosor de la línea */
+    background-color: var(--orange-accent); /* Color naranja */
+    margin-top: var(--space-sm);
+}
+
+#about p {
+  font-size: 1.1em; /* Ligeramente más grande */
+  max-width: 750px; /* Limitar ancho para mejor lectura centrada */
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg); /* Espacio estándar después de párrafo */
+  margin-top: var(--space-xl); /* Más espacio antes del primer párrafo */
+}
+
+/* Estilo para énfasis en #about */
+#about em {
+  color: var(--orange-accent); /* Color naranja */
+  font-style: normal; /* Quitar cursiva */
+  font-weight: 600; /* Ligeramente más grueso */
+}
+
+/* Estilo específico si se usa una clase para la línea de créditos */
+#about p.credits-line {
+  font-size: 0.95em;
+  color: var(--text-secondary);
+  margin-top: var(--space-xl); /* Más espacio antes */
+  margin-bottom: var(--space-sm); /* Menos espacio después */
+  font-weight: 600;
+}
+
+/* Estilo si se usa una lista para los créditos */
+#about ul.credits-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0; /* Menos espacio si sigue a .credits-line */
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+#about ul.credits-list li {
+    margin-bottom: var(--space-xs);
+}
+/* --- End of About Section Specific Styles --- */
+
 
 /* Léxico */
 .search-container { margin-bottom: var(--space-xl); text-align: center; }
@@ -195,18 +272,8 @@ nav button.active {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Para posible borde decorativo */
+    overflow: hidden;
 }
-/* Opcional: Borde superior decorativo */
-/* .lexicon-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: var(--yellow-highlight);
-} */
 .lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img {
     width: 150px;
@@ -291,7 +358,7 @@ nav button.active {
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
     transform: translateY(0) scale(1);
 }
-#memorama-game-area > p { text-align: center; margin-bottom: var(--space-lg); color: var(--text-secondary); font-style: normal; font-size: 1.05em; }
+/* #memorama-game-area > p { text-align: center; margin-bottom: var(--space-lg); color: var(--text-secondary); font-style: normal; font-size: 1.05em; } */ /* Comentado porque se eliminó del HTML */
 #memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
 #memorama-controls button#reset-memorama {
     font-family: var(--font-heading); /* Poppins */
@@ -436,8 +503,6 @@ nav button.active {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Fondo amarillo claro para el '?' */
-    /* background-image: radial-gradient(circle, var(--yellow-light-bg) 40%, transparent 70%); */
 }
 .memorama-card.flipped .card-back {
     opacity: 0;
@@ -588,10 +653,11 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .card-front p { font-size: 1em; }
 }
 @media (max-width: 768px) {
-    header > h1 { font-size: 2.5em; } /* Ajustar tamaño título responsive */
+    header > h1 { font-size: 2.5em; }
     nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
     main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; }
     h2 { font-size: 1.7em; }
+    #about h2 { font-size: 1.7em; } /* Ajustar también el H2 específico */
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
     #quiz-options button { padding: var(--space-md); }
@@ -607,6 +673,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
     main { padding: var(--space-md); }
     h2 { font-size: 1.5em; }
+    #about h2 { font-size: 1.5em; } /* Ajustar también el H2 específico */
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
@@ -617,7 +684,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #quiz-text-input-area { max-width: 95%; }
     #quiz-results button { width: 90%; margin: var(--space-sm) auto; display: block;}
 }
-@media (max-width: 420px) { /* Breakpoint extra pequeño */
+@media (max-width: 420px) {
      header > h1 { font-size: 2em; }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
