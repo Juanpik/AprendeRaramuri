@@ -115,7 +115,7 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav - Paleta Azul */
 header {
-    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%) url('images/fondoheader.jpg') repeat;
+    background: var(--blue-primary) url('images/fondoheader.jpg') repeat;
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
