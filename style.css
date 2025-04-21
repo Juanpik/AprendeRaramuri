@@ -60,7 +60,7 @@
 body {
     font-family: var(--font-body); /* Nunito */
     line-height: 1.7;
-    background: var(--background-color) /* url('images/your-texture-image.png') repeat; */ /* Textura Body Opcional */
+    background: var(--background-color) url('images/fondobody.jpg') repeat; 
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
@@ -115,8 +115,7 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav - Paleta Azul */
 header {
-    /* background: var(--blue-primary); */ /* Color sólido si no quieres gradiente/textura */
-    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */ /* Textura Header Opcional */
+    background: var(--blue-primary) url('fondoheader.jpg') repeat; 
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
