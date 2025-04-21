@@ -13,13 +13,13 @@
     { "id": 11, "raramuri": "okochí", "spanish": "perro", "image": "images/okochí.jpg" },
     { "id": 12, "raramuri": "si'orí", "spanish": "mosca", "image": "images/si'orí.jpg" },
     { "id": 13, "raramuri": "wikowí", "spanish": "hongo", "image": "images/wikowí.jpg" },
-    { "id": 14, "raramuri": "ritúkari", "spanish": "buho", "image": "images/ritúkari.jpg" }
+    { "id": 14, "raramuri": "ritúkari", "spanish": "buho", "image": "images/ritúkari.jpg" },
     { "id": 15, "raramuri": "kípare", "spanish": "nieve", "image": "images/kípare.jpg" }
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
     { "id": 102, "raramuri": "Matetera ba.", "spanish": "Gracias." },
-    { "id": 103, "raramuri": "¿Chú mu rewé?", "spanish": "¿Como te llamas?" }
-    { "id": 104, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." },
+    { "id": 103, "raramuri": "¿Chú mu rewé?", "spanish": "¿Como te llamas?" },
+    { "id": 104, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." }
   ]
 }
