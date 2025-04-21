@@ -60,7 +60,8 @@
 body {
     font-family: var(--font-body); /* Nunito */
     line-height: 1.7;
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */ /* Quita o comenta la línea vieja */
+    background: var(--background-color) url('images/fondobody.jpg') repeat; /* <<<-- NUEVA LÍNEA */
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
