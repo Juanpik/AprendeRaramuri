@@ -51,15 +51,16 @@
     --border-radius-pill: 50px;
 
     /* Shadows - Refinados */
-    --shadow-sm: 0 3px 6px rgba(0, 0, 0, 0.05); /* Ligeramente más suave */
-    --shadow-md: 0 6px 15px rgba(0, 0, 0, 0.07); /* Más difusa */
+    --shadow-sm: 0 3px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 6px 15px rgba(0, 0, 0, 0.07);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.09);
     --shadow-interactive: 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 body {
     font-family: var(--font-body); /* Nunito */
-    line-height: 1.7;
+    font-size: 16px; /* Base font size */
+    line-height: 1.7; /* Buen interlineado por defecto */
     background-color: var(--background-color);
     color: var(--text-primary);
     display: flex;
@@ -77,46 +78,62 @@ main {
     padding: var(--space-lg) var(--space-xl);
     background-color: var(--content-bg);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md); /* Sombra principal refinada */
+    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-light);
 }
 
-/* H1, H2, H3 con fuente Poppins (excepto el H1 del header) */
+/* --- Tipografía y Jerarquía Refinada --- */
 h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 700; }
 
-/* Estilo específico para el H1 principal del header */
 header > h1 {
-  font-family: var(--font-title); /* Patrick Hand SC */
-  font-size: 3em;
+  font-family: var(--font-title);
+  font-size: 3em; /* Tamaño principal destacado */
   font-weight: 400;
   margin: 0 0 var(--space-xs) 0;
   padding-bottom: 0;
   letter-spacing: 1px;
   color: var(--white);
   line-height: 1.1;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Sombra sutil al título */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Estilos generales para H2 */
 h2 {
     color: var(--blue-dark);
-    font-size: 2em;
+    font-size: 2em; /* Claramente más pequeño que H1 */
     border-bottom: 2px solid var(--border-light);
     padding-bottom: var(--space-md);
-    margin-bottom: var(--space-xl); /* Más espacio después de H2 */
-    letter-spacing: -0.5px;
-    font-weight: 700;
+    margin-top: 0; /* Evitar doble margen */
+    margin-bottom: var(--space-xl); /* Espacio consistente después */
+    letter-spacing: -0.2px; /* Ligero ajuste */
+    font-weight: 700; /* Poppins Bold */
 }
 
-h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
-p { margin-bottom: var(--space-lg); font-size: 1.05em; }
+h3 {
+    color: var(--blue-darker);
+    font-size: 1.4em; /* Claramente más pequeño que H2 */
+    font-weight: 500; /* Poppins Medium */
+    margin-top: var(--space-lg); /* Espacio antes si sigue a otro contenido */
+    margin-bottom: var(--space-lg);
+    letter-spacing: 0px;
+}
+
+p {
+    margin-bottom: var(--space-lg); /* Espacio consistente entre párrafos */
+    font-size: 1rem; /* Tamaño base (16px) */
+    line-height: 1.7; /* Mantenido de body */
+    color: var(--text-primary); /* Color principal por defecto */
+}
+p.text-secondary, .text-secondary { /* Clase para texto secundario */
+    color: var(--text-secondary);
+    font-size: 0.95rem; /* Ligeramente más pequeño */
+}
+
 ul { list-style: none; padding: 0; }
 .text-center { text-align: center; }
 
-/* Header & Nav - Con Gradiente y Estilo Refinado */
+/* --- Header & Nav --- */
 header {
-    /* background: var(--blue-primary); */ /* Reemplazado por gradiente */
-    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%); /* Gradiente sutil */
+    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -125,22 +142,18 @@ header {
     top: 0;
     z-index: 1000;
 }
-
-nav {
-    margin-top: 0;
-}
-/* Estilo Botón Navegación - Refinado */
+nav { margin-top: 0; }
 nav button {
-    font-family: var(--font-heading); /* Poppins */
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-weight: 500; /* Poppins Medium */
     background-color: transparent;
-    color: rgba(255, 255, 255, 0.9); /* Ligeramente más opaco */
-    border: 1px solid rgba(255, 255, 255, 0.4); /* Borde más delgado */
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     padding: var(--space-xs) var(--space-md);
     margin: var(--space-xs) 5px;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.2s ease-out; /* Transición más rápida */
+    transition: all 0.2s ease-out;
     font-size: 0.85em;
     text-transform: uppercase;
     letter-spacing: 0.6px;
@@ -149,406 +162,219 @@ nav button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.7);
     color: var(--white);
-    transform: translateY(-1px); /* Movimiento sutil */
+    transform: translateY(-1px);
     box-shadow: var(--shadow-interactive);
 }
 nav button.active {
     background-color: var(--white);
     color: var(--blue-darker);
     border-color: var(--white);
-    font-weight: 700;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra interior sutil */
+    font-weight: 700; /* Poppins Bold */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     transform: translateY(0);
 }
 nav button:active {
-    transform: translateY(0px); /* Eliminar salto en click */
-    filter: brightness(0.98); /* Oscurecer ligeramente al presionar */
+    transform: translateY(0px);
+    filter: brightness(0.98);
 }
 
-/* Loading/Error */
-#loading-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; color: var(--text-secondary); }
-#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;}
+/* --- Loading/Error --- */
+#loading-message, #error-message { /* Mismos estilos que antes */
+    font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;
+}
+#loading-message { color: var(--text-secondary); }
+#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; }
 
-/* Sections - Con más espacio */
+/* --- Sections --- */
 .content-section {
     display: none;
-    animation: fadeIn 0.5s ease-out;
-    padding-top: var(--space-xl); /* Más espacio superior */
-    padding-bottom: var(--space-xl); /* Añadido espacio inferior */
+    animation: fadeIn 0.4s ease-out; /* Animación más rápida */
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
 }
 .content-section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 /* --- About Section Specific Styles --- */
-#about {
-  text-align: center;
-}
+#about { text-align: center; }
 #about h2 {
-  color: var(--blue-dark);
-  font-size: 2em;
-  border-bottom: none;
-  padding-bottom: var(--space-sm);
-  margin-bottom: var(--space-sm);
-  letter-spacing: -0.5px;
-  font-weight: 700;
-  display: inline-block;
-  position: relative;
+  color: var(--blue-dark); font-size: 2em; border-bottom: none;
+  padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); letter-spacing: -0.5px;
+  font-weight: 700; display: inline-block; position: relative;
 }
 #about h2::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 15%;
-    width: 70%;
-    height: 2px;
-    background-color: var(--orange-accent);
-    margin-top: var(--space-sm);
+  content: ''; position: absolute; bottom: -2px; left: 15%; width: 70%; height: 2px;
+  background-color: var(--orange-accent); margin-top: var(--space-sm);
 }
-#about p {
-  font-size: 1.1em;
-  max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
-  margin-top: var(--space-xl);
+#about p { /* Hereda p general, pero con ajustes */
+  font-size: 1.05rem; /* Ligeramente más grande que base */
+  max-width: 750px; margin-left: auto; margin-right: auto;
+  color: var(--text-secondary); /* Texto secundario para descripción */
+  margin-top: var(--space-xl); margin-bottom: var(--space-lg);
 }
-#about em {
-  color: var(--orange-accent);
-  font-style: normal;
-  font-weight: 600;
-}
-#about p.credits-line {
-  font-size: 0.95em;
-  color: var(--text-secondary);
-  margin-top: var(--space-xl);
-  margin-bottom: var(--space-sm);
-  font-weight: 600;
+#about em { color: var(--orange-accent); font-style: normal; font-weight: 600; } /* Nunito Bold */
+#about p.credits-line { /* Clase para "Creditos:" */
+  font-size: 1rem; color: var(--text-primary); margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm); font-weight: 600; /* Nunito Bold */
 }
 #about ul.credits-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-    font-size: 0.9em;
-    color: var(--text-secondary);
+  list-style: none; padding: 0; margin-top: 0; font-size: 0.95rem; color: var(--text-secondary);
 }
-#about ul.credits-list li {
-    margin-bottom: var(--space-xs);
-}
+#about ul.credits-list li { margin-bottom: var(--space-xs); }
 /* --- End of About Section Specific Styles --- */
 
 
-/* Léxico */
+/* --- Léxico --- */
 .search-container { margin-bottom: var(--space-xl); text-align: center; }
-#lexicon-search {
-    font-family: var(--font-body); /* Nunito */
-    padding: var(--space-sm) var(--space-lg);
-    border: 1px solid var(--border-light); /* Borde más claro */
-    border-radius: var(--border-radius-pill);
-    width: 80%;
-    max-width: 600px;
-    font-size: 1.05em;
-    transition: all 0.2s ease-out; /* Transición rápida */
-    box-shadow: var(--shadow-sm);
-    background-color: var(--white);
+#lexicon-search { /* Estilos refinados */
+    font-family: var(--font-body); padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--border-light); border-radius: var(--border-radius-pill);
+    width: 80%; max-width: 600px; font-size: 1.05em;
+    transition: all 0.2s ease-out; box-shadow: var(--shadow-sm); background-color: var(--white);
 }
 #lexicon-search:focus {
-    outline: none;
-    border-color: var(--blue-primary);
-    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2); /* Sombra de foco más sutil */
+    outline: none; border-color: var(--blue-primary);
+    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2);
 }
 #lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
-.lexicon-item {
-    background-color: var(--white);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--space-lg);
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+.lexicon-item { /* Añadir transición */
+    background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
+    padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease; /* Asegurar transición */
+    display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden;
 }
 .lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    display: block;
-    margin-bottom: var(--space-lg);
-    border-radius: 50%;
-    background-color: var(--blue-light-bg);
-    border: 4px solid var(--white);
+    width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
+    border-radius: 50%; background-color: var(--blue-light-bg); border: 4px solid var(--white);
     box-shadow: var(--shadow-sm);
 }
-.lexicon-item .raramuri-word {
-    font-family: var(--font-heading); /* Poppins */
-    font-weight: 600;
-    color: var(--orange-accent);
-    font-size: 1.25em;
-    margin-bottom: var(--space-xs);
-    word-wrap: break-word;
+.lexicon-item .raramuri-word { /* Poppins Bold */
+    font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent);
+    font-size: 1.25em; margin-bottom: var(--space-xs); word-wrap: break-word;
 }
-.lexicon-item .spanish-word {
-    font-style: normal;
-    color: var(--text-secondary);
-    font-size: 1em;
-    word-wrap: break-word;
-    font-family: var(--font-body); /* Nunito */
+.lexicon-item .spanish-word { /* Nunito Regular */
+    font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word;
+    font-family: var(--font-body);
 }
 
-/* Frases */
-#phrases-list li {
-    background-color: var(--white);
-    margin-bottom: var(--space-lg);
-    padding: var(--space-lg);
-    border: 1px solid var(--border-light);
-    border-left: 5px solid var(--blue-primary);
-    border-radius: var(--border-radius-sm);
-    transition: box-shadow 0.2s ease;
+/* --- Frases --- */
+#phrases-list li { /* Añadir transición */
+    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg);
+    border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
+    border-radius: var(--border-radius-sm); transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
     box-shadow: var(--shadow-sm);
 }
-#phrases-list li:hover { box-shadow: var(--shadow-md); }
-#phrases-list .raramuri-phrase {
-    font-family: var(--font-heading); /* Poppins */
-    font-weight: 600;
-    display: block;
-    margin-bottom: var(--space-sm);
-    font-size: 1.2em;
-    color: var(--text-primary);
+#phrases-list li:hover { box-shadow: var(--shadow-md); border-left-color: var(--orange-accent); } /* Cambio de color en hover */
+#phrases-list .raramuri-phrase { /* Poppins Bold */
+    font-family: var(--font-heading); font-weight: 600; display: block;
+    margin-bottom: var(--space-sm); font-size: 1.2em; color: var(--text-primary);
 }
-#phrases-list .spanish-phrase {
-    color: var(--text-secondary);
-    font-size: 1.05em;
-}
+#phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
 
 /* ------------------------- */
-/* Memorama Section (Nueva Paleta + Refinamientos) */
+/* Memorama Section           */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-xl); }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);}
-#memorama-setup button.difficulty-btn {
+#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);} /* Nunito Bold */
+
+/* Estilo base para botones de Memorama y Quiz */
+.difficulty-btn, #reset-memorama {
     font-family: var(--font-heading); /* Poppins */
-    background-color: var(--blue-primary); /* Azul */
-    color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     border: none;
     border-radius: var(--border-radius-pill);
     cursor: pointer;
     margin: 0 var(--space-sm);
-    transition: all 0.2s ease-out; /* Transición botones */
+    transition: all 0.2s ease-out;
     box-shadow: var(--shadow-interactive);
-    font-weight: 500;
+    font-weight: 500; /* Poppins Medium */
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.9em;
-}
-#memorama-setup button.difficulty-btn:hover {
-    background-color: var(--blue-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md); /* Sombra más pronunciada en hover */
-}
-#memorama-setup button.difficulty-btn.selected {
-    background-color: var(--blue-darker);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-    transform: translateY(0);
-}
-#memorama-setup button.difficulty-btn:active {
-    transform: translateY(0);
-    filter: brightness(0.95);
-}
-
-#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
-#memorama-controls button#reset-memorama {
-    font-family: var(--font-heading); /* Poppins */
-    background-color: var(--orange-accent); /* Naranja */
     color: var(--white);
-    padding: var(--space-sm) var(--space-lg);
-    border: none;
-    border-radius: var(--border-radius-pill);
-    cursor: pointer;
-    transition: all 0.2s ease-out; /* Transición botones */
-    box-shadow: var(--shadow-interactive);
-    font-weight: 500;
-    font-size: 0.9em;
-    text-transform: uppercase;
 }
-#memorama-controls button#reset-memorama:hover {
-    background-color: var(--orange-dark);
+.difficulty-btn:hover, #reset-memorama:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
-#memorama-controls button#reset-memorama:active {
+.difficulty-btn:active, #reset-memorama:active {
     transform: translateY(0);
     filter: brightness(0.95);
 }
+/* Colores específicos */
+.difficulty-btn { background-color: var(--blue-primary); }
+.difficulty-btn:hover { background-color: var(--blue-dark); }
+.difficulty-btn.selected { background-color: var(--blue-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
+#reset-memorama { background-color: var(--orange-accent); }
+#reset-memorama:hover { background-color: var(--orange-dark); }
 
-#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);} /* Nunito */
-
-#memorama-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--space-lg);
-    perspective: 1200px;
-    max-width: 900px;
-    margin: var(--space-lg) auto 0 auto;
+#memorama-grid { /* Sin cambios */
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-lg); perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto;
 }
-
-.memorama-card {
-    height: 160px;
-    aspect-ratio: 1 / 1;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease; /* Transición suave sombra */
-    box-shadow: var(--shadow-md);
-    border: 1px solid transparent;
-    background-color: transparent;
-    overflow: hidden;
+.memorama-card { /* Transición refinada */
+    height: 160px; aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer;
+    position: relative; transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease-out; /* Ease out para suavidad final */
+    box-shadow: var(--shadow-md); border: 1px solid transparent; background-color: transparent; overflow: hidden;
 }
- .memorama-card:hover {
-     box-shadow: var(--shadow-lg); /* Sombra más grande en hover */
-     transform: scale(1.03); /* Ligero zoom */
+ .memorama-card:hover:not(.matched) { /* Evitar hover en matched */
+     box-shadow: var(--shadow-lg);
+     transform: scale(1.03);
  }
+.memorama-card.flipped { transform: rotateY(180deg); }
+.memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); } /* Mantener zoom hover */
 
-.memorama-card.flipped {
-    transform: rotateY(180deg) scale(1.03); /* Mantener zoom si se hace hover y flip */
-}
-.memorama-card.flipped:hover {
-     transform: rotateY(180deg) scale(1.05); /* Zoom extra en hover flipped */
-}
-
-
-.memorama-card.matched {
-     opacity: 0.8;
-     border: 2px solid var(--success-green);
-     cursor: default;
-     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
-     transform: scale(0.95);
+.memorama-card.matched { /* Sin cambios significativos */
+     opacity: 0.8; border: 2px solid var(--success-green); cursor: default;
+     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); transform: scale(0.95);
      transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
 }
-.memorama-card.flipped.matched {
-    transform: rotateY(180deg) scale(0.95);
-}
-.memorama-card.matched:hover {
-    transform: scale(0.95); /* No hacer zoom en hover si ya está matched */
-    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
-}
+.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
+.memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); }
 
-
-.card-face {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: inherit;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
-    overflow: hidden;
-    transition: opacity 0.1s linear 0.15s;
-    transform: translateZ(0);
-    will-change: opacity;
+.card-face { /* Sin cambios */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; border-radius: inherit; padding: 0; box-sizing: border-box;
+    text-align: center; overflow: hidden; transition: opacity 0.1s linear 0.15s;
+    transform: translateZ(0); will-change: opacity;
 }
-
-/* Cara FRONTAL: Contenido */
-.card-front {
-    background-color: var(--white);
-    color: var(--text-primary);
-    transform: rotateY(180deg);
-    border: 1px solid var(--border-light);
-    z-index: 2;
-    opacity: 0;
-    visibility: hidden;
+.card-front { /* Sin cambios */
+    background-color: var(--white); color: var(--text-primary); transform: rotateY(180deg);
+    border: 1px solid var(--border-light); z-index: 2; opacity: 0; visibility: hidden;
 }
-.memorama-card.flipped .card-front {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0.15s;
+.memorama-card.flipped .card-front, .memorama-card.matched .card-front { opacity: 1; visibility: visible; transition-delay: 0.15s; z-index: 2; }
+.card-front img { /* Sin cambios */
+    display: block; width: 100%; height: 100%; object-fit: cover; object-position: center;
+    border-radius: inherit; opacity: 1 !important; visibility: visible !important;
 }
-.memorama-card.matched .card-front {
-     opacity: 1;
-     visibility: visible;
-     z-index: 2;
+.card-front p { /* Poppins Bold */
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3;
+    margin: 0; padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark);
+    flex-shrink: 0; text-align: center; opacity: 1 !important; visibility: visible !important; box-sizing: border-box;
 }
-
-.card-front img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: inherit;
-    opacity: 1 !important;
-    visibility: visible !important;
+.card-back { /* Sin cambios */
+    background-color: var(--blue-dark); color: white; transform: rotateY(0deg); z-index: 1;
+    opacity: 1; visibility: visible; display: flex; justify-content: center; align-items: center;
 }
-
-.card-front p {
-    font-family: var(--font-heading); /* Poppins */
-    font-weight: 600;
-    font-size: 1.1em;
-    line-height: 1.3;
-    margin: 0;
-    padding: var(--space-sm);
-    width: 100%;
-    word-wrap: break-word;
-    color: var(--orange-dark);
-    flex-shrink: 0;
-    text-align: center;
-    opacity: 1 !important;
-    visibility: visible !important;
-    box-sizing: border-box;
+.memorama-card.flipped .card-back, .memorama-card.matched .card-back { opacity: 0; visibility: hidden; transition-delay: 0s; z-index: 1; }
+.card-back::before { /* Poppins Bold */
+   content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
+   color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
 }
-
-/* Cara TRASERA: Diseño */
-.card-back {
-    background-color: var(--blue-dark);
-    color: white;
-    transform: rotateY(0deg);
-    z-index: 1;
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#memorama-win-message, #memorama-data-error { /* Sin cambios */
+    font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
+    border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em;
+    text-align: center; box-shadow: var(--shadow-sm);
 }
-.memorama-card.flipped .card-back {
-    opacity: 0;
-    visibility: hidden;
-    transition-delay: 0s;
-}
- .memorama-card.matched .card-back {
-     opacity: 0;
-     visibility: hidden;
-     z-index: 1;
-}
-
-.card-back::before {
-   content: '?';
-   font-family: var(--font-heading); /* Poppins */
-   font-size: 4em;
-   font-weight: 700; /* Bold */
-   color: var(--yellow-highlight); /* Amarillo */
-   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-   line-height: 1;
-}
-
-/* Mensajes */
-#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm); font-family: var(--font-heading); }
-#memorama-data-error { margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-family: var(--font-body); }
-
+#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; }
+#memorama-data-error { background-color: var(--error-bg); border: 1px solid var(--error-red); color: var(--error-red); font-family: var(--font-body); font-weight: 400; } /* Fuente body regular */
 
 /* ------------------------- */
-/* Quiz Section (Nueva Paleta + Refinamientos) */
+/* Quiz Section                */
 /* ------------------------- */
 #quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
 #quiz-setup { margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light); text-align: center; }
@@ -557,42 +383,10 @@ nav button:active {
 #quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--border-light); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary); transition: border-color 0.2s ease; }
 #quiz-setup select:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2); }
 
-#quiz-setup button#start-quiz,
-#quiz-text-input-area button#submit-text-answer,
-button#next-question,
-#quiz-results button { /* Estilo base común para botones de acción */
-    font-family: var(--font-heading); /* Poppins */
-    padding: var(--space-md) var(--space-lg);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    cursor: pointer;
-    font-size: 1.05em; /* Ligeramente más grande */
-    font-weight: 500;
-    transition: all 0.2s ease-out;
-    box-shadow: var(--shadow-interactive);
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--white);
-}
-#quiz-setup button#start-quiz:hover,
-#quiz-text-input-area button#submit-text-answer:hover,
-button#next-question:hover,
-#quiz-results button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-#quiz-setup button#start-quiz:active,
-#quiz-text-input-area button#submit-text-answer:active,
-button#next-question:active,
-#quiz-results button:active {
-    transform: translateY(0);
-    filter: brightness(0.95);
-}
-
-/* Colores específicos por botón */
-#quiz-setup button#start-quiz { background-color: var(--orange-accent); }
+/* Botones Quiz (Usan estilo base común definido antes) */
+#quiz-setup button#start-quiz { background-color: var(--orange-accent); font-size: 1.1em; /* Más grande */ }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); }
-#quiz-text-input-area button#submit-text-answer { background-color: var(--blue-primary); padding: calc(var(--space-md) - 1px) var(--space-lg); font-size: 1em; /* Ajustar padding por altura input */ }
+#quiz-text-input-area button#submit-text-answer { background-color: var(--blue-primary); padding: calc(var(--space-md) - 1px) var(--space-lg); font-size: 1em; }
 #quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); }
 button#next-question { background-color: var(--blue-dark); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto; }
 button#next-question:hover { background-color: var(--blue-darker); }
@@ -603,51 +397,54 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
 #quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body); }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
-#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins */
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins Medium */
 #quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
-#quiz-options button {
+#quiz-options button { /* Botones de opción */
     display: block; width: 100%; margin-bottom: var(--space-md); text-align: left;
-    background-color: var(--white);
-    color: var(--text-primary);
-    padding: var(--space-md) var(--space-lg);
-    border: 1px solid var(--border-light); /* Borde más claro */
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    font-size: 1.05em; font-family: var(--font-body); /* Nunito */
+    background-color: var(--white); color: var(--text-primary); padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--border-light); border-radius: var(--border-radius-md); cursor: pointer;
+    transition: all 0.2s ease-in-out; font-size: 1.05em; font-family: var(--font-body); /* Nunito */
     box-shadow: var(--shadow-sm);
 }
 #quiz-options button:hover:not(:disabled) {
-    background-color: var(--blue-light-bg);
-    border-color: var(--blue-primary);
-    transform: translateX(4px);
-    box-shadow: var(--shadow-interactive);
+    background-color: var(--blue-light-bg); border-color: var(--blue-primary);
+    transform: translateX(4px); box-shadow: var(--shadow-interactive);
 }
 #quiz-options button:disabled { cursor: default; opacity: 0.8; }
-#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
-#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 600; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); } /* Nunito Bold */
+#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 400; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); } /* Nunito Regular */
 #quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
+
 #quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
-#quiz-text-answer {
-    flex-grow: 1; padding: var(--space-md);
-    border: 1px solid var(--border-light); /* Borde más claro */
-    border-radius: var(--border-radius-sm);
-    font-size: 1.1em; font-family: var(--font-body); /* Nunito */
-    box-shadow: var(--shadow-sm); transition: all 0.2s ease-out;
+#quiz-text-answer { /* Input texto */
+    flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-light); border-radius: var(--border-radius-sm);
+    font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.2s ease-out;
     background-color: var(--white);
 }
 #quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2); }
-#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
-#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
-#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; font-family: var(--font-heading);} /* Poppins */
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; } /* Nunito Bold */
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 400;} /* Nunito Regular */
+
+/* Feedback Quiz con Animación */
+#quiz-feedback {
+    margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center;
+    font-size: 1.2em; font-family: var(--font-heading); /* Poppins Bold */
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(10px); /* Ligeramente abajo */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+#quiz-feedback.visible { /* Clase que se añadirá con JS cuando haya feedback */
+    opacity: 1;
+    transform: translateY(0);
+}
 #quiz-feedback.correct { color: var(--success-green); }
 #quiz-feedback.incorrect { color: var(--error-red); }
-#quiz-feedback strong { font-weight: 700; }
+#quiz-feedback strong { font-weight: 700; } /* Poppins Bold */
 
 #quiz-results { text-align: center; padding: var(--space-xl) 0; }
 #quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; } /* Poppins */
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);} /* Nunito */
-#quiz-results span { color: var(--text-primary); font-weight: 700; }
+#quiz-results span { color: var(--text-primary); font-weight: 600; } /* Nunito Bold */
 
 /* ------------------------- */
 /* Footer                    */
@@ -657,6 +454,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 /* ------------------------- */
 /* Responsive Adjustments    */
 /* ------------------------- */
+/* (Sin cambios respecto a la versión anterior, ya ajustaban tamaños) */
 @media (max-width: 992px) {
     #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .memorama-card { height: 145px; }
