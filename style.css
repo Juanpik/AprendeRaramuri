@@ -435,17 +435,13 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     color: var(--text-secondary);
 }
 
-/* Controles Flashcards Layout (Principal) */
+/* Controles Flashcards Layout (Opción 3B) */
+#flashcard-controls { margin-top: var(--space-lg); }
 .flashcard-main-controls {
      display: flex; justify-content: center; align-items: center;
      gap: var(--space-md); margin-bottom: var(--space-md);
 }
-/* Contenedor botón Barajar - Alinear a la DERECHA */
-.flashcard-extra-controls {
-     text-align: right; /* Alinear a la derecha */
-     margin-top: var(--space-md);
-     padding-right: 5px; /* Pequeño padding */
-}
+.flashcard-extra-controls { text-align: center; }
 #flashcard-controls button { /* Estilo base botones flashcards */
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
@@ -464,8 +460,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #flip-flashcard-btn:hover { background-color: var(--orange-dark); }
 #shuffle-flashcards-btn { /* Botón Barajar */
     background-color: var(--text-secondary); font-size: 0.85em;
-    padding: var(--space-xs) var(--space-sm);
-    display: inline-block; /* Necesario para text-align */
+    padding: var(--space-xs) var(--space-sm); margin-top: var(--space-sm);
 }
 #shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
@@ -525,12 +520,10 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); }
-    #flashcard-controls button { flex-basis: auto; }
-    #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);}
-    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; }
-    /* Mantener Barajar alineado a derecha en móvil */
-    .flashcard-extra-controls { text-align: right; width: 100%; padding: 0 5px; }
+    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); } /* Ajuste botones flashcard en móvil */
+    #flashcard-controls button { flex-basis: auto; } /* Permitir que los botones tomen su ancho natural */
+    #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);} /* Voltear arriba y ancho completo */
+    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; } /* Que ocupen espacio restante */
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
