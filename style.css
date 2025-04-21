@@ -272,15 +272,15 @@ nav button.active {
 }
 .lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img {
-    width: 150px;
-    height: 150px;
+    width: 150px; /* Mantiene el tamaño cuadrado */
+    height: 150px; /* Mantiene el tamaño cuadrado */
     object-fit: cover;
     display: block;
     margin-bottom: var(--space-lg);
-    border-radius: 50%;
-    background-color: var(--blue-light-bg); /* Fondo azul pálido */
-    border: 4px solid var(--white);
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius-md); /* <<<-- CAMBIO AQUÍ: Usa la variable para bordes redondeados (o un valor fijo como 15px) */
+    background-color: var(--blue-light-bg); /* Mantiene el fondo por si la imagen no carga */
+    border: 4px solid var(--white); /* Mantiene el borde blanco */
+    box-shadow: var(--shadow-sm); /* Mantiene la sombra */
 }
 .lexicon-item .raramuri-word {
     font-family: var(--font-heading); /* Poppins */
