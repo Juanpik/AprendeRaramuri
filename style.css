@@ -50,17 +50,16 @@
     --border-radius-lg: 20px;
     --border-radius-pill: 50px;
 
-    /* Shadows - Refinados */
-    --shadow-sm: 0 3px 6px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 6px 15px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.09);
-    --shadow-interactive: 0 4px 8px rgba(0, 0, 0, 0.06);
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-interactive: 0 3px 7px rgba(0, 0, 0, 0.05);
 }
 
 body {
     font-family: var(--font-body); /* Nunito */
-    font-size: 16px; /* Base font size */
-    line-height: 1.7; /* Buen interlineado por defecto */
+    line-height: 1.7;
     background-color: var(--background-color);
     color: var(--text-primary);
     display: flex;
@@ -82,369 +81,559 @@ main {
     border: 1px solid var(--border-light);
 }
 
-/* --- Tipografía y Jerarquía Refinada --- */
+/* H1, H2, H3 con fuente Poppins (excepto el H1 del header) */
 h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 700; }
 
+/* Estilo específico para el H1 principal del header */
 header > h1 {
-  font-family: var(--font-title);
-  font-size: 3em; /* Tamaño principal destacado */
-  font-weight: 400;
-  margin: 0 0 var(--space-xs) 0;
+  font-family: var(--font-title); /* Patrick Hand SC */
+  font-size: 3em; /* Tamaño grande y ajustable */
+  font-weight: 400; /* Esta fuente suele ser 400 */
+  margin: 0 0 var(--space-xs) 0; /* Margen inferior ligero */
   padding-bottom: 0;
   letter-spacing: 1px;
   color: var(--white);
-  line-height: 1.1;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  line-height: 1.1; /* Ajustar si es necesario */
 }
 
+/* Estilos generales para H2 (aplican a todas las secciones excepto si se sobreescriben) */
 h2 {
     color: var(--blue-dark);
-    font-size: 2em; /* Claramente más pequeño que H1 */
-    border-bottom: 2px solid var(--border-light);
+    font-size: 2em;
+    border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
     padding-bottom: var(--space-md);
-    margin-top: 0; /* Evitar doble margen */
-    margin-bottom: var(--space-xl); /* Espacio consistente después */
-    letter-spacing: -0.2px; /* Ligero ajuste */
-    font-weight: 700; /* Poppins Bold */
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.5px;
+    font-weight: 700;
 }
 
-h3 {
-    color: var(--blue-darker);
-    font-size: 1.4em; /* Claramente más pequeño que H2 */
-    font-weight: 500; /* Poppins Medium */
-    margin-top: var(--space-lg); /* Espacio antes si sigue a otro contenido */
-    margin-bottom: var(--space-lg);
-    letter-spacing: 0px;
-}
-
-p {
-    margin-bottom: var(--space-lg); /* Espacio consistente entre párrafos */
-    font-size: 1rem; /* Tamaño base (16px) */
-    line-height: 1.7; /* Mantenido de body */
-    color: var(--text-primary); /* Color principal por defecto */
-}
-p.text-secondary, .text-secondary { /* Clase para texto secundario */
-    color: var(--text-secondary);
-    font-size: 0.95rem; /* Ligeramente más pequeño */
-}
-
+h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
+p { margin-bottom: var(--space-lg); font-size: 1.05em; }
 ul { list-style: none; padding: 0; }
 .text-center { text-align: center; }
 
-/* --- Header & Nav --- */
+/* Header & Nav - Paleta Azul */
 header {
-    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
+    background: var(--blue-primary); /* Azul Principal */
     color: var(--white);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-sm) var(--space-lg); /* Mantenido delgado */
     text-align: center;
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
-nav { margin-top: 0; }
+
+nav {
+    margin-top: 0;
+}
 nav button {
-    font-family: var(--font-heading);
-    font-weight: 500; /* Poppins Medium */
+    font-family: var(--font-heading); /* Poppins para botones */
+    font-weight: 500;
     background-color: transparent;
-    color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.4); /* Borde blanco semi-transparente */
     padding: var(--space-xs) var(--space-md);
     margin: var(--space-xs) 5px;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.2s ease-out;
+    transition: all 0.25s ease-in-out;
     font-size: 0.85em;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
 }
 nav button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--white);
     color: var(--white);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-interactive);
 }
 nav button.active {
     background-color: var(--white);
-    color: var(--blue-darker);
+    color: var(--blue-darker); /* Texto azul oscuro en botón activo */
     border-color: var(--white);
-    font-weight: 700; /* Poppins Bold */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-weight: 700;
+    box-shadow: var(--shadow-interactive);
     transform: translateY(0);
 }
-nav button:active {
-    transform: translateY(0px);
-    filter: brightness(0.98);
-}
 
-/* --- Loading/Error --- */
-#loading-message, #error-message { /* Mismos estilos que antes */
-    font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;
-}
-#loading-message { color: var(--text-secondary); }
-#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; }
+/* Loading/Error */
+#loading-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; color: var(--text-secondary); }
+#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;}
 
-/* --- Sections --- */
-.content-section {
-    display: none;
-    animation: fadeIn 0.4s ease-out; /* Animación más rápida */
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-xl);
-}
+/* Sections */
+.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
 .content-section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* --- About Section Specific Styles --- */
-#about { text-align: center; }
+#about {
+  /* padding: var(--space-lg) 0; */ /* Usar padding general de section */
+  text-align: center; /* Centrar todo en esta sección */
+}
+
+/* Sobreescribir H2 solo para la sección #about */
 #about h2 {
-  color: var(--blue-dark); font-size: 2em; border-bottom: none;
-  padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); letter-spacing: -0.5px;
-  font-weight: 700; display: inline-block; position: relative;
+  color: var(--blue-dark);
+  font-size: 2em;
+  border-bottom: none; /* Quitar borde inferior gris */
+  padding-bottom: var(--space-sm); /* Menos padding inferior */
+  margin-bottom: var(--space-sm); /* Reducir margen inferior */
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  display: inline-block; /* Para que el borde no ocupe todo el ancho */
+  position: relative; /* Necesario para el pseudo-elemento ::after */
 }
+
+/* Línea decorativa naranja debajo del H2 en #about */
 #about h2::after {
-  content: ''; position: absolute; bottom: -2px; left: 15%; width: 70%; height: 2px;
-  background-color: var(--orange-accent); margin-top: var(--space-sm);
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Ajustar posición vertical justo debajo */
+    left: 15%; /* Empezar más adentro */
+    width: 70%; /* No ocupar todo el ancho */
+    height: 2px; /* Grosor de la línea */
+    background-color: var(--orange-accent); /* Color naranja */
+    margin-top: var(--space-sm);
 }
-#about p { /* Hereda p general, pero con ajustes */
-  font-size: 1.05rem; /* Ligeramente más grande que base */
-  max-width: 750px; margin-left: auto; margin-right: auto;
-  color: var(--text-secondary); /* Texto secundario para descripción */
-  margin-top: var(--space-xl); margin-bottom: var(--space-lg);
+
+#about p {
+  font-size: 1.1em; /* Ligeramente más grande */
+  max-width: 750px; /* Limitar ancho para mejor lectura centrada */
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg); /* Espacio estándar después de párrafo */
+  margin-top: var(--space-xl); /* Más espacio antes del primer párrafo */
 }
-#about em { color: var(--orange-accent); font-style: normal; font-weight: 600; } /* Nunito Bold */
-#about p.credits-line { /* Clase para "Creditos:" */
-  font-size: 1rem; color: var(--text-primary); margin-top: var(--space-xl);
-  margin-bottom: var(--space-sm); font-weight: 600; /* Nunito Bold */
+
+/* Estilo para énfasis en #about */
+#about em {
+  color: var(--orange-accent); /* Color naranja */
+  font-style: normal; /* Quitar cursiva */
+  font-weight: 600; /* Ligeramente más grueso */
 }
+
+/* Estilo específico si se usa una clase para la línea de créditos */
+#about p.credits-line {
+  font-size: 0.95em;
+  color: var(--text-secondary);
+  margin-top: var(--space-xl); /* Más espacio antes */
+  margin-bottom: var(--space-sm); /* Menos espacio después */
+  font-weight: 600;
+}
+
+/* Estilo si se usa una lista para los créditos */
 #about ul.credits-list {
-  list-style: none; padding: 0; margin-top: 0; font-size: 0.95rem; color: var(--text-secondary);
+    list-style: none;
+    padding: 0;
+    margin-top: 0; /* Menos espacio si sigue a .credits-line */
+    font-size: 0.9em;
+    color: var(--text-secondary);
 }
-#about ul.credits-list li { margin-bottom: var(--space-xs); }
+#about ul.credits-list li {
+    margin-bottom: var(--space-xs);
+}
 /* --- End of About Section Specific Styles --- */
 
 
-/* --- Léxico --- */
+/* Léxico */
 .search-container { margin-bottom: var(--space-xl); text-align: center; }
-#lexicon-search { /* Estilos refinados */
-    font-family: var(--font-body); padding: var(--space-sm) var(--space-lg);
-    border: 1px solid var(--border-light); border-radius: var(--border-radius-pill);
-    width: 80%; max-width: 600px; font-size: 1.05em;
-    transition: all 0.2s ease-out; box-shadow: var(--shadow-sm); background-color: var(--white);
+#lexicon-search {
+    font-family: var(--font-body); /* Nunito */
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-pill);
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    background-color: var(--white);
 }
 #lexicon-search:focus {
-    outline: none; border-color: var(--blue-primary);
-    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2);
+    outline: none;
+    border-color: var(--blue-primary); /* Borde azul en foco */
+    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); /* Sombra azul */
 }
 #lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
-.lexicon-item { /* Añadir transición */
-    background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
-    padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease; /* Asegurar transición */
-    display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden;
+.lexicon-item {
+    background-color: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--space-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 .lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img {
-    width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
-    border-radius: 50%; background-color: var(--blue-light-bg); border: 4px solid var(--white);
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: var(--space-lg);
+    border-radius: 50%;
+    background-color: var(--blue-light-bg); /* Fondo azul pálido */
+    border: 4px solid var(--white);
     box-shadow: var(--shadow-sm);
 }
-.lexicon-item .raramuri-word { /* Poppins Bold */
-    font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent);
-    font-size: 1.25em; margin-bottom: var(--space-xs); word-wrap: break-word;
+.lexicon-item .raramuri-word {
+    font-family: var(--font-heading); /* Poppins */
+    font-weight: 600;
+    color: var(--orange-accent); /* Naranja */
+    font-size: 1.25em;
+    margin-bottom: var(--space-xs);
+    word-wrap: break-word;
 }
-.lexicon-item .spanish-word { /* Nunito Regular */
-    font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word;
-    font-family: var(--font-body);
+.lexicon-item .spanish-word {
+    font-style: normal;
+    color: var(--text-secondary);
+    font-size: 1em;
+    word-wrap: break-word;
+    font-family: var(--font-body); /* Nunito */
 }
 
-/* --- Frases --- */
-#phrases-list li { /* Añadir transición */
-    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg);
-    border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
-    border-radius: var(--border-radius-sm); transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
+/* Frases */
+#phrases-list li {
+    background-color: var(--white);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-lg);
+    border: 1px solid var(--border-light);
+    border-left: 5px solid var(--blue-primary); /* Borde izquierdo azul */
+    border-radius: var(--border-radius-sm);
+    transition: box-shadow 0.2s ease;
     box-shadow: var(--shadow-sm);
 }
-#phrases-list li:hover { box-shadow: var(--shadow-md); border-left-color: var(--orange-accent); } /* Cambio de color en hover */
-#phrases-list .raramuri-phrase { /* Poppins Bold */
-    font-family: var(--font-heading); font-weight: 600; display: block;
-    margin-bottom: var(--space-sm); font-size: 1.2em; color: var(--text-primary);
+#phrases-list li:hover { box-shadow: var(--shadow-md); }
+#phrases-list .raramuri-phrase {
+    font-family: var(--font-heading); /* Poppins */
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-size: 1.2em;
+    color: var(--text-primary);
 }
-#phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
+#phrases-list .spanish-phrase {
+    color: var(--text-secondary);
+    font-size: 1.05em;
+}
 
 /* ------------------------- */
-/* Memorama Section           */
+/* Memorama Section (Nueva Paleta) */
 /* ------------------------- */
 #memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-xl); }
 #memorama-setup p { margin-bottom: var(--space-lg); font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);}
-#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
-#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);} /* Nunito Bold */
-
-/* Estilo base para botones de Memorama y Quiz */
-.difficulty-btn, #reset-memorama {
+#memorama-setup button.difficulty-btn {
     font-family: var(--font-heading); /* Poppins */
+    background-color: var(--blue-primary); /* Azul */
+    color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     border: none;
     border-radius: var(--border-radius-pill);
     cursor: pointer;
     margin: 0 var(--space-sm);
-    transition: all 0.2s ease-out;
+    transition: all 0.3s ease;
     box-shadow: var(--shadow-interactive);
-    font-weight: 500; /* Poppins Medium */
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.9em;
-    color: var(--white);
 }
-.difficulty-btn:hover, #reset-memorama:hover {
+#memorama-setup button.difficulty-btn:hover {
+    background-color: var(--blue-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
-.difficulty-btn:active, #reset-memorama:active {
+#memorama-setup button.difficulty-btn.selected {
+    background-color: var(--blue-darker);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
     transform: translateY(0);
-    filter: brightness(0.95);
 }
-/* Colores específicos */
-.difficulty-btn { background-color: var(--blue-primary); }
-.difficulty-btn:hover { background-color: var(--blue-dark); }
-.difficulty-btn.selected { background-color: var(--blue-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
-#reset-memorama { background-color: var(--orange-accent); }
-#reset-memorama:hover { background-color: var(--orange-dark); }
+/* #memorama-game-area > p { text-align: center; margin-bottom: var(--space-lg); color: var(--text-secondary); font-style: normal; font-size: 1.05em; } */ /* Comentado porque se eliminó del HTML */
+#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+#memorama-controls button#reset-memorama {
+    font-family: var(--font-heading); /* Poppins */
+    background-color: var(--orange-accent); /* Naranja */
+    color: var(--white);
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--border-radius-pill);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-interactive);
+    font-weight: 500;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+#memorama-controls button#reset-memorama:hover {
+    background-color: var(--orange-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);} /* Nunito */
 
-#memorama-grid { /* Sin cambios */
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--space-lg); perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto;
+#memorama-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-lg);
+    perspective: 1200px;
+    max-width: 900px;
+    margin: var(--space-lg) auto 0 auto;
 }
-.memorama-card { /* Transición refinada */
-    height: 160px; aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer;
-    position: relative; transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease-out; /* Ease out para suavidad final */
-    box-shadow: var(--shadow-md); border: 1px solid transparent; background-color: transparent; overflow: hidden;
+
+.memorama-card {
+    height: 160px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    border: 1px solid transparent;
+    background-color: transparent;
+    overflow: hidden;
 }
- .memorama-card:hover:not(.matched) { /* Evitar hover en matched */
+ .memorama-card:hover {
      box-shadow: var(--shadow-lg);
-     transform: scale(1.03);
  }
-.memorama-card.flipped { transform: rotateY(180deg); }
-.memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); } /* Mantener zoom hover */
 
-.memorama-card.matched { /* Sin cambios significativos */
-     opacity: 0.8; border: 2px solid var(--success-green); cursor: default;
-     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); transform: scale(0.95);
+.memorama-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.memorama-card.matched {
+     opacity: 0.8;
+     border: 2px solid var(--success-green);
+     cursor: default;
+     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); /* Sombra verde */
+     transform: scale(0.95);
      transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
 }
-.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
-.memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); }
+.memorama-card.flipped.matched {
+    transform: rotateY(180deg) scale(0.95);
+}
 
-.card-face { /* Sin cambios */
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; border-radius: inherit; padding: 0; box-sizing: border-box;
-    text-align: center; overflow: hidden; transition: opacity 0.1s linear 0.15s;
-    transform: translateZ(0); will-change: opacity;
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: inherit;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    transition: opacity 0.1s linear 0.15s;
+    transform: translateZ(0);
+    will-change: opacity;
 }
-.card-front { /* Sin cambios */
-    background-color: var(--white); color: var(--text-primary); transform: rotateY(180deg);
-    border: 1px solid var(--border-light); z-index: 2; opacity: 0; visibility: hidden;
+
+/* Cara FRONTAL: Contenido */
+.card-front {
+    background-color: var(--white); /* Blanco */
+    color: var(--text-primary);
+    transform: rotateY(180deg);
+    border: 1px solid var(--border-light);
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
 }
-.memorama-card.flipped .card-front, .memorama-card.matched .card-front { opacity: 1; visibility: visible; transition-delay: 0.15s; z-index: 2; }
-.card-front img { /* Sin cambios */
-    display: block; width: 100%; height: 100%; object-fit: cover; object-position: center;
-    border-radius: inherit; opacity: 1 !important; visibility: visible !important;
+.memorama-card.flipped .card-front {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.15s;
 }
-.card-front p { /* Poppins Bold */
-    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3;
-    margin: 0; padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark);
-    flex-shrink: 0; text-align: center; opacity: 1 !important; visibility: visible !important; box-sizing: border-box;
+.memorama-card.matched .card-front {
+     opacity: 1;
+     visibility: visible;
+     z-index: 2;
 }
-.card-back { /* Sin cambios */
-    background-color: var(--blue-dark); color: white; transform: rotateY(0deg); z-index: 1;
-    opacity: 1; visibility: visible; display: flex; justify-content: center; align-items: center;
+
+.card-front img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
-.memorama-card.flipped .card-back, .memorama-card.matched .card-back { opacity: 0; visibility: hidden; transition-delay: 0s; z-index: 1; }
-.card-back::before { /* Poppins Bold */
-   content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
-   color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
+
+.card-front p {
+    font-family: var(--font-heading); /* Poppins */
+    font-weight: 600; /* Un poco más grueso */
+    font-size: 1.1em;
+    line-height: 1.3;
+    margin: 0;
+    padding: var(--space-sm);
+    width: 100%;
+    word-wrap: break-word;
+    color: var(--orange-dark); /* Naranja oscuro para texto Raramuri */
+    flex-shrink: 0;
+    text-align: center;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-sizing: border-box;
 }
-#memorama-win-message, #memorama-data-error { /* Sin cambios */
-    font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
-    border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em;
-    text-align: center; box-shadow: var(--shadow-sm);
+
+/* Cara TRASERA: Diseño */
+.card-back {
+    background-color: var(--blue-dark); /* Azul oscuro */
+    color: white;
+    transform: rotateY(0deg);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; }
-#memorama-data-error { background-color: var(--error-bg); border: 1px solid var(--error-red); color: var(--error-red); font-family: var(--font-body); font-weight: 400; } /* Fuente body regular */
+.memorama-card.flipped .card-back {
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: 0s;
+}
+ .memorama-card.matched .card-back {
+     opacity: 0;
+     visibility: hidden;
+     z-index: 1;
+}
+
+.card-back::before {
+   content: '?';
+   font-family: var(--font-heading); /* Poppins */
+   font-size: 4em;
+   font-weight: 700; /* Bold */
+   color: var(--yellow-highlight); /* Amarillo para el '?' */
+   text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra ligera */
+   line-height: 1;
+}
+
+/* Mensajes */
+#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm); font-family: var(--font-heading); }
+#memorama-data-error { margin-top: var(--space-md); color: var(--error-red); font-weight: 600; text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-family: var(--font-body); }
+
 
 /* ------------------------- */
-/* Quiz Section                */
+/* Quiz Section (Nueva Paleta) */
 /* ------------------------- */
 #quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
 #quiz-setup { margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light); text-align: center; }
 #quiz-setup p { font-weight: 400; margin-bottom: var(--space-lg); font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body); }
 #quiz-setup label { margin-right: var(--space-sm); color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
-#quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--border-light); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary); transition: border-color 0.2s ease; }
-#quiz-setup select:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2); }
-
-/* Botones Quiz (Usan estilo base común definido antes) */
-#quiz-setup button#start-quiz { background-color: var(--orange-accent); font-size: 1.1em; /* Más grande */ }
-#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); }
-#quiz-text-input-area button#submit-text-answer { background-color: var(--blue-primary); padding: calc(var(--space-md) - 1px) var(--space-lg); font-size: 1em; }
-#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); }
-button#next-question { background-color: var(--blue-dark); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto; }
-button#next-question:hover { background-color: var(--blue-darker); }
-button#restart-quiz { background-color: var(--orange-accent); min-width: 200px; margin: var(--space-sm) var(--space-md); }
-button#restart-quiz:hover { background-color: var(--orange-dark); }
-button#retry-missed-quiz { background-color: var(--blue-primary); min-width: 200px; margin: var(--space-sm) var(--space-md); }
-button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
-
+#quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary); }
+#quiz-setup button#start-quiz {
+    font-family: var(--font-heading); /* Poppins */
+    background-color: var(--orange-accent); /* Naranja */
+    color: var(--white);
+    padding: var(--space-md) var(--space-xl);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-interactive);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body); }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
-#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins Medium */
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins */
 #quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
-#quiz-options button { /* Botones de opción */
+#quiz-options button {
     display: block; width: 100%; margin-bottom: var(--space-md); text-align: left;
-    background-color: var(--white); color: var(--text-primary); padding: var(--space-md) var(--space-lg);
-    border: 1px solid var(--border-light); border-radius: var(--border-radius-md); cursor: pointer;
-    transition: all 0.2s ease-in-out; font-size: 1.05em; font-family: var(--font-body); /* Nunito */
+    background-color: var(--white);
+    color: var(--text-primary);
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.05em; font-family: var(--font-body); /* Nunito */
     box-shadow: var(--shadow-sm);
 }
 #quiz-options button:hover:not(:disabled) {
-    background-color: var(--blue-light-bg); border-color: var(--blue-primary);
-    transform: translateX(4px); box-shadow: var(--shadow-interactive);
+    background-color: var(--blue-light-bg); /* Azul pálido hover */
+    border-color: var(--blue-primary);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-interactive);
 }
 #quiz-options button:disabled { cursor: default; opacity: 0.8; }
-#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 600; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); } /* Nunito Bold */
-#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 400; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); } /* Nunito Regular */
+#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
 #quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
-
 #quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
-#quiz-text-answer { /* Input texto */
-    flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-light); border-radius: var(--border-radius-sm);
-    font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.2s ease-out;
+#quiz-text-answer {
+    flex-grow: 1; padding: var(--space-md);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-sm);
+    font-size: 1.1em; font-family: var(--font-body); /* Nunito */
+    box-shadow: var(--shadow-sm); transition: all 0.3s ease;
     background-color: var(--white);
 }
-#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.2); }
-#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; } /* Nunito Bold */
-#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 400;} /* Nunito Regular */
-
-/* Feedback Quiz con Animación */
-#quiz-feedback {
-    margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center;
-    font-size: 1.2em; font-family: var(--font-heading); /* Poppins Bold */
-    opacity: 0; /* Inicialmente invisible */
-    transform: translateY(10px); /* Ligeramente abajo */
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
+#quiz-text-input-area button#submit-text-answer {
+    font-family: var(--font-heading); /* Poppins */
+    padding: calc(var(--space-md) - 1px) var(--space-lg);
+    background-color: var(--blue-primary); /* Azul */
+    color: var(--white);
+    border: none; border-radius: var(--border-radius-sm);
+    cursor: pointer; font-size: 1em; white-space: nowrap;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive);
+    font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
 }
-#quiz-feedback.visible { /* Clase que se añadirá con JS cuando haya feedback */
-    opacity: 1;
-    transform: translateY(0);
-}
+#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
+#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; font-family: var(--font-heading);} /* Poppins */
 #quiz-feedback.correct { color: var(--success-green); }
 #quiz-feedback.incorrect { color: var(--error-red); }
-#quiz-feedback strong { font-weight: 700; } /* Poppins Bold */
-
+#quiz-feedback strong { font-weight: 700; }
+button#next-question {
+    font-family: var(--font-heading); /* Poppins */
+    display: block; width: auto; min-width: 180px;
+    margin: var(--space-lg) auto 0 auto;
+    padding: var(--space-md) var(--space-xl);
+    background-color: var(--blue-dark); /* Azul oscuro */
+    color: var(--white);
+    border: none; border-radius: var(--border-radius-sm);
+    cursor: pointer; font-size: 1.1em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive);
+    letter-spacing: 0.5px; text-transform: uppercase;
+}
+button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-results { text-align: center; padding: var(--space-xl) 0; }
 #quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; } /* Poppins */
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);} /* Nunito */
-#quiz-results span { color: var(--text-primary); font-weight: 600; } /* Nunito Bold */
+#quiz-results span { color: var(--text-primary); font-weight: 700; }
+#quiz-results button {
+    font-family: var(--font-heading); /* Poppins */
+    margin: var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border: none; border-radius: var(--border-radius-sm);
+    cursor: pointer; font-size: 1.05em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive);
+    min-width: 200px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+button#restart-quiz { background-color: var(--orange-accent); color: var(--white); } /* Naranja */
+button#restart-quiz:hover { background-color: var(--orange-dark); }
+button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); } /* Azul */
+button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
 /* ------------------------- */
 /* Footer                    */
@@ -454,7 +643,6 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 /* ------------------------- */
 /* Responsive Adjustments    */
 /* ------------------------- */
-/* (Sin cambios respecto a la versión anterior, ya ajustaban tamaños) */
 @media (max-width: 992px) {
     #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .memorama-card { height: 145px; }
@@ -465,7 +653,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
     main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; }
     h2 { font-size: 1.7em; }
-    #about h2 { font-size: 1.7em; }
+    #about h2 { font-size: 1.7em; } /* Ajustar también el H2 específico */
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
     #quiz-options button { padding: var(--space-md); }
@@ -481,7 +669,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
     main { padding: var(--space-md); }
     h2 { font-size: 1.5em; }
-    #about h2 { font-size: 1.5em; }
+    #about h2 { font-size: 1.5em; } /* Ajustar también el H2 específico */
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
