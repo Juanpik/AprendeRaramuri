@@ -60,7 +60,7 @@
 body {
     font-family: var(--font-body); /* Nunito */
     line-height: 1.7;
-    background: var(--background-color) url('images/fondobody.jpg') repeat;
+    background: var(--background-color) /* url('images/your-texture-image.png') repeat; */ /* Textura Body Opcional */
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
@@ -115,7 +115,8 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav - Paleta Azul */
 header {
-    background: var(--blue-primary) url('images/fondoheader.jpg') repeat; 
+    /* background: var(--blue-primary); */ /* Color sólido si no quieres gradiente/textura */
+    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */ /* Textura Header Opcional */
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -147,7 +148,7 @@ nav button:hover {
     background-color: rgba(255, 255, 255, 0.15);
     border-color: var(--white);
     color: var(--white);
-    transform: translateY(-1px); /* Añadido hover sutil */
+    transform: translateY(-1px);
 }
 nav button.active {
     background-color: var(--white);
@@ -259,44 +260,92 @@ nav button.active {
     box-shadow: var(--shadow-md); border: 1px solid transparent; background-color: transparent; overflow: hidden;
 }
  .memorama-card:hover:not(.matched) { box-shadow: var(--shadow-lg); transform: scale(1.03); }
-.memorama-card.flipped { transform: rotateY(180deg); }
+.memorama-card.flipped { transform: rotateY(180deg); } /* Rotación principal */
 .memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); }
+
 .memorama-card.matched {
      opacity: 0.8; border: 2px solid var(--success-green); cursor: default; box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
      transform: scale(0.95); transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
 }
-.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
-.memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); }
+.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); } /* Mantiene rotación si ya estaba flipped */
+.memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); } /* Evitar zoom */
 
-.card-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; border-radius: inherit; padding: 0; box-sizing: border-box;
-    text-align: center; overflow: hidden; transition: opacity 0.1s linear 0.15s; transform: translateZ(0);
-    will-change: opacity; backface-visibility: hidden; /* Añadido para posible mejora */
+/* ---- INICIO CORRECCIÓN VOLTEO MEMORAMA ---- */
+.card-face { /* Estilo general de cara */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    border-radius: inherit; padding: 0; box-sizing: border-box;
+    text-align: center; overflow: hidden;
+    transition: opacity 0.1s linear 0.15s; /* Transición solo para opacidad */
+    transform: translateZ(0);
+    will-change: opacity;
+    /* NO backface-visibility: hidden; */
 }
-.card-front {
-    background-color: var(--white); color: var(--text-primary); transform: rotateY(0deg); /* Cambiado a 0 */
-    border: 1px solid var(--border-light); z-index: 1; /* Cambiado a 1 */
-}
-.card-back { /* Cara trasera ahora azul */
-    background-color: var(--blue-dark); color: white; transform: rotateY(180deg); /* Ahora esta es la girada */
-    z-index: 2; /* Cambiado a 2 */
-}
-.memorama-card.flipped .card-front { opacity: 0; visibility: hidden; transition-delay: 0s; z-index: 1; } /* Ocultar front al girar */
-.memorama-card.flipped .card-back { opacity: 1; visibility: visible; transition-delay: 0.15s; z-index: 2; } /* Mostrar back al girar */
 
-.memorama-card .card-front img { /* Estilo imagen cara frontal */
-    display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit;
+/* Cara Frontal (Contenido: Imagen o Texto Rarámuri) - OCULTA INICIALMENTE */
+.memorama-card .card-front {
+    background-color: var(--white);
+    color: var(--text-primary);
+    transform: rotateY(180deg); /* Pre-rotada */
+    border: 1px solid var(--border-light);
+    z-index: 1; /* Detrás inicialmente */
+    opacity: 0; /* Invisible */
+    visibility: hidden;
 }
-.memorama-card .card-front p { /* Estilo texto cara frontal */
+/* Mostrar Frontal cuando .flipped */
+.memorama-card.flipped .card-front {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2; /* Pasa al frente */
+    transition-delay: 0.15s;
+}
+/* Mantener Frontal visible si .matched */
+.memorama-card.matched .card-front {
+     opacity: 1 !important;
+     visibility: visible !important;
+     z-index: 2;
+}
+
+/* Contenido cara frontal */
+.memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
+.memorama-card .card-front p {
     font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0;
     padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
     text-align: center; box-sizing: border-box;
 }
-.card-back::before { /* Estilo '?' cara trasera */
+
+/* Cara Trasera ('?') - VISIBLE INICIALMENTE */
+.memorama-card .card-back {
+    background-color: var(--blue-dark);
+    color: white;
+    transform: rotateY(0deg); /* Cara visible por defecto */
+    z-index: 2; /* Al frente inicialmente */
+    opacity: 1; /* Visible */
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Ocultar Trasera cuando .flipped */
+.memorama-card.flipped .card-back {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1; /* Pasa detrás */
+    transition-delay: 0s;
+}
+/* Mantener Trasera oculta si .matched */
+ .memorama-card.matched .card-back {
+     opacity: 0 !important;
+     visibility: hidden !important;
+     z-index: 1;
+}
+
+/* Estilo '?' */
+.card-back::before {
    content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
    color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
 }
+/* ---- FIN CORRECCIÓN VOLTEO MEMORAMA ---- */
 
 #memorama-win-message, #memorama-data-error {
     font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
@@ -377,9 +426,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 /* ------------------------- */
 /* Flashcards Section        */
 /* ------------------------- */
-#flashcards-container {
-    max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px;
-}
+#flashcards-container { max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px; }
 #flashcard-display-area { margin-bottom: var(--space-lg); }
 .flashcard {
     width: 100%; height: 300px; position: relative; transform-style: preserve-3d;
@@ -403,7 +450,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img { max-width: 80%; max-height: 70%; object-fit: contain; margin-bottom: var(--space-sm); }
-.flashcard-face p { font-size: 0.8em; margin-top: var(--space-sm); margin-bottom: 0; } /* Para texto bajo imagen */
+.flashcard-face p { font-size: 0.8em; margin-top: var(--space-sm); margin-bottom: 0; color: var(--text-secondary); } /* Texto bajo imagen */
 
 #flashcard-controls button { /* Botones Flashcards */
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
@@ -434,8 +481,8 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .memorama-card { height: 145px; }
     .card-front p { font-size: 1em; }
-    #flashcards-container { max-width: 90%; } /* Hacer flashcards más anchas en tablet */
-    .flashcard { height: 250px; } /* Reducir altura flashcard en tablet */
+    #flashcards-container { max-width: 90%; }
+    .flashcard { height: 250px; }
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -452,7 +499,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
     .memorama-card { height: 130px; }
     #flashcards-container { max-width: 95%; }
-    .flashcard { height: 220px; } /* Reducir más altura flashcard */
+    .flashcard { height: 220px; }
     .flashcard-face.card-front { font-size: 1.5em; }
     .flashcard-face.card-back { font-size: 1.7em; }
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
@@ -477,7 +524,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
     #flashcard-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-xs); }
-    #flashcard-controls button { flex-basis: calc(33% - 10px); min-width: 70px; } /* Ajustar botones flashcard */
+    #flashcard-controls button { flex-basis: calc(33% - 10px); min-width: 70px; }
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
@@ -489,51 +536,3 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
 }
-
-/* Ajuste para arreglar posible problema volteo Memorama */
-/* (Se revierte la lógica de cuál cara está girada por defecto) */
-.memorama-card .card-front {
-    transform: rotateY(0deg);
-    z-index: 1;
-    /* Resto de estilos front iguales */
-     background-color: var(--white);
-    color: var(--text-primary);
-    border: 1px solid var(--border-light);
-}
-.memorama-card .card-back {
-    transform: rotateY(180deg);
-    z-index: 2;
-     /* Resto de estilos back iguales */
-     background-color: var(--blue-dark);
-    color: white;
-    display: flex; /* Asegurar display flex para centrar el ::before */
-    justify-content: center;
-    align-items: center;
-}
-
-/* Ahora la clase .flipped hace girar el contenedor, mostrando la cara trasera */
-.memorama-card.flipped .card-front {
-    opacity: 0;
-    visibility: hidden;
-    transition-delay: 0s; /* Ocultar rápido */
-    z-index: 1;
-}
-.memorama-card.flipped .card-back {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0.15s; /* Mostrar tras giro */
-    z-index: 2;
-}
-
-/* Mantener cara visible si está matched (ahora es el back) */
- .memorama-card.matched .card-back {
-     opacity: 1 !important; /* Forzar visibilidad */
-     visibility: visible !important;
-     z-index: 2;
- }
-  .memorama-card.matched .card-front {
-     opacity: 0 !important;
-     visibility: hidden !important;
-     z-index: 1;
- }
-/* -- Fin Ajuste Memorama -- */
