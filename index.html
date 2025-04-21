@@ -4,24 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprende Rarámuri</title>
-<!-- En index.html, busca la(s) línea(s) <link> de Google Fonts y reemplázala(s) por esta única línea: -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand+SC&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-<!-- Fin de la actualización de Google Fonts -->
-
+    <!-- Google Fonts (Incluye Patrick Hand SC, Poppins, Nunito) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand+SC&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
     <!-- /Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Aprende Rarámuri</h1>
+        <h1>¡Aprende Rarámuri!</h1>
         <nav>
             <button data-section="about">Sobre el Proyecto</button>
             <button data-section="lexicon">Léxico</button>
             <button data-section="phrases">Frases</button>
             <button data-section="memorama">Memorama</button>
             <button data-section="quiz">Quiz</button>
+            <button data-section="flashcards">Flashcards</button> <!-- Botón Flashcards Añadido -->
         </nav>
     </header>
 
@@ -33,8 +32,10 @@
 
             <section id="about" class="content-section">
                 <h2>Sobre el Proyecto</h2>
-                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del idioma Rarámuri (Tarahumara).</p>
-                <p>Creditos:</p>
+                <!-- Texto centrado y con clase opcional para créditos -->
+                <p>Esta aplicación tiene como objetivo ayudar en el <em>aprendizaje básico</em> del <em>idioma Rarámuri</em> (Tarahumara).</p>
+                <p class="credits-line">Creditos:</p>
+                <!-- Puedes añadir una lista <ul> aquí si tienes varios créditos -->
             </section>
 
             <section id="lexicon" class="content-section">
@@ -57,8 +58,9 @@
                     <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
                     <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
                     <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
-                    </div>
+                </div>
                 <div id="memorama-game-area" style="display: none;">
+                    <!-- Texto "Encuentra los pares" eliminado -->
                     <div id="memorama-controls">
                         <button id="reset-memorama">Reiniciar Juego</button>
                         <p>Intentos: <span id="memorama-attempts">0</span></p>
@@ -92,7 +94,7 @@
                             <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
                             <button id="submit-text-answer">Comprobar</button>
                         </div>
-                        <p id="quiz-feedback"></p>
+                        <p id="quiz-feedback"></p> <!-- JS añadirá/quitará clase 'visible' -->
                         <button id="next-question" style="display: none;">Siguiente</button>
                     </div>
 
@@ -105,11 +107,46 @@
                 </div>
             </section>
 
-        </div>
+            <!-- NUEVA SECCIÓN FLASHCARDS -->
+            <section id="flashcards" class="content-section">
+                <h2>Flashcards</h2>
+                <div id="flashcards-container">
+                    <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
+                    <p id="flashcards-error" style="display: none; text-align: center; color: var(--error-red);"></p>
+
+                    <div id="flashcard-area" style="display: none;">
+                        <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
+                        <div id="flashcard-display-area">
+                            <!-- La tarjeta se genera aquí -->
+                            <div class="flashcard" id="flashcard">
+                                <div class="flashcard-face card-front" id="flashcard-front">
+                                    <!-- Contenido Frontal (JS) -->
+                                </div>
+                                <div class="flashcard-face card-back" id="flashcard-back">
+                                    <!-- Contenido Trasero (JS) -->
+                                </div>
+                            </div>
+                        </div>
+                        <div id="flashcard-controls" class="text-center" style="margin-top: var(--space-lg);">
+                            <button id="prev-flashcard-btn">< Anterior</button>
+                            <button id="flip-flashcard-btn">Voltear</button>
+                            <button id="next-flashcard-btn">Siguiente ></button>
+                            <button id="shuffle-flashcards-btn" style="margin-left: var(--space-lg);">
+                                <!-- Icono SVG Shuffle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;"><path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3h1.5a.5.5 0 0 1 0 1H13c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12h1.5a.5.5 0 0 1 0 1H13c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1 0-1z"/><path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9V6.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/></svg>
+                                Barajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- FIN NUEVA SECCIÓN FLASHCARDS -->
+
+        </div> <!-- Cierre de #main-content -->
     </main>
 
     <footer>
-        <p>EAHNM 2025</p>
+        <p>EAHNM 2025</p> <!-- Asegúrate que este sea el crédito correcto -->
     </footer>
 
     <script src="script.js"></script>
