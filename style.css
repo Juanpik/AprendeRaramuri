@@ -60,7 +60,7 @@
 body {
     font-family: var(--font-body); /* Nunito */
     line-height: 1.7;
-    background: var(--background-color) /* url('images/your-texture-image.png') repeat; */ /* Textura Body Opcional */
+    background: var(--background-color) url('images/fondobody.jpg') repeat; 
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
@@ -88,10 +88,10 @@ h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 70
 header > h1 {
   font-family: var(--font-title); /* Patrick Hand SC */
   font-size: 3em;
-  font-weight: 400;
+  font-weight: 650;
   margin: 0 0 var(--space-xs) 0;
   padding-bottom: 0;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   color: var(--white);
   line-height: 1.1;
 }
@@ -116,7 +116,7 @@ ul { list-style: none; padding: 0; }
 /* Header & Nav - Paleta Azul */
 header {
     /* background: var(--blue-primary); */ /* Color sólido si no quieres gradiente/textura */
-    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */ /* Textura Header Opcional */
+    background: var(--blue-primary) url('images/fondoheader.jpg') repeat;
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -441,7 +441,12 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
      display: flex; justify-content: center; align-items: center;
      gap: var(--space-md); margin-bottom: var(--space-md);
 }
-.flashcard-extra-controls { text-align: center; }
+/* Contenedor botón Barajar - Centrado con Flexbox */
+.flashcard-extra-controls {
+    display: flex;           /* Activar Flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    margin-top: var(--space-md); /* Espacio superior */
+}
 #flashcard-controls button { /* Estilo base botones flashcards */
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
@@ -460,7 +465,8 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #flip-flashcard-btn:hover { background-color: var(--orange-dark); }
 #shuffle-flashcards-btn { /* Botón Barajar */
     background-color: var(--text-secondary); font-size: 0.85em;
-    padding: var(--space-xs) var(--space-sm); margin-top: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    /* margin-top quitado, controlado por el contenedor flex */
 }
 #shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
@@ -520,10 +526,10 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); } /* Ajuste botones flashcard en móvil */
-    #flashcard-controls button { flex-basis: auto; } /* Permitir que los botones tomen su ancho natural */
-    #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);} /* Voltear arriba y ancho completo */
-    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; } /* Que ocupen espacio restante */
+    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); }
+    #flashcard-controls button { flex-basis: auto; }
+    #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);}
+    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; }
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
