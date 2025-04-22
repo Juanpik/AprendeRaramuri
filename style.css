@@ -1,677 +1,545 @@
-// --- START OF FILE script.js (Stable Version Before Refactor Attempt) ---
+/* ------------------------- */
+/* Reset & Base Styles       */
+/* ------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-document.addEventListener('DOMContentLoaded', () => {
+:root {
+    /* Color Palette - Blue/Orange/Yellow Theme */
+    --blue-primary: #4A7EBB;   /* Azul medio principal */
+    --blue-dark: #3A6AA8;     /* Azul más oscuro */
+    --blue-darker: #2E5483;   /* Azul aún más oscuro */
+    --blue-light-bg: #EAF1F8; /* Azul muy pálido para fondos */
+    --orange-accent: #E87A3F; /* Naranja terracota acento */
+    --orange-dark: #C9642D;   /* Naranja más oscuro */
+    --yellow-highlight: #F5D547;/* Amarillo dorado/girasol */
+    --yellow-light-bg: #FEF9E7; /* Amarillo muy pálido */
 
-    // --- DECLARACIÓN DE VARIABLES PARA DATOS (se llenarán después) ---
-    let lexiconData = [];
-    let phrasesData = [];
+    --background-color: #F8F9FA; /* Gris muy claro casi blanco */
+    --content-bg: #FFFFFF;      /* Blanco puro para contenido */
+    --border-light: #E9ECEF;    /* Gris claro para bordes */
+    --border-medium: #CED4DA;  /* Gris medio para bordes */
+    --text-primary: #212529;   /* Casi negro para texto principal */
+    --text-secondary: #6C757D;  /* Gris oscuro para texto secundario */
+    --white: #FFFFFF;
 
-    // --- ELEMENTOS DEL DOM ---
-    const loadingMessageEl = document.getElementById('loading-message');
-    const errorMessageEl = document.getElementById('error-message');
-    const mainContentEl = document.getElementById('main-content');
-    const navButtons = document.querySelectorAll('nav button');
-    const contentSections = document.querySelectorAll('.content-section');
-    const lexiconGrid = document.getElementById('lexicon-grid');
-    const lexiconSearchInput = document.getElementById('lexicon-search');
-    const phrasesList = document.getElementById('phrases-list');
+    --success-green: #28A745;    /* Verde éxito (Bootstrap) */
+    --error-red: #DC3545;        /* Rojo error (Bootstrap) */
+    --success-bg: #D4EDDA;
+    --error-bg: #F8D7DA;
 
-    // Memorama Elements
-    const memoramaSetup = document.getElementById('memorama-setup');
-    const memoramaGameArea = document.getElementById('memorama-game-area');
-    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
-    const memoramaGrid = document.getElementById('memorama-grid');
-    const memoramaAttemptsEl = document.getElementById('memorama-attempts');
-    const resetMemoramaBtn = document.getElementById('reset-memorama');
-    const memoramaWinMessage = document.getElementById('memorama-win-message');
-    const memoramaDataErrorEl = document.getElementById('memorama-data-error');
+    /* Typography - Patrick Hand SC Title + Original Fonts */
+    --font-body: 'Nunito', sans-serif; /* Original */
+    --font-heading: 'Poppins', sans-serif; /* Original */
+    --font-title: 'Patrick Hand SC', cursive; /* Nueva fuente para H1 */
 
-    // Quiz Elements
-    const quizContainer = document.getElementById('quiz-container');
-    const quizSetup = document.getElementById('quiz-setup');
-    const quizLengthSelect = document.getElementById('quiz-length');
-    const startQuizBtn = document.getElementById('start-quiz');
-    const quizQuestionArea = document.getElementById('quiz-question-area');
-    const quizImageContainer = document.getElementById('quiz-image-container');
-    const quizQuestionEl = document.getElementById('quiz-question');
-    const quizOptionsEl = document.getElementById('quiz-options');
-    const quizTextInputArea = document.getElementById('quiz-text-input-area');
-    const quizTextAnswerInput = document.getElementById('quiz-text-answer');
-    const submitTextAnswerBtn = document.getElementById('submit-text-answer');
-    const quizFeedbackEl = document.getElementById('quiz-feedback');
-    const nextQuestionBtn = document.getElementById('next-question');
-    const quizResultsEl = document.getElementById('quiz-results');
-    const quizScoreEl = document.getElementById('quiz-score');
-    const quizTotalEl = document.getElementById('quiz-total');
-    const restartQuizBtn = document.getElementById('restart-quiz');
-    const retryMissedQuizBtn = document.getElementById('retry-missed-quiz');
-    const quizDataErrorEl = document.getElementById('quiz-data-error');
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 0.8rem;
+    --space-md: 1.1rem;
+    --space-lg: 1.6rem;
+    --space-xl: 2.2rem;
+    --space-xxl: 3.2rem;
 
-    // Flashcards Elements
-    const flashcardsContainer = document.getElementById('flashcards-container');
-    const flashcardsLoadingEl = document.getElementById('flashcards-loading');
-    const flashcardsErrorEl = document.getElementById('flashcards-error');
-    const flashcardAreaEl = document.getElementById('flashcard-area');
-    const flashcardCounterEl = document.getElementById('flashcard-counter');
-    const flashcardEl = document.getElementById('flashcard');
-    const flashcardFrontEl = document.getElementById('flashcard-front');
-    const flashcardBackEl = document.getElementById('flashcard-back');
-    const prevFlashcardBtn = document.getElementById('prev-flashcard-btn');
-    const flipFlashcardBtn = document.getElementById('flip-flashcard-btn');
-    const nextFlashcardBtn = document.getElementById('next-flashcard-btn');
-    const shuffleFlashcardsBtn = document.getElementById('shuffle-flashcards-btn');
+    /* Borders */
+    --border-radius-sm: 5px;
+    --border-radius-md: 10px; /* Usado para imágenes léxico */
+    --border-radius-lg: 20px; /* Usado para flashcards */
+    --border-radius-pill: 50px;
 
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-interactive: 0 3px 7px rgba(0, 0, 0, 0.05);
+}
 
-    // --- VARIABLES GLOBALES JUEGOS ---
-    // Memorama
-    let memoramaActive = false;
-    let mCards = [];
-    let mFlippedElements = [];
-    let mMatchedPairsCount = 0;
-    let mTotalPairs = 0;
-    let mAttempts = 0;
-    let mLockBoard = false;
-    // Quiz
-    let allQuizQuestions = [];
-    let currentQuizSet = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let quizActive = false;
-    let missedQuestions = [];
-    // Flashcards State
-    let flashcardData = [];
-    let currentFlashcardIndex = 0;
-    let isFlashcardFlipped = false;
+body {
+    font-family: var(--font-body); /* Nunito */
+    line-height: 1.7;
+    background: var(--background-color) url('images/fondobody.jpg') repeat; /* Textura aplicada */
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
+main {
+    flex-grow: 1;
+    max-width: 1140px;
+    width: 95%;
+    margin: var(--space-xl) auto var(--space-xxl) auto;
+    padding: var(--space-lg) var(--space-xl);
+    background-color: var(--content-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
 
-    // --- FUNCIÓN PARA CARGAR DATOS ---
-    async function loadData() {
-        try {
-            loadingMessageEl.style.display = 'block'; // Asegurar que se muestra al inicio
-            errorMessageEl.style.display = 'none';
-            mainContentEl.style.display = 'none';
+/* H1, H2, H3 con fuente Poppins (excepto el H1 del header) */
+h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 700; }
 
-            const response = await fetch('data.json', { cache: 'no-cache' });
-            if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-            const data = await response.json();
-            if (!data || typeof data !== 'object') throw new Error("JSON inválido.");
-            lexiconData = Array.isArray(data.lexicon) ? data.lexicon : [];
-            phrasesData = Array.isArray(data.phrases) ? data.phrases : [];
-            console.log("Datos cargados:", { lexicon: lexiconData.length, phrases: phrasesData.length });
+/* Estilo específico para el H1 principal del header */
+header > h1 {
+  font-family: var(--font-title); /* Patrick Hand SC */
+  font-size: 3em;
+  font-weight: 400; /* Correcto para Patrick Hand SC */
+  margin: 0 0 var(--space-xs) 0;
+  padding-bottom: 0;
+  letter-spacing: 1px; /* Espaciado sutil */
+  color: var(--white);
+  line-height: 1.1;
+}
 
-            // Validar datos mínimos para funcionalidad básica
-            if (lexiconData.length === 0) {
-                 console.warn("Advertencia: El array 'lexicon' en data.json está vacío o no es un array.");
-            }
-             if (phrasesData.length === 0) {
-                 console.warn("Advertencia: El array 'phrases' en data.json está vacío o no es un array.");
-            }
+/* Estilos generales para H2 */
+h2 {
+    color: var(--blue-dark);
+    font-size: 2em;
+    border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.5px;
+    font-weight: 700;
+}
 
-            loadingMessageEl.style.display = 'none';
-            mainContentEl.style.display = 'block';
-            errorMessageEl.style.display = 'none';
-            initializeApplication();
+h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
+p { margin-bottom: var(--space-lg); font-size: 1.05em; }
+ul { list-style: none; padding: 0; }
+.text-center { text-align: center; }
+.text-secondary { color: var(--text-secondary); }
 
-        } catch (error) {
-            console.error("Error al cargar/procesar datos:", error);
-            loadingMessageEl.style.display = 'none';
-            errorMessageEl.textContent = `Error cargando datos: ${error.message}. Verifica data.json y la consola (F12).`;
-            errorMessageEl.style.display = 'block';
-            mainContentEl.style.display = 'none';
-        }
-    }
+/* Header & Nav - Paleta Azul con Textura */
+header {
+    background: var(--blue-primary) url('images/fondoheader.jpg') repeat; /* Textura aplicada */
+    color: var(--white);
+    padding: var(--space-sm) var(--space-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-    // --- FUNCIONES DE LA APLICACIÓN ---
-    function shuffleArray(array) {
-        const shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled;
-    }
-    function normalizeAnswer(text) { return text ? text.toLowerCase().trim() : ''; }
+nav {
+    margin-top: 0;
+}
+nav button {
+    font-family: var(--font-heading); /* Poppins para botones */
+    font-weight: 500;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: var(--space-xs) var(--space-md);
+    margin: var(--space-xs) 5px;
+    cursor: pointer;
+    border-radius: var(--border-radius-pill);
+    transition: all 0.25s ease-in-out;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+nav button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--white);
+    color: var(--white);
+    transform: translateY(-1px);
+}
+nav button.active {
+    background-color: var(--white);
+    color: var(--blue-darker);
+    border-color: var(--white);
+    font-weight: 700;
+    box-shadow: var(--shadow-interactive);
+    transform: translateY(0);
+}
 
-    // -- Navegación --
-    function setupNavigation() {
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const sectionId = button.getAttribute('data-section');
-                contentSections.forEach(section => section.classList.remove('active'));
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                const currentSection = document.getElementById(sectionId);
-                if (currentSection) currentSection.classList.add('active');
-                else console.error(`Sección ${sectionId} no encontrada.`);
-                button.classList.add('active');
+/* Loading/Error */
+#loading-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; color: var(--text-secondary); }
+#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;}
 
-                // Resetear vistas o inicializar según la sección
-                if (sectionId === 'memorama') resetMemoramaView();
-                else if (sectionId === 'quiz') resetQuizView();
-                else if (sectionId === 'flashcards') initializeFlashcardsView(); // Inicializar Flashcards
+/* Sections */
+.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
+.content-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-            });
-        });
-        // Activar la primera sección por defecto ('About')
-        const aboutButton = document.querySelector('nav button[data-section="about"]');
-        const aboutSection = document.getElementById('about');
-        if (aboutButton && aboutSection) {
-            aboutButton.classList.add('active');
-            aboutSection.classList.add('active');
-        } else if (navButtons.length > 0 && contentSections.length > 0) {
-             // Fallback si 'About' no existe: activar el primer botón/sección
-            navButtons[0].classList.add('active');
-            contentSections[0].classList.add('active');
-        }
-    }
+/* --- About Section Specific Styles --- */
+#about { text-align: center; padding-top: var(--space-lg); }
+#about h2 {
+  color: var(--blue-dark); font-size: 2em; border-bottom: none; padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm); letter-spacing: -0.5px; font-weight: 700;
+  display: inline-block; position: relative;
+}
+#about h2::after {
+  content: ''; position: absolute; bottom: -2px; left: 15%; width: 70%; height: 2px;
+  background-color: var(--orange-accent); margin-top: var(--space-sm);
+}
+#about p {
+  font-size: 1.1em; max-width: 750px; margin-left: auto; margin-right: auto;
+  color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-lg);
+}
+#about em { color: var(--orange-accent); font-style: normal; font-weight: 600; }
+#about p.credits-line { font-size: 0.95em; color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-weight: 600; }
+#about ul.credits-list { list-style: none; padding: 0; margin-top: 0; font-size: 0.9em; color: var(--text-secondary); }
+#about ul.credits-list li { margin-bottom: var(--space-xs); }
+/* --- End of About Section Specific Styles --- */
 
-    // -- Léxico --
-    function displayLexiconItems(itemsToShow) {
-        if (!lexiconGrid) return;
-        lexiconGrid.innerHTML = ''; // Limpiar grid
-        if (!itemsToShow || itemsToShow.length === 0) {
-            // Mostrar mensaje si no hay items (o no hay coincidencias de búsqueda)
-            const message = lexiconSearchInput && lexiconSearchInput.value ? 'No se encontraron coincidencias.' : 'No hay datos léxicos para mostrar.';
-            lexiconGrid.innerHTML = `<p class="text-center text-secondary" style="grid-column: 1 / -1;">${message}</p>`; // Ocupar todo el ancho
-            return;
-        }
-        itemsToShow.forEach(item => {
-            const div = document.createElement('div'); div.classList.add('lexicon-item');
-            const imgSrc = item.image || 'images/placeholder.png'; // Usa placeholder si no hay imagen
-            const spanishText = item.spanish || '???';
-            const raramuriText = item.raramuri || '???';
+/* Léxico */
+.search-container { margin-bottom: var(--space-xl); text-align: center; }
+#lexicon-search {
+    font-family: var(--font-body); padding: var(--space-sm) var(--space-lg); border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-pill); width: 80%; max-width: 600px; font-size: 1.05em;
+    transition: all 0.3s ease; box-shadow: var(--shadow-sm); background-color: var(--white);
+}
+#lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
+#lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
+.lexicon-item {
+    background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
+    padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column;
+    align-items: center; position: relative; overflow: hidden;
+}
+.lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
+.lexicon-item img { /* Imagen cuadrada con bordes redondeados */
+    width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
+    border-radius: var(--border-radius-md); /* <-- Borde redondeado */
+    background-color: var(--blue-light-bg); border: 4px solid var(--white); box-shadow: var(--shadow-sm);
+}
+.lexicon-item .raramuri-word {
+    font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent); font-size: 1.25em;
+    margin-bottom: var(--space-xs); word-wrap: break-word;
+}
+.lexicon-item .spanish-word {
+    font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
+}
 
-            // Manejador de error más robusto para imágenes
-            div.innerHTML = `
-                <img src="${imgSrc}" alt="${spanishText || raramuriText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}'; this.parentElement.querySelector('.img-error-msg')?.remove(); this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'img-error-msg\' style=\'font-size:0.8em; color:var(--error-red);\'>Error Img</p>');">
-                <p class="raramuri-word">${raramuriText}</p>
-                <p class="spanish-word">${spanishText}</p>`;
-            lexiconGrid.appendChild(div);
-        });
-    }
-    function handleSearch() {
-        if (!lexiconSearchInput || !lexiconData) return;
-        const searchTerm = lexiconSearchInput.value.toLowerCase().trim();
-        const filteredItems = lexiconData.filter(item =>
-            ((item.raramuri || '').toLowerCase().includes(searchTerm) ||
-             (item.spanish || '').toLowerCase().includes(searchTerm))
-        );
-        displayLexiconItems(filteredItems);
-    }
-    function setupSearch() {
-        if (lexiconSearchInput) {
-            lexiconSearchInput.addEventListener('input', handleSearch);
-        } else {
-            console.error("Elemento #lexicon-search no encontrado.");
-        }
-    }
+/* Frases */
+#phrases-list li {
+    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg);
+    border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
+    border-radius: var(--border-radius-sm); transition: box-shadow 0.2s ease; box-shadow: var(--shadow-sm);
+}
+#phrases-list li:hover { box-shadow: var(--shadow-md); }
+#phrases-list .raramuri-phrase {
+    font-family: var(--font-heading); font-weight: 600; display: block; margin-bottom: var(--space-sm);
+    font-size: 1.2em; color: var(--text-primary);
+}
+#phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
 
-    // -- Frases --
-    function populatePhrases() {
-        if (!phrasesList) return;
-        phrasesList.innerHTML = ''; // Limpiar lista
-        if (!phrasesData || phrasesData.length === 0) {
-            phrasesList.innerHTML = '<li class="text-secondary">No hay frases disponibles.</li>';
-            return;
-        }
-        phrasesData.forEach(phrase => {
-            // Asegurarse que ambas frases existen antes de añadir
-            if (phrase.raramuri && phrase.spanish) {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="raramuri-phrase">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`;
-                phrasesList.appendChild(li);
-            }
-        });
-    }
+/* ------------------------- */
+/* Memorama Section           */
+/* ------------------------- */
+#memorama-setup { margin-bottom: var(--space-xl); text-align: center; border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-xl); }
+#memorama-setup p { margin-bottom: var(--space-lg); font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);}
+#memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);}
 
-   // =============================================
-    // ========= SECCIÓN MEMORAMA ==================
-    // =============================================
-    function resetMemoramaView() {
-        console.log("[Memorama] Reseteando Vista");
-        if (memoramaSetup) memoramaSetup.style.display = 'block';
-        if (memoramaGameArea) memoramaGameArea.style.display = 'none';
-        if (memoramaWinMessage) memoramaWinMessage.style.display = 'none';
-        if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
-        if (memoramaGrid) memoramaGrid.innerHTML = '';
+.difficulty-btn, #reset-memorama { /* Botones Memorama */
+    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
+    border-radius: var(--border-radius-pill); cursor: pointer; margin: 0 var(--space-sm);
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9em; color: var(--white);
+}
+.difficulty-btn:hover, #reset-memorama:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.difficulty-btn:active, #reset-memorama:active { transform: translateY(0); filter: brightness(0.95); }
+.difficulty-btn { background-color: var(--blue-primary); }
+.difficulty-btn:hover { background-color: var(--blue-dark); }
+.difficulty-btn.selected { background-color: var(--blue-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
+#reset-memorama { background-color: var(--orange-accent); }
+#reset-memorama:hover { background-color: var(--orange-dark); }
 
-        difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-        memoramaActive = false;
-        mCards = [];
-        mFlippedElements = [];
-        mMatchedPairsCount = 0;
-        mTotalPairs = 0;
-        mAttempts = 0;
-        mLockBoard = false;
-        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = '0';
-    }
+#memorama-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto; }
+.memorama-card {
+    height: 160px; aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer; position: relative;
+    transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    box-shadow: var(--shadow-md); border: 1px solid transparent; background-color: transparent; overflow: hidden;
+}
+ .memorama-card:hover:not(.matched) { box-shadow: var(--shadow-lg); transform: scale(1.03); }
+.memorama-card.flipped { transform: rotateY(180deg); }
+.memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); }
+.memorama-card.matched {
+     opacity: 0.8; border: 2px solid var(--success-green); cursor: default; box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
+     transform: scale(0.95); transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+}
+.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
+.memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); }
 
-    function createMemoramaFaceContent(cardInfo, faceElement) {
-        if (!cardInfo || !faceElement) {
-            console.error("[Memorama Critico] Faltan parámetros en createMemoramaFaceContent"); return;
-        }
-        faceElement.innerHTML = ''; // Limpiar
-        // console.log(`[Memorama DEBUG] Creando contenido para Cara (ID: ${cardInfo.id}, Tipo: ${cardInfo.type})`);
-        try {
-            if (cardInfo.type === 'image' && cardInfo.value) {
-                const img = document.createElement('img');
-                img.src = cardInfo.value;
-                img.alt = cardInfo.altText || "Imagen Memorama";
-                img.loading = 'lazy';
-                img.onerror = function() {
-                    console.error(`[Memorama Critico] Falló carga IMG: ${this.src} (ID: ${cardInfo.id})`);
-                    this.style.display = 'none'; // Ocultar imagen rota
-                    const errorP = document.createElement('p'); errorP.textContent = 'Error Img!'; errorP.style.color = 'red'; errorP.style.fontSize = '10px';
-                    faceElement.appendChild(errorP);
-                };
-                faceElement.appendChild(img);
-                // console.log(`[Memorama DEBUG] IMG ${cardInfo.value} añadida.`);
-            } else if (cardInfo.type === 'text' && cardInfo.value) {
-                const textP = document.createElement('p');
-                textP.textContent = cardInfo.value;
-                faceElement.appendChild(textP);
-                // console.log(`[Memorama DEBUG] TEXT "${cardInfo.value}" añadido.`);
-            } else {
-                console.warn(`[Memorama Warn] Contenido inválido (ID: ${cardInfo.id}):`, cardInfo);
-                const fallbackP = document.createElement('p'); fallbackP.textContent = '??'; fallbackP.style.opacity = '0.5';
-                faceElement.appendChild(fallbackP);
-            }
-        } catch (e) {
-            console.error("[Memorama Critico] Excepción en createMemoramaFaceContent:", e, cardInfo);
-            try { faceElement.innerHTML = '<p style="color:red; font-size:10px;">Error JS!</p>'; } catch (fe) {}
-        }
-    }
+/* ---- Lógica de Volteo Memorama (CORREGIDA y Estable) ---- */
+.card-face {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    border-radius: inherit; padding: 0; box-sizing: border-box;
+    text-align: center; overflow: hidden;
+    transition: opacity 0.1s linear 0.15s;
+    transform: translateZ(0);
+    will-change: opacity;
+    /* NO backface-visibility: hidden; */
+}
+.memorama-card .card-front { /* Contenido: Imagen o Texto Rarámuri */
+    background-color: var(--white); color: var(--text-primary);
+    transform: rotateY(180deg); /* Pre-rotada */
+    border: 1px solid var(--border-light);
+    z-index: 1; /* Detrás inicialmente */
+    opacity: 0; visibility: hidden; /* Oculta */
+}
+.memorama-card.flipped .card-front { /* Mostrar al voltear */
+    opacity: 1; visibility: visible; z-index: 2; transition-delay: 0.15s;
+}
+.memorama-card.matched .card-front { /* Mantener visible si matched */
+     opacity: 1 !important; visibility: visible !important; z-index: 2;
+}
+.memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
+.memorama-card .card-front p {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0;
+    padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
+    text-align: center; box-sizing: border-box;
+}
+.memorama-card .card-back { /* '?' Azul */
+    background-color: var(--blue-dark); color: white;
+    transform: rotateY(0deg); /* Visible inicialmente */
+    z-index: 2; opacity: 1; visibility: visible;
+    display: flex; justify-content: center; align-items: center;
+}
+.memorama-card.flipped .card-back { /* Ocultar al voltear */
+    opacity: 0; visibility: hidden; z-index: 1; transition-delay: 0s;
+}
+ .memorama-card.matched .card-back { /* Mantener oculta si matched */
+     opacity: 0 !important; visibility: hidden !important; z-index: 1;
+}
+.card-back::before {
+   content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
+   color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
+}
+/* ---- FIN CORRECCIÓN VOLTEO ---- */
 
-    function prepareCardData(requestedPairs) {
-        const validItems = lexiconData.filter(item => item && item.id != null && item.image && item.raramuri && item.spanish);
-        if (validItems.length < requestedPairs) {
-            console.warn(`[Memorama] Datos insuficientes: ${validItems.length} items válidos, se necesitan ${requestedPairs} pares.`);
-            if (memoramaDataErrorEl) {
-                memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) para ${requestedPairs} pares. Añade más entradas con imagen al léxico.`;
-                memoramaDataErrorEl.style.display = 'block';
-            }
-             if (memoramaGameArea) memoramaGameArea.style.display = 'none'; // Ocultar área de juego
-             if (memoramaSetup) memoramaSetup.style.display = 'block'; // Mostrar setup
-             difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-            return null;
-        }
-        if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none'; // Ocultar error si hay datos
-        return shuffleArray(validItems).slice(0, requestedPairs);
-    }
+#memorama-win-message, #memorama-data-error {
+    font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
+    border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm);
+}
+#memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; }
+#memorama-data-error { background-color: var(--error-bg); border: 1px solid var(--error-red); color: var(--error-red); font-family: var(--font-body); font-weight: 400; }
 
-    function buildMemoramaGrid() {
-        if (!memoramaGrid) { console.error("[Memorama Error] #memorama-grid no encontrado."); return; }
-        memoramaGrid.innerHTML = ''; // Limpiar
-        mCards.forEach((cardData, index) => {
-            const cardElement = document.createElement('div');
-            cardElement.classList.add('memorama-card');
-            if (cardData.id === undefined || cardData.id === null) {
-                console.error(`[Memorama Error] ID indefinido carta ${index}`, cardData); return;
-            }
-            cardElement.dataset.id = cardData.id; // ID para matching
-            cardElement.dataset.index = index; // Índice único para debug
+/* ------------------------- */
+/* Quiz Section                */
+/* ------------------------- */
+#quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
+#quiz-setup { margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light); text-align: center; }
+#quiz-setup p { font-weight: 400; margin-bottom: var(--space-lg); font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body); }
+#quiz-setup label { margin-right: var(--space-sm); color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
+#quiz-setup select { padding: var(--space-sm) var(--space-md); margin-right: var(--space-lg); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary); }
+#quiz-setup button#start-quiz {
+    font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
+    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
+}
+#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body); }
+#quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins */
+#quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
+#quiz-options button {
+    display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white);
+    color: var(--text-primary); padding: var(--space-md) var(--space-lg); border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out;
+    font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm);
+}
+#quiz-options button:hover:not(:disabled) { background-color: var(--blue-light-bg); border-color: var(--blue-primary); transform: translateX(4px); box-shadow: var(--shadow-interactive); }
+#quiz-options button:disabled { cursor: default; opacity: 0.8; }
+#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
+#quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
+#quiz-text-answer {
+    flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.3s ease; background-color: var(--white);
+}
+#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
+#quiz-text-input-area button#submit-text-answer {
+    font-family: var(--font-heading); padding: calc(var(--space-md) - 1px) var(--space-lg); background-color: var(--blue-primary);
+    color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1em; white-space: nowrap;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
+}
+#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
+#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; font-family: var(--font-heading);}
+#quiz-feedback.correct { color: var(--success-green); }
+#quiz-feedback.incorrect { color: var(--error-red); }
+#quiz-feedback strong { font-weight: 700; }
+button#next-question {
+    font-family: var(--font-heading); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto;
+    padding: var(--space-md) var(--space-xl); background-color: var(--blue-dark); color: var(--white); border: none;
+    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
+    box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; text-transform: uppercase;
+}
+button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-results { text-align: center; padding: var(--space-xl) 0; }
+#quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; }
+#quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);}
+#quiz-results span { color: var(--text-primary); font-weight: 700; }
+#quiz-results button {
+    font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg);
+    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
+button#restart-quiz:hover { background-color: var(--orange-dark); }
+button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
+button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
-            // Crear ambas caras
-            const frontFace = document.createElement('div');
-            frontFace.classList.add('card-face', 'card-front');
-            createMemoramaFaceContent(cardData, frontFace); // Llenar contenido cara frontal
+/* ------------------------- */
+/* Flashcards Section        */
+/* ------------------------- */
+#flashcards-container {
+    max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px;
+}
+#flashcard-display-area { margin-bottom: var(--space-lg); }
+.flashcard {
+    width: 100%; height: 300px; position: relative; transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+    border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md);
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-face {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: var(--space-lg); box-sizing: border-box; border-radius: inherit;
+    border: 1px solid var(--border-light); text-align: center; overflow-wrap: break-word;
+}
+.flashcard-face.card-front { /* Español o Imagen */
+    background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
+    font-size: 2em; /* Tamaño aumentado */
+    color: var(--text-primary); font-family: var(--font-body); /* Nunito */
+}
+.flashcard-face.card-back { /* Rarámuri */
+    background-color: var(--blue-light-bg); transform: rotateY(180deg); z-index: 1;
+    font-size: 2.2em; /* Tamaño aumentado */
+    color: var(--orange-dark); font-family: var(--font-heading); /* Poppins */
+    font-weight: 600;
+}
+.flashcard-face img {
+    max-width: 85%; /* Aumentado */
+    max-height: 75%;/* Aumentado */
+    object-fit: contain;
+    margin-bottom: var(--space-md); /* Aumentado */
+}
+.flashcard-face p { /* Texto bajo imagen */
+    font-size: 0.85em; /* Aumentado */
+    margin-bottom: 0;
+    color: var(--text-secondary);
+}
 
-            const backFace = document.createElement('div');
-            backFace.classList.add('card-face', 'card-back');
-            // El ::before en CSS se encarga del '?'
+/* Controles Flashcards - Contenedor ÚNICO y Centrado con Flex */
+#flashcard-controls {
+    display: flex;          /* Usar Flexbox */
+    flex-wrap: wrap;        /* Permitir que envuelva en líneas */
+    justify-content: center;/* Centrar los items horizontalmente */
+    align-items: center;    /* Centrar verticalmente si envuelve */
+    gap: var(--space-md);   /* Espacio consistente entre todos los botones */
+    margin-top: var(--space-lg); /* Espacio arriba del grupo de botones */
+}
+/* Estilo base botones flashcards */
+#flashcard-controls button {
+    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
+    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
+    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto; /* Ajustar */
+    text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
+    margin: 0; /* Quitar margen individual */
+    flex-grow: 0; flex-shrink: 1;
+}
+#flashcard-controls button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#flashcard-controls button:active { transform: translateY(0); filter: brightness(0.95); }
+/* Colores y estilos específicos */
+#prev-flashcard-btn, #next-flashcard-btn { background-color: var(--blue-primary); }
+#prev-flashcard-btn:hover, #next-flashcard-btn:hover { background-color: var(--blue-dark); }
+#flip-flashcard-btn { /* Botón Voltear destacado */
+    background-color: var(--orange-accent); font-weight: 700;
+    padding: var(--space-md) var(--space-xl); font-size: 1em; order: 0;
+}
+#flip-flashcard-btn:hover { background-color: var(--orange-dark); }
+#shuffle-flashcards-btn { /* Botón Barajar */
+    background-color: var(--text-secondary); font-size: 0.85em;
+    padding: var(--space-xs) var(--space-sm);
+}
+#shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
+#shuffle-flashcards-btn svg { margin-bottom: -2px; }
+#flashcard-counter { font-family: var(--font-body); color: var(--text-secondary); font-size: 0.9em; }
 
-            cardElement.appendChild(frontFace);
-            cardElement.appendChild(backFace);
+/* ------------------------- */
+/* Footer                    */
+/* ------------------------- */
+footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg); background-color: var(--blue-light-bg); color: var(--text-secondary); font-size: 0.95em; border-top: 1px solid var(--border-light); font-family: var(--font-body); } /* Nunito */
 
-            cardElement.addEventListener('click', handleMemoramaCardClick);
-            memoramaGrid.appendChild(cardElement);
-        });
-
-        // Ajustar columnas del grid dinámicamente
-        let columns = Math.ceil(Math.sqrt(mCards.length));
-        columns = Math.max(2, Math.min(columns, 5)); // Limitar entre 2 y 5
-
-        memoramaGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        console.log(`[Memorama] Grid construido con ${columns} columnas.`);
-    }
-
-    function startMemorama(numPairs) {
-        console.log(`[Memorama] Iniciando startMemorama con ${numPairs} pares.`);
-        resetMemoramaView(); // Limpiar todo primero
-        const itemsForGame = prepareCardData(numPairs);
-
-        if (!itemsForGame) { // Si prepareCardData devolvió null (error de datos)
-            memoramaActive = false;
-            return; // Salir, ya se mostró el error
-        }
-
-        mTotalPairs = itemsForGame.length;
-        memoramaActive = true;
-        mCards = []; // Resetear array de cartas
-        mAttempts = 0; // Resetear intentos
-        mMatchedPairsCount = 0; // Resetear pares encontrados
-        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; // Actualizar UI intentos
-        if (memoramaWinMessage) memoramaWinMessage.style.display = 'none'; // Ocultar mensaje de victoria
-
-        // Crear pares de cartas (imagen + texto raramuri)
-        itemsForGame.forEach(item => {
-            mCards.push({ id: item.id, type: 'image', value: item.image, altText: item.spanish });
-            mCards.push({ id: item.id, type: 'text', value: item.raramuri });
-        });
-
-        mCards = shuffleArray(mCards); // Barajar las cartas
-        buildMemoramaGrid(); // Construir el grid en el DOM
-
-        if (memoramaSetup) memoramaSetup.style.display = 'none'; // Ocultar setup
-        if (memoramaGameArea) memoramaGameArea.style.display = 'block'; // Mostrar área de juego
-        console.log(`[Memorama] Juego listo con ${mTotalPairs} pares.`);
-    }
-
-    function handleMemoramaCardClick(event) {
-        if (!memoramaActive || mLockBoard || !event.currentTarget) return; // Si juego no activo, tablero bloqueado o no hay target, salir
-
-        const clickedCardElement = event.currentTarget;
-        // console.log(`[Memorama] Click Carta ${clickedCardElement.dataset.index} (ID: ${clickedCardElement.dataset.id})`);
-
-        // Ignorar click si la carta ya está volteada o emparejada
-        if (clickedCardElement.classList.contains('flipped') || clickedCardElement.classList.contains('matched')) {
-            // console.log("[Memorama] Click ignorado (carta ya volteada o emparejada).");
-            return;
-        }
-
-        // Voltear la carta
-        clickedCardElement.classList.add('flipped');
-        mFlippedElements.push(clickedCardElement); // Añadir a la lista de volteadas
-        // console.log(`[Memorama] Cartas volteadas actualmente: ${mFlippedElements.length}`);
-
-        // Si hay dos cartas volteadas, revisar si son par
-        if (mFlippedElements.length === 2) {
-            mLockBoard = true; // Bloquear el tablero para evitar más clicks
-            mAttempts++; // Incrementar contador de intentos
-            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; // Actualizar UI
-            // console.log("[Memorama] Dos cartas volteadas, comprobando par...");
-            checkMemoramaMatch();
-        }
-    }
-
-    function checkMemoramaMatch() {
-        const [card1, card2] = mFlippedElements; // Obtener las dos cartas volteadas
-
-        if (!card1 || !card2) {
-            console.error("[Memorama Critico] Faltan cartas en checkMemoramaMatch.");
-            mFlippedElements = []; // Limpiar array
-            mLockBoard = false; // Desbloquear tablero
-            return;
-        }
-
-        // Comprobar si los IDs (data-id) coinciden
-        const isMatch = card1.dataset.id === card2.dataset.id;
-        // console.log(`[Memorama] Comparando ${card1.dataset.id} vs ${card2.dataset.id}. Coinciden: ${isMatch}`);
-
-        if (isMatch) {
-            // Es un par
-            mMatchedPairsCount++;
-            // console.log(`[Memorama] ¡Par encontrado! (${mMatchedPairsCount}/${mTotalPairs})`);
-            // Dejar las cartas volteadas y marcarlas como emparejadas (después de una pequeña pausa)
-            setTimeout(() => {
-                card1.classList.add('matched');
-                card2.classList.add('matched');
-                mFlippedElements = []; // Limpiar array de volteadas
-                mLockBoard = false; // Desbloquear tablero
-
-                // Comprobar si se ha ganado el juego
-                if (mMatchedPairsCount === mTotalPairs) {
-                    console.log("[Memorama] ¡Juego Ganado!");
-                    if (memoramaWinMessage) {
-                        memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${mTotalPairs} pares en ${mAttempts} intentos.`;
-                        memoramaWinMessage.style.display = 'block'; // Mostrar mensaje de victoria
-                    }
-                    memoramaActive = false; // Desactivar juego
-                }
-            }, 300); // Pausa corta antes de marcar como matched
-        } else {
-            // No es un par
-            // console.log("[Memorama] No es par.");
-            // Voltear las cartas de nuevo después de una pausa más larga
-            setTimeout(() => {
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-                mFlippedElements = []; // Limpiar array de volteadas
-                mLockBoard = false; // Desbloquear tablero
-            }, 1000); // Pausa de 1 segundo para que el usuario vea las cartas
-        }
-    }
-
-    function setupMemoramaControls() {
-        if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0) {
-            console.error("[Memorama Critico] Faltan elementos HTML para controles de Memorama.");
-            return;
-        }
-        // console.log("[Memorama] Configurando controles.");
-        // Botones de dificultad
-        difficultyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const pairs = parseInt(button.getAttribute('data-pairs'));
-                if (isNaN(pairs) || pairs <= 0) {
-                    console.error("[Memorama Error] Atributo data-pairs inválido:", button);
-                    return;
-                }
-                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-                startMemorama(pairs);
-            });
-        });
-        // Botón de reiniciar
-        resetMemoramaBtn.addEventListener('click', () => {
-            // console.log("[Memorama] Botón Reset presionado.");
-            const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected');
-            if (selectedBtn) {
-                const pairs = parseInt(selectedBtn.getAttribute('data-pairs'));
-                if (!isNaN(pairs) && pairs > 0) { startMemorama(pairs); }
-                else { resetMemoramaView(); }
-            } else { resetMemoramaView(); }
-        });
-         // NO AÑADIR LISTENER AL GRID AQUÍ (se añade en buildMemoramaGrid a cada carta)
-    }
-    // =============================================
-    // ===== FIN SECCIÓN MEMORAMA ==================
-    // =============================================
-
-
-    // =============================================
-    // ========= SECCIÓN QUIZ ======================
-    // =============================================
-     function getWrongOptions(correctItem, count, sourceData, field) {
-        if (!correctItem || !field) return [];
-         const correctValueNorm = normalizeAnswer(correctItem[field]);
-         const wrongAnswerPool = sourceData.filter(item =>
-             item && item.id !== correctItem.id && item[field] &&
-             normalizeAnswer(item[field]) !== correctValueNorm
-         );
-         const shuffledWrongs = shuffleArray([...wrongAnswerPool]);
-         let options = new Set();
-         for (const item of shuffledWrongs) {
-             if (options.size >= count) break; options.add(item[field]);
-         }
-         let attempts = 0; const maxAttempts = sourceData.length * 2;
-         while (options.size < count && attempts < maxAttempts) {
-             const randomItem = sourceData[Math.floor(Math.random() * sourceData.length)];
-             if (randomItem && randomItem.id !== correctItem.id && randomItem[field]) {
-                  const potentialOption = randomItem[field];
-                  if (normalizeAnswer(potentialOption) !== correctValueNorm) { options.add(potentialOption); }
-             }
-             attempts++;
-         }
-         return Array.from(options);
-     }
-    function generateQuizQuestions(numQuestions) {
-         const availableLexiconItems = lexiconData.filter(item => item && item.raramuri && item.spanish && item.id);
-         const availableImageItems = availableLexiconItems.filter(item => item.image);
-        if (availableLexiconItems.length < 2) {
-            console.error("Quiz: Se necesitan al menos 2 entradas léxicas completas.");
-            if(quizDataErrorEl) { quizDataErrorEl.textContent = "Datos insuficientes (mínimo 2 entradas léxicas completas)."; quizDataErrorEl.style.display = 'block'; }
-            return [];
-        } else { if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; }
-        const potentialQuestions = [];
-        availableLexiconItems.forEach(item => {
-            potentialQuestions.push({ type: 'MC_RaSp', item: item, question: `¿Qué significa "${item.raramuri}"?`, answer: item.spanish });
-            potentialQuestions.push({ type: 'MC_SpRa', item: item, question: `¿Cómo se dice "${item.spanish}" en rarámuri?`, answer: item.raramuri });
-            potentialQuestions.push({ type: 'TXT_SpRa', item: item, question: `Escribe cómo se dice "${item.spanish}" en rarámuri:`, answer: item.raramuri });
-        });
-        availableImageItems.forEach(item => {
-            potentialQuestions.push({ type: 'MC_ImgRa', item: item, question: `¿Qué es esto en rarámuri?`, answer: item.raramuri, image: item.image });
-            potentialQuestions.push({ type: 'TXT_ImgRa', item: item, question: `Escribe en rarámuri qué ves en la imagen:`, answer: item.raramuri, image: item.image });
-        });
-        const shuffledPotentialQuestions = shuffleArray(potentialQuestions); let questionsToGenerate = 0; const totalPotential = shuffledPotentialQuestions.length;
-        if (numQuestions === 'all') { questionsToGenerate = totalPotential; } else { questionsToGenerate = Math.min(parseInt(numQuestions), totalPotential); }
-        questionsToGenerate = Math.max(1, questionsToGenerate); if (totalPotential === 0) return [];
-        const finalQuestions = shuffledPotentialQuestions.slice(0, questionsToGenerate);
-        finalQuestions.forEach(q => {
-            if (q.type.startsWith('MC_')) {
-                let wrongOptions = []; let field = ''; let correctLexiconItem = q.item;
-                if (q.type === 'MC_RaSp') field = 'spanish'; else if (q.type === 'MC_SpRa' || q.type === 'MC_ImgRa') field = 'raramuri';
-                if (field && correctLexiconItem) { wrongOptions = getWrongOptions(correctLexiconItem, 3, availableLexiconItems, field); const allOptions = [q.answer, ...wrongOptions]; const uniqueOptions = Array.from(new Set(allOptions)); q.options = shuffleArray(uniqueOptions.slice(0, 4)); }
-                else { q.options = [q.answer]; console.warn("No se generaron opciones MC:", q); }
-                if (q.options.length < 2) console.warn("Pregunta MC < 2 opciones:", q);
-            }
-        });
-         const validFinalQuestions = finalQuestions.filter(q => !q.type.startsWith('MC_') || (q.options && q.options.length >= 2));
-        console.log("[Quiz] Preguntas generadas:", validFinalQuestions); return validFinalQuestions;
-     }
-    function startQuiz(isRetry = false) {
-         quizActive = true; score = 0; currentQuestionIndex = 0;
-         if (!isRetry) { const selectedLength = quizLengthSelect.value; allQuizQuestions = generateQuizQuestions(selectedLength); currentQuizSet = allQuizQuestions; missedQuestions = []; }
-         else { currentQuizSet = shuffleArray([...missedQuestions]); missedQuestions = []; if (currentQuizSet.length === 0) { alert("¡Felicidades! No hubo preguntas falladas."); resetQuizView(); return; } console.log("[Quiz] Reintentando:", currentQuizSet); }
-         if (!currentQuizSet || currentQuizSet.length === 0) { console.log("[Quiz] No preguntas."); if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizSetup) quizSetup.style.display = 'block'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) { quizDataErrorEl.style.display = quizDataErrorEl.textContent ? 'block' : 'none'; if (!quizDataErrorEl.textContent) { quizDataErrorEl.textContent = "No preguntas."; quizDataErrorEl.style.display = 'block'; } } quizActive = false; return; }
-         if(quizSetup) quizSetup.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizQuestionArea) quizQuestionArea.style.display = 'block'; if(nextQuestionBtn) nextQuestionBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
-         displayQuestion();
-     }
-    function displayQuestion() {
-        if (currentQuestionIndex >= currentQuizSet.length) { showResults(); return; }
-        quizActive = true; const q = currentQuizSet[currentQuestionIndex];
-        if (!q || !q.type || !q.question || typeof q.answer === 'undefined') { console.error("[Quiz Error] Pregunta inválida:", q); goToNextQuestion(); return; }
-        if(quizQuestionEl) quizQuestionEl.textContent = q.question; if(quizImageContainer) quizImageContainer.innerHTML = ''; if(quizOptionsEl) { quizOptionsEl.innerHTML = ''; quizOptionsEl.style.display = 'none'; } if(quizTextInputArea) quizTextInputArea.style.display = 'none'; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; quizTextAnswerInput.disabled = false; } if(submitTextAnswerBtn) submitTextAnswerBtn.disabled = false; if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(nextQuestionBtn) nextQuestionBtn.style.display = 'none';
-        if (q.image && quizImageContainer) { const img = document.createElement('img'); img.src = q.image; img.alt = `Imagen pregunta`; img.loading = 'lazy'; img.onerror = function() { console.error(`[Quiz Error] IMG no cargada: ${this.src}`); this.alt = 'Error img'; this.src='images/placeholder.png'; }; quizImageContainer.appendChild(img); }
-        if (q.type.startsWith('MC_') && quizOptionsEl) {
-            quizOptionsEl.style.display = 'block';
-            if (!q.options || q.options.length < 2) { console.error("[Quiz Error] MC sin opciones:", q); quizOptionsEl.innerHTML = '<p style="color:var(--error-red);">Error opciones.</p>'; quizActive = false; if(nextQuestionBtn) nextQuestionBtn.style.display = 'inline-block'; }
-            else { q.options.forEach(option => { const button = document.createElement('button'); button.textContent = option; button.disabled = false; button.addEventListener('click', handleMCAnswer); quizOptionsEl.appendChild(button); }); }
-        } else if (q.type.startsWith('TXT_') && quizTextInputArea && quizTextAnswerInput && submitTextAnswerBtn) {
-            quizTextInputArea.style.display = 'flex'; setTimeout(() => { if (quizTextAnswerInput) quizTextAnswerInput.focus(); }, 100);
-        }
-    }
-    function handleMCAnswer(event) {
-        if (!quizActive || !quizOptionsEl || !quizFeedbackEl || !nextQuestionBtn) return;
-        quizActive = false; const selectedButton = event.target; const selectedAnswer = selectedButton.textContent; const currentQuestion = currentQuizSet[currentQuestionIndex];
-        if (!currentQuestion || typeof currentQuestion.answer === 'undefined') { console.error("[Quiz Error] MCAnswer: Pregunta/Resp inválida."); goToNextQuestion(); return; }
-        const correctAnswer = currentQuestion.answer; const optionButtons = quizOptionsEl.querySelectorAll('button');
-        optionButtons.forEach(btn => btn.disabled = true);
-        if (selectedAnswer === correctAnswer) {
-            score++; selectedButton.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct';
-        } else {
-            selectedButton.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${correctAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
-            if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); }
-            optionButtons.forEach(btn => { if (btn.textContent === correctAnswer) btn.classList.add('correct'); });
-        }
-        nextQuestionBtn.style.display = 'inline-block';
-    }
-    function handleTextAnswer() {
-         if (!quizActive || !quizTextAnswerInput || !submitTextAnswerBtn || !quizFeedbackEl || !nextQuestionBtn) return;
-         quizActive = false; const currentQuestion = currentQuizSet[currentQuestionIndex];
-         if (!currentQuestion || typeof currentQuestion.answer === 'undefined') { console.error("[Quiz Error] TextAnswer: Pregunta/Resp inválida."); goToNextQuestion(); return; }
-         const userAnswer = normalizeAnswer(quizTextAnswerInput.value); const correctAnswer = normalizeAnswer(currentQuestion.answer); const originalCorrectAnswer = currentQuestion.answer; quizTextAnswerInput.disabled = true; submitTextAnswerBtn.disabled = true;
-         if (userAnswer === correctAnswer && userAnswer !== '') { score++; quizTextAnswerInput.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct'; }
-         else { quizTextAnswerInput.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${originalCorrectAnswer}</strong>`; quizFeedbackEl.className = 'incorrect'; if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); } }
-         nextQuestionBtn.style.display = 'inline-block';
-     }
-    function goToNextQuestion() { currentQuestionIndex++; setTimeout(displayQuestion, 50); }
-    function showResults() {
-        if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'block';
-        if(quizScoreEl) quizScoreEl.textContent = score; if(quizTotalEl && currentQuizSet) quizTotalEl.textContent = currentQuizSet.length;
-        quizActive = false; const wasMainQuizRound = (currentQuizSet === allQuizQuestions);
-        if (missedQuestions.length > 0 && wasMainQuizRound && retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'inline-block';
-        else if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none';
-    }
-    function resetQuizView() {
-        quizActive = false; allQuizQuestions = []; currentQuizSet = []; missedQuestions = []; score = 0; currentQuestionIndex = 0;
-        if(quizSetup) quizSetup.style.display = 'block'; if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; if(quizImageContainer) quizImageContainer.innerHTML = '';
-        if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(quizOptionsEl) quizOptionsEl.innerHTML = ''; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; } if(quizQuestionEl) quizQuestionEl.textContent = '';
-        if(quizLengthSelect) quizLengthSelect.value = "5";
-        console.log("[Quiz] Vista reseteada.");
-    }
-    function setupQuizControls() {
-        if (!startQuizBtn || !nextQuestionBtn || !restartQuizBtn || !retryMissedQuizBtn || !submitTextAnswerBtn || !quizTextAnswerInput || !quizLengthSelect) { console.error("[Quiz Error] Faltan elementos control Quiz."); return; }
-        startQuizBtn.addEventListener('click', () => startQuiz(false)); nextQuestionBtn.addEventListener('click', goToNextQuestion);
-        restartQuizBtn.addEventListener('click', resetQuizView); retryMissedQuizBtn.addEventListener('click', () => startQuiz(true));
-        submitTextAnswerBtn.addEventListener('click', handleTextAnswer);
-        quizTextAnswerInput.addEventListener('keypress', function (e) { if (e.key === 'Enter' && !submitTextAnswerBtn.disabled) handleTextAnswer(); });
-    }
-    // =============================================
-    // ========= FIN SECCIÓN QUIZ ==================
-    // =============================================
-
-
-    // =============================================
-    // ========= SECCIÓN FLASHCARDS ================
-    // =============================================
-    function prepareFlashcardData() {
-        if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'block'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'none'; if (flashcardsErrorEl) flashcardsErrorEl.style.display = 'none';
-        const validLexicon = lexiconData.filter(item => item && item.raramuri && (item.spanish || item.image));
-        console.log(`[Flashcards] Datos válidos: ${validLexicon.length}`);
-        if (validLexicon.length === 0) { if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'No hay datos para flashcards.'; flashcardsErrorEl.style.display = 'block'; } if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; flashcardData = []; return false; }
-        flashcardData = shuffleArray([...validLexicon]); currentFlashcardIndex = 0; isFlashcardFlipped = false;
-        if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'block'; return true;
-    }
-    function displayCurrentFlashcard() {
-        if (!flashcardData || flashcardData.length === 0 || !flashcardAreaEl || flashcardAreaEl.style.display === 'none') { console.log("[Flashcards] No hay datos o área no visible."); return; }
-        if (currentFlashcardIndex < 0 || currentFlashcardIndex >= flashcardData.length) { console.error(`[Flashcards] Índice inválido: ${currentFlashcardIndex}.`); currentFlashcardIndex = 0; }
-        const cardData = flashcardData[currentFlashcardIndex];
-        if (!cardData) { console.error(`[Flashcards] Error: No datos índice ${currentFlashcardIndex}`); if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'Error datos tarjeta.'; flashcardsErrorEl.style.display = 'block'; flashcardAreaEl.style.display = 'none'; } return; }
-        if (flashcardEl) flashcardEl.classList.remove('flipped'); isFlashcardFlipped = false;
-        if (flashcardFrontEl) {
-             flashcardFrontEl.innerHTML = '';
-            if (cardData.image) {
-                const img = document.createElement('img'); img.src = cardData.image; img.alt = cardData.spanish || 'Flashcard Image'; img.loading = 'lazy'; img.onerror = function() { this.alt='Error img'; this.src='images/placeholder.png'; }; flashcardFrontEl.appendChild(img);
-                // NO añadir texto español si hay imagen (corrección de funcionalidad)
-            } else if (cardData.spanish) { flashcardFrontEl.textContent = cardData.spanish; }
-            else { flashcardFrontEl.textContent = '???'; }
-        }
-        if (flashcardBackEl) { flashcardBackEl.textContent = cardData.raramuri || '???'; }
-        if (flashcardCounterEl) { flashcardCounterEl.textContent = `Tarjeta ${currentFlashcardIndex + 1} de ${flashcardData.length}`; }
-    }
-    function flipFlashcard() { if (!flashcardEl) return; flashcardEl.classList.toggle('flipped'); isFlashcardFlipped = !isFlashcardFlipped; }
-    function nextFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex++; if (currentFlashcardIndex >= flashcardData.length) currentFlashcardIndex = 0; displayCurrentFlashcard(); }
-    function prevFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex--; if (currentFlashcardIndex < 0) currentFlashcardIndex = flashcardData.length - 1; displayCurrentFlashcard(); }
-     function shuffleFlashcards() { console.log("[Flashcards] Barajando tarjetas..."); if (prepareFlashcardData()) displayCurrentFlashcard(); }
-    function setupFlashcardsControls() {
-        if (!flashcardEl || !prevFlashcardBtn || !flipFlashcardBtn || !nextFlashcardBtn || !shuffleFlashcardsBtn) { console.error("Faltan elementos control Flashcards."); return; }
-        flashcardEl.addEventListener('click', flipFlashcard); flipFlashcardBtn.addEventListener('click', flipFlashcard);
-        nextFlashcardBtn.addEventListener('click', nextFlashcard); prevFlashcardBtn.addEventListener('click', prevFlashcard);
-        shuffleFlashcardsBtn.addEventListener('click', shuffleFlashcards);
-    }
-     function initializeFlashcardsView() {
-         console.log("[Flashcards] Inicializando vista...");
-         if (flashcardData.length === 0) { if(prepareFlashcardData()){ displayCurrentFlashcard(); } }
-         else { displayCurrentFlashcard(); }
-     }
-    // =============================================
-    // ========= FIN SECCIÓN FLASHCARDS ============
-    // =============================================
-
-    // --- Inicialización App ---
-    function initializeApplication() {
-        if (!mainContentEl || !navButtons || !contentSections || !lexiconGrid || !phrasesList || !memoramaGrid || !quizContainer || !flashcardsContainer ) {
-            console.error("Error Crítico: Faltan elementos HTML esenciales.");
-            if(errorMessageEl) { errorMessageEl.textContent = "Error: Faltan elementos HTML."; errorMessageEl.style.display = 'block'; }
-             if(loadingMessageEl) loadingMessageEl.style.display = 'none'; if(mainContentEl) mainContentEl.style.display = 'none';
-            return;
-        }
-        setupNavigation(); displayLexiconItems(lexiconData); populatePhrases(); setupSearch();
-        setupMemoramaControls(); setupQuizControls(); setupFlashcardsControls();
-        console.log("Aplicación inicializada correctamente.");
-    }
-
-    // --- Punto de Entrada ---
-    loadData(); // Iniciar carga de datos
-
-}); // Fin DOMContentLoaded
-// --- END OF FILE script.js ---
+/* ------------------------- */
+/* Responsive Adjustments    */
+/* ------------------------- */
+@media (max-width: 992px) {
+    #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .memorama-card { height: 145px; }
+    .card-front p { font-size: 1em; }
+    #flashcards-container { max-width: 90%; }
+    .flashcard { height: 250px; }
+}
+@media (max-width: 768px) {
+    header > h1 { font-size: 2.5em; }
+    nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
+    main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; }
+    h2 { font-size: 1.7em; }
+    #about h2 { font-size: 1.7em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
+    .lexicon-item img { width: 110px; height: 110px; }
+    #quiz-options button { padding: var(--space-md); }
+    #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
+    #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
+    #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; }
+    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
+    .memorama-card { height: 130px; }
+    #flashcards-container { max-width: 95%; }
+    .flashcard { height: 220px; }
+    .flashcard-face.card-front { font-size: 1.5em; }
+    .flashcard-face.card-back { font-size: 1.7em; }
+    #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
+}
+@media (max-width: 576px) {
+    header > h1 { font-size: 2.2em; }
+    header { padding: var(--space-xs) var(--space-sm); }
+    nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
+    main { padding: var(--space-md); }
+    h2 { font-size: 1.5em; }
+    #about h2 { font-size: 1.5em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+    .lexicon-item img { width: 90px; height: 90px; }
+    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+    .memorama-card { height: 110px; }
+    .card-front p { font-size: 0.9em; }
+    .card-back::before { font-size: 3.2em; }
+    #quiz-options { max-width: 95%; }
+    #quiz-text-input-area { max-width: 95%; }
+    #quiz-results button { width: 90%; margin: var(--space-sm) auto; display: block;}
+    .flashcard { height: 200px; }
+    .flashcard-face.card-front { font-size: 1.3em; }
+    .flashcard-face.card-back { font-size: 1.5em; }
+    /* Controles Flashcards Layout Móvil (Corregido) */
+    #flashcard-controls { gap: var(--space-sm); }
+    #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
+    #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
+    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
+    #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
+}
+@media (max-width: 420px) {
+     header > h1 { font-size: 2em; }
+     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
+     .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
+     .card-front p { font-size: 0.8em; }
+     .card-back::before { font-size: 2.5em; }
+     .flashcard { height: 180px; }
+     .flashcard-face.card-front { font-size: 1.2em; }
+     .flashcard-face.card-back { font-size: 1.4em; }
+     #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
+     #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
+}
