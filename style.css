@@ -96,7 +96,7 @@ header > h1 {
   line-height: 1.1;
 }
 
-/* Estilos generales para H2 (aplican a todas las secciones excepto si se sobreescriben) */
+/* Estilos generales para H2 */
 h2 {
     color: var(--blue-dark);
     font-size: 2em;
@@ -435,23 +435,23 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     color: var(--text-secondary);
 }
 
-/* Controles Flashcards Layout (Principal) */
-.flashcard-main-controls {
-     display: flex; justify-content: center; align-items: center;
-     gap: var(--space-md);
-     /* margin-bottom: var(--space-md); <= Removido */
+/* Controles Flashcards - Contenedor ÚNICO y Centrado con Flex */
+#flashcard-controls {
+    display: flex;          /* Usar Flexbox */
+    flex-wrap: wrap;        /* Permitir que envuelva en líneas */
+    justify-content: center;/* Centrar los items horizontalmente */
+    align-items: center;    /* Centrar verticalmente si envuelve */
+    gap: var(--space-md);   /* Espacio consistente entre todos los botones */
+    margin-top: var(--space-lg); /* Espacio arriba del grupo de botones */
 }
-/* Contenedor botón Barajar - Centrado con Flexbox */
-.flashcard-extra-controls {
-     display: flex;             /* <<< Centrado con Flex */
-     justify-content: center;   /* <<< Centrado con Flex */
-     margin-top: var(--space-sm); /* <<< Espacio reducido */
-}
-#flashcard-controls button { /* Estilo base botones flashcards */
+/* Estilo base botones flashcards */
+#flashcard-controls button {
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
-    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: 100px;
+    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto; /* Ajustar */
     text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
+    margin: 0; /* Quitar margen individual */
+    flex-grow: 0; flex-shrink: 1;
 }
 #flashcard-controls button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #flashcard-controls button:active { transform: translateY(0); filter: brightness(0.95); }
@@ -466,8 +466,6 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #shuffle-flashcards-btn { /* Botón Barajar */
     background-color: var(--text-secondary); font-size: 0.85em;
     padding: var(--space-xs) var(--space-sm);
-    /* display: inline-block; <= Removido */
-    /* margin-top: var(--space-sm); <= Removido */
 }
 #shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
@@ -527,19 +525,12 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); } /* Layout móvil botones flashcard */
-    #flashcard-controls button { flex-basis: auto; }
-    #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);}
-    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; }
-    /* Mantener centrado en móvil para Barajar */
-    .flashcard-extra-controls {
-         display: flex; /* Asegurar flex también en móvil */
-         justify-content: center; /* Asegurar centrado en móvil */
-         margin-top: var(--space-md); /* Espacio consistente arriba */
-         width: 100%;
-         padding: 0;
-     }
-    #shuffle-flashcards-btn { margin: 0; }
+    /* Controles Flashcards Layout Móvil (Corregido) */
+    #flashcard-controls { gap: var(--space-sm); }
+    #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
+    #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
+    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
+    #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
@@ -550,4 +541,6 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
      .flashcard { height: 180px; }
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
+     #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
+     #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
