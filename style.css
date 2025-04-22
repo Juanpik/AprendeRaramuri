@@ -1,3 +1,5 @@
+/* style.css */
+
 /* ------------------------- */
 /* Reset & Base Styles       */
 /* ------------------------- */
@@ -189,6 +191,50 @@ nav button.active {
 /* --- End of About Section Specific Styles --- */
 
 /* Léxico */
+
+/* NUEVOS ESTILOS para Filtros de Categoría */
+.category-filter-container {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+    display: flex; /* Usamos flexbox para alinear botones */
+    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
+    justify-content: center; /* Centra los botones */
+    gap: var(--space-sm); /* Espacio entre botones */
+}
+
+button.category-filter-btn {
+    font-family: var(--font-body); /* O --font-heading si prefieres */
+    background-color: var(--white);
+    color: var(--blue-dark);
+    border: 1px solid var(--border-medium);
+    padding: var(--space-xs) var(--space-md);
+    margin: 0; /* Eliminamos margen individual ya que usamos gap */
+    cursor: pointer;
+    border-radius: var(--border-radius-pill);
+    transition: all 0.2s ease-in-out;
+    font-size: 0.9em;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+}
+
+button.category-filter-btn:hover {
+    background-color: var(--blue-light-bg);
+    border-color: var(--blue-primary);
+    transform: translateY(-1px);
+}
+
+button.category-filter-btn.active {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    border-color: var(--blue-primary);
+    font-weight: 700;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transform: translateY(0);
+}
+/* FIN NUEVOS ESTILOS para Filtros de Categoría */
+
 .search-container { margin-bottom: var(--space-xl); text-align: center; }
 #lexicon-search {
     font-family: var(--font-body); padding: var(--space-sm) var(--space-lg); border: 1px solid var(--border-medium);
@@ -216,6 +262,17 @@ nav button.active {
 .lexicon-item .spanish-word {
     font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
 }
+/* Opcional: Estilo para categoría si la muestras en el item */
+/*
+.lexicon-item-category {
+    display: block;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+    font-style: italic;
+}
+*/
+
 
 /* Frases */
 #phrases-list li {
@@ -493,6 +550,8 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
+    .category-filter-container { gap: var(--space-xs); } /* Ajustar espacio entre filtros */
+    button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
@@ -514,6 +573,8 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #about h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
+    .category-filter-container { padding-bottom: var(--space-md); }
+    button.category-filter-btn { font-size: 0.8em; }
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .memorama-card { height: 110px; }
     .card-front p { font-size: 0.9em; }
@@ -533,6 +594,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
+     button.category-filter-btn { font-size: 0.75em; padding: 4px 8px; }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
      .card-front p { font-size: 0.8em; }
