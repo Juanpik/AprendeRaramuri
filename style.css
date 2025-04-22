@@ -91,16 +91,16 @@ header > h1 {
   font-weight: 400; /* Correcto para Patrick Hand SC */
   margin: 0 0 var(--space-xs) 0;
   padding-bottom: 0;
-  letter-spacing: 1px; /* Espaciado sutil */
+  letter-spacing: 1px;
   color: var(--white);
   line-height: 1.1;
 }
 
-/* Estilos generales para H2 */
+/* Estilos generales para H2 (aplican a todas las secciones excepto si se sobreescriben) */
 h2 {
     color: var(--blue-dark);
     font-size: 2em;
-    border-bottom: 2px solid var(--border-light);
+    border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
     padding-bottom: var(--space-md);
     margin-bottom: var(--space-xl);
     letter-spacing: -0.5px;
@@ -115,8 +115,8 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav - Paleta Azul */
 header {
-    /* background: var(--blue-primary); */
-    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */
+    /* background: var(--blue-primary); */ /* Color sólido si no quieres gradiente/textura */
+    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */ /* Textura Header Opcional */
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -126,9 +126,11 @@ header {
     z-index: 1000;
 }
 
-nav { margin-top: 0; }
+nav {
+    margin-top: 0;
+}
 nav button {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading); /* Poppins para botones */
     font-weight: 500;
     background-color: transparent;
     color: rgba(255, 255, 255, 0.85);
@@ -205,7 +207,7 @@ nav button.active {
 .lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img { /* Imagen cuadrada con bordes redondeados */
     width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md); /* <-- Borde redondeado */
     background-color: var(--blue-light-bg); border: 4px solid var(--white); box-shadow: var(--shadow-sm);
 }
 .lexicon-item .raramuri-word {
@@ -436,19 +438,20 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 /* Controles Flashcards Layout (Principal) */
 .flashcard-main-controls {
      display: flex; justify-content: center; align-items: center;
-     gap: var(--space-md); margin-bottom: var(--space-md);
+     gap: var(--space-md);
+     /* margin-bottom: var(--space-md); <= Removido */
 }
-/* Contenedor botón Barajar - Centrado con text-align (Original antes de probar Flex) */
+/* Contenedor botón Barajar - Centrado con Flexbox */
 .flashcard-extra-controls {
-     text-align: center; /* Centrado original */
-     margin-top: var(--space-md);
+     display: flex;             /* <<< Centrado con Flex */
+     justify-content: center;   /* <<< Centrado con Flex */
+     margin-top: var(--space-sm); /* <<< Espacio reducido */
 }
 #flashcard-controls button { /* Estilo base botones flashcards */
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
     transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: 100px;
     text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
-    /* margin: 0 var(--space-xs); */ /* Sin margen lateral explícito */
 }
 #flashcard-controls button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #flashcard-controls button:active { transform: translateY(0); filter: brightness(0.95); }
@@ -463,8 +466,8 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #shuffle-flashcards-btn { /* Botón Barajar */
     background-color: var(--text-secondary); font-size: 0.85em;
     padding: var(--space-xs) var(--space-sm);
-    display: inline-block; /* Asegurar display para text-align */
-    /* margin-top: var(--space-sm); */ /* Sin margen top explícito */
+    /* display: inline-block; <= Removido */
+    /* margin-top: var(--space-sm); <= Removido */
 }
 #shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
@@ -524,12 +527,19 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); }
+    .flashcard-main-controls { flex-wrap: wrap; gap: var(--space-sm); } /* Layout móvil botones flashcard */
     #flashcard-controls button { flex-basis: auto; }
     #flip-flashcard-btn { order: -1; width: 100%; margin-bottom: var(--space-sm);}
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; }
     /* Mantener centrado en móvil para Barajar */
-    .flashcard-extra-controls { text-align: center; width: 100%; padding: 0; }
+    .flashcard-extra-controls {
+         display: flex; /* Asegurar flex también en móvil */
+         justify-content: center; /* Asegurar centrado en móvil */
+         margin-top: var(--space-md); /* Espacio consistente arriba */
+         width: 100%;
+         padding: 0;
+     }
+    #shuffle-flashcards-btn { margin: 0; }
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
