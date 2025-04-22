@@ -1,8 +1,8 @@
-// --- START OF FILE script.js ---
+// --- START OF FILE script.js (Stable Version Before Refactor Attempt) ---
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
+    // --- DECLARACIÓN DE VARIABLES PARA DATOS (se llenarán después) ---
     let lexiconData = [];
     let phrasesData = [];
 
@@ -12,13 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContentEl = document.getElementById('main-content');
     const navButtons = document.querySelectorAll('nav button');
     const contentSections = document.querySelectorAll('.content-section');
-    // Léxico
     const lexiconGrid = document.getElementById('lexicon-grid');
     const lexiconSearchInput = document.getElementById('lexicon-search');
-    const categoryFilterContainer = document.getElementById('lexicon-category-filters'); // Contenedor filtros
-    // Frases
     const phrasesList = document.getElementById('phrases-list');
-    // Memorama
+
+    // Memorama Elements
     const memoramaSetup = document.getElementById('memorama-setup');
     const memoramaGameArea = document.getElementById('memorama-game-area');
     const difficultyButtons = document.querySelectorAll('.difficulty-btn');
@@ -27,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetMemoramaBtn = document.getElementById('reset-memorama');
     const memoramaWinMessage = document.getElementById('memorama-win-message');
     const memoramaDataErrorEl = document.getElementById('memorama-data-error');
-    // Quiz
+
+    // Quiz Elements
     const quizContainer = document.getElementById('quiz-container');
     const quizSetup = document.getElementById('quiz-setup');
     const quizLengthSelect = document.getElementById('quiz-length');
@@ -47,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartQuizBtn = document.getElementById('restart-quiz');
     const retryMissedQuizBtn = document.getElementById('retry-missed-quiz');
     const quizDataErrorEl = document.getElementById('quiz-data-error');
-    // Flashcards
+
+    // Flashcards Elements
     const flashcardsContainer = document.getElementById('flashcards-container');
     const flashcardsLoadingEl = document.getElementById('flashcards-loading');
     const flashcardsErrorEl = document.getElementById('flashcards-error');
@@ -61,81 +61,126 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextFlashcardBtn = document.getElementById('next-flashcard-btn');
     const shuffleFlashcardsBtn = document.getElementById('shuffle-flashcards-btn');
 
-    // --- VARIABLES GLOBALES DE ESTADO ---
-    let currentCategoryFilter = 'all'; // Estado para filtro de categoría
+
+    // --- VARIABLES GLOBALES JUEGOS ---
     // Memorama
-    let memoramaActive = false; let mCards = []; let mFlippedElements = [];
-    let mMatchedPairsCount = 0; let mTotalPairs = 0; let mAttempts = 0; let mLockBoard = false;
+    let memoramaActive = false;
+    let mCards = [];
+    let mFlippedElements = [];
+    let mMatchedPairsCount = 0;
+    let mTotalPairs = 0;
+    let mAttempts = 0;
+    let mLockBoard = false;
     // Quiz
-    let allQuizQuestions = []; let currentQuizSet = []; let currentQuestionIndex = 0;
-    let score = 0; let quizActive = false; let missedQuestions = [];
+    let allQuizQuestions = [];
+    let currentQuizSet = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let quizActive = false;
+    let missedQuestions = [];
     // Flashcards State
-    let flashcardData = []; let currentFlashcardIndex = 0; let isFlashcardFlipped = false;
+    let flashcardData = [];
+    let currentFlashcardIndex = 0;
+    let isFlashcardFlipped = false;
+
 
     // --- FUNCIÓN PARA CARGAR DATOS ---
     async function loadData() {
         try {
-            loadingMessageEl.style.display = 'block'; errorMessageEl.style.display = 'none'; mainContentEl.style.display = 'none';
+            loadingMessageEl.style.display = 'block'; // Asegurar que se muestra al inicio
+            errorMessageEl.style.display = 'none';
+            mainContentEl.style.display = 'none';
+
             const response = await fetch('data.json', { cache: 'no-cache' });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
             const data = await response.json();
-            if (!data || typeof data !== 'object') throw new Error("Invalid JSON data.");
+            if (!data || typeof data !== 'object') throw new Error("JSON inválido.");
             lexiconData = Array.isArray(data.lexicon) ? data.lexicon : [];
             phrasesData = Array.isArray(data.phrases) ? data.phrases : [];
             console.log("Datos cargados:", { lexicon: lexiconData.length, phrases: phrasesData.length });
-            if (lexiconData.length === 0) console.warn("Lexicon data is empty.");
-            if (phrasesData.length === 0) console.warn("Phrases data is empty.");
-            loadingMessageEl.style.display = 'none'; mainContentEl.style.display = 'block'; errorMessageEl.style.display = 'none';
+
+            // Validar datos mínimos para funcionalidad básica
+            if (lexiconData.length === 0) {
+                 console.warn("Advertencia: El array 'lexicon' en data.json está vacío o no es un array.");
+            }
+             if (phrasesData.length === 0) {
+                 console.warn("Advertencia: El array 'phrases' en data.json está vacío o no es un array.");
+            }
+
+            loadingMessageEl.style.display = 'none';
+            mainContentEl.style.display = 'block';
+            errorMessageEl.style.display = 'none';
             initializeApplication();
+
         } catch (error) {
-            console.error("Error loading/processing data:", error);
-            loadingMessageEl.style.display = 'none'; errorMessageEl.textContent = `Error loading data: ${error.message}. Check data.json and console (F12).`;
-            errorMessageEl.style.display = 'block'; mainContentEl.style.display = 'none';
+            console.error("Error al cargar/procesar datos:", error);
+            loadingMessageEl.style.display = 'none';
+            errorMessageEl.textContent = `Error cargando datos: ${error.message}. Verifica data.json y la consola (F12).`;
+            errorMessageEl.style.display = 'block';
+            mainContentEl.style.display = 'none';
         }
     }
 
-    // --- FUNCIONES UTILITARIAS ---
-    function shuffleArray(array) { /* ... (sin cambios) ... */
+    // --- FUNCIONES DE LA APLICACIÓN ---
+    function shuffleArray(array) {
         const shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
         return shuffled;
     }
     function normalizeAnswer(text) { return text ? text.toLowerCase().trim() : ''; }
 
-    // --- NAVEGACIÓN ---
-    function setupNavigation() { /* ... (sin cambios funcionales, ya inicializa vistas) ... */
+    // -- Navegación --
+    function setupNavigation() {
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const sectionId = button.getAttribute('data-section');
                 contentSections.forEach(section => section.classList.remove('active'));
                 navButtons.forEach(btn => btn.classList.remove('active'));
                 const currentSection = document.getElementById(sectionId);
-                if (currentSection) currentSection.classList.add('active'); else console.error(`Section ${sectionId} not found.`);
+                if (currentSection) currentSection.classList.add('active');
+                else console.error(`Sección ${sectionId} no encontrada.`);
                 button.classList.add('active');
+
+                // Resetear vistas o inicializar según la sección
                 if (sectionId === 'memorama') resetMemoramaView();
                 else if (sectionId === 'quiz') resetQuizView();
-                else if (sectionId === 'flashcards') initializeFlashcardsView();
+                else if (sectionId === 'flashcards') initializeFlashcardsView(); // Inicializar Flashcards
+
             });
         });
+        // Activar la primera sección por defecto ('About')
         const aboutButton = document.querySelector('nav button[data-section="about"]');
         const aboutSection = document.getElementById('about');
-        if (aboutButton && aboutSection) { aboutButton.classList.add('active'); aboutSection.classList.add('active'); }
-        else if (navButtons.length > 0 && contentSections.length > 0) { navButtons[0].classList.add('active'); contentSections[0].classList.add('active'); }
+        if (aboutButton && aboutSection) {
+            aboutButton.classList.add('active');
+            aboutSection.classList.add('active');
+        } else if (navButtons.length > 0 && contentSections.length > 0) {
+             // Fallback si 'About' no existe: activar el primer botón/sección
+            navButtons[0].classList.add('active');
+            contentSections[0].classList.add('active');
+        }
     }
 
-    // --- LÉXICO (CON FILTROS) ---
-    function displayLexiconItems(itemsToShow) { // Muestra los items que se le pasan
+    // -- Léxico --
+    function displayLexiconItems(itemsToShow) {
         if (!lexiconGrid) return;
-        lexiconGrid.innerHTML = '';
+        lexiconGrid.innerHTML = ''; // Limpiar grid
         if (!itemsToShow || itemsToShow.length === 0) {
-            const message = (lexiconSearchInput?.value || currentCategoryFilter !== 'all') ? 'No se encontraron coincidencias.' : 'No hay datos léxicos para mostrar.';
-            lexiconGrid.innerHTML = `<p class="text-center text-secondary" style="grid-column: 1 / -1;">${message}</p>`;
+            // Mostrar mensaje si no hay items (o no hay coincidencias de búsqueda)
+            const message = lexiconSearchInput && lexiconSearchInput.value ? 'No se encontraron coincidencias.' : 'No hay datos léxicos para mostrar.';
+            lexiconGrid.innerHTML = `<p class="text-center text-secondary" style="grid-column: 1 / -1;">${message}</p>`; // Ocupar todo el ancho
             return;
         }
         itemsToShow.forEach(item => {
             const div = document.createElement('div'); div.classList.add('lexicon-item');
-            const imgSrc = item.image || 'images/placeholder.png';
-            const spanishText = item.spanish || '???'; const raramuriText = item.raramuri || '???';
+            const imgSrc = item.image || 'images/placeholder.png'; // Usa placeholder si no hay imagen
+            const spanishText = item.spanish || '???';
+            const raramuriText = item.raramuri || '???';
+
+            // Manejador de error más robusto para imágenes
             div.innerHTML = `
                 <img src="${imgSrc}" alt="${spanishText || raramuriText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}'; this.parentElement.querySelector('.img-error-msg')?.remove(); this.parentElement.insertAdjacentHTML('beforeend', '<p class=\'img-error-msg\' style=\'font-size:0.8em; color:var(--error-red);\'>Error Img</p>');">
                 <p class="raramuri-word">${raramuriText}</p>
@@ -143,136 +188,476 @@ document.addEventListener('DOMContentLoaded', () => {
             lexiconGrid.appendChild(div);
         });
     }
-
-    function updateLexiconView() { // Función central para actualizar el léxico
-        if (!lexiconData) return;
-        const searchTerm = lexiconSearchInput ? lexiconSearchInput.value.toLowerCase().trim() : '';
-        let itemsToDisplay = lexiconData;
-
-        // 1. Filtrar por categoría
-        if (currentCategoryFilter !== 'all') {
-            itemsToDisplay = itemsToDisplay.filter(item => item.category === currentCategoryFilter);
+    function handleSearch() {
+        if (!lexiconSearchInput || !lexiconData) return;
+        const searchTerm = lexiconSearchInput.value.toLowerCase().trim();
+        const filteredItems = lexiconData.filter(item =>
+            ((item.raramuri || '').toLowerCase().includes(searchTerm) ||
+             (item.spanish || '').toLowerCase().includes(searchTerm))
+        );
+        displayLexiconItems(filteredItems);
+    }
+    function setupSearch() {
+        if (lexiconSearchInput) {
+            lexiconSearchInput.addEventListener('input', handleSearch);
+        } else {
+            console.error("Elemento #lexicon-search no encontrado.");
         }
-
-        // 2. Filtrar por búsqueda
-        if (searchTerm) {
-            itemsToDisplay = itemsToDisplay.filter(item =>
-                ((item.raramuri || '').toLowerCase().includes(searchTerm) ||
-                 (item.spanish || '').toLowerCase().includes(searchTerm))
-            );
-        }
-
-        // 3. Mostrar resultado
-        displayLexiconItems(itemsToDisplay);
     }
 
-    function handleSearch() { // El input de búsqueda ahora solo llama a updateLexiconView
-        updateLexiconView();
-    }
-
-    function setupCategoryFilters() { // Crea y configura los botones de filtro
-        if (!categoryFilterContainer || !lexiconData || lexiconData.length === 0) {
-             if(categoryFilterContainer) categoryFilterContainer.innerHTML = '<span class="filter-label text-secondary">No hay categorías disponibles.</span>';
-             return;
+    // -- Frases --
+    function populatePhrases() {
+        if (!phrasesList) return;
+        phrasesList.innerHTML = ''; // Limpiar lista
+        if (!phrasesData || phrasesData.length === 0) {
+            phrasesList.innerHTML = '<li class="text-secondary">No hay frases disponibles.</li>';
+            return;
         }
-
-        const categories = ['all', ...new Set(lexiconData.map(item => item.category).filter(Boolean))].sort((a, b) => a === 'all' ? -1 : b === 'all' ? 1 : a.localeCompare(b)); // 'all' primero
-
-        categoryFilterContainer.innerHTML = '<span class="filter-label">Categorías:</span> '; // Limpiar y añadir etiqueta
-        categories.forEach(category => {
-            const button = document.createElement('button');
-            button.classList.add('filter-btn');
-            button.dataset.category = category;
-            button.textContent = category === 'all' ? 'Todas' : category;
-            if (category === currentCategoryFilter) button.classList.add('active'); // Marcar activo inicial
-            categoryFilterContainer.appendChild(button);
-        });
-
-        // Listener delegado para los botones de filtro
-        categoryFilterContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('filter-btn')) {
-                const selectedCategory = event.target.dataset.category;
-                if (selectedCategory !== currentCategoryFilter) {
-                    currentCategoryFilter = selectedCategory;
-                    // Actualizar clase 'active'
-                    categoryFilterContainer.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.classList.toggle('active', btn.dataset.category === selectedCategory);
-                    });
-                    updateLexiconView(); // Actualizar grid
-                }
+        phrasesData.forEach(phrase => {
+            // Asegurarse que ambas frases existen antes de añadir
+            if (phrase.raramuri && phrase.spanish) {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="raramuri-phrase">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`;
+                phrasesList.appendChild(li);
             }
         });
     }
 
-    function setupSearch() { // Configura el input de búsqueda
-        if (lexiconSearchInput) {
-            lexiconSearchInput.addEventListener('input', handleSearch);
-        } else { console.error("Elemento #lexicon-search no encontrado."); }
+   // =============================================
+    // ========= SECCIÓN MEMORAMA ==================
+    // =============================================
+    function resetMemoramaView() {
+        console.log("[Memorama] Reseteando Vista");
+        if (memoramaSetup) memoramaSetup.style.display = 'block';
+        if (memoramaGameArea) memoramaGameArea.style.display = 'none';
+        if (memoramaWinMessage) memoramaWinMessage.style.display = 'none';
+        if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
+        if (memoramaGrid) memoramaGrid.innerHTML = '';
+
+        difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+        memoramaActive = false;
+        mCards = [];
+        mFlippedElements = [];
+        mMatchedPairsCount = 0;
+        mTotalPairs = 0;
+        mAttempts = 0;
+        mLockBoard = false;
+        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = '0';
     }
 
-    // --- FRASES ---
-    function populatePhrases() { /* ... (sin cambios) ... */
-        if (!phrasesList) return; phrasesList.innerHTML = '';
-        if (!phrasesData || phrasesData.length === 0) { phrasesList.innerHTML = '<li class="text-secondary">No hay frases disponibles.</li>'; return; }
-        phrasesData.forEach(phrase => { if (phrase.raramuri && phrase.spanish) { const li = document.createElement('li'); li.innerHTML = `<span class="raramuri-phrase">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`; phrasesList.appendChild(li); } });
+    function createMemoramaFaceContent(cardInfo, faceElement) {
+        if (!cardInfo || !faceElement) {
+            console.error("[Memorama Critico] Faltan parámetros en createMemoramaFaceContent"); return;
+        }
+        faceElement.innerHTML = ''; // Limpiar
+        // console.log(`[Memorama DEBUG] Creando contenido para Cara (ID: ${cardInfo.id}, Tipo: ${cardInfo.type})`);
+        try {
+            if (cardInfo.type === 'image' && cardInfo.value) {
+                const img = document.createElement('img');
+                img.src = cardInfo.value;
+                img.alt = cardInfo.altText || "Imagen Memorama";
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    console.error(`[Memorama Critico] Falló carga IMG: ${this.src} (ID: ${cardInfo.id})`);
+                    this.style.display = 'none'; // Ocultar imagen rota
+                    const errorP = document.createElement('p'); errorP.textContent = 'Error Img!'; errorP.style.color = 'red'; errorP.style.fontSize = '10px';
+                    faceElement.appendChild(errorP);
+                };
+                faceElement.appendChild(img);
+                // console.log(`[Memorama DEBUG] IMG ${cardInfo.value} añadida.`);
+            } else if (cardInfo.type === 'text' && cardInfo.value) {
+                const textP = document.createElement('p');
+                textP.textContent = cardInfo.value;
+                faceElement.appendChild(textP);
+                // console.log(`[Memorama DEBUG] TEXT "${cardInfo.value}" añadido.`);
+            } else {
+                console.warn(`[Memorama Warn] Contenido inválido (ID: ${cardInfo.id}):`, cardInfo);
+                const fallbackP = document.createElement('p'); fallbackP.textContent = '??'; fallbackP.style.opacity = '0.5';
+                faceElement.appendChild(fallbackP);
+            }
+        } catch (e) {
+            console.error("[Memorama Critico] Excepción en createMemoramaFaceContent:", e, cardInfo);
+            try { faceElement.innerHTML = '<p style="color:red; font-size:10px;">Error JS!</p>'; } catch (fe) {}
+        }
     }
 
-    // --- MEMORAMA ---
-    // (Funciones sin cambios lógicos respecto a la versión estable anterior)
-    function resetMemoramaView() { /* ... (como estaba) ... */
-        console.log("[Memorama] Reseteando Vista"); if (memoramaSetup) memoramaSetup.style.display = 'block'; if (memoramaGameArea) memoramaGameArea.style.display = 'none'; if (memoramaWinMessage) memoramaWinMessage.style.display = 'none'; if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none'; if (memoramaGrid) memoramaGrid.innerHTML = ''; difficultyButtons.forEach(btn => btn.classList.remove('selected')); memoramaActive = false; mCards = []; mFlippedElements = []; mMatchedPairsCount = 0; mTotalPairs = 0; mAttempts = 0; mLockBoard = false; if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = '0';
-    }
-    function createMemoramaFaceContent(cardInfo, faceElement) { /* ... (como estaba) ... */
-         if (!cardInfo || !faceElement) { console.error("Memorama Critico: Faltan params"); return; } faceElement.innerHTML = ''; try { if (cardInfo.type === 'image' && cardInfo.value) { const img = document.createElement('img'); img.src = cardInfo.value; img.alt = cardInfo.altText || "Memorama Img"; img.loading = 'lazy'; img.onerror = function() { console.error(`Memorama Critico: Fallo IMG ${this.src}`); this.style.display = 'none'; const e = document.createElement('p'); e.textContent = 'Err Img!'; e.style.cssText = 'color:red;font-size:10px;'; faceElement.appendChild(e); }; faceElement.appendChild(img); } else if (cardInfo.type === 'text' && cardInfo.value) { const p = document.createElement('p'); p.textContent = cardInfo.value; faceElement.appendChild(p); } else { const p = document.createElement('p'); p.textContent = '??'; p.style.opacity = '0.5'; faceElement.appendChild(p); } } catch (e) { console.error("Excepción createMemoramaFaceContent:", e); try { faceElement.innerHTML = '<p style="color:red;font-size:10px;">Err JS!</p>'; } catch (fe) {} }
-    }
-    function prepareCardData(requestedPairs) { /* ... (como estaba) ... */
-        const validItems = lexiconData.filter(item => item?.id != null && item.image && item.raramuri && item.spanish);
-        if (validItems.length < requestedPairs) { console.warn(`[Memorama] Datos insuficientes: ${validItems.length}/${requestedPairs}`); if (memoramaDataErrorEl) { memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) para ${requestedPairs} pares.`; memoramaDataErrorEl.style.display = 'block'; } if (memoramaGameArea) memoramaGameArea.style.display = 'none'; if (memoramaSetup) memoramaSetup.style.display = 'block'; difficultyButtons.forEach(btn => btn.classList.remove('selected')); return null; }
-        if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none'; return shuffleArray(validItems).slice(0, requestedPairs);
-    }
-    function buildMemoramaGrid() { /* ... (como estaba) ... */
-        if (!memoramaGrid) return; memoramaGrid.innerHTML = ''; mCards.forEach((cardData, index) => { const cardElement = document.createElement('div'); cardElement.classList.add('memorama-card'); if (cardData.id == null) return; cardElement.dataset.id = cardData.id; cardElement.dataset.index = index; const frontFace = document.createElement('div'); frontFace.classList.add('card-face', 'card-front'); createMemoramaFaceContent(cardData, frontFace); const backFace = document.createElement('div'); backFace.classList.add('card-face', 'card-back'); cardElement.appendChild(frontFace); cardElement.appendChild(backFace); cardElement.addEventListener('click', handleMemoramaCardClick); memoramaGrid.appendChild(cardElement); }); let cols = Math.ceil(Math.sqrt(mCards.length)); cols = Math.max(2, Math.min(cols, 5)); memoramaGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    }
-    function startMemorama(numPairs) { /* ... (como estaba) ... */
-        resetMemoramaView(); const itemsForGame = prepareCardData(numPairs); if (!itemsForGame) { memoramaActive = false; return; } mTotalPairs = itemsForGame.length; memoramaActive = true; mCards = []; mAttempts = 0; mMatchedPairsCount = 0; if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; if (memoramaWinMessage) memoramaWinMessage.style.display = 'none'; itemsForGame.forEach(item => { mCards.push({ id: item.id, type: 'image', value: item.image, altText: item.spanish }); mCards.push({ id: item.id, type: 'text', value: item.raramuri }); }); mCards = shuffleArray(mCards); buildMemoramaGrid(); if (memoramaSetup) memoramaSetup.style.display = 'none'; if (memoramaGameArea) memoramaGameArea.style.display = 'block'; console.log(`[Memorama] Juego listo: ${mTotalPairs} pares.`);
-    }
-    function handleMemoramaCardClick(event) { /* ... (como estaba) ... */
-        if (!memoramaActive || mLockBoard || !event.currentTarget) return; const clickedCardElement = event.currentTarget; if (clickedCardElement.classList.contains('flipped') || clickedCardElement.classList.contains('matched')) return; clickedCardElement.classList.add('flipped'); mFlippedElements.push(clickedCardElement); if (mFlippedElements.length === 2) { mLockBoard = true; mAttempts++; if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; checkMemoramaMatch(); }
-    }
-    function checkMemoramaMatch() { /* ... (como estaba) ... */
-        const [card1, card2] = mFlippedElements; if (!card1 || !card2) { console.error("Error checkMatch"); mFlippedElements = []; mLockBoard = false; return; } const isMatch = card1.dataset.id === card2.dataset.id; if (isMatch) { mMatchedPairsCount++; setTimeout(() => { card1.classList.add('matched'); card2.classList.add('matched'); mFlippedElements = []; mLockBoard = false; if (mMatchedPairsCount === mTotalPairs) { if (memoramaWinMessage) { memoramaWinMessage.textContent = `¡Felicidades! ${mTotalPairs} pares en ${mAttempts} intentos.`; memoramaWinMessage.style.display = 'block'; } memoramaActive = false; } }, 300); } else { setTimeout(() => { card1.classList.remove('flipped'); card2.classList.remove('flipped'); mFlippedElements = []; mLockBoard = false; }, 1000); }
-    }
-    function setupMemoramaControls() { /* ... (como estaba) ... */
-        if (!memoramaSetup || !resetMemoramaBtn || !difficultyButtons) { console.error("Faltan controles Memorama."); return; } difficultyButtons.forEach(button => { button.addEventListener('click', () => { const pairs = parseInt(button.getAttribute('data-pairs')); if (isNaN(pairs) || pairs <= 0) return; difficultyButtons.forEach(btn => btn.classList.remove('selected')); button.classList.add('selected'); startMemorama(pairs); }); }); resetMemoramaBtn.addEventListener('click', () => { const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected'); if (selectedBtn) { const pairs = parseInt(selectedBtn.getAttribute('data-pairs')); if (!isNaN(pairs) && pairs > 0) startMemorama(pairs); else resetMemoramaView(); } else resetMemoramaView(); });
+    function prepareCardData(requestedPairs) {
+        const validItems = lexiconData.filter(item => item && item.id != null && item.image && item.raramuri && item.spanish);
+        if (validItems.length < requestedPairs) {
+            console.warn(`[Memorama] Datos insuficientes: ${validItems.length} items válidos, se necesitan ${requestedPairs} pares.`);
+            if (memoramaDataErrorEl) {
+                memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) para ${requestedPairs} pares. Añade más entradas con imagen al léxico.`;
+                memoramaDataErrorEl.style.display = 'block';
+            }
+             if (memoramaGameArea) memoramaGameArea.style.display = 'none'; // Ocultar área de juego
+             if (memoramaSetup) memoramaSetup.style.display = 'block'; // Mostrar setup
+             difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+            return null;
+        }
+        if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none'; // Ocultar error si hay datos
+        return shuffleArray(validItems).slice(0, requestedPairs);
     }
 
-    // --- QUIZ ---
-    // (Funciones sin cambios lógicos respecto a la versión estable anterior)
-    /* ... (Pegar aquí todas las funciones de Quiz: getWrongOptions, generateQuizQuestions, startQuiz, displayQuestion, handleMCAnswer, handleTextAnswer, goToNextQuestion, showResults, resetQuizView, setupQuizControls) ... */
-    function getWrongOptions(correctItem, count, sourceData, field) { if (!correctItem || !field) return []; const correctValueNorm = normalizeAnswer(correctItem[field]); const wrongAnswerPool = sourceData.filter(item => item?.id !== correctItem.id && item?.[field] && normalizeAnswer(item[field]) !== correctValueNorm ); const shuffledWrongs = shuffleArray([...wrongAnswerPool]); let options = new Set(); for (const item of shuffledWrongs) { if (options.size >= count) break; options.add(item[field]); } let attempts = 0; const maxAttempts = sourceData.length * 2; while (options.size < count && attempts < maxAttempts) { const randomItem = sourceData[Math.floor(Math.random() * sourceData.length)]; if (randomItem?.id !== correctItem.id && randomItem?.[field]) { const potentialOption = randomItem[field]; if (normalizeAnswer(potentialOption) !== correctValueNorm) options.add(potentialOption); } attempts++; } return Array.from(options); }
-    function generateQuizQuestions(numQuestions) { const availableLexiconItems = lexiconData.filter(item => item?.raramuri && item.spanish && item.id); const availableImageItems = availableLexiconItems.filter(item => item.image); if (availableLexiconItems.length < 2) { console.error("Quiz: Min 2 entradas."); if(quizDataErrorEl) { quizDataErrorEl.textContent = "Datos insuficientes (mín 2)."; quizDataErrorEl.style.display = 'block'; } return []; } else { if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; } const potentialQuestions = []; availableLexiconItems.forEach(item => { potentialQuestions.push({ type: 'MC_RaSp', item: item, question: `¿Qué significa "${item.raramuri}"?`, answer: item.spanish }); potentialQuestions.push({ type: 'MC_SpRa', item: item, question: `¿Cómo se dice "${item.spanish}" en rarámuri?`, answer: item.raramuri }); potentialQuestions.push({ type: 'TXT_SpRa', item: item, question: `Escribe cómo se dice "${item.spanish}" en rarámuri:`, answer: item.raramuri }); }); availableImageItems.forEach(item => { potentialQuestions.push({ type: 'MC_ImgRa', item: item, question: `¿Qué es esto en rarámuri?`, answer: item.raramuri, image: item.image }); potentialQuestions.push({ type: 'TXT_ImgRa', item: item, question: `Escribe en rarámuri qué ves en la imagen:`, answer: item.raramuri, image: item.image }); }); const shuffledPotentialQuestions = shuffleArray(potentialQuestions); let questionsToGenerate = 0; const totalPotential = shuffledPotentialQuestions.length; if (numQuestions === 'all') questionsToGenerate = totalPotential; else questionsToGenerate = Math.min(parseInt(numQuestions), totalPotential); questionsToGenerate = Math.max(1, questionsToGenerate); if (totalPotential === 0) return []; const finalQuestions = shuffledPotentialQuestions.slice(0, questionsToGenerate); finalQuestions.forEach(q => { if (q.type.startsWith('MC_')) { let wrongOptions = []; let field = ''; let correctLexiconItem = q.item; if (q.type === 'MC_RaSp') field = 'spanish'; else if (q.type === 'MC_SpRa' || q.type === 'MC_ImgRa') field = 'raramuri'; if (field && correctLexiconItem) { wrongOptions = getWrongOptions(correctLexiconItem, 3, availableLexiconItems, field); const allOptions = [q.answer, ...wrongOptions]; const uniqueOptions = Array.from(new Set(allOptions)); q.options = shuffleArray(uniqueOptions.slice(0, 4)); } else { q.options = [q.answer]; } if (q.options.length < 2) console.warn("MC < 2 opc:", q); } }); const validFinalQuestions = finalQuestions.filter(q => !q.type.startsWith('MC_') || (q.options && q.options.length >= 2)); return validFinalQuestions; }
-    function startQuiz(isRetry = false) { quizActive = true; score = 0; currentQuestionIndex = 0; if (!isRetry) { const selectedLength = quizLengthSelect.value; allQuizQuestions = generateQuizQuestions(selectedLength); currentQuizSet = allQuizQuestions; missedQuestions = []; } else { currentQuizSet = shuffleArray([...missedQuestions]); missedQuestions = []; if (currentQuizSet.length === 0) { alert("¡Felicidades! No hubo falladas."); resetQuizView(); return; } } if (!currentQuizSet || currentQuizSet.length === 0) { if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizSetup) quizSetup.style.display = 'block'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) { quizDataErrorEl.style.display = quizDataErrorEl.textContent ? 'block' : 'none'; if (!quizDataErrorEl.textContent) { quizDataErrorEl.textContent = "No preguntas."; quizDataErrorEl.style.display = 'block'; } } quizActive = false; return; } if(quizSetup) quizSetup.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizQuestionArea) quizQuestionArea.style.display = 'block'; if(nextQuestionBtn) nextQuestionBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; displayQuestion(); }
-    function displayQuestion() { if (currentQuestionIndex >= currentQuizSet.length) { showResults(); return; } quizActive = true; const q = currentQuizSet[currentQuestionIndex]; if (!q?.type || !q.question || q.answer == null) { console.error("Pregunta inválida:", q); goToNextQuestion(); return; } if(quizQuestionEl) quizQuestionEl.textContent = q.question; if(quizImageContainer) quizImageContainer.innerHTML = ''; if(quizOptionsEl) { quizOptionsEl.innerHTML = ''; quizOptionsEl.style.display = 'none'; } if(quizTextInputArea) quizTextInputArea.style.display = 'none'; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; quizTextAnswerInput.disabled = false; } if(submitTextAnswerBtn) submitTextAnswerBtn.disabled = false; if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(nextQuestionBtn) nextQuestionBtn.style.display = 'none'; if (q.image && quizImageContainer) { const img = document.createElement('img'); img.src = q.image; img.alt = `Imagen pregunta`; img.loading = 'lazy'; img.onerror = function() { this.src='images/placeholder.png'; this.alt = 'Error img'; }; quizImageContainer.appendChild(img); } if (q.type.startsWith('MC_') && quizOptionsEl) { quizOptionsEl.style.display = 'block'; if (!q.options || q.options.length < 2) { quizOptionsEl.innerHTML = '<p style="color:var(--error-red);">Error opciones.</p>'; quizActive = false; if(nextQuestionBtn) nextQuestionBtn.style.display = 'inline-block'; } else { q.options.forEach(option => { const button = document.createElement('button'); button.textContent = option; button.addEventListener('click', handleMCAnswer); quizOptionsEl.appendChild(button); }); } } else if (q.type.startsWith('TXT_') && quizTextInputArea) { quizTextInputArea.style.display = 'flex'; setTimeout(() => quizTextAnswerInput?.focus(), 100); } }
-    function handleMCAnswer(event) { if (!quizActive) return; quizActive = false; const selectedButton = event.target; const selectedAnswer = selectedButton.textContent; const currentQuestion = currentQuizSet[currentQuestionIndex]; if (currentQuestion?.answer == null) { goToNextQuestion(); return; } const correctAnswer = currentQuestion.answer; const optionButtons = quizOptionsEl.querySelectorAll('button'); optionButtons.forEach(btn => btn.disabled = true); if (selectedAnswer === correctAnswer) { score++; selectedButton.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct'; } else { selectedButton.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${correctAnswer}</strong>`; quizFeedbackEl.className = 'incorrect'; if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); } optionButtons.forEach(btn => { if (btn.textContent === correctAnswer) btn.classList.add('correct'); }); } nextQuestionBtn.style.display = 'inline-block'; }
-    function handleTextAnswer() { if (!quizActive || !quizTextAnswerInput) return; quizActive = false; const currentQuestion = currentQuizSet[currentQuestionIndex]; if (currentQuestion?.answer == null) { goToNextQuestion(); return; } const userAnswer = normalizeAnswer(quizTextAnswerInput.value); const correctAnswer = normalizeAnswer(currentQuestion.answer); const originalCorrectAnswer = currentQuestion.answer; quizTextAnswerInput.disabled = true; submitTextAnswerBtn.disabled = true; if (userAnswer === correctAnswer && userAnswer !== '') { score++; quizTextAnswerInput.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct'; } else { quizTextAnswerInput.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${originalCorrectAnswer}</strong>`; quizFeedbackEl.className = 'incorrect'; if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); } } nextQuestionBtn.style.display = 'inline-block'; }
+    function buildMemoramaGrid() {
+        if (!memoramaGrid) { console.error("[Memorama Error] #memorama-grid no encontrado."); return; }
+        memoramaGrid.innerHTML = ''; // Limpiar
+        mCards.forEach((cardData, index) => {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('memorama-card');
+            if (cardData.id === undefined || cardData.id === null) {
+                console.error(`[Memorama Error] ID indefinido carta ${index}`, cardData); return;
+            }
+            cardElement.dataset.id = cardData.id; // ID para matching
+            cardElement.dataset.index = index; // Índice único para debug
+
+            // Crear ambas caras
+            const frontFace = document.createElement('div');
+            frontFace.classList.add('card-face', 'card-front');
+            createMemoramaFaceContent(cardData, frontFace); // Llenar contenido cara frontal
+
+            const backFace = document.createElement('div');
+            backFace.classList.add('card-face', 'card-back');
+            // El ::before en CSS se encarga del '?'
+
+            cardElement.appendChild(frontFace);
+            cardElement.appendChild(backFace);
+
+            cardElement.addEventListener('click', handleMemoramaCardClick);
+            memoramaGrid.appendChild(cardElement);
+        });
+
+        // Ajustar columnas del grid dinámicamente
+        let columns = Math.ceil(Math.sqrt(mCards.length));
+        columns = Math.max(2, Math.min(columns, 5)); // Limitar entre 2 y 5
+
+        memoramaGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        console.log(`[Memorama] Grid construido con ${columns} columnas.`);
+    }
+
+    function startMemorama(numPairs) {
+        console.log(`[Memorama] Iniciando startMemorama con ${numPairs} pares.`);
+        resetMemoramaView(); // Limpiar todo primero
+        const itemsForGame = prepareCardData(numPairs);
+
+        if (!itemsForGame) { // Si prepareCardData devolvió null (error de datos)
+            memoramaActive = false;
+            return; // Salir, ya se mostró el error
+        }
+
+        mTotalPairs = itemsForGame.length;
+        memoramaActive = true;
+        mCards = []; // Resetear array de cartas
+        mAttempts = 0; // Resetear intentos
+        mMatchedPairsCount = 0; // Resetear pares encontrados
+        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; // Actualizar UI intentos
+        if (memoramaWinMessage) memoramaWinMessage.style.display = 'none'; // Ocultar mensaje de victoria
+
+        // Crear pares de cartas (imagen + texto raramuri)
+        itemsForGame.forEach(item => {
+            mCards.push({ id: item.id, type: 'image', value: item.image, altText: item.spanish });
+            mCards.push({ id: item.id, type: 'text', value: item.raramuri });
+        });
+
+        mCards = shuffleArray(mCards); // Barajar las cartas
+        buildMemoramaGrid(); // Construir el grid en el DOM
+
+        if (memoramaSetup) memoramaSetup.style.display = 'none'; // Ocultar setup
+        if (memoramaGameArea) memoramaGameArea.style.display = 'block'; // Mostrar área de juego
+        console.log(`[Memorama] Juego listo con ${mTotalPairs} pares.`);
+    }
+
+    function handleMemoramaCardClick(event) {
+        if (!memoramaActive || mLockBoard || !event.currentTarget) return; // Si juego no activo, tablero bloqueado o no hay target, salir
+
+        const clickedCardElement = event.currentTarget;
+        // console.log(`[Memorama] Click Carta ${clickedCardElement.dataset.index} (ID: ${clickedCardElement.dataset.id})`);
+
+        // Ignorar click si la carta ya está volteada o emparejada
+        if (clickedCardElement.classList.contains('flipped') || clickedCardElement.classList.contains('matched')) {
+            // console.log("[Memorama] Click ignorado (carta ya volteada o emparejada).");
+            return;
+        }
+
+        // Voltear la carta
+        clickedCardElement.classList.add('flipped');
+        mFlippedElements.push(clickedCardElement); // Añadir a la lista de volteadas
+        // console.log(`[Memorama] Cartas volteadas actualmente: ${mFlippedElements.length}`);
+
+        // Si hay dos cartas volteadas, revisar si son par
+        if (mFlippedElements.length === 2) {
+            mLockBoard = true; // Bloquear el tablero para evitar más clicks
+            mAttempts++; // Incrementar contador de intentos
+            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; // Actualizar UI
+            // console.log("[Memorama] Dos cartas volteadas, comprobando par...");
+            checkMemoramaMatch();
+        }
+    }
+
+    function checkMemoramaMatch() {
+        const [card1, card2] = mFlippedElements; // Obtener las dos cartas volteadas
+
+        if (!card1 || !card2) {
+            console.error("[Memorama Critico] Faltan cartas en checkMemoramaMatch.");
+            mFlippedElements = []; // Limpiar array
+            mLockBoard = false; // Desbloquear tablero
+            return;
+        }
+
+        // Comprobar si los IDs (data-id) coinciden
+        const isMatch = card1.dataset.id === card2.dataset.id;
+        // console.log(`[Memorama] Comparando ${card1.dataset.id} vs ${card2.dataset.id}. Coinciden: ${isMatch}`);
+
+        if (isMatch) {
+            // Es un par
+            mMatchedPairsCount++;
+            // console.log(`[Memorama] ¡Par encontrado! (${mMatchedPairsCount}/${mTotalPairs})`);
+            // Dejar las cartas volteadas y marcarlas como emparejadas (después de una pequeña pausa)
+            setTimeout(() => {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                mFlippedElements = []; // Limpiar array de volteadas
+                mLockBoard = false; // Desbloquear tablero
+
+                // Comprobar si se ha ganado el juego
+                if (mMatchedPairsCount === mTotalPairs) {
+                    console.log("[Memorama] ¡Juego Ganado!");
+                    if (memoramaWinMessage) {
+                        memoramaWinMessage.textContent = `¡Felicidades! Encontraste ${mTotalPairs} pares en ${mAttempts} intentos.`;
+                        memoramaWinMessage.style.display = 'block'; // Mostrar mensaje de victoria
+                    }
+                    memoramaActive = false; // Desactivar juego
+                }
+            }, 300); // Pausa corta antes de marcar como matched
+        } else {
+            // No es un par
+            // console.log("[Memorama] No es par.");
+            // Voltear las cartas de nuevo después de una pausa más larga
+            setTimeout(() => {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                mFlippedElements = []; // Limpiar array de volteadas
+                mLockBoard = false; // Desbloquear tablero
+            }, 1000); // Pausa de 1 segundo para que el usuario vea las cartas
+        }
+    }
+
+    function setupMemoramaControls() {
+        if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0) {
+            console.error("[Memorama Critico] Faltan elementos HTML para controles de Memorama.");
+            return;
+        }
+        // console.log("[Memorama] Configurando controles.");
+        // Botones de dificultad
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const pairs = parseInt(button.getAttribute('data-pairs'));
+                if (isNaN(pairs) || pairs <= 0) {
+                    console.error("[Memorama Error] Atributo data-pairs inválido:", button);
+                    return;
+                }
+                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                startMemorama(pairs);
+            });
+        });
+        // Botón de reiniciar
+        resetMemoramaBtn.addEventListener('click', () => {
+            // console.log("[Memorama] Botón Reset presionado.");
+            const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected');
+            if (selectedBtn) {
+                const pairs = parseInt(selectedBtn.getAttribute('data-pairs'));
+                if (!isNaN(pairs) && pairs > 0) { startMemorama(pairs); }
+                else { resetMemoramaView(); }
+            } else { resetMemoramaView(); }
+        });
+         // NO AÑADIR LISTENER AL GRID AQUÍ (se añade en buildMemoramaGrid a cada carta)
+    }
+    // =============================================
+    // ===== FIN SECCIÓN MEMORAMA ==================
+    // =============================================
+
+
+    // =============================================
+    // ========= SECCIÓN QUIZ ======================
+    // =============================================
+     function getWrongOptions(correctItem, count, sourceData, field) {
+        if (!correctItem || !field) return [];
+         const correctValueNorm = normalizeAnswer(correctItem[field]);
+         const wrongAnswerPool = sourceData.filter(item =>
+             item && item.id !== correctItem.id && item[field] &&
+             normalizeAnswer(item[field]) !== correctValueNorm
+         );
+         const shuffledWrongs = shuffleArray([...wrongAnswerPool]);
+         let options = new Set();
+         for (const item of shuffledWrongs) {
+             if (options.size >= count) break; options.add(item[field]);
+         }
+         let attempts = 0; const maxAttempts = sourceData.length * 2;
+         while (options.size < count && attempts < maxAttempts) {
+             const randomItem = sourceData[Math.floor(Math.random() * sourceData.length)];
+             if (randomItem && randomItem.id !== correctItem.id && randomItem[field]) {
+                  const potentialOption = randomItem[field];
+                  if (normalizeAnswer(potentialOption) !== correctValueNorm) { options.add(potentialOption); }
+             }
+             attempts++;
+         }
+         return Array.from(options);
+     }
+    function generateQuizQuestions(numQuestions) {
+         const availableLexiconItems = lexiconData.filter(item => item && item.raramuri && item.spanish && item.id);
+         const availableImageItems = availableLexiconItems.filter(item => item.image);
+        if (availableLexiconItems.length < 2) {
+            console.error("Quiz: Se necesitan al menos 2 entradas léxicas completas.");
+            if(quizDataErrorEl) { quizDataErrorEl.textContent = "Datos insuficientes (mínimo 2 entradas léxicas completas)."; quizDataErrorEl.style.display = 'block'; }
+            return [];
+        } else { if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; }
+        const potentialQuestions = [];
+        availableLexiconItems.forEach(item => {
+            potentialQuestions.push({ type: 'MC_RaSp', item: item, question: `¿Qué significa "${item.raramuri}"?`, answer: item.spanish });
+            potentialQuestions.push({ type: 'MC_SpRa', item: item, question: `¿Cómo se dice "${item.spanish}" en rarámuri?`, answer: item.raramuri });
+            potentialQuestions.push({ type: 'TXT_SpRa', item: item, question: `Escribe cómo se dice "${item.spanish}" en rarámuri:`, answer: item.raramuri });
+        });
+        availableImageItems.forEach(item => {
+            potentialQuestions.push({ type: 'MC_ImgRa', item: item, question: `¿Qué es esto en rarámuri?`, answer: item.raramuri, image: item.image });
+            potentialQuestions.push({ type: 'TXT_ImgRa', item: item, question: `Escribe en rarámuri qué ves en la imagen:`, answer: item.raramuri, image: item.image });
+        });
+        const shuffledPotentialQuestions = shuffleArray(potentialQuestions); let questionsToGenerate = 0; const totalPotential = shuffledPotentialQuestions.length;
+        if (numQuestions === 'all') { questionsToGenerate = totalPotential; } else { questionsToGenerate = Math.min(parseInt(numQuestions), totalPotential); }
+        questionsToGenerate = Math.max(1, questionsToGenerate); if (totalPotential === 0) return [];
+        const finalQuestions = shuffledPotentialQuestions.slice(0, questionsToGenerate);
+        finalQuestions.forEach(q => {
+            if (q.type.startsWith('MC_')) {
+                let wrongOptions = []; let field = ''; let correctLexiconItem = q.item;
+                if (q.type === 'MC_RaSp') field = 'spanish'; else if (q.type === 'MC_SpRa' || q.type === 'MC_ImgRa') field = 'raramuri';
+                if (field && correctLexiconItem) { wrongOptions = getWrongOptions(correctLexiconItem, 3, availableLexiconItems, field); const allOptions = [q.answer, ...wrongOptions]; const uniqueOptions = Array.from(new Set(allOptions)); q.options = shuffleArray(uniqueOptions.slice(0, 4)); }
+                else { q.options = [q.answer]; console.warn("No se generaron opciones MC:", q); }
+                if (q.options.length < 2) console.warn("Pregunta MC < 2 opciones:", q);
+            }
+        });
+         const validFinalQuestions = finalQuestions.filter(q => !q.type.startsWith('MC_') || (q.options && q.options.length >= 2));
+        console.log("[Quiz] Preguntas generadas:", validFinalQuestions); return validFinalQuestions;
+     }
+    function startQuiz(isRetry = false) {
+         quizActive = true; score = 0; currentQuestionIndex = 0;
+         if (!isRetry) { const selectedLength = quizLengthSelect.value; allQuizQuestions = generateQuizQuestions(selectedLength); currentQuizSet = allQuizQuestions; missedQuestions = []; }
+         else { currentQuizSet = shuffleArray([...missedQuestions]); missedQuestions = []; if (currentQuizSet.length === 0) { alert("¡Felicidades! No hubo preguntas falladas."); resetQuizView(); return; } console.log("[Quiz] Reintentando:", currentQuizSet); }
+         if (!currentQuizSet || currentQuizSet.length === 0) { console.log("[Quiz] No preguntas."); if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizSetup) quizSetup.style.display = 'block'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) { quizDataErrorEl.style.display = quizDataErrorEl.textContent ? 'block' : 'none'; if (!quizDataErrorEl.textContent) { quizDataErrorEl.textContent = "No preguntas."; quizDataErrorEl.style.display = 'block'; } } quizActive = false; return; }
+         if(quizSetup) quizSetup.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizQuestionArea) quizQuestionArea.style.display = 'block'; if(nextQuestionBtn) nextQuestionBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
+         displayQuestion();
+     }
+    function displayQuestion() {
+        if (currentQuestionIndex >= currentQuizSet.length) { showResults(); return; }
+        quizActive = true; const q = currentQuizSet[currentQuestionIndex];
+        if (!q || !q.type || !q.question || typeof q.answer === 'undefined') { console.error("[Quiz Error] Pregunta inválida:", q); goToNextQuestion(); return; }
+        if(quizQuestionEl) quizQuestionEl.textContent = q.question; if(quizImageContainer) quizImageContainer.innerHTML = ''; if(quizOptionsEl) { quizOptionsEl.innerHTML = ''; quizOptionsEl.style.display = 'none'; } if(quizTextInputArea) quizTextInputArea.style.display = 'none'; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; quizTextAnswerInput.disabled = false; } if(submitTextAnswerBtn) submitTextAnswerBtn.disabled = false; if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(nextQuestionBtn) nextQuestionBtn.style.display = 'none';
+        if (q.image && quizImageContainer) { const img = document.createElement('img'); img.src = q.image; img.alt = `Imagen pregunta`; img.loading = 'lazy'; img.onerror = function() { console.error(`[Quiz Error] IMG no cargada: ${this.src}`); this.alt = 'Error img'; this.src='images/placeholder.png'; }; quizImageContainer.appendChild(img); }
+        if (q.type.startsWith('MC_') && quizOptionsEl) {
+            quizOptionsEl.style.display = 'block';
+            if (!q.options || q.options.length < 2) { console.error("[Quiz Error] MC sin opciones:", q); quizOptionsEl.innerHTML = '<p style="color:var(--error-red);">Error opciones.</p>'; quizActive = false; if(nextQuestionBtn) nextQuestionBtn.style.display = 'inline-block'; }
+            else { q.options.forEach(option => { const button = document.createElement('button'); button.textContent = option; button.disabled = false; button.addEventListener('click', handleMCAnswer); quizOptionsEl.appendChild(button); }); }
+        } else if (q.type.startsWith('TXT_') && quizTextInputArea && quizTextAnswerInput && submitTextAnswerBtn) {
+            quizTextInputArea.style.display = 'flex'; setTimeout(() => { if (quizTextAnswerInput) quizTextAnswerInput.focus(); }, 100);
+        }
+    }
+    function handleMCAnswer(event) {
+        if (!quizActive || !quizOptionsEl || !quizFeedbackEl || !nextQuestionBtn) return;
+        quizActive = false; const selectedButton = event.target; const selectedAnswer = selectedButton.textContent; const currentQuestion = currentQuizSet[currentQuestionIndex];
+        if (!currentQuestion || typeof currentQuestion.answer === 'undefined') { console.error("[Quiz Error] MCAnswer: Pregunta/Resp inválida."); goToNextQuestion(); return; }
+        const correctAnswer = currentQuestion.answer; const optionButtons = quizOptionsEl.querySelectorAll('button');
+        optionButtons.forEach(btn => btn.disabled = true);
+        if (selectedAnswer === correctAnswer) {
+            score++; selectedButton.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct';
+        } else {
+            selectedButton.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${correctAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
+            if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); }
+            optionButtons.forEach(btn => { if (btn.textContent === correctAnswer) btn.classList.add('correct'); });
+        }
+        nextQuestionBtn.style.display = 'inline-block';
+    }
+    function handleTextAnswer() {
+         if (!quizActive || !quizTextAnswerInput || !submitTextAnswerBtn || !quizFeedbackEl || !nextQuestionBtn) return;
+         quizActive = false; const currentQuestion = currentQuizSet[currentQuestionIndex];
+         if (!currentQuestion || typeof currentQuestion.answer === 'undefined') { console.error("[Quiz Error] TextAnswer: Pregunta/Resp inválida."); goToNextQuestion(); return; }
+         const userAnswer = normalizeAnswer(quizTextAnswerInput.value); const correctAnswer = normalizeAnswer(currentQuestion.answer); const originalCorrectAnswer = currentQuestion.answer; quizTextAnswerInput.disabled = true; submitTextAnswerBtn.disabled = true;
+         if (userAnswer === correctAnswer && userAnswer !== '') { score++; quizTextAnswerInput.classList.add('correct'); quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct'; }
+         else { quizTextAnswerInput.classList.add('incorrect'); quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${originalCorrectAnswer}</strong>`; quizFeedbackEl.className = 'incorrect'; if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) { missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion))); } }
+         nextQuestionBtn.style.display = 'inline-block';
+     }
     function goToNextQuestion() { currentQuestionIndex++; setTimeout(displayQuestion, 50); }
-    function showResults() { if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'block'; if(quizScoreEl) quizScoreEl.textContent = score; if(quizTotalEl && currentQuizSet) quizTotalEl.textContent = currentQuizSet.length; quizActive = false; const wasMainQuizRound = (currentQuizSet === allQuizQuestions); if (missedQuestions.length > 0 && wasMainQuizRound && retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'inline-block'; else if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; }
-    function resetQuizView() { quizActive = false; allQuizQuestions = []; currentQuizSet = []; missedQuestions = []; score = 0; currentQuestionIndex = 0; if(quizSetup) quizSetup.style.display = 'block'; if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; if(quizImageContainer) quizImageContainer.innerHTML = ''; if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(quizOptionsEl) quizOptionsEl.innerHTML = ''; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; } if(quizQuestionEl) quizQuestionEl.textContent = ''; if(quizLengthSelect) quizLengthSelect.value = "5"; }
-    function setupQuizControls() { if (!startQuizBtn || !nextQuestionBtn || !restartQuizBtn || !retryMissedQuizBtn || !submitTextAnswerBtn || !quizTextAnswerInput || !quizLengthSelect) return; startQuizBtn.addEventListener('click', () => startQuiz(false)); nextQuestionBtn.addEventListener('click', goToNextQuestion); restartQuizBtn.addEventListener('click', resetQuizView); retryMissedQuizBtn.addEventListener('click', () => startQuiz(true)); submitTextAnswerBtn.addEventListener('click', handleTextAnswer); quizTextAnswerInput.addEventListener('keypress', function (e) { if (e.key === 'Enter' && !submitTextAnswerBtn.disabled) handleTextAnswer(); }); }
+    function showResults() {
+        if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'block';
+        if(quizScoreEl) quizScoreEl.textContent = score; if(quizTotalEl && currentQuizSet) quizTotalEl.textContent = currentQuizSet.length;
+        quizActive = false; const wasMainQuizRound = (currentQuizSet === allQuizQuestions);
+        if (missedQuestions.length > 0 && wasMainQuizRound && retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'inline-block';
+        else if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none';
+    }
+    function resetQuizView() {
+        quizActive = false; allQuizQuestions = []; currentQuizSet = []; missedQuestions = []; score = 0; currentQuestionIndex = 0;
+        if(quizSetup) quizSetup.style.display = 'block'; if(quizQuestionArea) quizQuestionArea.style.display = 'none'; if(quizResultsEl) quizResultsEl.style.display = 'none'; if(retryMissedQuizBtn) retryMissedQuizBtn.style.display = 'none'; if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; if(quizImageContainer) quizImageContainer.innerHTML = '';
+        if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; } if(quizOptionsEl) quizOptionsEl.innerHTML = ''; if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; } if(quizQuestionEl) quizQuestionEl.textContent = '';
+        if(quizLengthSelect) quizLengthSelect.value = "5";
+        console.log("[Quiz] Vista reseteada.");
+    }
+    function setupQuizControls() {
+        if (!startQuizBtn || !nextQuestionBtn || !restartQuizBtn || !retryMissedQuizBtn || !submitTextAnswerBtn || !quizTextAnswerInput || !quizLengthSelect) { console.error("[Quiz Error] Faltan elementos control Quiz."); return; }
+        startQuizBtn.addEventListener('click', () => startQuiz(false)); nextQuestionBtn.addEventListener('click', goToNextQuestion);
+        restartQuizBtn.addEventListener('click', resetQuizView); retryMissedQuizBtn.addEventListener('click', () => startQuiz(true));
+        submitTextAnswerBtn.addEventListener('click', handleTextAnswer);
+        quizTextAnswerInput.addEventListener('keypress', function (e) { if (e.key === 'Enter' && !submitTextAnswerBtn.disabled) handleTextAnswer(); });
+    }
+    // =============================================
+    // ========= FIN SECCIÓN QUIZ ==================
+    // =============================================
 
-    // --- FLASHCARDS ---
-    // (Funciones sin cambios lógicos respecto a la versión estable anterior)
-    /* ... (Pegar aquí todas las funciones de Flashcards: prepareFlashcardData, displayCurrentFlashcard, flipFlashcard, nextFlashcard, prevFlashcard, shuffleFlashcards, setupFlashcardsControls, initializeFlashcardsView) ... */
-     function prepareFlashcardData() { if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'block'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'none'; if (flashcardsErrorEl) flashcardsErrorEl.style.display = 'none'; const validLexicon = lexiconData.filter(item => item?.raramuri && (item.spanish || item.image)); console.log(`[Flashcards] Datos válidos: ${validLexicon.length}`); if (validLexicon.length === 0) { if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'No hay datos para flashcards.'; flashcardsErrorEl.style.display = 'block'; } if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; flashcardData = []; return false; } flashcardData = shuffleArray([...validLexicon]); currentFlashcardIndex = 0; isFlashcardFlipped = false; if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'block'; return true; }
-     function displayCurrentFlashcard() { if (!flashcardData || flashcardData.length === 0 || !flashcardAreaEl?.style.display === 'none') return; if (currentFlashcardIndex < 0 || currentFlashcardIndex >= flashcardData.length) currentFlashcardIndex = 0; const cardData = flashcardData[currentFlashcardIndex]; if (!cardData) { if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'Error datos tarjeta.'; flashcardsErrorEl.style.display = 'block'; flashcardAreaEl.style.display = 'none'; } return; } if (flashcardEl) flashcardEl.classList.remove('flipped'); isFlashcardFlipped = false; if (flashcardFrontEl) { flashcardFrontEl.innerHTML = ''; if (cardData.image) { const img = document.createElement('img'); img.src = cardData.image; img.alt = cardData.spanish || 'Flashcard Image'; img.loading = 'lazy'; img.onerror = function() { this.src='images/placeholder.png'; this.alt ='Error img'; }; flashcardFrontEl.appendChild(img); /* No añadir P español si hay IMG */ } else if (cardData.spanish) { flashcardFrontEl.textContent = cardData.spanish; } else { flashcardFrontEl.textContent = '???'; } } if (flashcardBackEl) { flashcardBackEl.textContent = cardData.raramuri || '???'; } if (flashcardCounterEl) { flashcardCounterEl.textContent = `Tarjeta ${currentFlashcardIndex + 1} de ${flashcardData.length}`; } }
-     function flipFlashcard() { if (flashcardEl) { flashcardEl.classList.toggle('flipped'); isFlashcardFlipped = !isFlashcardFlipped; } }
-     function nextFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex = (currentFlashcardIndex + 1) % flashcardData.length; displayCurrentFlashcard(); }
-     function prevFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex = (currentFlashcardIndex - 1 + flashcardData.length) % flashcardData.length; displayCurrentFlashcard(); }
-     function shuffleFlashcards() { console.log("[Flashcards] Barajando..."); if (prepareFlashcardData()) displayCurrentFlashcard(); }
-     function setupFlashcardsControls() { if (!flashcardEl || !prevFlashcardBtn || !flipFlashcardBtn || !nextFlashcardBtn || !shuffleFlashcardsBtn) return; flashcardEl.addEventListener('click', flipFlashcard); flipFlashcardBtn.addEventListener('click', flipFlashcard); nextFlashcardBtn.addEventListener('click', nextFlashcard); prevFlashcardBtn.addEventListener('click', prevFlashcard); shuffleFlashcardsBtn.addEventListener('click', shuffleFlashcards); }
-     function initializeFlashcardsView() { console.log("[Flashcards] Inicializando vista..."); if (flashcardData.length === 0) { if(prepareFlashcardData()){ displayCurrentFlashcard(); } } else { displayCurrentFlashcard(); } }
 
-    // --- INICIALIZACIÓN APP ---
+    // =============================================
+    // ========= SECCIÓN FLASHCARDS ================
+    // =============================================
+    function prepareFlashcardData() {
+        if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'block'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'none'; if (flashcardsErrorEl) flashcardsErrorEl.style.display = 'none';
+        const validLexicon = lexiconData.filter(item => item && item.raramuri && (item.spanish || item.image));
+        console.log(`[Flashcards] Datos válidos: ${validLexicon.length}`);
+        if (validLexicon.length === 0) { if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'No hay datos para flashcards.'; flashcardsErrorEl.style.display = 'block'; } if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; flashcardData = []; return false; }
+        flashcardData = shuffleArray([...validLexicon]); currentFlashcardIndex = 0; isFlashcardFlipped = false;
+        if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none'; if (flashcardAreaEl) flashcardAreaEl.style.display = 'block'; return true;
+    }
+    function displayCurrentFlashcard() {
+        if (!flashcardData || flashcardData.length === 0 || !flashcardAreaEl || flashcardAreaEl.style.display === 'none') { console.log("[Flashcards] No hay datos o área no visible."); return; }
+        if (currentFlashcardIndex < 0 || currentFlashcardIndex >= flashcardData.length) { console.error(`[Flashcards] Índice inválido: ${currentFlashcardIndex}.`); currentFlashcardIndex = 0; }
+        const cardData = flashcardData[currentFlashcardIndex];
+        if (!cardData) { console.error(`[Flashcards] Error: No datos índice ${currentFlashcardIndex}`); if (flashcardsErrorEl) { flashcardsErrorEl.textContent = 'Error datos tarjeta.'; flashcardsErrorEl.style.display = 'block'; flashcardAreaEl.style.display = 'none'; } return; }
+        if (flashcardEl) flashcardEl.classList.remove('flipped'); isFlashcardFlipped = false;
+        if (flashcardFrontEl) {
+             flashcardFrontEl.innerHTML = '';
+            if (cardData.image) {
+                const img = document.createElement('img'); img.src = cardData.image; img.alt = cardData.spanish || 'Flashcard Image'; img.loading = 'lazy'; img.onerror = function() { this.alt='Error img'; this.src='images/placeholder.png'; }; flashcardFrontEl.appendChild(img);
+                // NO añadir texto español si hay imagen (corrección de funcionalidad)
+            } else if (cardData.spanish) { flashcardFrontEl.textContent = cardData.spanish; }
+            else { flashcardFrontEl.textContent = '???'; }
+        }
+        if (flashcardBackEl) { flashcardBackEl.textContent = cardData.raramuri || '???'; }
+        if (flashcardCounterEl) { flashcardCounterEl.textContent = `Tarjeta ${currentFlashcardIndex + 1} de ${flashcardData.length}`; }
+    }
+    function flipFlashcard() { if (!flashcardEl) return; flashcardEl.classList.toggle('flipped'); isFlashcardFlipped = !isFlashcardFlipped; }
+    function nextFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex++; if (currentFlashcardIndex >= flashcardData.length) currentFlashcardIndex = 0; displayCurrentFlashcard(); }
+    function prevFlashcard() { if (!flashcardData || flashcardData.length === 0) return; currentFlashcardIndex--; if (currentFlashcardIndex < 0) currentFlashcardIndex = flashcardData.length - 1; displayCurrentFlashcard(); }
+     function shuffleFlashcards() { console.log("[Flashcards] Barajando tarjetas..."); if (prepareFlashcardData()) displayCurrentFlashcard(); }
+    function setupFlashcardsControls() {
+        if (!flashcardEl || !prevFlashcardBtn || !flipFlashcardBtn || !nextFlashcardBtn || !shuffleFlashcardsBtn) { console.error("Faltan elementos control Flashcards."); return; }
+        flashcardEl.addEventListener('click', flipFlashcard); flipFlashcardBtn.addEventListener('click', flipFlashcard);
+        nextFlashcardBtn.addEventListener('click', nextFlashcard); prevFlashcardBtn.addEventListener('click', prevFlashcard);
+        shuffleFlashcardsBtn.addEventListener('click', shuffleFlashcards);
+    }
+     function initializeFlashcardsView() {
+         console.log("[Flashcards] Inicializando vista...");
+         if (flashcardData.length === 0) { if(prepareFlashcardData()){ displayCurrentFlashcard(); } }
+         else { displayCurrentFlashcard(); }
+     }
+    // =============================================
+    // ========= FIN SECCIÓN FLASHCARDS ============
+    // =============================================
+
+    // --- Inicialización App ---
     function initializeApplication() {
         if (!mainContentEl || !navButtons || !contentSections || !lexiconGrid || !phrasesList || !memoramaGrid || !quizContainer || !flashcardsContainer ) {
             console.error("Error Crítico: Faltan elementos HTML esenciales.");
@@ -280,20 +665,12 @@ document.addEventListener('DOMContentLoaded', () => {
              if(loadingMessageEl) loadingMessageEl.style.display = 'none'; if(mainContentEl) mainContentEl.style.display = 'none';
             return;
         }
-        // Configurar listeners y vistas iniciales
-        setupNavigation();        // Navegación principal
-        setupCategoryFilters();   // Botones de categoría (se crean aquí)
-        setupSearch();            // Input de búsqueda
-        updateLexiconView();      // Muestra léxico inicial (filtrado por 'all')
-        populatePhrases();        // Muestra frases
-        setupMemoramaControls();  // Configura Memorama
-        setupQuizControls();      // Configura Quiz
-        setupFlashcardsControls();// Configura Flashcards
-
+        setupNavigation(); displayLexiconItems(lexiconData); populatePhrases(); setupSearch();
+        setupMemoramaControls(); setupQuizControls(); setupFlashcardsControls();
         console.log("Aplicación inicializada correctamente.");
     }
 
-    // --- PUNTO DE ENTRADA ---
+    // --- Punto de Entrada ---
     loadData(); // Iniciar carga de datos
 
 }); // Fin DOMContentLoaded
