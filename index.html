@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprende Rarámuri</title>
-    <!-- Google Fonts (Incluye Patrick Hand SC, Poppins, Nunito) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand+SC&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
@@ -33,20 +33,16 @@
             <section id="about" class="content-section">
                 <h2>Sobre el Proyecto</h2>
                 <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del <em>idioma Rarámuri</em>.</p>
-                <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-azteca y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
-                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p> 
-                    <p><em>Este recurso busca ofrecer un punto de partida útil, pero no reemplaza el conocimiento local ni las particularidades de cada variante.</em><p>
+                <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
                 <p class="credits-line">Creditos:</p>
                 <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
             </section>
 
             <section id="lexicon" class="content-section">
                 <h2>Léxico</h2>
-                <!-- Contenedor para filtros de categoría -->
                 <div id="category-filters" class="category-filter-container">
                     <!-- Los botones se generarán aquí por JS -->
                 </div>
-                <!-- Contenedor de búsqueda -->
                 <div class="search-container">
                     <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
                 </div>
@@ -82,6 +78,12 @@
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
+                        <!-- NUEVO SELECTOR DE CATEGORÍA PARA QUIZ -->
+                        <label for="quiz-category">Categoría:</label>
+                        <select id="quiz-category">
+                            <!-- Opciones generadas por JS -->
+                        </select>
+                        <!-- SELECTOR DE NÚMERO DE PREGUNTAS EXISTENTE -->
                         <label for="quiz-length">Número de preguntas:</label>
                         <select id="quiz-length">
                             <option value="5">5 Preguntas</option>
@@ -117,6 +119,15 @@
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
+                    <!-- NUEVO SELECTOR DE CATEGORÍA PARA FLASHCARDS -->
+                     <div id="flashcards-setup-controls" style="text-align: center; margin-bottom: var(--space-lg);">
+                        <label for="flashcard-category">Categoría:</label>
+                        <select id="flashcard-category">
+                            <!-- Opciones generadas por JS -->
+                        </select>
+                         <p id="flashcards-data-error" style="color: red; text-align: center; display: none; margin-top:var(--space-sm);">No hay datos para esta categoría.</p>
+                     </div>
+
                     <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
                     <p id="flashcards-error" style="display: none; text-align: center; color: var(--error-red);"></p>
 
@@ -128,7 +139,6 @@
                                 <div class="flashcard-face card-back" id="flashcard-back"></div>
                             </div>
                         </div>
-                        <!-- Contenedor ÚNICO para TODOS los botones -->
                         <div id="flashcard-controls">
                             <button id="prev-flashcard-btn">< Anterior</button>
                             <button id="flip-flashcard-btn">Voltear</button>
@@ -141,13 +151,12 @@
                     </div>
                 </div>
             </section>
-            <!-- FIN NUEVA SECCIÓN FLASHCARDS -->
 
-        </div> <!-- Cierre de #main-content -->
+        </div>
     </main>
 
     <footer>
-         <img src="images/logo.png" alt="Logotipo EAHNM">
+        <img src="images/logo.png" alt="Logotipo EAHNM">
     </footer>
 
     <script src="script.js"></script>
