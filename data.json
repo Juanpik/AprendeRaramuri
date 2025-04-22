@@ -37,7 +37,7 @@
     { "id": 35, "raramuri": "we'e", "spanish": "tierra", "image": "images/we'e.jpg", "category": "Naturaleza" },
     { "id": 36, "raramuri": "kajé", "spanish": "café", "image": "images/kajé.jpg", "category": "Comida" },
     { "id": 37, "raramuri": "chi'wá", "spanish": "leche", "image": "images/chi'wá.jpg", "category": "Comida" },
-    { "id": 38, "raramuri": "sikóri", "spanish": "jarro", "image": "images/sikorí.jpg", "category": "Objetos" },
+    { "id": 38, "raramuri": "sikóri", "spanish": "jarro", "image": "images/sikóri.jpg", "category": "Objetos" },
     { "id": 39, "raramuri": "ri'rowe", "spanish": "papa", "image": "images/ri'rowe.jpg", "category": "Comida" },
     { "id": 38, "raramuri": "kobisi", "spanish": "pinole", "image": "images/kobisi.jpg", "category": "Comida" }
   ],
