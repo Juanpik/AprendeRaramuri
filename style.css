@@ -533,8 +533,24 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 /* ------------------------- */
 /* Footer                    */
 /* ------------------------- */
-footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg); background-color: var(--blue-light-bg); color: var(--text-secondary); font-size: 0.95em; border-top: 1px solid var(--border-light); font-family: var(--font-body); }
+footer { 
+    text-align: center; 
+    margin-top: var(--space-xxl);
+    padding: var(--space-lg);
+    background-color: var(--blue-light-bg);
+    color: var(--text-secondary);
+    font-size: 0.95em; 
+    border-top: 1px solid var(--border-light); 
+    font-family: var(--font-body); }
 
+footer img {
+    display: block; /* Para que ocupe su propio espacio y acepte márgenes automáticos */
+    margin-left: auto; /* Centrar horizontalmente */
+    margin-right: auto; /* Centrar horizontalmente */
+    max-height: 45px; /* Define la altura máxima del logo - ¡AJUSTA ESTE VALOR! */
+    max-width: 100%;  /* Asegura que no se desborde en pantallas pequeñas */
+    height: auto;     /* Mantiene la proporción al escalar */
+}
 /* ------------------------- */
 /* Responsive Adjustments    */
 /* ------------------------- */
