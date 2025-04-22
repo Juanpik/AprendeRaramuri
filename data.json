@@ -1,6 +1,6 @@
 {
   "lexicon": [
-    { "id": 1, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Naturaleza" },
+    { "id": 1, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida" },
     { "id": 2, "raramuri": "muní", "spanish": "frijol", "image": "images/muni.jpg", "category": "Comida" },
     { "id": 3, "raramuri": "remé", "spanish": "tortilla", "image": "images/reme.jpg", "category": "Comida" },
     { "id": 4, "raramuri": "ra'ícha", "spanish": "hablar", "image": "images/ra'ícha.jpg", "category": "Acciones" },
