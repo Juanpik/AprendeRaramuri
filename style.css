@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css (Final Version) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -217,8 +217,7 @@ button.category-filter-btn {
     font-size: 0.9em;
     font-weight: 500;
     box-shadow: var(--shadow-sm);
-    /* Opcional: Ajustes si los iconos descuadran */
-    /* display: inline-flex; */
+    /* display: inline-flex; */ /* Descomentar si se necesita mejor alineación icono-texto */
     /* align-items: center; */
     /* gap: 0.3em; */
 }
@@ -238,23 +237,15 @@ button.category-filter-btn.active {
     transform: translateY(0);
 }
 
-/* Barra de búsqueda SIN icono */
+/* Barra de búsqueda */
 .search-container {
     margin-bottom: var(--space-xl);
     text-align: center;
-    /* position: relative; */ /* ELIMINADO: Ya no se necesita */
 }
-
-/* ELIMINADO: Regla para el icono de búsqueda */
-/*
-.search-container::before {
-    ...
-}
-*/
 
 #lexicon-search {
     font-family: var(--font-body);
-    padding: var(--space-sm) var(--space-lg); /* REVERTIDO: Padding original */
+    padding: var(--space-sm) var(--space-lg);
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-pill);
     width: 80%;
@@ -317,7 +308,7 @@ button.category-filter-btn.active {
 #memorama-controls { margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
 #memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);}
 
-.difficulty-btn, #reset-memorama { /* Botones Memorama */
+.difficulty-btn, #reset-memorama {
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-pill); cursor: pointer; margin: 0 var(--space-sm);
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500;
@@ -384,9 +375,16 @@ button.category-filter-btn.active {
  .memorama-card.matched .card-back {
      opacity: 0 !important; visibility: hidden !important; z-index: 1;
 }
-.card-back::before {
-   content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
-   color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
+
+/* Selector específico para el '?' del Memorama */
+.memorama-card .card-back::before {
+   content: '?';
+   font-family: var(--font-heading);
+   font-size: 4em;
+   font-weight: 700;
+   color: var(--yellow-highlight);
+   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+   line-height: 1;
 }
 
 #memorama-win-message, #memorama-data-error {
@@ -493,6 +491,8 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
     font-weight: 600;
 }
+/* No hay regla ::before para .flashcard-face.card-back añadiendo '?' */
+
 .flashcard-face img {
     max-width: 85%; max-height: 75%; object-fit: contain;
     margin-bottom: var(--space-md);
@@ -533,38 +533,35 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 /* ------------------------- */
 /* Footer                    */
 /* ------------------------- */
-footer { 
-    text-align: center; 
+footer {
+    text-align: center;
     margin-top: var(--space-xxl);
     padding: var(--space-lg);
     background-color: var(--blue-light-bg);
     color: var(--text-secondary);
-    font-size: 0.95em; 
-    border-top: 1px solid var(--border-light); 
-    font-family: var(--font-body); }
+    /* font-size: 0.95em; */ /* No relevante si solo hay imagen */
+    border-top: 1px solid var(--border-light);
+    /* font-family: var(--font-body); */ /* No relevante si solo hay imagen */
+}
 
 footer img {
-    display: block; /* Para que ocupe su propio espacio y acepte márgenes automáticos */
-    margin-left: auto; /* Centrar horizontalmente */
-    margin-right: auto; /* Centrar horizontalmente */
-    max-height: 45px; /* Define la altura máxima del logo - ¡AJUSTA ESTE VALOR! */
-    max-width: 100%;  /* Asegura que no se desborde en pantallas pequeñas */
-    height: auto;     /* Mantiene la proporción al escalar */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 45px; /* Ajusta esto según tu logo */
+    max-width: 100%;
+    height: auto;
 }
+
 /* ------------------------- */
 /* Responsive Adjustments    */
 /* ------------------------- */
 @media (max-width: 992px) {
     #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .memorama-card { height: 145px; }
-    .card-front p { font-size: 1em; }
+    .memorama-card .card-front p { font-size: 1em; } /* Corregido selector */
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
-    /* ELIMINADO: Ajustes responsivos del icono búsqueda */
-    /*
-    .search-container::before { ... }
-    #lexicon-search { ... }
-    */
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -577,14 +574,9 @@ footer img {
     .category-filter-container { gap: var(--space-xs); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
     #lexicon-search {
-        /* REVERTIDO: padding original */
         padding: var(--space-sm) var(--space-lg);
         width: 95%;
     }
-    /* ELIMINADO: Ajustes responsivos del icono búsqueda */
-    /*
-    .search-container::before { ... }
-    */
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
@@ -609,18 +601,13 @@ footer img {
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
     #lexicon-search {
-        /* REVERTIDO: padding original */
         padding: var(--space-sm) var(--space-lg);
         font-size: 1em;
     }
-     /* ELIMINADO: Ajustes responsivos del icono búsqueda */
-    /*
-    .search-container::before { ... }
-    */
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .memorama-card { height: 110px; }
-    .card-front p { font-size: 0.9em; }
-    .card-back::before { font-size: 3.2em; }
+    .memorama-card .card-front p { font-size: 0.9em; } /* Corregido selector */
+    .memorama-card .card-back::before { font-size: 3.2em; }
     #quiz-options { max-width: 95%; }
     #quiz-text-input-area { max-width: 95%; }
     #quiz-results button { width: 90%; margin: var(--space-sm) auto; display: block;}
@@ -637,18 +624,13 @@ footer img {
      header > h1 { font-size: 2em; }
      button.category-filter-btn { font-size: 0.75em; padding: 4px 8px; }
      #lexicon-search {
-         /* REVERTIDO: padding original */
          padding: var(--space-sm) var(--space-lg);
          font-size: 0.95em;
      }
-     /* ELIMINADO: Ajustes responsivos del icono búsqueda */
-    /*
-    .search-container::before { ... }
-    */
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
-     .card-front p { font-size: 0.8em; }
-     .card-back::before { font-size: 2.5em; }
+     .memorama-card .card-front p { font-size: 0.8em; } /* Corregido selector */
+     .memorama-card .card-back::before { font-size: 2.5em; }
      .flashcard { height: 180px; }
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
