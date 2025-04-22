@@ -30,7 +30,16 @@
     { "id": 28, "raramuri": "busí", "spanish": "ojos", "image": "images/busí.jpg", "category": "Partes del cuerpo" },
     { "id": 29, "raramuri": "na'í", "spanish": "fuego", "image": "images/na'í.jpg", "category": "Naturaleza" },
     { "id": 30, "raramuri": "siká", "spanish": "mano", "image": "images/siká.jpg", "category": "Partes del cuerpo" },
-    { "id": 31, "raramuri": "rochaká", "spanish": "lagartija", "image": "images/rochaká.jpg", "category": "Animales" }
+    { "id": 31, "raramuri": "rochaká", "spanish": "lagartija", "image": "images/rochaká.jpg", "category": "Animales" },
+    { "id": 32, "raramuri": "irá", "spanish": "nopal", "image": "images/irá.jpg", "category": "Naturaleza" },
+    { "id": 33, "raramuri": "kiyóchi", "spanish": "zorro", "image": "images/kiyóchi.jpg", "category": "Animales" },
+    { "id": 34, "raramuri": "iká", "spanish": "viento", "image": "images/iká.jpg", "category": "Naturaleza" },
+    { "id": 35, "raramuri": "we'e", "spanish": "tierra", "image": "images/we'e.jpg", "category": "Naturaleza" },
+    { "id": 36, "raramuri": "kajé", "spanish": "café", "image": "images/kajé.jpg", "category": "Comida" },
+    { "id": 37, "raramuri": "chi'wá", "spanish": "leche", "image": "images/chi'wá.jpg", "category": "Comida" },
+    { "id": 38, "raramuri": "sikóri", "spanish": "jarro", "image": "images/sikorí.jpg", "category": "Objetos" },
+    { "id": 39, "raramuri": "ri'rowe", "spanish": "papa", "image": "images/ri'rowe.jpg", "category": "Comida" },
+    { "id": 38, "raramuri": "kobisi", "spanish": "pinole", "image": "images/kobisi.jpg", "category": "Comida" }
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
