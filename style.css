@@ -60,7 +60,8 @@
 body {
     font-family: var(--font-body); /* Nunito */
     line-height: 1.7;
-    background: var(--background-color) /* url('images/your-texture-image.png') repeat; */ /* Textura Body Opcional */
+    /* Aplicar color de fondo Y textura */
+    background: var(--background-color) url('images/fondobody.jpg') repeat;
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
@@ -113,10 +114,10 @@ ul { list-style: none; padding: 0; }
 .text-center { text-align: center; }
 .text-secondary { color: var(--text-secondary); }
 
-/* Header & Nav - Paleta Azul */
+/* Header & Nav - Paleta Azul con Textura */
 header {
-    /* background: var(--blue-primary); */ /* Color sólido si no quieres gradiente/textura */
-    background: var(--blue-primary) /* url('images/header-texture.png') repeat; */ /* Textura Header Opcional */
+    /* Aplicar color de fondo azul Y textura */
+    background: var(--blue-primary) url('images/fondoheader.jpg') repeat;
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -435,7 +436,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     color: var(--text-secondary);
 }
 
-/* Controles Flashcards - Contenedor ÚNICO y Centrado con Flex */
+/* Controles Flashcards - Contenedor ÚNICO y Centrado con Flex (CORREGIDO) */
 #flashcard-controls {
     display: flex;          /* Usar Flexbox */
     flex-wrap: wrap;        /* Permitir que envuelva en líneas */
