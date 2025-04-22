@@ -104,7 +104,7 @@ h2 {
     font-size: 2em;
     border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
     padding-bottom: var(--space-md);
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-xl); /* Espacio DESPUÉS del H2 */
     letter-spacing: -0.5px;
     font-weight: 700;
 }
@@ -140,7 +140,7 @@ nav button {
     margin: var(--space-xs) 5px;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out; /* Transición suave */
     font-size: 0.85em;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -192,28 +192,29 @@ nav button.active {
 
 /* Léxico */
 
-/* NUEVOS ESTILOS para Filtros de Categoría */
+/* Filtros de Categoría */
 .category-filter-container {
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg); /* Espacio DESPUÉS de los filtros */
+    /* padding-bottom: var(--space-lg); */ /* MODIFICADO: Eliminado padding inferior */
     border-bottom: 1px solid var(--border-light);
     text-align: center;
-    display: flex; /* Usamos flexbox para alinear botones */
-    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
-    justify-content: center; /* Centra los botones */
-    gap: var(--space-sm); /* Espacio entre botones */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-lg); /* MODIFICADO: Añadido padding inferior para separar de la línea */
 }
 
 button.category-filter-btn {
-    font-family: var(--font-body); /* O --font-heading si prefieres */
+    font-family: var(--font-body);
     background-color: var(--white);
     color: var(--blue-dark);
     border: 1px solid var(--border-medium);
     padding: var(--space-xs) var(--space-md);
-    margin: 0; /* Eliminamos margen individual ya que usamos gap */
+    margin: 0;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; /* VERIFICADO: Transición suave */
     font-size: 0.9em;
     font-weight: 500;
     box-shadow: var(--shadow-sm);
@@ -225,7 +226,7 @@ button.category-filter-btn:hover {
     transform: translateY(-1px);
 }
 
-button.category-filter-btn.active {
+button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
     background-color: var(--blue-primary);
     color: var(--white);
     border-color: var(--blue-primary);
@@ -233,26 +234,67 @@ button.category-filter-btn.active {
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
     transform: translateY(0);
 }
-/* FIN NUEVOS ESTILOS para Filtros de Categoría */
 
-.search-container { margin-bottom: var(--space-xl); text-align: center; }
+/* Barra de búsqueda con icono */
+.search-container {
+    margin-bottom: var(--space-xl); /* Espacio DESPUÉS de la búsqueda */
+    text-align: center;
+    position: relative; /* NUEVO: Necesario para posicionar el icono */
+}
+
+/* NUEVO: Icono de búsqueda */
+.search-container::before {
+    content: '🔍';
+    position: absolute;
+    /* Ajustar 'left' basado en el padding del input y el ancho del contenedor */
+    /* Asumiendo que el input tiene 80% de ancho max 600px, centrado */
+    /* Probaremos una posición fija desde la izquierda del contenedor */
+    left: calc(10% + var(--space-lg)); /* Empieza un poco adentro del borde izquierdo del input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1.1em; /* Tamaño del icono */
+    z-index: 1; /* Por si acaso */
+    pointer-events: none; /* Para no interferir con el clic */
+}
+
 #lexicon-search {
-    font-family: var(--font-body); padding: var(--space-sm) var(--space-lg); border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-pill); width: 80%; max-width: 600px; font-size: 1.05em;
-    transition: all 0.3s ease; box-shadow: var(--shadow-sm); background-color: var(--white);
+    font-family: var(--font-body);
+    /* padding: var(--space-sm) var(--space-lg); */ /* Padding original */
+    /* MODIFICADO: Padding izquierdo aumentado para el icono */
+    padding: var(--space-sm) var(--space-lg) var(--space-sm) calc(var(--space-lg) + 30px);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-pill);
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    background-color: var(--white);
 }
 #lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
-#lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); margin-top: var(--space-lg); }
+
+/* Grid de Léxico */
+#lexicon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: var(--space-xl);
+    /* margin-top: var(--space-lg); */ /* MODIFICADO: Eliminado margen superior, controlado por .search-container */
+}
 .lexicon-item {
     background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
     padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease; /* Transición suave */
+    display: flex; flex-direction: column;
     align-items: center; position: relative; overflow: hidden;
 }
-.lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
-.lexicon-item img { /* Imagen cuadrada con bordes redondeados */
+.lexicon-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-lg); /* Sombra ligeramente más pronunciada al hacer hover */
+}
+.lexicon-item img {
     width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
-    border-radius: var(--border-radius-md); /* <-- Borde redondeado */
+    border-radius: var(--border-radius-md);
     background-color: var(--blue-light-bg); border: 4px solid var(--white); box-shadow: var(--shadow-sm);
 }
 .lexicon-item .raramuri-word {
@@ -262,17 +304,6 @@ button.category-filter-btn.active {
 .lexicon-item .spanish-word {
     font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
 }
-/* Opcional: Estilo para categoría si la muestras en el item */
-/*
-.lexicon-item-category {
-    display: block;
-    font-size: 0.8em;
-    color: var(--text-secondary);
-    margin-top: var(--space-sm);
-    font-style: italic;
-}
-*/
-
 
 /* Frases */
 #phrases-list li {
@@ -286,6 +317,8 @@ button.category-filter-btn.active {
     font-size: 1.2em; color: var(--text-primary);
 }
 #phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
+
+/* --- (Resto de las secciones: Memorama, Quiz, Flashcards - sin cambios) --- */
 
 /* ------------------------- */
 /* Memorama Section           */
@@ -325,7 +358,6 @@ button.category-filter-btn.active {
 .memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
 .memorama-card.matched:hover { transform: scale(0.95); box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); }
 
-/* ---- Lógica de Volteo Memorama (CORREGIDA y Estable) ---- */
 .card-face {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -334,19 +366,16 @@ button.category-filter-btn.active {
     transition: opacity 0.1s linear 0.15s;
     transform: translateZ(0);
     will-change: opacity;
-    /* NO backface-visibility: hidden; */
 }
-.memorama-card .card-front { /* Contenido: Imagen o Texto Rarámuri */
+.memorama-card .card-front {
     background-color: var(--white); color: var(--text-primary);
-    transform: rotateY(180deg); /* Pre-rotada */
-    border: 1px solid var(--border-light);
-    z-index: 1; /* Detrás inicialmente */
-    opacity: 0; visibility: hidden; /* Oculta */
+    transform: rotateY(180deg); border: 1px solid var(--border-light);
+    z-index: 1; opacity: 0; visibility: hidden;
 }
-.memorama-card.flipped .card-front { /* Mostrar al voltear */
+.memorama-card.flipped .card-front {
     opacity: 1; visibility: visible; z-index: 2; transition-delay: 0.15s;
 }
-.memorama-card.matched .card-front { /* Mantener visible si matched */
+.memorama-card.matched .card-front {
      opacity: 1 !important; visibility: visible !important; z-index: 2;
 }
 .memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
@@ -355,23 +384,21 @@ button.category-filter-btn.active {
     padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
     text-align: center; box-sizing: border-box;
 }
-.memorama-card .card-back { /* '?' Azul */
+.memorama-card .card-back {
     background-color: var(--blue-dark); color: white;
-    transform: rotateY(0deg); /* Visible inicialmente */
-    z-index: 2; opacity: 1; visibility: visible;
+    transform: rotateY(0deg); z-index: 2; opacity: 1; visibility: visible;
     display: flex; justify-content: center; align-items: center;
 }
-.memorama-card.flipped .card-back { /* Ocultar al voltear */
+.memorama-card.flipped .card-back {
     opacity: 0; visibility: hidden; z-index: 1; transition-delay: 0s;
 }
- .memorama-card.matched .card-back { /* Mantener oculta si matched */
+ .memorama-card.matched .card-back {
      opacity: 0 !important; visibility: hidden !important; z-index: 1;
 }
 .card-back::before {
    content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
    color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
 }
-/* ---- FIN CORRECCIÓN VOLTEO ---- */
 
 #memorama-win-message, #memorama-data-error {
     font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
@@ -470,56 +497,43 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 }
 .flashcard-face.card-front { /* Español o Imagen */
     background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
-    font-size: 2em; /* Tamaño aumentado */
-    color: var(--text-primary); font-family: var(--font-body); /* Nunito */
+    font-size: 2em; color: var(--text-primary); font-family: var(--font-body);
 }
 .flashcard-face.card-back { /* Rarámuri */
     background-color: var(--blue-light-bg); transform: rotateY(180deg); z-index: 1;
-    font-size: 2.2em; /* Tamaño aumentado */
-    color: var(--orange-dark); font-family: var(--font-heading); /* Poppins */
+    font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
     font-weight: 600;
 }
 .flashcard-face img {
-    max-width: 85%; /* Aumentado */
-    max-height: 75%;/* Aumentado */
-    object-fit: contain;
-    margin-bottom: var(--space-md); /* Aumentado */
+    max-width: 85%; max-height: 75%; object-fit: contain;
+    margin-bottom: var(--space-md);
 }
-.flashcard-face p { /* Texto bajo imagen */
-    font-size: 0.85em; /* Aumentado */
-    margin-bottom: 0;
-    color: var(--text-secondary);
+.flashcard-face p {
+    font-size: 0.85em; margin-bottom: 0; color: var(--text-secondary);
 }
 
-/* Controles Flashcards - Contenedor ÚNICO y Centrado con Flex */
 #flashcard-controls {
-    display: flex;          /* Usar Flexbox */
-    flex-wrap: wrap;        /* Permitir que envuelva en líneas */
-    justify-content: center;/* Centrar los items horizontalmente */
-    align-items: center;    /* Centrar verticalmente si envuelve */
-    gap: var(--space-md);   /* Espacio consistente entre todos los botones */
-    margin-top: var(--space-lg); /* Espacio arriba del grupo de botones */
+    display: flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: var(--space-md);
+    margin-top: var(--space-lg);
 }
-/* Estilo base botones flashcards */
 #flashcard-controls button {
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
-    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto; /* Ajustar */
+    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto;
     text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
-    margin: 0; /* Quitar margen individual */
-    flex-grow: 0; flex-shrink: 1;
+    margin: 0; flex-grow: 0; flex-shrink: 1;
 }
 #flashcard-controls button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #flashcard-controls button:active { transform: translateY(0); filter: brightness(0.95); }
-/* Colores y estilos específicos */
 #prev-flashcard-btn, #next-flashcard-btn { background-color: var(--blue-primary); }
 #prev-flashcard-btn:hover, #next-flashcard-btn:hover { background-color: var(--blue-dark); }
-#flip-flashcard-btn { /* Botón Voltear destacado */
+#flip-flashcard-btn {
     background-color: var(--orange-accent); font-weight: 700;
     padding: var(--space-md) var(--space-xl); font-size: 1em; order: 0;
 }
 #flip-flashcard-btn:hover { background-color: var(--orange-dark); }
-#shuffle-flashcards-btn { /* Botón Barajar */
+#shuffle-flashcards-btn {
     background-color: var(--text-secondary); font-size: 0.85em;
     padding: var(--space-xs) var(--space-sm);
 }
@@ -530,7 +544,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 /* ------------------------- */
 /* Footer                    */
 /* ------------------------- */
-footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg); background-color: var(--blue-light-bg); color: var(--text-secondary); font-size: 0.95em; border-top: 1px solid var(--border-light); font-family: var(--font-body); } /* Nunito */
+footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg); background-color: var(--blue-light-bg); color: var(--text-secondary); font-size: 0.95em; border-top: 1px solid var(--border-light); font-family: var(--font-body); }
 
 /* ------------------------- */
 /* Responsive Adjustments    */
@@ -541,6 +555,14 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .card-front p { font-size: 1em; }
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
+
+    /* MODIFICADO: Ajustar icono de búsqueda si es necesario */
+    .search-container::before {
+        left: calc(5% + var(--space-lg)); /* Ajustar si el input se acerca más al borde */
+    }
+    #lexicon-search {
+         padding-left: calc(var(--space-lg) + 30px); /* Reajustar si es necesario */
+    }
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -550,8 +572,17 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
-    .category-filter-container { gap: var(--space-xs); } /* Ajustar espacio entre filtros */
+    .category-filter-container { gap: var(--space-xs); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
+     /* MODIFICADO: Ajustar icono de búsqueda */
+    .search-container::before {
+        left: calc(2% + var(--space-md)); /* Más cerca del borde en pantallas pequeñas */
+        font-size: 1em; /* Icono un poco más pequeño */
+    }
+     #lexicon-search {
+         padding-left: calc(var(--space-md) + 28px); /* Ajustar padding */
+         width: 95%; /* Ocupar más ancho */
+    }
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
@@ -575,6 +606,13 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .lexicon-item img { width: 90px; height: 90px; }
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
+     .search-container::before {
+        left: var(--space-md); /* Aún más cerca */
+    }
+     #lexicon-search {
+         padding-left: calc(var(--space-md) + 25px);
+         font-size: 1em; /* Input un poco más pequeño */
+    }
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .memorama-card { height: 110px; }
     .card-front p { font-size: 0.9em; }
@@ -585,7 +623,6 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-    /* Controles Flashcards Layout Móvil (Corregido) */
     #flashcard-controls { gap: var(--space-sm); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
@@ -595,6 +632,13 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
      button.category-filter-btn { font-size: 0.75em; padding: 4px 8px; }
+     .search-container::before {
+        font-size: 0.9em; /* Icono aún más pequeño */
+     }
+     #lexicon-search {
+         padding-left: calc(var(--space-md) + 20px);
+         font-size: 0.95em;
+     }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
      .card-front p { font-size: 0.8em; }
