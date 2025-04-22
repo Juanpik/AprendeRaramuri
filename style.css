@@ -102,9 +102,9 @@ header > h1 {
 h2 {
     color: var(--blue-dark);
     font-size: 2em;
-    border-bottom: 2px solid var(--border-light); /* Borde gris por defecto */
+    border-bottom: 2px solid var(--border-light);
     padding-bottom: var(--space-md);
-    margin-bottom: var(--space-xl); /* Espacio DESPUÉS del H2 */
+    margin-bottom: var(--space-xl);
     letter-spacing: -0.5px;
     font-weight: 700;
 }
@@ -117,7 +117,7 @@ ul { list-style: none; padding: 0; }
 
 /* Header & Nav - Paleta Azul con Textura */
 header {
-    background: var(--blue-primary) url('images/fondoheader.jpg') repeat; /* Textura aplicada */
+    background: var(--blue-primary) url('images/fondoheader.jpg') repeat;
     color: var(--white);
     padding: var(--space-sm) var(--space-lg);
     text-align: center;
@@ -131,7 +131,7 @@ nav {
     margin-top: 0;
 }
 nav button {
-    font-family: var(--font-heading); /* Poppins para botones */
+    font-family: var(--font-heading);
     font-weight: 500;
     background-color: transparent;
     color: rgba(255, 255, 255, 0.85);
@@ -140,7 +140,7 @@ nav button {
     margin: var(--space-xs) 5px;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.25s ease-in-out; /* Transición suave */
+    transition: all 0.25s ease-in-out;
     font-size: 0.85em;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -194,15 +194,14 @@ nav button.active {
 
 /* Filtros de Categoría */
 .category-filter-container {
-    margin-bottom: var(--space-lg); /* Espacio DESPUÉS de los filtros */
-    /* padding-bottom: var(--space-lg); */ /* MODIFICADO: Eliminado padding inferior */
+    margin-bottom: var(--space-lg);
     border-bottom: 1px solid var(--border-light);
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
-    padding-bottom: var(--space-lg); /* MODIFICADO: Añadido padding inferior para separar de la línea */
+    padding-bottom: var(--space-lg);
 }
 
 button.category-filter-btn {
@@ -214,10 +213,14 @@ button.category-filter-btn {
     margin: 0;
     cursor: pointer;
     border-radius: var(--border-radius-pill);
-    transition: all 0.2s ease-in-out; /* VERIFICADO: Transición suave */
+    transition: all 0.2s ease-in-out;
     font-size: 0.9em;
     font-weight: 500;
     box-shadow: var(--shadow-sm);
+    /* Opcional: Ajustes si los iconos descuadran */
+    /* display: inline-flex; */
+    /* align-items: center; */
+    /* gap: 0.3em; */
 }
 
 button.category-filter-btn:hover {
@@ -226,7 +229,7 @@ button.category-filter-btn:hover {
     transform: translateY(-1px);
 }
 
-button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
+button.category-filter-btn.active {
     background-color: var(--blue-primary);
     color: var(--white);
     border-color: var(--blue-primary);
@@ -235,34 +238,23 @@ button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
     transform: translateY(0);
 }
 
-/* Barra de búsqueda con icono */
+/* Barra de búsqueda SIN icono */
 .search-container {
-    margin-bottom: var(--space-xl); /* Espacio DESPUÉS de la búsqueda */
+    margin-bottom: var(--space-xl);
     text-align: center;
-    position: relative; /* NUEVO: Necesario para posicionar el icono */
+    /* position: relative; */ /* ELIMINADO: Ya no se necesita */
 }
 
-/* NUEVO: Icono de búsqueda */
+/* ELIMINADO: Regla para el icono de búsqueda */
+/*
 .search-container::before {
-    content: '🔍';
-    position: absolute;
-    /* Ajustar 'left' basado en el padding del input y el ancho del contenedor */
-    /* Asumiendo que el input tiene 80% de ancho max 600px, centrado */
-    /* Probaremos una posición fija desde la izquierda del contenedor */
-    left: calc(10% + var(--space-lg)); /* Empieza un poco adentro del borde izquierdo del input */
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: 1.1em; /* Tamaño del icono */
-    z-index: 1; /* Por si acaso */
-    pointer-events: none; /* Para no interferir con el clic */
+    ...
 }
+*/
 
 #lexicon-search {
     font-family: var(--font-body);
-    /* padding: var(--space-sm) var(--space-lg); */ /* Padding original */
-    /* MODIFICADO: Padding izquierdo aumentado para el icono */
-    padding: var(--space-sm) var(--space-lg) var(--space-sm) calc(var(--space-lg) + 30px);
+    padding: var(--space-sm) var(--space-lg); /* REVERTIDO: Padding original */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-pill);
     width: 80%;
@@ -279,18 +271,17 @@ button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: var(--space-xl);
-    /* margin-top: var(--space-lg); */ /* MODIFICADO: Eliminado margen superior, controlado por .search-container */
 }
 .lexicon-item {
     background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
     padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease; /* Transición suave */
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex; flex-direction: column;
     align-items: center; position: relative; overflow: hidden;
 }
 .lexicon-item:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg); /* Sombra ligeramente más pronunciada al hacer hover */
+    box-shadow: var(--shadow-lg);
 }
 .lexicon-item img {
     width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
@@ -317,8 +308,6 @@ button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
     font-size: 1.2em; color: var(--text-primary);
 }
 #phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
-
-/* --- (Resto de las secciones: Memorama, Quiz, Flashcards - sin cambios) --- */
 
 /* ------------------------- */
 /* Memorama Section           */
@@ -423,7 +412,7 @@ button.category-filter-btn.active { /* Mantenemos el estilo activo claro */
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error { margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body); }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
-#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); } /* Poppins */
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
 #quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
 #quiz-options button {
     display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white);
@@ -495,11 +484,11 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     padding: var(--space-lg); box-sizing: border-box; border-radius: inherit;
     border: 1px solid var(--border-light); text-align: center; overflow-wrap: break-word;
 }
-.flashcard-face.card-front { /* Español o Imagen */
+.flashcard-face.card-front {
     background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
     font-size: 2em; color: var(--text-primary); font-family: var(--font-body);
 }
-.flashcard-face.card-back { /* Rarámuri */
+.flashcard-face.card-back {
     background-color: var(--blue-light-bg); transform: rotateY(180deg); z-index: 1;
     font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
     font-weight: 600;
@@ -555,14 +544,11 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .card-front p { font-size: 1em; }
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
-
-    /* MODIFICADO: Ajustar icono de búsqueda si es necesario */
-    .search-container::before {
-        left: calc(5% + var(--space-lg)); /* Ajustar si el input se acerca más al borde */
-    }
-    #lexicon-search {
-         padding-left: calc(var(--space-lg) + 30px); /* Reajustar si es necesario */
-    }
+    /* ELIMINADO: Ajustes responsivos del icono búsqueda */
+    /*
+    .search-container::before { ... }
+    #lexicon-search { ... }
+    */
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -574,15 +560,15 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .lexicon-item img { width: 110px; height: 110px; }
     .category-filter-container { gap: var(--space-xs); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
-     /* MODIFICADO: Ajustar icono de búsqueda */
-    .search-container::before {
-        left: calc(2% + var(--space-md)); /* Más cerca del borde en pantallas pequeñas */
-        font-size: 1em; /* Icono un poco más pequeño */
+    #lexicon-search {
+        /* REVERTIDO: padding original */
+        padding: var(--space-sm) var(--space-lg);
+        width: 95%;
     }
-     #lexicon-search {
-         padding-left: calc(var(--space-md) + 28px); /* Ajustar padding */
-         width: 95%; /* Ocupar más ancho */
-    }
+    /* ELIMINADO: Ajustes responsivos del icono búsqueda */
+    /*
+    .search-container::before { ... }
+    */
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
@@ -606,13 +592,15 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
     .lexicon-item img { width: 90px; height: 90px; }
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
-     .search-container::before {
-        left: var(--space-md); /* Aún más cerca */
+    #lexicon-search {
+        /* REVERTIDO: padding original */
+        padding: var(--space-sm) var(--space-lg);
+        font-size: 1em;
     }
-     #lexicon-search {
-         padding-left: calc(var(--space-md) + 25px);
-         font-size: 1em; /* Input un poco más pequeño */
-    }
+     /* ELIMINADO: Ajustes responsivos del icono búsqueda */
+    /*
+    .search-container::before { ... }
+    */
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .memorama-card { height: 110px; }
     .card-front p { font-size: 0.9em; }
@@ -632,13 +620,15 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
      button.category-filter-btn { font-size: 0.75em; padding: 4px 8px; }
-     .search-container::before {
-        font-size: 0.9em; /* Icono aún más pequeño */
-     }
      #lexicon-search {
-         padding-left: calc(var(--space-md) + 20px);
+         /* REVERTIDO: padding original */
+         padding: var(--space-sm) var(--space-lg);
          font-size: 0.95em;
      }
+     /* ELIMINADO: Ajustes responsivos del icono búsqueda */
+    /*
+    .search-container::before { ... }
+    */
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
      .card-front p { font-size: 0.8em; }
