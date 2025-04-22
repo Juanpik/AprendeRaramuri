@@ -12,59 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    cards</button>
-        </nav>
-    </header>
-
-    <main>
-        <div id="loading-message" style="text-align: center; padding: 2rem; color: #666;">Cargando datos...</div>
-        <div id="error-message" style="display: none; text-align: center; padding: 1rem; color: var(--error-text); border: 1px solid var(--error-red); background-color: var(--error-bg); border-radius: var(--border-radius-sm); margin-bottom: var(--space-lg);"></div>
-
-        <div id="main-content" style="display: none;">
-
-            <section id="about" class="content-section">
-                <h2>Sobre el Proyecto</h2>
-                <p>Esta aplicación tiene como objetivo ayudar en el <em>aprendizaje básico</em> del <em>idioma Rarámuri</em> (Tarahumara).</p>
-                <p class="credits-line">Creditos:</p>
-                <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
-            </section>
-
-            <section id="lexicon" class="content-section">
-                <h2>Léxico</h2>
-                <div class="search-container">
-                    <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
-                </div>
-                <!-- ****** INICIO FILTROS DE CATEGORÍA ****** -->
-                <div id="lexicon-category-filters" class="category-filters">
-                    <!-- Los botones se añadirán aquí dinámicamente por JS -->
-                    <span class="filter-label">Cargando categorías...</span> <!-- Mensaje temporal -->
-                </div>
-                <!-- ****** FIN FILTROS DE CATEGORÍA ****** -->
-                <div id="lexicon-grid"></div>
-            </section>
-
-            <section id="phrases" class="content-section">
-                <h2>Frases Comunes</h2>
-                <ul id="phrases-list"></ul>
-            </section>
-
-            <section id="memorama" class="content-section">
-                <h2>Memorama</h2>
-                <div id="memorama-setup">
-                    <p>Elige la dificultad (número de pares):</p>
-                    <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
-                    <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
-                    <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
-                </div>
-                <div id="memorama-game-area" style="display: none;">
-                    <div id="memorama-controls">
-                        <button id="reset-memorama">Reiniciar Juego</button>
-                        <p>Intentos: <span id="memorama-attempts">0</span></p>
-                    </div>
-                    <div id="memorama-grid"></div>
-                    <div id="memorama-win-message" style="display: none;"></div>
-                </div>
-                 <p id="memorama-data-error" style="display: none; color: var(--error-red); text-align: center; background-color: var(--error-bg); padding: var(--space<header>
+    <header>
         <h1>¡Aprende Rarámuri!</h1>
         <nav>
             <button data-section="about">Sobre el Proyecto</button>
@@ -97,7 +45,113 @@
                 <!-- Contenedor para filtros de categoría -->
                 <div id="lexicon-category-filters" class="category-filters">
                     <!-- Los botones se añadirán aquí dinámicamente por JS -->
-                     <span class="filter-label">Filtrando...</span> <!-- Mensaje mientras se generan -->
+                     <span class="filter-label text-secondary">Cargando categorías...</span> <!-- Mensaje temporal -->
+                </div>
+                <div id="lexicon-grid"></div>
+            </section>
+
+            <section id="phrases" class="content-section">
+                <h2>Frases Comunes</h2>
+                <ul id```="phrases-list"></ul>
+            </section>
+
+            <section id="memorama" class="content-section">
+                <h2>Memorama</h2>
+                <div id="memorama-setup">
+                    <phtml
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">>Elige la dificultad (número de pares):</p>
+                    <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
+                    <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
+                    <button class="difficulty-btn" data-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Rarámuri</title>
+    <!-- Google Fonts (Incluye Patrick Hand SC, Poppins, Nunito) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+pairs="8">Difícil (8)</button>
+                </div>
+                <div id="memorama-game-area" style="display: none;">
+                    <div id="memorama-controls">
+                        <    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand+SC&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- /Google Fonts -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>button id="reset-memorama">Reiniciar Juego</button>
+                        <p>Intentos: <span id="memorama-attempts">0</span></p>
+                    </div>
+                    <div id="memorama-grid"></div>
+                    <div id="memorama-win-message" class="feedback-message feedback-success" style="display: none;"></div> <!-- Clases feedback -->
+                </div>
+                 <p id="memorama-data-error" class="feedback-message feedback-error" style="display: none;"></p> <!--¡Aprende Rarámuri!</h1>
+        <nav>
+            <button data-section="about">Sobre el Proyecto</button>
+            <button data-section="lexicon">Léxico</button>
+            <button data-section="phrases">Frases</button>
+            <button data-section="mem Clases feedback -->
+            </section>
+
+            <section id="quiz" class="content-section">
+                <h2>Quiz</h2>
+                <div id="quiz-container">
+                    <div id="quiz-setup">
+                        <p>¡Ponte a prueba!</p>
+                        <label for="quiz-length">Número de preguntas:</orama">Memorama</button>
+            <button data-section="quiz">Quiz</button>
+            <button data-section="flashcards">Flashcards</button>
+        </nav>
+    </header>
+
+    <main>
+        <div id="loading-message" style="text-align: center; padding: 2rem; color: #666;">Cargando datos...</div>
+        <div id="errorlabel>
+                        <select id="quiz-length" class="form-input" style="width: auto; display: inline-block; margin-right: var(--space-lg);">
+                            <option value="5">5 Preguntas</option>
+                            <option value="10">10 Preguntas</option>
+                            <option value-message" style="display: none; text-align: center; padding: 1rem; color: var(--error-text); border: 1px solid var(--error-red); background-color: var(--error-bg); border-radius: var(--border-radius-sm); margin-bottom: var(--space-lg);"></div>
+
+        ="all">Todas</option>
+                        </select>
+                        <button id="start-quiz" class="btn btn-accent">Empezar Quiz</button>
+                         <p id="quiz-data-error" class="feedback-message feedback-error" style="display: none; margin-top: var(--space-md<div id="main-content" style="display: none;">
+
+            <section id="about" class="content-section">
+                <h2>Sobre el Proyecto</h2>
+                <p>Esta aplicación tiene como objetivo ayudar en el <em>aprendizaje básico</em> del <em>idioma Rarámuri</em> (Tarahumara).</p>
+                <p class="credits-line">Creditos:</p>
+                <!-- <ul class="credits-list">);"></p>
+                    </div>
+
+                    <div id="quiz-question-area" style="display: none;">
+                        <div id="quiz-image-container"></div>
+                        <h3 id="quiz-question"></h3>
+                        <div id="quiz-options">
+                            <!-- Opciones se generan con JS -->
+                        </div>
+                        <div id="quiz-text-input-area" style="display: none;">
+                            <input type="<li>Crédito 1</li><li>Crédito 2</li></ul> -->
+            </section>
+
+            <section id="lexicon" class="content-section">
+                <h2>Léxico</h2>
+                <div class="search-container">
+                    <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
+                </div>
+                text" id="quiz-text-answer" class="form-input" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
+                            <button id="submit-text-answer" class="btn btn-primary">Comprobar</button>
+                        </div>
+                        <p id="quiz-feedback" class="feedback-inline"></p>
+                        <button id="next-question" class="btn btn-primary" style="display: none;">Siguiente</button>
+                    </div>
+
+                    <div id="quiz-results" style<!-- Contenedor para filtros de categoría -->
+                <div id="lexicon-category-filters" class="category-filters">
+                    <!-- Los botones se añadirán aquí dinámicamente por JS -->
+                     <span class="filter-label text-secondary">Cargando categorías...</span> <!-- Mensaje temporal -->
                 </div>
                 <div id="lexicon-grid"></div>
             </section>
@@ -105,7 +159,16 @@
             <section id="phrases" class="content-section">
                 <h2>Frases Comunes</h2>
                 <ul id="phrases-list"></ul>
+            ="display: none;">
+                        <h3>Resultados</h3>
+                        <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
+                        <button id="restart-quiz" class="btn btn-accent">Volver a Empezar</button>
+                        <button id="retry-missed-quiz" class="btn btn-primary" style="display: none;">Reintentar Falladas</button>
+                    </div>
+                </div>
             </section>
+
+            <!--</section>
 
             <section id="memorama" class="content-section">
                 <h2>Memorama</h2>
@@ -113,7 +176,18 @@
                     <p>Elige la dificultad (número de pares):</p>
                     <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
                     <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
-                    <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
+                    <button class="difficulty-btn" data-pairs="8">Difícil (8 SECCIÓN FLASHCARDS -->
+            <section id="flashcards" class="content-section">
+                <h2>Flashcards</h2>
+                <div id="flashcards-container">
+                    <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
+                    <p id="flashcards-error" class="feedback-message feedback-error" style="display: none; margin-top:0;"></p>
+
+                    <div id="flashcard-area" style="display: none;">
+                        <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
+                        <div id="flashcard-display-area">
+                            <div class="flashcard" id="flashcard">
+                                <div class="flashcard-face card-)</button>
                 </div>
                 <div id="memorama-game-area" style="display: none;">
                     <div id="memorama-controls">
@@ -121,129 +195,80 @@
                         <p>Intentos: <span id="memorama-attempts">0</span></p>
                     </div>
                     <div id="memorama-grid"></div>
-                    <div id="memorama-win-message" style="display: none;"></div>
-                </div>
-                 <p id="memorama-data-error" style="display: none; color: var(--error-red); text-align: center; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); margin-top: var(--space-md);"></p>
-            </section>
-
-            <section id="quiz" class="content-section">
-                <h2>Quiz</h2>
-                <div id="quiz-container">
-                    <div id="quiz-setup">
-                        <p>¡Ponte a prueba!</p>
-                        <label for="quiz-length">Número de preguntas:</label>
-                        <select id="quiz-length">
-                            <option value="5">5 Preguntas</option>
-                            <option value="10">10 Preguntas</option>
-                            <option value="all">Todas</option>
-                        </select>
-                        <button id="start-quiz">Empezar Quiz</button>
-                         <p id="quiz-data-error" style="display: none; color: var(--error-text); background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); margin-top: var(--space-md);"></p>
--sm); border-radius: var(--border-radius-sm); margin-top: var(--space-md);"></p>
-            </section>
-
-            <section id="quiz" class="content-section">
-                <h2>Quiz</h2>
-                <div id="quiz-container">
-                    <div id="quiz-setup">
-                        <p>¡Ponte a prueba!</p>
-                        <label for="quiz-length">Número de preguntas:</label>
-                        <select id="quiz-length">
-                            <option value="5">5 Preguntas</option>
-                            <option value="10">10 Preguntas</option>
-                            <option value="all">Todas</option>
-                        </select>
-                        <button id="start-quiz">Empezar Quiz</button>
-                         <p id="quiz-data-error" style="display: none; color: var(--error-text); background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); margin-top: var(--space-md);"></p>
-                    </div>
-
-                    <div id="quiz-question-area" style="display: none;">
-                        <div id="quiz-image-container"></div>
-                        <h3 id="quiz-question"></h3>
-                        <div id="quiz-options"></div>
-                        <div id="quiz-text-input-area" style="display: none;">
-                            <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
-                            <button id="submit-text-answer">Comprobar</button>
-                        </div>
-                        <p id="quiz-feedback"></p>
-                        <button id="next-question" style="display: none;">Siguiente</button>
-                    </div>
-
-                    <div id="quiz-results" style="display: none;">
-                        <h3>Resultados</h3>
-                        <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
-                        <button id="restart-quiz">Volver a Empezar</button>
-                        <button id="retry-missed-quiz" style="display: none;">Reintentar Falladas</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECCIÓN FLASHCARDS -->
-            <section id="flashcards" class="content-section">
-                <h2>Flashcards</h2>
-                <div id="flashcards-container">
-                    <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
-                    <p id="flashcards-error" style="display: none; text-align: center; color: var(--error-red); background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm);"></p>
-
-                    <div id="flashcard-area" style="display: none;">
-                        <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
-                        <div id="flashcard-display-area">
-                            <div class="flashcard" id="flashcard">
-                                <div class="flashcard-face card-front" id="flashcard-front"></div>
+                    <div id="memorama-win-message" class="feedback-message feedback-success" style="display: none;"></div> <!--front" id="flashcard-front"></div>
                                 <div class="flashcard-face card-back" id="flashcard-back"></div>
                             </div>
                         </div>
-                         <!-- Contenedor ÚNICO para TODOS los botones -->
+                        <!-- Contenedor ÚNICO para TODOS los botones de Clases de feedback (opcional) -->
+                </div>
+                 <p id="memorama-data-error" class="feedback-message feedback-error" style="display: none;"></p> <!-- Clases de feedback (opcional) -->
+            </section>
+
+            <section id="quiz" class="content-section">
+                <h2>Quiz</h2>
+                <div id="quiz-container">
+                    <div id="quiz-setup">
+                        <p>¡Ponte a prueba!</p>
+                        <label for="quiz-length">Número de preguntas:</ Flashcards -->
                         <div id="flashcard-controls">
-                            <button id="prev-flashcard-btn">< Anterior</button>
-                            <button id="flip-flashcard-btn">Voltear</button>
-                            <button id="next-flashcard-btn">Siguiente ></button>
-                            <button id="shuffle-flashcards-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style="vertical-                    </div>
+                            <button id="prev-flashcard-btn" class="btn btn-primary">< Anterior</button>
+                            <button id="flip-flashcard-btn" class="btn btn-accent">Voltear</button>
+                            <button id="next-flashcard-btn" class="btn btn-primary">Siguiente ></button>
+                            <button id="shuffle-flashcards-btn" class="btn btn-secondary">
+                                <svg xmlns="http://www.wlabel>
+                        <select id="quiz-length" class="form-input" style="width: auto; display: inline-block; margin-right: var(--space-lg);"> <!-- Clase form-input (opcional) -->
+                            <option value="5">5 Preguntas</option>
+                            <option value="10">10 Preguntas</option>
+                            <option value="all">Todas</option>
+                        </select>
+                        <button id="start-quiz" class="btn btn-accent">Empezar Quiz</button> <!-- Cl3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;"><path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2ases btn (opcional) -->
+                         <p id="quiz-data-error" class="feedback-message feedback-error" style="display: none; margin-top: var(--space-md);"></p> <!-- Clases de feedback (opcional) -->
+                    </div>
 
                     <div id="quiz-question-area" style="display: none;">
                         <div id="quiz-image-container"></div>
-                        <h3 id="quiz-question"></h3>
-                        <div id="quiz-options"></div>
+                        <h3 id="quiz-question.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3h1.5a.5.5 0 0 1 0 1H13c-1.798 0-3.173 1."></h3>
+                        <div id="quiz-options">
+                            <!-- Opciones se generan con JS -->
+                        </div>
                         <div id="quiz-text-input-area" style="display: none;">
-                            <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
-                            <button id="submit-text-answer">Comprobar</button>
+                            <input type="text" id="quiz-text-answer" class="form-input" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar"> <!-- Clase form-input (opcional) -->
+                            <button id="submit-text01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12h1.5a.5.5 0 0 1 0 1H13-answer" class="btn btn-primary">Comprobar</button> <!-- Clases btn (opcional) -->
                         </div>
                         <p id="quiz-feedback" class="feedback-inline"></p> <!-- Clase para feedback quiz -->
-                        <button id="next-question" style="display: none;">Siguiente</button>
+                        <button id="next-question" class="btn btn-primary" style="display: none;">Siguiente</button> <!-- Clases btn (opcional) -->
                     </div>
 
                     <div id="quiz-results" style="display: none;">
                         <h3>Resultados</h3>
-                        <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
-                        <button id="restart-quiz">Volver a Empezar</button>
-                        <button id="retry-missed-quiz" style="display: none;">Reintentar Falladas</button>
+                        <p>Obtuviste <span idc-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.2="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
+                        <button id="restart-quiz" class="btn btn-accent">Volver a Empezar</button> <!-- Clases btn (opcional) -->
+                        <button id="retry-missed-quiz" class="btn btn-primary" style="display: none;">Reintentar Falladas</button> <!-- Clases btn (opcional) -->
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN FLASHCARDS -->
+            <!-- SECCIÓN FLASHCAR02 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.DS -->
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
                     <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
-                    <p id="flashcards-error" style="display: none; text-align: center; color: var(--error-red); background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm);"></p>
+                    <p id="flashcards-error" class="feedback-message feedback-error" style="display: none; margin-top:0;624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1 0-1z"/><path d="M13 5.466V1.534a.25.25 0 0 1 ."></p> <!-- Clases de feedback (opcional) -->
 
                     <div id="flashcard-area" style="display: none;">
                         <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
                         <div id="flashcard-display-area">
-                            <div class="flashcard" id="flashcard">
+                            <div class="flashcard" id="flashcard"> <!-- Clase flippable-card podría41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9V añadirse si se usa en CSS -->
                                 <div class="flashcard-face card-front" id="flashcard-front"></div>
                                 <div class="flashcard-face card-back" id="flashcard-back"></div>
                             </div>
                         </div>
                         <!-- Contenedor ÚNICO para TODOS los botones -->
-                        <div id="flashcard-controls">
-                            <button id="prev-flashcard-btn">< Anterior</button>
-                            <button id="flip-flashcard-btn">Voltear</button>
-                            <button id="next-flashcard-btn">Siguiente &align: middle; margin-right: 5px;"><path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3h1.5a.5.5 0 0 1 0 1H13c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12h1.5a.5.5 0 0 1 0 1H13c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1 0-1z"/><path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9V6.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/></svg>
+                        <div6.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/></svg>
                                 Barajar
-                            </button>
+                             id="flashcard-controls">
+                            <button id="prev-flashcard-btn" class="btn btn-primary">< Anterior</button> <!-- Clases btn (opcional) -->
+                            <button id="flip-</button>
                         </div>
                     </div>
                 </div>
@@ -254,7 +279,9 @@
     </main>
 
     <footer>
-        <p>EAHNM 2025</p>
+        <p>EAHNM 2025</p> <!-- Asegúrate que este sea el crédito correctoflashcard-btn" class="btn btn-accent">Voltear</button> <!-- Clases btn (opcional) -->
+                            <button id="next-flashcard-btn" class="btn btn-primary">Siguiente ></button> <!-- Clases btn (opcional) -->
+                            <button id="shuffle-flashcards- -->
     </footer>
 
     <script src="script.js"></script>
