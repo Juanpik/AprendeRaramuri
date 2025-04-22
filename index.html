@@ -20,7 +20,7 @@
             <button data-section="phrases">Frases</button>
             <button data-section="memorama">Memorama</button>
             <button data-section="quiz">Quiz</button>
-            <button data-section="flashcards">Flashcards</button> <!-- Botón Flashcards Añadido -->
+            <button data-section="flashcards">Flashcards</button>
         </nav>
     </header>
 
@@ -32,11 +32,10 @@
 
             <section id="about" class="content-section">
                 <h2>Sobre el Proyecto</h2>
-                
-                <p>Esta aplicación tiene como objetivo apoyar en el aprendizaje básico de la <em>lengua Rarámuri</em>.</p>
-
-                <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México. <p>
+                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del <em>idioma Rarámuri</em>.</p>
+                <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
                 <p class="credits-line">Creditos:</p>
+                <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
             </section>
 
             <section id="lexicon" class="content-section">
@@ -61,7 +60,6 @@
                     <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
                 </div>
                 <div id="memorama-game-area" style="display: none;">
-                    <!-- Texto "Encuentra los pares" eliminado -->
                     <div id="memorama-controls">
                         <button id="reset-memorama">Reiniciar Juego</button>
                         <p>Intentos: <span id="memorama-attempts">0</span></p>
@@ -95,7 +93,7 @@
                             <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
                             <button id="submit-text-answer">Comprobar</button>
                         </div>
-                        <p id="quiz-feedback"></p> <!-- JS añadirá/quitará clase 'visible' -->
+                        <p id="quiz-feedback"></p>
                         <button id="next-question" style="display: none;">Siguiente</button>
                     </div>
 
@@ -108,7 +106,7 @@
                 </div>
             </section>
 
-            <!-- NUEVA SECCIÓN FLASHCARDS -->
+            <!-- SECCIÓN FLASHCARDS -->
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
@@ -118,22 +116,17 @@
                     <div id="flashcard-area" style="display: none;">
                         <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
                         <div id="flashcard-display-area">
-                            <!-- La tarjeta se genera aquí -->
                             <div class="flashcard" id="flashcard">
-                                <div class="flashcard-face card-front" id="flashcard-front">
-                                    <!-- Contenido Frontal (JS) -->
-                                </div>
-                                <div class="flashcard-face card-back" id="flashcard-back">
-                                    <!-- Contenido Trasero (JS) -->
-                                </div>
+                                <div class="flashcard-face card-front" id="flashcard-front"></div>
+                                <div class="flashcard-face card-back" id="flashcard-back"></div>
                             </div>
                         </div>
-                        <div id="flashcard-controls" class="text-center" style="margin-top: var(--space-lg);">
+                        <!-- Contenedor ÚNICO para TODOS los botones -->
+                        <div id="flashcard-controls">
                             <button id="prev-flashcard-btn">< Anterior</button>
                             <button id="flip-flashcard-btn">Voltear</button>
                             <button id="next-flashcard-btn">Siguiente ></button>
-                            <button id="shuffle-flashcards-btn" style="margin-left: var(--space-lg);">
-                                <!-- Icono SVG Shuffle -->
+                            <button id="shuffle-flashcards-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;"><path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3h1.5a.5.5 0 0 1 0 1H13c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12h1.5a.5.5 0 0 1 0 1H13c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1 0-1z"/><path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9V6.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/></svg>
                                 Barajar
                             </button>
@@ -147,7 +140,7 @@
     </main>
 
     <footer>
-        <p>EAHNM 2025</p> <!-- Asegúrate que este sea el crédito correcto -->
+        <p>EAHNM 2025</p>
     </footer>
 
     <script src="script.js"></script>
