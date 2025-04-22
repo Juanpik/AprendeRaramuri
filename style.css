@@ -332,3 +332,7 @@ footer { text-align: center; margin-top: var(--space-xxl); padding: var(--space-
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
+
+.hidden {
+    display: none !important; /* Important para sobreescribir posibles estilos inline */
+}
