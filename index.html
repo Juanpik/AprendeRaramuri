@@ -83,16 +83,23 @@
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
-                        <label for="quiz-category">Categoría:</label>
-                        <select id="quiz-category">
-                            <!-- Opciones generadas por JS -->
-                        </select>
-                        <label for="quiz-length">Número de preguntas:</label>
-                        <select id="quiz-length">
-                            <option value="5">5 Preguntas</option>
-                            <option value="10">10 Preguntas</option>
-                            <option value="all">Todas</option>
-                        </select>
+                        <!-- NUEVO DIV PARA AGRUPAR CATEGORÍA -->
+                        <div class="quiz-setup-group">
+                            <label for="quiz-category">Categoría:</label>
+                            <select id="quiz-category">
+                                <!-- Opciones generadas por JS -->
+                            </select>
+                        </div>
+                        <!-- NUEVO DIV PARA AGRUPAR NÚMERO DE PREGUNTAS -->
+                        <div class="quiz-setup-group">
+                            <label for="quiz-length">Número de preguntas:</label>
+                            <select id="quiz-length">
+                                <option value="5">5 Preguntas</option>
+                                <option value="10">10 Preguntas</option>
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        <!-- El botón irá abajo por defecto -->
                         <button id="start-quiz">Empezar Quiz</button>
                          <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
                     </div>
