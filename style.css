@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Final Attempt) */
+/* style.css (Final, Complete, Verified - Updated Flashcard Image Style) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -107,7 +107,6 @@ h2 {
     margin-bottom: var(--space-xl);
     letter-spacing: -0.5px;
     font-weight: 700;
-    font-family: var(--font-title)
 }
 
 h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
@@ -410,23 +409,21 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
-    /* Centra el contenido de la fila y el botón bloque */
     text-align: center;
-    /* Flexbox para alinear selectores en desktop */
     display: flex;
-    flex-direction: row; /* Por defecto en desktop */
-    flex-wrap: wrap; /* Permite que envuelva en móvil */
-    justify-content: center; /* Centra elementos */
-    align-items: center; /* Alinea verticalmente */
-    gap: var(--space-lg); /* Aumentado gap para mayor espaciado */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-lg); /* Aumentado el gap */
 }
 #quiz-setup p {
     margin-bottom: 0;
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-    flex-basis: 100%; /* Ocupa todo el ancho en desktop para el primer párrafo */
+    flex-basis: 100%;
 }
 #quiz-setup label {
-    margin-right: 0; /* Eliminado margen derecho, gestionado por gap */
+    margin-right: 0;
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
@@ -437,15 +434,14 @@ button.category-filter-btn.active {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    /* Layout: Forzar nueva línea y centrar el BLOQUE */
     display: block;
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
-    max-width: 300px; /* Limitar el ancho si es necesario */
+    max-width: 300px; /* Limitar el ancho */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
     margin-top: var(--space-md); color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
-    flex-basis: 100%; /* Ocupa todo el ancho */
+    flex-basis: 100%;
 }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
 #quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
@@ -565,11 +561,25 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img {
-    max-width: 85%; max-height: 75%; object-fit: contain;
-    margin-bottom: var(--space-md);
+    /* MODIFICADO: Aumentar tamaño máximo */
+    max-width: 90%;
+    max-height: 80%; /* Ajusta este valor si necesitas más/menos altura */
+    object-fit: contain;
+    margin-bottom: var(--space-sm); /* Reducir un poco el margen inferior si es necesario */
+
+    /* NUEVO: Añadir estilos de borde y sombra, similares a los del léxico */
+    display: block;
+    border-radius: var(--border-radius-md);
+    border: 4px solid var(--white);
+    background-color: var(--blue-light-bg);
+    box-shadow: var(--shadow-sm);
+    /* padding: 3px; */ /* Opcional */
 }
-.flashcard-face p {
-    font-size: 0.85em; margin-bottom: 0; color: var(--text-secondary);
+.flashcard-face p { /* Estilos para el texto (si aparece debajo de la imagen) */
+    font-size: 0.8em;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    margin-top: var(--space-xs);
 }
 
 #flashcard-controls {
@@ -631,6 +641,7 @@ footer img {
     .memorama-card .card-front p { font-size: 1em; }
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
+    .flashcard-face img { max-height: 78%; } /* Ajustar si es necesario */
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -659,6 +670,7 @@ footer img {
     .flashcard { height: 220px; }
     .flashcard-face.card-front { font-size: 1.5em; }
     .flashcard-face.card-back { font-size: 1.7em; }
+     .flashcard-face img { max-height: 75%; } /* Ajustar si es necesario */
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
 
     /* Ajustes para el setup del Quiz en móvil */
@@ -682,7 +694,6 @@ footer img {
          margin: 0 auto; /* Centra el bloque */
          /* El gap del contenedor padre #quiz-setup debe gestionar el espacio vertical */
     }
-
 
     /* Ajustes para el setup de Flashcards en móvil */
     #flashcards-setup-controls {
@@ -724,6 +735,7 @@ footer img {
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
+     .flashcard-face img { max-height: 70%; } /* Ajustar si es necesario */
     #flashcard-controls { gap: var(--space-sm); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
@@ -760,6 +772,7 @@ footer img {
      .flashcard { height: 180px; }
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
+      .flashcard-face img { max-height: 65%; } /* Ajustar si es necesario */
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
