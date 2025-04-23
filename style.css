@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Updated Flashcard Image Style) */
+/* style.css (Final, Complete, Verified - Adjusted Quiz Paragraph) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -418,7 +418,8 @@ button.category-filter-btn.active {
     gap: var(--space-lg); /* Aumentado el gap */
 }
 #quiz-setup p {
-    margin-bottom: 0;
+    /* Ajuste para el párrafo "Ponte a prueba" */
+    margin-bottom: -5px; /* Moverlo ligeramente hacia arriba */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
@@ -434,9 +435,10 @@ button.category-filter-btn.active {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
+    /* Layout: Forzar nueva línea y centrar el BLOQUE */
     display: block;
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
-    max-width: 300px; /* Limitar el ancho */
+    max-width: 300px; /* Limitar el ancho si es necesario */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
@@ -561,13 +563,11 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img {
-    /* MODIFICADO: Aumentar tamaño máximo */
+    /* MODIFICADO: Aumentar tamaño máximo y añadir bordes/sombra */
     max-width: 90%;
     max-height: 80%; /* Ajusta este valor si necesitas más/menos altura */
     object-fit: contain;
-    margin-bottom: var(--space-sm); /* Reducir un poco el margen inferior si es necesario */
-
-    /* NUEVO: Añadir estilos de borde y sombra, similares a los del léxico */
+    margin-bottom: var(--space-sm); /* Reducido margen inferior */
     display: block;
     border-radius: var(--border-radius-md);
     border: 4px solid var(--white);
