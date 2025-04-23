@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Objeto que asocia nombres de categoría con emojis para visualización
     const categoryIcons = {
         'Naturaleza': '🌳',
-        'Comida': '🍎', // Puedes cambiar estos emojis
-        'Acciones': '🗣️',
+        'Comida y bebida': '🍎', // Puedes cambiar estos emojis
+        'Verbos': '🏃‍♂️',
         'Animales': '🐾',
         'Partes del cuerpo': '🖐️',
         'Objetos': '🔧',
