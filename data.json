@@ -1,10 +1,10 @@
 {
   "lexicon": [
-    { "id": 1, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida" },
-    { "id": 2, "raramuri": "muní", "spanish": "frijol", "image": "images/muni.jpg", "category": "Comida" },
-    { "id": 3, "raramuri": "remé", "spanish": "tortilla", "image": "images/reme.jpg", "category": "Comida" },
-    { "id": 4, "raramuri": "ra'ícha", "spanish": "hablar", "image": "images/ra'ícha.jpg", "category": "Acciones" },
-    { "id": 5, "raramuri": "sunú", "spanish": "maíz", "image": "images/sunu.jpg", "category": "Comida" },
+    { "id": 1, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida y bebida" },
+    { "id": 2, "raramuri": "muní", "spanish": "frijol", "image": "images/muni.jpg", "category": "Comida y bebida" },
+    { "id": 3, "raramuri": "remé", "spanish": "tortilla", "image": "images/reme.jpg", "category": "Comida y bebida" },
+    { "id": 4, "raramuri": "ra'ícha", "spanish": "hablar", "image": "images/ra'ícha.jpg", "category": "Verbos" },
+    { "id": 5, "raramuri": "sunú", "spanish": "maíz", "image": "images/sunu.jpg", "category": "Comida y bebida" },
     { "id": 6, "raramuri": "kochí", "spanish": "cerdo", "image": "images/kochi.jpg", "category": "Animales" },
     { "id": 7, "raramuri": "míisi", "spanish": "gato", "image": "images/míisi.jpg", "category": "Animales" },
     { "id": 8, "raramuri": "sinowi", "spanish": "serpiente", "image": "images/sinowi.jpg", "category": "Animales" },
@@ -35,11 +35,11 @@
     { "id": 33, "raramuri": "kiyóchi", "spanish": "zorro", "image": "images/kiyóchi.jpg", "category": "Animales" },
     { "id": 34, "raramuri": "iká", "spanish": "viento", "image": "images/iká.jpg", "category": "Naturaleza" },
     { "id": 35, "raramuri": "we'e", "spanish": "tierra", "image": "images/we'e.jpg", "category": "Naturaleza" },
-    { "id": 36, "raramuri": "kajé", "spanish": "café", "image": "images/kajé.jpg", "category": "Comida" },
-    { "id": 37, "raramuri": "chi'wá", "spanish": "leche", "image": "images/chi'wá.jpg", "category": "Comida" },
+    { "id": 36, "raramuri": "kajé", "spanish": "café", "image": "images/kajé.jpg", "category": "Comida y bebida" },
+    { "id": 37, "raramuri": "chi'wá", "spanish": "leche", "image": "images/chi'wá.jpg", "category": "Comida y bebida" },
     { "id": 38, "raramuri": "sikóri", "spanish": "jarro", "image": "images/sikóri.jpg", "category": "Objetos" },
-    { "id": 39, "raramuri": "ri'rowe", "spanish": "papa", "image": "images/ri'rowe.jpg", "category": "Comida" },
-    { "id": 38, "raramuri": "kobisi", "spanish": "pinole", "image": "images/kobisi.jpg", "category": "Comida" }
+    { "id": 39, "raramuri": "ri'rowe", "spanish": "papa", "image": "images/ri'rowe.jpg", "category": "Comida y bebida" },
+    { "id": 38, "raramuri": "kobisi", "spanish": "pinole", "image": "images/kobisi.jpg", "category": "Comida y bebida" }
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
