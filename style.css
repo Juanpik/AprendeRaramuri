@@ -418,8 +418,7 @@ button.category-filter-btn.active {
     gap: var(--space-lg); /* Aumentado el gap */
 }
 #quiz-setup p {
-    /* Ajuste para el párrafo "Ponte a prueba" */
-    margin-bottom: -15px; /* Moverlo ligeramente hacia arriba */
+    margin-bottom: 10px; 
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
