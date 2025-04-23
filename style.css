@@ -90,7 +90,7 @@ h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 70
 header > h1 {
   font-family: var(--font-title); /* Chelsea Market */
   font-size: 3em;
-  font-weight: 300; /* Chelsea Market es 400 */
+  font-weight: 200; /* Chelsea Market es 400 */
   margin: 0 0 var(--space-xs) 0;
   padding-bottom: 0;
   letter-spacing: 1px;
