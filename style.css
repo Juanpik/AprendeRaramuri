@@ -414,31 +414,35 @@ button.category-filter-btn.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: var(--space-lg); /* Aumentado el gap */
+    /* MODIFICADO: Aumentar ligeramente el gap */
+    gap: var(--space-md); /* Antes var(--space-lg) en algunos intentos, volvamos a md o sm para empezar */
 }
 #quiz-setup p {
     /* Ajuste para el párrafo "Ponte a prueba" */
-    margin-bottom: 15px; /* Moverlo ligeramente hacia arriba (valor que proporcionaste) */
+    margin-bottom: 15px;
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
 #quiz-setup label {
-    margin-right: 0;
+    /* MODIFICADO: Añadir un pequeño margen derecho a la etiqueta */
+    margin-right: var(--space-xs); /* Añadir 0.5rem a la derecha */
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
     padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+     /* MODIFICADO: Eliminar margin-right si lo tenía de intentos anteriores */
+     /* margin-right: 0; */
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     display: block;
-    /* MODIFICADO: Ajuste de margen para que el gap maneje el espacio arriba */
-    margin: 0 auto; /* Centrado L/R, el gap de #quiz-setup maneja el espacio arriba */
-    max-width: 300px; /* Limitar el ancho si es necesario */
-    flex-basis: 100%; /* Hace que ocupe toda la línea */
+    /* MODIFICADO: Ajustar margen superior y centrado */
+    margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
+    max-width: 300px;
+    flex-basis: 100%;
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
