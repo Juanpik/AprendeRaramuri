@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - After HTML Grouping) */
+/* style.css (Final, Complete, Verified - Quiz Setup Gap Increased) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -367,6 +367,7 @@ button.category-filter-btn.active {
 .memorama-card.matched .card-front {
      opacity: 1 !important; visibility: visible !important; z-index: 2;
 }
+.memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
 .memorama-card .card-front p { /* Added p selector for more specific styling */
     font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0;
     padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
@@ -414,35 +415,49 @@ button.category-filter-btn.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    /* MODIFICADO: Aumentar ligeramente el gap */
-    gap: var(--space-md); /* Antes var(--space-lg) en algunos intentos, volvamos a md o sm para empezar */
+    gap: var(--space-md); /* MODIFICADO: Reducido el gap principal */
 }
 #quiz-setup p {
-    /* Ajuste para el párrafo "Ponte a prueba" */
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Mover ligeramente hacia arriba */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
+
+/* Estilos para agrupar etiqueta y selector */
+.quiz-setup-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el grupo horizontalmente */
+    gap: var(--space-sm); /* MODIFICADO: Espacio entre label y select (usamos space-sm) */
+    flex-basis: auto; /* Permite que el grupo ocupe solo el ancho necesario */
+    flex-shrink: 0;
+     /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
+    margin-right: var(--space-md); /* Espacio entre el grupo de categoría y el grupo de preguntas */
+}
+
+/* Eliminar el margen derecho del ÚLTIMO grupo para que no empuje */
+#quiz-setup .quiz-setup-group:last-of-type {
+    margin-right: 0;
+}
+
+
 #quiz-setup label {
-    /* MODIFICADO: Añadir un pequeño margen derecho a la etiqueta */
-    margin-right: var(--space-xs); /* Añadir 0.5rem a la derecha */
+    margin-right: 0; /* Ya no es necesario si usas gap en el grupo */
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
     padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
-     /* MODIFICADO: Eliminar margin-right si lo tenía de intentos anteriores */
-     /* margin-right: 0; */
+    margin-right: 0; /* Eliminar margen si existía */
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     display: block;
-    /* MODIFICADO: Ajustar margen superior y centrado */
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
-    max-width: 300px;
-    flex-basis: 100%;
+    max-width: 300px; /* Limitar el ancho */
+    flex-basis: auto; /* No forzar a ocupar 100% de ancho de flex-item */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
@@ -521,10 +536,20 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--border-light);
 }
+/* Estilos para agrupar etiqueta y selector en Flashcards */
+.flashcard-setup-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el grupo horizontalmente */
+    gap: var(--space-sm); /* Espacio entre label y select */
+    flex-basis: auto;
+    flex-shrink: 0;
+}
 #flashcards-setup-controls label {
     color: var(--text-secondary);
     font-size: 0.95em;
     font-family: var(--font-body);
+    margin-right: 0;
 }
 #flashcards-setup-controls select {
     padding: var(--space-xs) var(--space-md);
@@ -534,6 +559,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-family: var(--font-body);
     font-size: 1em;
     color: var(--text-primary);
+    margin-right: 0;
 }
 #flashcards-data-error {
     color: var(--error-red);
