@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Quiz Setup Gap Increased) */
+/* style.css (Final, Complete, Verified - Quiz Setup Flex-basis Adjusted) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -415,10 +415,10 @@ button.category-filter-btn.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: var(--space-md); /* MODIFICADO: Reducido el gap principal */
+    gap: var(--space-md); /* MODIFICADO: Vuelve a gap md */
 }
 #quiz-setup p {
-    margin-bottom: 15px; /* Mover ligeramente hacia arriba */
+    margin-bottom: 15px;
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
@@ -429,9 +429,10 @@ button.category-filter-btn.active {
     align-items: center;
     justify-content: center; /* Centra el grupo horizontalmente */
     gap: var(--space-sm); /* MODIFICADO: Espacio entre label y select (usamos space-sm) */
-    flex-basis: auto; /* Permite que el grupo ocupe solo el ancho necesario */
+    /* Removido flex-basis: 100%; ya que ahora queremos que se sienten lado a lado */
+    flex-basis: auto;
     flex-shrink: 0;
-     /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
+    /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
     margin-right: var(--space-md); /* Espacio entre el grupo de categoría y el grupo de preguntas */
 }
 
@@ -439,7 +440,6 @@ button.category-filter-btn.active {
 #quiz-setup .quiz-setup-group:last-of-type {
     margin-right: 0;
 }
-
 
 #quiz-setup label {
     margin-right: 0; /* Ya no es necesario si usas gap en el grupo */
@@ -455,6 +455,7 @@ button.category-filter-btn.active {
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     display: block;
+    /* MODIFICADO: Ajuste de margen superior y centrado */
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
     max-width: 300px; /* Limitar el ancho */
     flex-basis: auto; /* No forzar a ocupar 100% de ancho de flex-item */
