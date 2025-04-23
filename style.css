@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Attempt 9, trying again!) */
+/* style.css (Final, Complete, Verified - Final Attempt) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -417,7 +417,7 @@ button.category-filter-btn.active {
     flex-wrap: wrap; /* Permite que envuelva en móvil */
     justify-content: center; /* Centra elementos */
     align-items: center; /* Alinea verticalmente */
-    gap: var(--space-md); /* Espacio entre elementos del setup */
+    gap: var(--space-lg); /* Aumentado gap para mayor espaciado */
 }
 #quiz-setup p {
     margin-bottom: 0;
@@ -437,9 +437,9 @@ button.category-filter-btn.active {
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     /* Layout: Forzar nueva línea y centrar el BLOQUE */
-    flex-basis: 100%; /* Intenta ocupar todo el ancho */
-    max-width: 300px; /* Limitar el ancho */
+    display: block;
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
+    max-width: 300px; /* Limitar el ancho si es necesario */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
@@ -731,7 +731,7 @@ footer img {
 
     /* Quiz setup layout adjustment for very small screens */
      #quiz-setup {
-         gap: var(--space-md); /* Reducir espacio */
+         gap: var(--space-md); /* Reducir espacio si es necesario */
          padding-bottom: var(--space-lg); /* Asegurar espacio */
      }
      /* Asegúrate de que el botón sigue siendo bloque y centrado */
@@ -741,7 +741,7 @@ footer img {
 
      /* Flashcards setup layout adjustment for very small screens */
       #flashcards-setup-controls {
-         gap: var(--space-md); /* Reducir espacio */
+         gap: var(--space-md); /* Reducir espacio si es necesario */
          padding-bottom: var(--space-md); /* Asegurar espacio */
      }
 }
