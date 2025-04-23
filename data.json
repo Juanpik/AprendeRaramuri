@@ -22,7 +22,7 @@
     { "id": 20, "raramuri": "kawí", "spanish": "monte", "image": "images/kawí.jpg", "category": "Naturaleza" },
     { "id": 21, "raramuri": "ukuí", "spanish": "lluvia", "image": "images/ukuí.jpg", "category": "Naturaleza" },
     { "id": 22, "raramuri": "okó", "spanish": "arbol", "image": "images/okó.jpg", "category": "Naturaleza" },
-    { "id": 23, "raramuri": "aká", "spanish": "huarache", "image": "images/aka.jpg", "category": "Objetos" },
+    { "id": 23, "raramuri": "aká", "spanish": "huarache", "image": "images/aka.jpg", "category": "Vestimenta" },
     { "id": 24, "raramuri": "soporí", "spanish": "estrella", "image": "images/soporí.jpg", "category": "Naturaleza" },
     { "id": 25, "raramuri": "rayénari", "spanish": "sol", "image": "images/rayénari.jpg", "category": "Naturaleza" },
     { "id": 26, "raramuri": "mechá", "spanish": "luna", "image": "images/mechá.jpg", "category": "Naturaleza" },
