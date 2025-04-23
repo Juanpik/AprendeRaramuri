@@ -53,9 +53,9 @@
     { "id": 51, "raramuri": "sewá", "spanish": "flor", "image": "images/sewá.jpg", "category": "Naturaleza" },
     { "id": 52, "raramuri": "sikúi", "spanish": "hormiga", "image": "images/sikúi.jpg", "category": "Animales" },
     { "id": 53, "raramuri": "ochérami", "spanish": "anciano", "image": "images/ochérami.jpg", "category": "Personas" },
-    { "id": 54, "raramuri": "muki", "spanish": "mujer", "image": "images/muki.jpg", "category": "Personas" },
+    { "id": 54, "raramuri": "muki", "spanish": "mujer", "image": "images/mukí.jpg", "category": "Personas" },
     { "id": 55, "raramuri": "owí", "spanish": "hombre", "image": "images/owí.jpg", "category": "Personas" },
-    { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towi.jpg", "category": "Personas" }
+    { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towí.jpg", "category": "Personas" }
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
