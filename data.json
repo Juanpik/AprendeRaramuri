@@ -57,7 +57,7 @@
     { "id": 55, "raramuri": "owí", "spanish": "hombre", "image": "images/owí.jpg", "category": "Personas" },
     { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towí.jpg", "category": "Personas" },
     { "id": 56, "raramuri": "rarinéa", "spanish": "comerciar", "image": "images/rarinéa.jpg", "category": "Verbos" },
-    { "id": 56, "raramuri": "kiná", "spanish": "desplazarse", "image": "images/riná.jpg", "category": "Verbos" }
+    { "id": 56, "raramuri": "kiná", "spanish": "desplazarse", "image": "images/kiná.jpg", "category": "Verbos" }
 
   ],
   "phrases": [
