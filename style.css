@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Quiz Setup Flex Distribution) */
+/* style.css (Final, Complete, Verified - Quiz Setup Flex Distribution Refined) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -413,25 +413,27 @@ button.category-filter-btn.active {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centra la fila */
     align-items: center;
-    gap: var(--space-md); /* MODIFICADO: Reducido el gap principal */
+    gap: var(--space-md);
 }
 #quiz-setup p {
     margin-bottom: 15px; /* Mover ligeramente hacia arriba */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-    flex-basis: 100%;
+    flex-basis: 100%; /* Párrafo ocupa toda la línea */
 }
 
 /* Estilos para agrupar etiqueta y selector */
 .quiz-setup-group {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra el grupo horizontalmente */
-    gap: var(--space-sm); /* MODIFICADO: Espacio entre label y select (usamos space-sm) */
-    flex-basis: auto; /* Permite que el grupo ocupe solo el ancho necesario */
+    /* MODIFICADO: Centrar el contenido DENTRO del grupo */
+    justify-content: center; /* Centra la etiqueta y el selector dentro del div */
+    gap: var(--space-sm); /* Espacio entre label y select */
+    /* MODIFICADO: Permitir que el grupo ocupe el ancho necesario */
+    flex-basis: auto;
     flex-shrink: 0;
-     /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
+     /* MODIFICADO: Añadir margin-right para espacio ENTRE GRUPOS en desktop */
     margin-right: var(--space-md); /* Espacio entre el grupo de categoría y el grupo de preguntas */
 }
 
@@ -447,7 +449,7 @@ button.category-filter-btn.active {
 #quiz-setup select {
     padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
-    margin-right: 0; /* Eliminar margen si existía */
+    margin-right: 0;
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
@@ -718,7 +720,7 @@ footer img {
     #quiz-setup button#start-quiz {
          flex-basis: 100%;
          max-width: 300px;
-         margin: 0 auto; /* Centrado */
+         margin: 0 auto;
     }
 
 
@@ -791,7 +793,7 @@ footer img {
      }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
      .memorama-card { height: 95px; }
-     .memorama-card .card-front p { font-size: 0.8em; }
+     .memorama-card .card-front p { font-size: 0.9em; }
      .memorama-card .card-back::before { font-size: 2.5em; }
      .flashcard { height: 180px; }
      .flashcard-face.card-front { font-size: 1.2em; }
