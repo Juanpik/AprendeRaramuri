@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Verbos': '🏃‍♂️',
         'Animales': '🐾',
         'Partes del cuerpo': '🖐️',
-        'Objetos': '🔧',
+        'Objetos': '🔨',
         'Personas': '🧍‍♀️',
+        'Vestimenta': '🧦',
         // Añade más categorías e iconos si los tienes en data.json
         'all': '' // La categoría 'all' (Todos/Todas las categorías) no suele llevar icono
     };
