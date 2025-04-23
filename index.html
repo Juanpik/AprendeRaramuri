@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprende Rarámuri</title>
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Incluye Patrick Hand SC, Poppins, Nunito Y AHORA Chelsea Market) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ENLACES A LAS FUENTES EXISTENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand+SC&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- NUEVO: ENLACE A LA FUENTE Chelsea Market -->
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet">
+
     <!-- /Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -78,12 +83,10 @@
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
-                        <!-- NUEVO SELECTOR DE CATEGORÍA PARA QUIZ -->
                         <label for="quiz-category">Categoría:</label>
                         <select id="quiz-category">
                             <!-- Opciones generadas por JS -->
                         </select>
-                        <!-- SELECTOR DE NÚMERO DE PREGUNTAS EXISTENTE -->
                         <label for="quiz-length">Número de preguntas:</label>
                         <select id="quiz-length">
                             <option value="5">5 Preguntas</option>
@@ -119,7 +122,6 @@
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
-                    <!-- NUEVO SELECTOR DE CATEGORÍA PARA FLASHCARDS -->
                      <div id="flashcards-setup-controls" style="text-align: center; margin-bottom: var(--space-lg);">
                         <label for="flashcard-category">Categoría:</label>
                         <select id="flashcard-category">
