@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Take 7) */
+/* style.css (Final, Complete, Verified - Attempt 9, trying again!) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -217,7 +217,7 @@ button.category-filter-btn {
     font-size: 0.9em;
     font-weight: 500;
     box-shadow: var(--shadow-sm);
-    /* display: inline-flex; */ /* Descomentar si se necesita mejor alineación icono-texto */
+    /* display: inline-flex; */
     /* align-items: center; */
     /* gap: 0.3em; */
 }
@@ -409,8 +409,9 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
+    /* Centra el contenido de la fila y el botón bloque */
     text-align: center;
-    /* Usar flexbox para alinear elementos en setup */
+    /* Flexbox para alinear selectores en desktop */
     display: flex;
     flex-direction: row; /* Por defecto en desktop */
     flex-wrap: wrap; /* Permite que envuelva en móvil */
@@ -419,7 +420,7 @@ button.category-filter-btn.active {
     gap: var(--space-md); /* Espacio entre elementos del setup */
 }
 #quiz-setup p {
-    margin-bottom: 0; /* Asegurar que no tenga margen inferior */
+    margin-bottom: 0;
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%; /* Ocupa todo el ancho en desktop para el primer párrafo */
 }
@@ -428,17 +429,17 @@ button.category-filter-btn.active {
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
-    padding: var(--space-xs) var(--space-md); /* Ligeramente más pequeño para botones/selects inline */
+    padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    /* Layout: Forzar nueva línea y centrar */
+    /* Layout: Forzar nueva línea y centrar el BLOQUE */
     flex-basis: 100%; /* Intenta ocupar todo el ancho */
     max-width: 300px; /* Limitar el ancho */
-    margin: 0 auto; /* Centrar el bloque resultante */
+    margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
@@ -681,6 +682,7 @@ footer img {
          /* El gap del contenedor padre #quiz-setup debe gestionar el espacio vertical */
     }
 
+
     /* Ajustes para el setup de Flashcards en móvil */
     #flashcards-setup-controls {
          flex-direction: column; /* Apilar elementos verticalmente */
@@ -729,7 +731,7 @@ footer img {
 
     /* Quiz setup layout adjustment for very small screens */
      #quiz-setup {
-         gap: var(--space-md); /* Reducir espacio si es necesario */
+         gap: var(--space-md); /* Reducir espacio */
          padding-bottom: var(--space-lg); /* Asegurar espacio */
      }
      /* Asegúrate de que el botón sigue siendo bloque y centrado */
@@ -739,7 +741,7 @@ footer img {
 
      /* Flashcards setup layout adjustment for very small screens */
       #flashcards-setup-controls {
-         gap: var(--space-md); /* Reducir espacio si es necesario */
+         gap: var(--space-md); /* Reducir espacio */
          padding-bottom: var(--space-md); /* Asegurar espacio */
      }
 }
