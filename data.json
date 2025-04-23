@@ -43,7 +43,7 @@
     { "id": 41, "raramuri": "kasíbacha", "spanish": "pantalones", "image": "images/kasíbacha.jpg", "category": "Vestimenta" },
     { "id": 42, "raramuri": "napachá", "spanish": "camisa", "image": "images/napachá.jpg", "category": "Vestimenta" },
     { "id": 43, "raramuri": "kiribá", "spanish": "quelite", "image": "images/kiribá.jpg", "category": "Comida y bebida" },
-    { "id": 44, "raramuri": "karisi", "spanish": "calabaza", "image": "images/karisi.jpg", "category": "Comida y bebida" },
+    { "id": 44, "raramuri": "karisi", "spanish": "calabaza", "image": "images/karisí.jpg", "category": "Comida y bebida" },
     { "id": 45, "raramuri": "kupá", "spanish": "caballo", "image": "images/kupá.jpg", "category": "Animales" },
     { "id": 46, "raramuri": "ro'chí", "spanish": "pescado", "image": "images/ro'chí.jpg", "category": "Animales" },
     { "id": 47, "raramuri": "bo'wá", "spanish": "borrego", "image": "images/bo'wá.jpg", "category": "Animales" },
