@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Quiz Setup Flex-basis Adjusted) */
+/* style.css (Final, Complete, Verified - Increased Quiz Button Margin Top) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -418,7 +418,7 @@ button.category-filter-btn.active {
     gap: var(--space-md); /* MODIFICADO: Vuelve a gap md */
 }
 #quiz-setup p {
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Mover ligeramente hacia arriba */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
     flex-basis: 100%;
 }
@@ -429,10 +429,9 @@ button.category-filter-btn.active {
     align-items: center;
     justify-content: center; /* Centra el grupo horizontalmente */
     gap: var(--space-sm); /* MODIFICADO: Espacio entre label y select (usamos space-sm) */
-    /* Removido flex-basis: 100%; ya que ahora queremos que se sienten lado a lado */
-    flex-basis: auto;
+    flex-basis: auto; /* Permite que el grupo ocupe solo el ancho necesario */
     flex-shrink: 0;
-    /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
+     /* MODIFICADO: Añadir margin-right para espacio entre GRUPOS en desktop */
     margin-right: var(--space-md); /* Espacio entre el grupo de categoría y el grupo de preguntas */
 }
 
@@ -455,7 +454,6 @@ button.category-filter-btn.active {
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     display: block;
-    /* MODIFICADO: Ajuste de margen superior y centrado */
     margin: var(--space-lg) auto 0 auto; /* Espacio arriba, centrado L/R */
     max-width: 300px; /* Limitar el ancho */
     flex-basis: auto; /* No forzar a ocupar 100% de ancho de flex-item */
@@ -594,19 +592,17 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img {
-    /* MODIFICADO: Aumentar tamaño máximo y añadir bordes/sombra */
     max-width: 90%;
-    max-height: 80%; /* Ajusta este valor si necesitas más/menos altura */
+    max-height: 80%;
     object-fit: contain;
-    margin-bottom: var(--space-sm); /* Reducido margen inferior */
+    margin-bottom: var(--space-sm);
     display: block;
     border-radius: var(--border-radius-md);
     border: 4px solid var(--white);
     background-color: var(--blue-light-bg);
     box-shadow: var(--shadow-sm);
-    /* padding: 3px; */ /* Opcional */
 }
-.flashcard-face p { /* Estilos para el texto (si aparece debajo de la imagen) */
+.flashcard-face p {
     font-size: 0.8em;
     margin-bottom: 0;
     color: var(--text-secondary);
@@ -672,7 +668,7 @@ footer img {
     .memorama-card .card-front p { font-size: 1em; }
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
-    .flashcard-face img { max-height: 78%; } /* Ajustar si es necesario */
+    .flashcard-face img { max-height: 78%; }
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -725,7 +721,6 @@ footer img {
          margin: 0 auto; /* Centra el bloque */
          /* El gap del contenedor padre #quiz-setup debe gestionar el espacio vertical */
     }
-
 
     /* Ajustes para el setup de Flashcards en móvil */
     #flashcards-setup-controls {
