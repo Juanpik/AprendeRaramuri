@@ -55,7 +55,10 @@
     { "id": 53, "raramuri": "ochérami", "spanish": "anciano", "image": "images/ochérami.jpg", "category": "Personas" },
     { "id": 54, "raramuri": "muki", "spanish": "mujer", "image": "images/mukí.jpg", "category": "Personas" },
     { "id": 55, "raramuri": "owí", "spanish": "hombre", "image": "images/owí.jpg", "category": "Personas" },
-    { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towí.jpg", "category": "Personas" }
+    { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towí.jpg", "category": "Personas" },
+    { "id": 56, "raramuri": "rarinéa", "spanish": "comerciar", "image": "images/rarinéa.jpg", "category": "Verbos" },
+    { "id": 56, "raramuri": "kiná", "spanish": "desplazarse", "image": "images/riná.jpg", "category": "Verbos" }
+
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
