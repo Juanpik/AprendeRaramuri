@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Increased Quiz Button Margin Top) */
+/* style.css (Final, Complete, Verified - Quiz Setup Flex Distribution) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -415,7 +415,7 @@ button.category-filter-btn.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: var(--space-md); /* MODIFICADO: Vuelve a gap md */
+    gap: var(--space-md); /* MODIFICADO: Reducido el gap principal */
 }
 #quiz-setup p {
     margin-bottom: 15px; /* Mover ligeramente hacia arriba */
@@ -601,6 +601,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     border: 4px solid var(--white);
     background-color: var(--blue-light-bg);
     box-shadow: var(--shadow-sm);
+    /* padding: 3px; */
 }
 .flashcard-face p {
     font-size: 0.8em;
@@ -691,50 +692,49 @@ footer img {
     #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
     .memorama-card { height: 130px; }
     .flashcards-setup-controls select {
-         padding: var(--space-sm) var(--space-md); /* Usar padding normal de select en móvil */
+         padding: var(--space-sm) var(--space-md);
      }
     #flashcards-container { max-width: 95%; }
     .flashcard { height: 220px; }
     .flashcard-face.card-front { font-size: 1.5em; }
     .flashcard-face.card-back { font-size: 1.7em; }
-     .flashcard-face img { max-height: 75%; } /* Ajustar si es necesario */
+     .flashcard-face img { max-height: 75%; }
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
 
     /* Ajustes para el setup del Quiz en móvil */
     #quiz-setup {
-        flex-direction: column; /* Apilar elementos verticalmente */
-        gap: var(--space-lg); /* Aumentar espacio entre filas */
+        flex-direction: column;
+        gap: var(--space-lg);
     }
      #quiz-setup p, #quiz-data-error {
-         flex-basis: auto; /* No forzar ancho completo si hay otros elementos apilados */
+         flex-basis: auto;
      }
      #quiz-setup label {
-         margin-right: var(--space-sm); /* Re-añadir un pequeño margen para separar de su select */
+         margin-right: var(--space-sm);
      }
      #quiz-setup select {
-         margin-right: 0; /* Eliminar el margen derecho si se apilan */
+         margin-right: 0;
      }
-    /* Ajustes para el botón Empezar Quiz en 768px y menos */
     #quiz-setup button#start-quiz {
-         flex-basis: 100%; /* Ocupa todo el ancho */
-         max-width: 300px; /* Mantiene el límite de ancho */
-         margin: 0 auto; /* Centra el bloque */
-         /* El gap del contenedor padre #quiz-setup debe gestionar el espacio vertical */
+         flex-basis: 100%;
+         max-width: 300px;
+         margin: 0 auto; /* Centrado */
     }
+
 
     /* Ajustes para el setup de Flashcards en móvil */
     #flashcards-setup-controls {
-         flex-direction: column; /* Apilar elementos verticalmente */
-         gap: var(--space-lg); /* Aumentar espacio */
+         flex-direction: column;
+         gap: var(--space-lg);
      }
      #flashcards-setup-controls label {
-         margin-right: var(--space-sm); /* Re-añadir un pequeño margen */
+         margin-right: var(--space-sm);
      }
      #flashcards-setup-controls select {
-         margin-right: 0; /* Eliminar el margen derecho */
+         margin-right: 0;
      }
      #flashcards-data-error {
-         flex-basis: auto; /* No forzar ancho completo */
+         flex-basis: auto;
      }
 }
 @media (max-width: 576px) {
@@ -762,27 +762,24 @@ footer img {
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-     .flashcard-face img { max-height: 70%; } /* Ajustar si es necesario */
+     .flashcard-face img { max-height: 70%; }
     #flashcard-controls { gap: var(--space-sm); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
     #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
 
-    /* Quiz setup layout adjustment for very small screens */
-     #quiz-setup {
-         gap: var(--space-md); /* Reducir espacio si es necesario */
-         padding-bottom: var(--space-lg); /* Asegurar espacio */
+    #quiz-setup {
+         gap: var(--space-md);
+         padding-bottom: var(--space-lg);
      }
-     /* Asegúrate de que el botón sigue siendo bloque y centrado */
-     #quiz-setup button#start-quiz {
+      #quiz-setup button#start-quiz {
         margin: 0 auto;
      }
 
-     /* Flashcards setup layout adjustment for very small screens */
-      #flashcards-setup-controls {
-         gap: var(--space-md); /* Reducir espacio si es necesario */
-         padding-bottom: var(--space-md); /* Asegurar espacio */
+    #flashcards-setup-controls {
+         gap: var(--space-md);
+         padding-bottom: var(--space-md);
      }
 }
 @media (max-width: 420px) {
@@ -793,13 +790,13 @@ footer img {
          font-size: 0.95em;
      }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
-     .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
+     .memorama-card { height: 95px; }
      .memorama-card .card-front p { font-size: 0.8em; }
      .memorama-card .card-back::before { font-size: 2.5em; }
      .flashcard { height: 180px; }
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
-      .flashcard-face img { max-height: 65%; } /* Ajustar si es necesario */
+      .flashcard-face img { max-height: 65%; }
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
