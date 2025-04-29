@@ -56,8 +56,19 @@
     { "id": 54, "raramuri": "muki", "spanish": "mujer", "image": "images/mukí.jpg", "category": "Personas" },
     { "id": 55, "raramuri": "owí", "spanish": "hombre", "image": "images/owí.jpg", "category": "Personas" },
     { "id": 56, "raramuri": "towi", "spanish": "niño", "image": "images/towí.jpg", "category": "Personas" },
-    { "id": 56, "raramuri": "rarinéa", "spanish": "comerciar", "image": "images/rarinéa.jpg", "category": "Verbos" },
-    { "id": 56, "raramuri": "kiná", "spanish": "desplazarse", "image": "images/kiná.jpg", "category": "Verbos" }
+    { "id": 57, "raramuri": "rarinéa", "spanish": "comerciar", "image": "images/rarinéa.jpg", "category": "Verbos" },
+    { "id": 58, "raramuri": "surá", "spanish": "corazon", "image": "images/surá.jpg", "category": "Partes del cuerpo" },
+    { "id": 59, "raramuri": "rampora", "spanish": "tambor", "image": "images/rampora.jpg", "category": "Objetos" },
+    { "id": 60, "raramuri": "chiwáwara", "spanish": "bolsa", "image": "images/chiwáwara.jpg", "category": "Objetos" },
+    { "id": 61, "raramuri": "sipucha", "spanish": "falda", "image": "images/sipucha.jpg", "category": "Vestimenta" },
+    { "id": 62, "raramuri": "go'á", "spanish": "comer", "image": "images/go'á.jpg", "category": "Verbos" },
+    { "id": 63, "raramuri": "gochí", "spanish": "dormir", "image": "images/gochí.jpg", "category": "Verbos" },
+    { "id": 64, "raramuri": "irápata", "spanish": "abrir", "image": "images/irápata.jpg", "category": "Verbos" },
+    { "id": 65, "raramuri": "notsá", "spanish": "trabajar", "image": "images/notsá.jpg", "category": "Verbos" },
+    { "id": 66, "raramuri": "rokó", "spanish": "noche", "image": "images/rokó.jpg", "category": "Naturaleza" },
+    { "id": 67, "raramuri": "rémari", "spanish": "sangre", "image": "images/rémari.jpg", "category": "Partes del cuerpo" },
+    { "id": 68, "raramuri": "rimó", "spanish": "sapo", "image": "images/rimó.jpg", "category": "Animales" }
+
 
   ],
   "phrases": [
