@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Refined Setup Layout 2) */
+/* style.css (Final, Complete, Refined Setup Layout 3) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -308,11 +308,11 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
-    text-align: center; /* Centrado general del texto (para el párrafo) */
-    display: flex;
+    display: flex; /* Usar flex para apilar y centrar */
     flex-direction: column; /* Apilar verticalmente los elementos principales */
     align-items: center; /* Centrar horizontalmente los elementos apilados (p, .memorama-setup-group, .difficulty-buttons-container, #memorama-data-error) */
     gap: var(--space-lg); /* Aumentado el espacio entre los elementos principales */
+    text-align: center; /* Centrado de texto para el párrafo */
 }
 #memorama-setup p:first-of-type { /* Párrafo de instrucción */
     margin-bottom: 0; /* Eliminado margen inferior, el gap del flex se encarga */
@@ -421,7 +421,7 @@ button.category-filter-btn.active {
 .card-face {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    border-radius: inherit; padding: 0; box-sizing: border-box;
+    padding: 0; box-sizing: border-box; border-radius: inherit;
     text-align: center; overflow: hidden;
     backface-visibility: hidden;
     transition: opacity 0.1s linear 0.15s;
@@ -937,9 +937,9 @@ footer img {
          gap: var(--space-sm); /* Espacio entre botones */
      }
      .difficulty-btn {
-         flex-grow: 1; /* Permite que crezcan para ocupar el espacio */
-         flex-basis: calc(33.33% - var(--space-sm) * 2 / 3); /* Intenta 3 por fila con gap */
-         max-width: 100px; /* Ancho máximo razonable */
+         flex-grow: 1;
+         flex-basis: calc(33.33% - var(--space-sm) * 2 / 3);
+         max-width: 100px;
      }
 }
 @media (max-width: 420px) {
