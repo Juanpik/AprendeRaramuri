@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Refined Setup Layout) */
+/* style.css (Final, Complete, Refined Setup Layout 2) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -308,10 +308,10 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
-    text-align: center;
+    text-align: center; /* Centrado general del texto (para el párrafo) */
     display: flex;
-    flex-direction: column; /* Apilar verticalmente */
-    align-items: center; /* Centrar horizontalmente */
+    flex-direction: column; /* Apilar verticalmente los elementos principales */
+    align-items: center; /* Centrar horizontalmente los elementos apilados (p, .memorama-setup-group, .difficulty-buttons-container, #memorama-data-error) */
     gap: var(--space-lg); /* Aumentado el espacio entre los elementos principales */
 }
 #memorama-setup p:first-of-type { /* Párrafo de instrucción */
@@ -323,10 +323,11 @@ button.category-filter-btn.active {
 .memorama-setup-group {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra label y select dentro del grupo */
+    justify-content: center; /* Centra label y select DENTRO del grupo */
     gap: var(--space-sm);
-    width: 100%;
-    max-width: 400px;
+    width: auto; /* Permite que el grupo ocupe solo el ancho necesario por su contenido */
+    max-width: 400px; /* Limita ancho si es necesario */
+    /* margin-bottom: var(--space-lg); /* Eliminado, el gap del #memorama-setup lo maneja */
 }
 
 #memorama-setup label[for="memorama-category"] { /* Estilo específico para label de Memorama */
@@ -335,7 +336,7 @@ button.category-filter-btn.active {
     font-family: var(--font-body);
     white-space: nowrap;
     margin-right: 0;
-    flex-shrink: 0; /* Previene que la etiqueta se encoja si el select es largo */
+    flex-shrink: 0;
 }
 
 #memorama-setup select#memorama-category {
@@ -346,17 +347,18 @@ button.category-filter-btn.active {
     font-family: var(--font-body);
     font-size: 1em;
     color: var(--text-primary);
-    flex-grow: 1; /* Permite que el select ocupe el espacio restante en el grupo */
-    min-width: 150px; /* Ancho mínimo */
+    /* flex-grow: 1; /* Eliminado flex-grow para que el select no fuerce el ancho del grupo */
+    min-width: 180px; /* Mantenemos un ancho mínimo */
+    width: auto; /* Permite que se ajuste al contenido + min-width */
 }
 
 /* Contenedor para botones de dificultad */
 .difficulty-buttons-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centra los botones DENTRO del contenedor */
     gap: var(--space-sm);
-    width: 100%;
+    width: auto; /* Permite que el contenedor ocupe solo el ancho necesario por sus botones */
     /* margin-top: var(--space-lg); /* Eliminado, el gap del #memorama-setup lo maneja */
 }
 
@@ -494,10 +496,10 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
-    display: flex; /* Usar flex para alinear los elementos principales */
-    flex-direction: column; /* Apilar verticalmente */
+    display: flex; /* Usar flex para apilar y centrar */
+    flex-direction: column; /* Apilar verticalmente los elementos principales */
     align-items: center; /* Centrar horizontalmente los elementos apilados */
-    gap: var(--space-lg); /* Espacio entre los elementos principales (#quiz-setup p, .quiz-selectors-wrapper, #start-quiz, #quiz-data-error) */
+    gap: var(--space-lg); /* Espacio entre los elementos principales (p, .quiz-selectors-wrapper, #start-quiz, #quiz-data-error) */
     text-align: center; /* Centrado de texto para el párrafo */
 }
 #quiz-setup p:first-of-type { /* Párrafo de instrucción */
@@ -505,7 +507,7 @@ button.category-filter-btn.active {
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
 }
 
-/* NUEVO: Contenedor para los selectores */
+/* Contenedor para los selectores */
 .quiz-selectors-wrapper {
     display: flex;
     justify-content: center; /* Centra los grupos horizontalmente */
@@ -514,6 +516,7 @@ button.category-filter-btn.active {
     gap: var(--space-lg); /* Espacio ENTRE los grupos (Categoría y Número) */
     /* margin-bottom: var(--space-xl); /* Eliminado margen inferior, el gap del flex se encarga */
     width: 100%; /* Ocupa el ancho disponible para centrar */
+    max-width: 600px; /* Opcional: limitar ancho máximo del wrapper */
 }
 
 /* Estilos para los grupos individuales (label + select) */
@@ -876,7 +879,6 @@ footer img {
 
     /* Contenedor de botones de dificultad en Memorama móvil */
      .difficulty-buttons-container {
-         /* margin-top: var(--space-md); /* Eliminado, el gap del #memorama-setup lo maneja */
          gap: var(--space-md); /* Aumentar espacio entre botones si es necesario */
      }
      /* Botones de dificultad para ajustarse mejor en móvil */
