@@ -1,973 +1,205 @@
-/* style.css (Final, Complete, Updated with refined Quiz/Memorama Setup Layout) */
-
-/* ------------------------- */
-/* Reset & Base Styles       */
-/* ------------------------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    /* Color Palette - Blue/Orange/Yellow Theme */
-    --blue-primary: #4A7EBB;   /* Azul medio principal */
-    --blue-dark: #3A6AA8;     /* Azul más oscuro */
-    --blue-darker: #2E5483;   /* Azul aún más oscuro */
-    --blue-light-bg: #EAF1F8; /* Azul muy pálido para fondos */
-    --orange-accent: #E87A3F; /* Naranja terracota acento */
-    --orange-dark: #C9642D;   /* Naranja más oscuro */
-    --yellow-highlight: #F5D547;/* Amarillo dorado/girasol */
-    --yellow-light-bg: #FEF9E7; /* Amarillo muy pálido */
-
-    --background-color: #F8F9FA; /* Gris muy claro casi blanco */
-    --content-bg: #FFFFFF;      /* Blanco puro para contenido */
-    --border-light: #E9ECEF;    /* Gris claro para bordes */
-    --border-medium: #CED4DA;  /* Gris medio para bordes */
-    --text-primary: #212529;   /* Casi negro para texto principal */
-    --text-secondary: #6C757D;  /* Gris oscuro para texto secundario */
-    --white: #FFFFFF;
-
-    --success-green: #28A745;    /* Verde éxito (Bootstrap) */
-    --error-red: #DC3545;        /* Rojo error (Bootstrap) */
-    --success-bg: #D4EDDA;
-    --error-bg: #F8D7DA;
-
-    /* Typography - Darumadrop One for Title + Others */
-    --font-body: 'Nunito', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
-    --font-title: 'Darumadrop One', cursive; /* Usar Darumadrop One para el título */
-
-    /* Spacing */
-    --space-xs: 0.5rem;
-    --space-sm: 0.8rem;
-    --space-md: 1.1rem;
-    --space-lg: 1.6rem;
-    --space-xl: 2.2rem;
-    --space-xxl: 3.2rem;
-
-    /* Borders */
-    --border-radius-sm: 5px;
-    --border-radius-md: 10px; /* Usado para imágenes léxico */
-    --border-radius-lg: 20px; /* Usado para flashcards */
-    --border-radius-pill: 50px;
-
-    /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --shadow-interactive: 0 3px 7px rgba(0, 0, 0, 0.05);
-}
-
-body {
-    font-family: var(--font-body);
-    line-height: 1.7;
-    background: var(--background-color) url('images/fondobody.jpg') repeat;
-    color: var(--text-primary);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-main {
-    flex-grow: 1;
-    max-width: 1140px;
-    width: 95%;
-    margin: var(--space-xl) auto var(--space-xxl) auto;
-    padding: var(--space-lg) var(--space-xl);
-    background-color: var(--content-bg);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-light);
-}
-
-/* H1, H2, H3 con fuente Poppins (excepto el H1 del header) */
-h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; font-weight: 700; }
-
-/* Estilo específico para el H1 principal del header */
-header > h1 {
-  font-family: var(--font-title); /* Darumadrop One */
-  font-size: 3em;
-  font-weight: 400; /* Darumadrop One es 400 */
-  margin: 0 0 var(--space-xs) 0;
-  padding-bottom: 0;
-  letter-spacing: 1px;
-  color: var(--white);
-  line-height: 1.1;
-}
-
-/* Estilos generales para H2 */
-h2 {
-    color: var(--blue-dark);
-    font-size: 2em;
-    border-bottom: 2px solid var(--border-light);
-    padding-bottom: var(--space-md);
-    margin-bottom: var(--space-xl);
-    letter-spacing: -0.5px;
-    font-weight: 700;
-}
-
-h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
-p { margin-bottom: var(--space-lg); font-size: 1.05em; }
-ul { list-style: none; padding: 0; }
-.text-center { text-align: center; }
-.text-secondary { color: var(--text-secondary); }
-
-/* Header & Nav - Paleta Azul con Textura */
-header {
-    background: var(--blue-primary) url('images/fondoheader.jpg') repeat;
-    color: var(--white);
-    padding: var(--space-sm) var(--space-lg);
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-nav {
-    margin-top: 0;
-}
-nav button {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.85);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    padding: var(--space-xs) var(--space-md);
-    margin: var(--space-xs) 5px;
-    cursor: pointer;
-    border-radius: var(--border-radius-pill);
-    transition: all 0.25s ease-in-out;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-nav button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: var(--white);
-    color: var(--white);
-    transform: translateY(-1px);
-}
-nav button.active {
-    background-color: var(--white);
-    color: var(--blue-darker);
-    border-color: var(--white);
-    font-weight: 700;
-    box-shadow: var(--shadow-interactive);
-    transform: translateY(0);
-}
-
-/* Loading/Error */
-#loading-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; color: var(--text-secondary); }
-#error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;}
-
-/* Sections */
-.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
-.content-section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* --- About Section Specific Styles --- */
-#about { text-align: center; padding-top: var(--space-lg); }
-#about h2 {
-  color: var(--blue-dark); font-size: 2em; border-bottom: none; padding-bottom: var(--space-sm);
-  margin-bottom: var(--space-sm); letter-spacing: -0.5px; font-weight: 700;
-  display: inline-block; position: relative;
-}
-#about h2::after {
-  content: ''; position: absolute; bottom: -2px; left: 15%; width: 70%; height: 2px;
-  background-color: var(--orange-accent); margin-top: var(--space-sm);
-}
-#about p {
-  font-size: 1.1em; max-width: 750px; margin-left: auto; margin-right: auto;
-  color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-lg);
-}
-#about em { color: var(--orange-accent); font-style: normal; font-weight: 600; }
-#about p.credits-line { font-size: 0.95em; color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-weight: 600; }
-#about ul.credits-list { list-style: none; padding: 0; margin-top: 0; font-size: 0.9em; color: var(--text-secondary); }
-#about ul.credits-list li { margin-bottom: var(--space-xs); }
-/* --- End of About Section Specific Styles --- */
-
-/* ------------------------- */
-/* Léxico Section            */
-/* ------------------------- */
-
-/* Filtros de Categoría */
-.category-filter-container {
-    margin-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding-bottom: var(--space-lg);
-}
-
-button.category-filter-btn {
-    font-family: var(--font-body);
-    background-color: var(--white);
-    color: var(--blue-dark);
-    border: 1px solid var(--border-medium);
-    padding: var(--space-xs) var(--space-md);
-    margin: 0;
-    cursor: pointer;
-    border-radius: var(--border-radius-pill);
-    transition: all 0.2s ease-in-out;
-    font-size: 0.9em;
-    font-weight: 500;
-    box-shadow: var(--shadow-sm);
-}
-
-button.category-filter-btn:hover {
-    background-color: var(--blue-light-bg);
-    border-color: var(--blue-primary);
-    transform: translateY(-1px);
-}
-
-button.category-filter-btn.active {
-    background-color: var(--blue-primary);
-    color: var(--white);
-    border-color: var(--blue-primary);
-    font-weight: 700;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    transform: translateY(0);
-}
-
-/* Barra de búsqueda */
-.search-container {
-    margin-bottom: var(--space-xl);
-    text-align: center;
-}
-
-#lexicon-search {
-    font-family: var(--font-body);
-    padding: var(--space-sm) var(--space-lg);
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-pill);
-    width: 80%;
-    max-width: 600px;
-    font-size: 1.05em;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-    background-color: var(--white);
-}
-#lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
-
-/* Grid de Léxico */
-#lexicon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: var(--space-xl);
-}
-.lexicon-item {
-    background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
-    padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    display: flex; flex-direction: column;
-    align-items: center; position: relative; overflow: hidden;
-}
-.lexicon-item:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg);
-}
-.lexicon-item img {
-    width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
-    border-radius: var(--border-radius-md);
-    background-color: var(--blue-light-bg); border: 4px solid var(--white); box-shadow: var(--shadow-sm);
-}
-.lexicon-item .raramuri-word {
-    font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent); font-size: 1.25em;
-    margin-bottom: var(--space-xs); word-wrap: break-word;
-}
-.lexicon-item .spanish-word {
-    font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
-}
-
-/* ------------------------- */
-/* Frases Section            */
-/* ------------------------- */
-#phrases-list li {
-    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg);
-    border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
-    border-radius: var(--border-radius-sm); transition: box-shadow 0.2s ease; box-shadow: var(--shadow-sm);
-}
-#phrases-list li:hover { box-shadow: var(--shadow-md); }
-#phrases-list .raramuri-phrase {
-    font-family: var(--font-heading); font-weight: 600; display: block; margin-bottom: var(--space-sm);
-    font-size: 1.2em; color: var(--text-primary);
-}
-#phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
-
-/* ------------------------- */
-/* Memorama Section           */
-/* ------------------------- */
-#memorama-setup {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    display: flex;
-    flex-direction: column; /* Apilar verticalmente */
-    align-items: center; /* Centrar horizontalmente */
-    gap: var(--space-lg); /* Aumentado el espacio entre los elementos principales */
-}
-#memorama-setup p:first-of-type { /* Párrafo de instrucción */
-    margin-bottom: 0; /* Eliminado margen inferior, el gap del flex se encarga */
-    font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-}
-
-/* Grupo para Label y Select de Categoría en Memorama */
-.memorama-setup-group {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centra label y select dentro del grupo */
-    gap: var(--space-sm);
-    width: 100%;
-    max-width: 400px;
-}
-
-#memorama-setup label[for="memorama-category"] { /* Estilo específico para label de Memorama */
-    color: var(--text-secondary);
-    font-size: 0.95em;
-    font-family: var(--font-body);
-    white-space: nowrap;
-    margin-right: 0;
-    flex-shrink: 0; /* Previene que la etiqueta se encoja si el select es largo */
-}
-
-#memorama-setup select#memorama-category {
-    padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--white);
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--text-primary);
-    flex-grow: 1; /* Permite que el select ocupe el espacio restante en el grupo */
-    min-width: 150px; /* Ancho mínimo */
-}
-
-/* Contenedor para botones de dificultad */
-.difficulty-buttons-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-sm);
-    width: 100%;
-    /* margin-top: var(--space-lg); /* Eliminado, el gap del #memorama-setup lo maneja */
-}
-
-/* Botones de dificultad y Reiniciar */
-.difficulty-btn, #reset-memorama {
-    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
-    border-radius: var(--border-radius-pill); cursor: pointer; margin: 0;
-    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9em; color: var(--white);
-}
-.difficulty-btn:hover, #reset-memorama:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.difficulty-btn:active, #reset-memorama:active { transform: translateY(0); filter: brightness(0.95); }
-.difficulty-btn { background-color: var(--blue-primary); }
-.difficulty-btn:hover { background-color: var(--blue-dark); }
-.difficulty-btn.selected { background-color: var(--blue-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
-
-/* Botón Reiniciar */
-#reset-memorama { background-color: var(--orange-accent); }
-#reset-memorama:hover { background-color: var(--orange-dark); }
-
-/* Controles dentro del área de juego */
-#memorama-controls {
-    margin: var(--space-lg) 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    padding: var(--space-lg) 0;
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
-}
-#memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);}
-
-/* Grid del Memorama */
-#memorama-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto; }
-.memorama-card {
-    height: 160px; aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer; position: relative;
-    transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-    box-shadow: var(--shadow-md); border: 1px solid var(--border-light); background-color: transparent; overflow: hidden;
-}
- .memorama-card:hover:not(.matched) { box-shadow: var(--shadow-lg); transform: scale(1.03); }
-.memorama-card.flipped { transform: rotateY(180deg); }
-.memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); }
-.memorama-card.matched {
-     opacity: 0.8;
-     border: 2px solid var(--success-green);
-     cursor: default;
-     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
-     transform: scale(0.95); /* Base scale */
-     transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
-}
-.memorama-card.flipped.matched {
-     transform: rotateY(180deg) scale(0.95); /* Combine rotation and base scale */
-}
-.memorama-card.matched:hover {
-     box-shadow: 0 0 12px rgba(40, 167, 69, 0.25); /* Efecto hover sutil */
-}
-
-.card-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    border-radius: inherit; padding: 0; box-sizing: border-box;
-    text-align: center; overflow: hidden;
-    backface-visibility: hidden;
-    transition: opacity 0.1s linear 0.15s;
-    will-change: opacity, transform;
-}
-.memorama-card .card-front {
-    background-color: var(--white); color: var(--text-primary);
-    transform: rotateY(180deg); border: 1px solid var(--border-light);
-    z-index: 1; opacity: 0; visibility: hidden;
-}
-.memorama-card.flipped .card-front {
-    opacity: 1; visibility: visible; z-index: 2; transition-delay: 0.15s;
-}
-.memorama-card.matched .card-front {
-     opacity: 1 !important; visibility: visible !important; z-index: 2;
-}
-.memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
-.memorama-card .card-front p { /* Texto en Memorama (raramuri) */
-    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0;
-    padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
-    text-align: center; box-sizing: border-box;
-}
-.memorama-card .card-back {
-    background-color: var(--blue-dark); color: white;
-    transform: rotateY(0deg); z-index: 2; opacity: 1; visibility: visible;
-    display: flex; justify-content: center; align-items: center;
-}
-.memorama-card.flipped .card-back {
-    opacity: 0; visibility: hidden; z-index: 1; transition-delay: 0s;
-}
- .memorama-card.matched .card-back {
-     opacity: 0 !important; visibility: hidden !important; z-index: 1;
-}
-.memorama-card .card-back::before { /* '?' del Memorama */
-   content: '?';
-   font-family: var(--font-heading);
-   font-size: 4em;
-   font-weight: 700;
-   color: var(--yellow-highlight);
-   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-   line-height: 1;
-}
-
-/* Mensajes de Victoria y Error de Datos en Memorama */
-#memorama-win-message {
-    font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
-    border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm);
-    background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724;
-}
-#memorama-data-error { /* Estilo común para error de datos en setup */
-    margin-top: 0; /* Eliminado margen superior, el gap del flex se encarga */
-    width: 100%; /* Ocupa ancho para centrar texto */
-    max-width: 600px; /* Limita ancho */
-    color: var(--error-red);
-    background-color: var(--error-bg);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-sm);
-    font-weight: 500;
-    font-family: var(--font-body);
-    font-size: 0.95em;
-    border: 1px solid var(--error-red);
-    text-align: center; /* Asegura centrado */
-    margin-left: auto; /* Asegura centrado */
-    margin-right: auto; /* Asegura centrado */
-}
-
-/* ------------------------- */
-/* Quiz Section                */
-/* ------------------------- */
-#quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
-#quiz-setup {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--border-light);
-    display: flex; /* Usar flex para alinear los elementos principales */
-    flex-direction: column; /* Apilar verticalmente */
-    align-items: center; /* Centrar horizontalmente los elementos apilados */
-    gap: var(--space-lg); /* Espacio entre los elementos principales (#quiz-setup p, .quiz-selectors-wrapper, #start-quiz, #quiz-data-error) */
-    text-align: center; /* Centrado de texto para el párrafo */
-}
-#quiz-setup p:first-of-type { /* Párrafo de instrucción */
-    margin-bottom: 0; /* Eliminado margen inferior, el gap del flex se encarga */
-    font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-}
-
-/* NUEVO: Contenedor para los selectores */
-.quiz-selectors-wrapper {
-    display: flex;
-    justify-content: center; /* Centra los grupos horizontalmente */
-    align-items: center; /* Alinea verticalmente */
-    flex-wrap: wrap; /* Permite que pasen a la siguiente línea si no caben */
-    gap: var(--space-lg); /* Espacio ENTRE los grupos (Categoría y Número) */
-    /* margin-bottom: var(--space-xl); /* Eliminado margen inferior, el gap del flex se encarga */
-    width: 100%; /* Ocupa el ancho disponible para centrar */
-}
-
-/* Estilos para los grupos individuales (label + select) */
-.quiz-setup-group {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm); /* Espacio entre label y select */
-    flex-basis: auto; /* Tamaño basado en contenido */
-    flex-shrink: 0; /* Evita que se encojan demasiado */
-    justify-content: center; /* Centra label y select dentro del grupo */
-}
-
-#quiz-setup label {
-    margin-right: 0; /* Gap se encarga */
-    color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-#quiz-setup select {
-    padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
-    flex-grow: 1; /* Permite que el select ocupe espacio */
-    min-width: 150px;
-}
-
-/* Botón Empezar Quiz */
-#quiz-setup button#start-quiz {
-    font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
-    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
-    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    display: block;
-    width: auto; /* Ancho automático */
-    max-width: 300px; /* Limita el ancho */
-    margin: 0 auto; /* Centrado horizontal */
-    /* margin-top: var(--space-sm); /* Eliminado margen superior, el gap del flex se encarga */
-}
-#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
-/* Error de datos en Quiz */
-#quiz-data-error {
-    margin-top: 0; /* Eliminado margen superior, el gap del flex se encarga */
-    width: 100%;
-    max-width: 600px;
-    color: var(--error-red);
-    background-color: var(--error-bg);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-sm);
-    font-weight: 500;
-    font-family: var(--font-body);
-    font-size: 0.95em;
-    border: 1px solid var(--error-red);
-    text-align: center; /* Asegura centrado */
-    margin-left: auto; /* Asegura centrado */
-    margin-right: auto; /* Asegura centrado */
-}
-
-/* Área de preguntas del Quiz */
-#quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
-#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
-#quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
-#quiz-options button {
-    display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white);
-    color: var(--text-primary); padding: var(--space-md) var(--space-lg); border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out;
-    font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm);
-}
-#quiz-options button:hover:not(:disabled) { background-color: var(--blue-light-bg); border-color: var(--blue-primary); transform: translateX(4px); box-shadow: var(--shadow-interactive); }
-#quiz-options button:disabled { cursor: default; opacity: 0.8; }
-#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
-#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
-#quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
-#quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
-#quiz-text-answer {
-    flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
-    font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.3s ease; background-color: var(--white);
-}
-#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
-#quiz-text-input-area button#submit-text-answer {
-    font-family: var(--font-heading); padding: calc(var(--space-md) - 1px) var(--space-lg); background-color: var(--blue-primary);
-    color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1em; white-space: nowrap;
-    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
-    flex-shrink: 0; /* Evita que el botón se encoja */
-}
-#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
-#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
-#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; font-family: var(--font-heading);}
-#quiz-feedback.correct { color: var(--success-green); }
-#quiz-feedback.incorrect { color: var(--error-red); }
-#quiz-feedback strong { font-weight: 700; }
-button#next-question {
-    font-family: var(--font-heading); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto;
-    padding: var(--space-md) var(--space-xl); background-color: var(--blue-dark); color: var(--white); border: none;
-    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
-    box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; text-transform: uppercase;
-}
-button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-#quiz-results { text-align: center; padding: var(--space-xl) 0; }
-#quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; }
-#quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);}
-#quiz-results span { color: var(--text-primary); font-weight: 700; }
-#quiz-results button {
-    font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg);
-    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500;
-    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; text-transform: uppercase;
-}
-#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
-button#restart-quiz:hover { background-color: var(--orange-dark); }
-button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
-button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
-
-/* ------------------------- */
-/* Flashcards Section        */
-/* ------------------------- */
-#flashcards-container {
-    max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px;
-}
-/* Contenedor de controles de setup de Flashcards */
-#flashcards-setup-controls {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    display: flex;
-    flex-direction: column; /* Apilar verticalmente */
-    align-items: center; /* Centrar */
-    gap: var(--space-md);
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid var(--border-light);
-}
-/* Grupo para Label y Select en Flashcards */
-.flashcard-setup-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    width: 100%;
-    max-width: 400px;
-}
-#flashcards-setup-controls label {
-    color: var(--text-secondary);
-    font-size: 0.95em;
-    font-family: var(--font-body);
-    margin-right: 0;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-#flashcards-setup-controls select {
-    padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--white);
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--text-primary);
-    margin-right: 0;
-    flex-grow: 1;
-    min-width: 150px;
-}
-#flashcards-data-error {
-    color: var(--error-red);
-    text-align: center;
-    display: none;
-    margin-top: 0; /* Gap se encarga */
-    width: 100%;
-    max-width: 600px;
-    background-color: var(--error-bg);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-sm);
-    font-weight: 500;
-    font-family: var(--font-body);
-    font-size: 0.95em;
-    border: 1px solid var(--error-red);
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Área de visualización de Flashcard */
-#flashcard-display-area { margin-bottom: var(--space-lg); }
-#flashcard-counter {
-    font-family: var(--font-body); color: var(--text-secondary); font-size: 0.9em;
-    text-align: center; margin-bottom: var(--space-md); min-height: 1.2em;
-}
-.flashcard {
-    width: 100%; height: 300px; position: relative; transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-    border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md); cursor: pointer;
-}
-.flashcard.flipped { transform: rotateY(180deg); }
-.flashcard-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: var(--space-lg); box-sizing: border-box; border-radius: inherit;
-    border: 1px solid var(--border-light); text-align: center; overflow-wrap: break-word;
-    overflow: hidden;
-}
-.flashcard-face.card-front {
-    background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
-    font-size: 2em; color: var(--text-primary); font-family: var(--font-body);
-}
-.flashcard-face.card-back {
-    background-color: var(--blue-light-bg); transform: rotateY(180deg); z-index: 1;
-    font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
-    font-weight: 600;
-}
-.flashcard-face img {
-    max-width: 90%;
-    max-height: 80%;
-    object-fit: contain;
-    margin-bottom: var(--space-sm);
-    display: block;
-    border-radius: var(--border-radius-md);
-    border: 4px solid var(--white);
-    background-color: var(--blue-light-bg);
-    box-shadow: var(--shadow-sm);
-}
-.flashcard-face p { /* Texto debajo de imagen (si se añade) */
-    font-size: 0.8em;
-    margin-bottom: 0;
-    color: var(--text-secondary);
-    margin-top: var(--space-xs);
-}
-
-/* Controles de Flashcards */
-#flashcard-controls {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    align-items: center; gap: var(--space-md);
-    margin-top: var(--space-lg);
-}
-#flashcard-controls button {
-    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
-    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500;
-    transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto;
-    text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
-    margin: 0; flex-grow: 0; flex-shrink: 1;
-}
-#flashcard-controls button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-#flashcard-controls button:active { transform: translateY(0); filter: brightness(0.95); }
-#prev-flashcard-btn, #next-flashcard-btn { background-color: var(--blue-primary); }
-#prev-flashcard-btn:hover, #next-flashcard-btn:hover { background-color: var(--blue-dark); }
-#flip-flashcard-btn {
-    background-color: var(--orange-accent); font-weight: 700;
-    padding: var(--space-md) var(--space-xl); font-size: 1em; order: 0;
-}
-#flip-flashcard-btn:hover { background-color: var(--orange-dark); }
-#shuffle-flashcards-btn {
-    background-color: var(--text-secondary); font-size: 0.85em;
-    padding: var(--space-xs) var(--space-sm);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-#shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
-#shuffle-flashcards-btn svg { vertical-align: middle; }
-
-/* Mensajes de carga/error en Flashcards */
-#flashcards-loading, #flashcards-error {
-    font-family: var(--font-body);
-    padding: var(--space-lg);
-    margin-top: var(--space-lg);
-    border-radius: var(--border-radius-sm);
-}
-#flashcards-loading { color: var(--text-secondary); }
-#flashcards-error { color: var(--error-red); background-color: var(--error-bg); border: 1px solid var(--error-red); }
-
-
-/* ------------------------- */
-/* Footer                    */
-/* ------------------------- */
-footer {
-    text-align: center;
-    margin-top: var(--space-xxl);
-    padding: var(--space-lg);
-    background-color: var(--blue-light-bg);
-    color: var(--text-secondary);
-    border-top: 1px solid var(--border-light);
-}
-
-footer img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 45px; /* Ajusta esto según tu logo */
-    max-width: 100%;
-    height: auto;
-}
-
-/* ------------------------- */
-/* Responsive Adjustments    */
-/* ------------------------- */
-@media (max-width: 992px) {
-    #memorama-grid { max-width: 95%; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-    .memorama-card { height: 145px; }
-    .memorama-card .card-front p { font-size: 1em; }
-    #flashcards-container { max-width: 90%; }
-    .flashcard { height: 250px; }
-    .flashcard-face img { max-height: 78%; }
-}
-@media (max-width: 768px) {
-    header > h1 { font-size: 2.5em; }
-    nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
-    main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; }
-    h2 { font-size: 1.7em; }
-    #about h2 { font-size: 1.7em; }
-    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
-    .lexicon-item img { width: 110px; height: 110px; }
-    .category-filter-container { gap: var(--space-xs); }
-    button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
-    #lexicon-search { width: 95%; }
-
-    /* Setup areas en móvil (aplican a Memorama, Quiz, Flashcards) */
-    #memorama-setup, #quiz-setup, #flashcards-setup-controls {
-        gap: var(--space-lg); /* Aumentar espacio vertical entre elementos principales apilados */
-    }
-
-    /* Contenedores de selectores en setup (Quiz) */
-    .quiz-selectors-wrapper {
-        flex-direction: column; /* Apilar los grupos de selectores verticalmente */
-        gap: var(--space-md); /* Espacio entre los grupos de selectores (ahora apilados) */
-        width: 90%; /* Ajusta el ancho si es necesario */
-        margin-left: auto; /* Centrar wrapper */
-        margin-right: auto;
-    }
-     /* Grupos label+select */
-     .quiz-setup-group, .memorama-setup-group, .flashcard-setup-group {
-         width: 100%; /* Hacer que los grupos ocupen todo el ancho en móvil */
-         justify-content: center; /* Centrar contenido dentro del grupo */
-     }
-
-    /* Selects en móvil */
-    #memorama-setup select#memorama-category,
-    #quiz-setup select,
-    #flashcard-setup-controls select {
-        font-size: 0.95em;
-        min-width: unset; /* Eliminar ancho mínimo fijo */
-        flex-grow: 1; /* Permitir que crezcan para ocupar el espacio en el grupo */
-        max-width: 250px; /* Limita el ancho máximo del select */
-    }
-
-    #quiz-options { max-width: 95%; }
-    #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
-    #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
-    #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; }
-
-    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
-    .memorama-card { height: 130px; }
-
-    #flashcards-container { max-width: 95%; }
-    .flashcard { height: 220px; }
-    .flashcard-face.card-front { font-size: 1.5em; }
-    .flashcard-face.card-back { font-size: 1.7em; }
-     .flashcard-face img { max-height: 75%; }
-    #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
-
-    /* Botón Empezar Quiz en móvil (asegurar centrado y tamaño) */
-    #quiz-setup button#start-quiz {
-        width: 90%;
-        max-width: 300px;
-        margin: 0 auto; /* Centrar */
-    }
-
-    /* Contenedor de botones de dificultad en Memorama móvil */
-     .difficulty-buttons-container {
-         /* margin-top: var(--space-md); /* Eliminado, el gap del #memorama-setup lo maneja */
-         gap: var(--space-md); /* Aumentar espacio entre botones si es necesario */
-     }
-     /* Botones de dificultad para ajustarse mejor en móvil */
-     .difficulty-btn {
-         flex-grow: 1; /* Permite que crezcan para ocupar el espacio */
-         flex-basis: 100px; /* Sugerir un tamaño base */
-     }
-}
-@media (max-width: 576px) {
-    header > h1 { font-size: 2.2em; }
-    header { padding: var(--space-xs) var(--space-sm); }
-    nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
-    main { padding: var(--space-md); }
-    h2 { font-size: 1.5em; }
-    #about h2 { font-size: 1.5em; }
-    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-    .lexicon-item img { width: 90px; height: 90px; }
-    button.category-filter-btn { font-size: 0.8em; }
-    #lexicon-search { font-size: 1em; }
-
-    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
-    .memorama-card { height: 110px; border-radius: var(--border-radius-sm); }
-    .memorama-card .card-front p { font-size: 0.9em; }
-    .memorama-card .card-back::before { font-size: 3.2em; }
-
-    #quiz-options { max-width: 95%; }
-    #quiz-text-input-area { max-width: 95%; }
-    #quiz-results button { width: 90%; margin: var(--space-sm) auto; display: block;}
-
-    .flashcard { height: 200px; }
-    .flashcard-face.card-front { font-size: 1.3em; }
-    .flashcard-face.card-back { font-size: 1.5em; }
-     .flashcard-face img { max-height: 70%; }
-    #flashcard-controls { gap: var(--space-sm); }
-    #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
-    #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
-    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
-    #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
-
-    /* Setup groups stacked vertically */
-    .quiz-setup-group, .memorama-setup-group, .flashcard-setup-group {
-        flex-direction: column; /* Apilar label y select verticalmente */
-        align-items: center; /* Centrar label y select */
-        gap: var(--space-xs); /* Menor espacio entre label y select apilados */
-    }
-     #quiz-setup label, #memorama-setup label, #flashcards-setup-controls label {
-        text-align: center; /* Centrar etiqueta */
-     }
-     #quiz-setup select, #memorama-setup select, #flashcard-setup-controls select {
-         width: 100%; /* Ocupar todo el ancho */
-         max-width: 250px; /* Mantener un ancho máximo */
-     }
-
-     /* Botones de dificultad Memorama - ajuste para 3 columnas */
-     .difficulty-buttons-container {
-         gap: var(--space-sm); /* Espacio entre botones */
-         /* flex-wrap: nowrap; /* Asegura 3 columnas si es posible */
-     }
-     .difficulty-btn {
-         flex-basis: calc(33.33% - var(--space-sm) * 2 / 3); /* Intenta 3 por fila con gap */
-         max-width: 100px; /* Ancho máximo razonable */
-     }
-}
-@media (max-width: 420px) {
-     header > h1 { font-size: 2em; }
-     button.category-filter-btn { font-size: 0.75em; padding: 4px 8px; }
-     #lexicon-search { font-size: 0.95em; }
-
-     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
-     .memorama-card { height: 95px; border-radius: var(--border-radius-sm); }
-     .memorama-card .card-front p { font-size: 0.8em; }
-     .memorama-card .card-back::before { font-size: 2.5em; }
-
-     .flashcard { height: 180px; }
-     .flashcard-face.card-front { font-size: 1.2em; }
-     .flashcard-face.card-back { font-size: 1.4em; }
-      .flashcard-face img { max-height: 65%; }
-     #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
-     #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
-
-     /* Selects y grupos en pantallas muy pequeñas */
-     .quiz-setup-group, .memorama-setup-group, .flashcard-setup-group {
-         max-width: 100%; /* Permitir ancho completo */
-     }
-     #quiz-setup select, #memorama-setup select, #flashcard-setup-controls select {
-         max-width: 220px; /* Reducir ancho máximo si es necesario */
-     }
-
-      /* Botones de dificultad Memorama */
-      .difficulty-btn {
-         flex-basis: calc(33.33% - var(--space-sm) * 2 / 3); /* Mantiene 3 por fila */
-         max-width: 90px; /* Ancho máximo ajustado */
-      }
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ramapp v.234</title>
+    <!-- Google Fonts (Incluye Nunito, Poppins Y AHORA Darumadrop One) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ENLACE COMBINADO PARA Nunito (400, 600), Poppins (500, 700) y Darumadrop One (400) -->
+    <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Nunito:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- /Google Fonts -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Rarámuri Be'neka!</h1>
+        <nav>
+            <button data-section="about">Sobre el Proyecto</button>
+            <button data-section="lexicon">Léxico</button>
+            <button data-section="phrases">Frases</button>
+            <button data-section="memorama">Memorama</button>
+            <button data-section="quiz">Quiz</button>
+            <button data-section="flashcards">Flashcards</button>
+        </nav>
+    </header>
+
+    <main>
+        <div id="loading-message" style="text-align: center; padding: 2rem; color: #666;">Cargando datos...</div>
+        <div id="error-message" style="text-align: center; padding: 2rem; color: red; display: none; border: 1px solid red; background-color: #ffeaea;"></div>
+
+        <div id="main-content" style="display: none;">
+
+            <section id="about" class="content-section">
+                <h2>Sobre el Proyecto</h2>
+                <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del <em>idioma Rarámuri</em>.</p>
+                <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
+                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p>
+                     <p><em>Este recurso busca ofrecer un punto de partida útil, pero no reemplaza el conocimiento local ni las particularidades de cada variante.</em><p>
+                <p class="credits-line">Creditos:</p>
+                <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
+            </section>
+
+            <section id="lexicon" class="content-section">
+                <h2>Léxico</h2>
+                <div id="category-filters" class="category-filter-container">
+                    <!-- Los botones se generarán aquí por JS -->
+                </div>
+                <div class="search-container">
+                    <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
+                </div>
+                <div id="lexicon-grid"></div>
+            </section>
+
+            <section id="phrases" class="content-section">
+                <h2>Frases Comunes</h2>
+                <ul id="phrases-list"></ul>
+            </section>
+
+            <!-- SECCIÓN MEMORAMA (CON SELECTOR DE CATEGORÍA) -->
+            <section id="memorama" class="content-section">
+                <h2>Memorama</h2>
+                <div id="memorama-setup">
+                    <p>Elige la categoría y la dificultad (número de pares):</p>
+
+                    <!-- Selector de Categoría para Memorama -->
+                    <div class="memorama-setup-group">
+                        <label for="memorama-category">Categoría:</label>
+                        <select id="memorama-category">
+                            <!-- Opciones generadas por JS -->
+                        </select>
+                    </div>
+                    <!-- Fin del Selector de Categoría -->
+
+                    <!-- Contenedor para botones de dificultad -->
+                    <div class="difficulty-buttons-container">
+                        <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
+                        <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
+                        <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
+                        <!-- Puedes añadir más botones si quieres -->
+                    </div>
+
+                    <!-- Mensaje de error específico para datos/categoría -->
+                    <p id="memorama-data-error" style="color: var(--error-red); text-align: center; display: none; margin-top: var(--space-md);"></p>
+
+                </div>
+                <div id="memorama-game-area" style="display: none;">
+                    <div id="memorama-controls">
+                        <button id="reset-memorama">Reiniciar Juego</button>
+                        <p>Intentos: <span id="memorama-attempts">0</span></p>
+                    </div>
+                    <div id="memorama-grid"></div>
+                    <div id="memorama-win-message" style="display: none;"></div>
+                </div>
+            </section>
+            <!-- FIN SECCIÓN MEMORAMA -->
+
+
+            <!-- SECCIÓN QUIZ (CON SELECTOR DE CATEGORÍA Y LAYOUT MEJORADO) -->
+            <section id="quiz" class="content-section">
+                <h2>Quiz</h2>
+                <div id="quiz-container">
+                    <div id="quiz-setup">
+                        <p>¡Ponte a prueba!</p>
+
+                        <!-- Wrapper para los Selectores -->
+                        <div class="quiz-selectors-wrapper">
+                            <!-- Grupo Categoría -->
+                            <div class="quiz-setup-group">
+                                <label for="quiz-category">Categoría:</label>
+                                <select id="quiz-category">
+                                    <!-- Opciones generadas por JS -->
+                                </select>
+                            </div>
+                            <!-- Grupo Número de Preguntas -->
+                            <div class="quiz-setup-group">
+                                <label for="quiz-length">Número de preguntas:</label>
+                                <select id="quiz-length">
+                                    <option value="5">5 Preguntas</option>
+                                    <option value="10">10 Preguntas</option>
+                                    <option value="all">Todas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- FIN Wrapper para Selectores -->
+
+                        <!-- Botón Empezar Quiz -->
+                        <button id="start-quiz">Empezar Quiz</button>
+
+                        <!-- Mensaje de error (Ahora al final) -->
+                         <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
+                    </div>
+
+                    <div id="quiz-question-area" style="display: none;">
+                        <div id="quiz-image-container"></div>
+                        <h3 id="quiz-question"></h3>
+                        <div id="quiz-options"></div>
+                        <div id="quiz-text-input-area" style="display: none;">
+                            <input type="text" id="quiz-text-answer" placeholder="Escribe la palabra en Rarámuri..." autocomplete="off" lang="rar">
+                            <button id="submit-text-answer">Comprobar</button>
+                        </div>
+                        <p id="quiz-feedback"></p>
+                        <button id="next-question" style="display: none;">Siguiente</button>
+                    </div>
+
+                    <div id="quiz-results" style="display: none;">
+                        <h3>Resultados</h3>
+                        <p>Obtuviste <span id="quiz-score">0</span> de <span id="quiz-total">0</span> respuestas correctas.</p>
+                        <button id="restart-quiz">Volver a Empezar</button>
+                        <button id="retry-missed-quiz" style="display: none;">Reintentar Falladas</button>
+                    </div>
+                </div>
+            </section>
+            <!-- FIN SECCIÓN QUIZ -->
+
+
+            <!-- SECCIÓN FLASHCARDS -->
+            <section id="flashcards" class="content-section">
+                <h2>Flashcards</h2>
+                <div id="flashcards-container">
+                     <div id="flashcards-setup-controls">
+                         <!-- Grupo para Label y Select -->
+                         <div class="flashcard-setup-group">
+                             <label for="flashcard-category">Categoría:</label>
+                             <select id="flashcard-category">
+                                 <!-- Opciones generadas por JS -->
+                             </select>
+                         </div>
+                         <p id="flashcards-data-error" style="color: var(--error-red); text-align: center; display: none; margin-top: var(--space-sm);"></p>
+                     </div>
+
+                    <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
+                    <p id="flashcards-error" style="display: none; text-align: center; color: var(--error-red);"></p>
+
+                    <div id="flashcard-area" style="display: none;">
+                        <div id="flashcard-counter" class="text-center text-secondary" style="margin-bottom: var(--space-md);"></div>
+                        <div id="flashcard-display-area">
+                            <div class="flashcard" id="flashcard">
+                                <div class="flashcard-face card-front" id="flashcard-front"></div>
+                                <div class="flashcard-face card-back" id="flashcard-back"></div>
+                            </div>
+                        </div>
+                        <div id="flashcard-controls">
+                            <button id="prev-flashcard-btn">< Anterior</button>
+                            <button id="flip-flashcard-btn">Voltear</button>
+                            <button id="next-flashcard-btn">Siguiente ></button>
+                            <button id="shuffle-flashcards-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;"><path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3h1.5a.5.5 0 0 1 0 1H13c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12h1.5a.5.5 0 0 1 0 1H13c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1 0-1z"/><path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9V6.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/></svg>
+                                Barajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <img src="images/logo.png" alt="Logotipo EAHNM">
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
