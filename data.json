@@ -83,7 +83,7 @@
     { "id": 80, "raramuri": "rojuí", "spanish": "bellota", "image": "images/rojuí.jpg", "category": "Comida y bebida" },	
     { "id": 81, "raramuri": "túrio", "spanish": "trigo", "image": "images/túrio.jpg", "category": "Comida y bebida" },
     { "id": 82, "raramuri": "páno", "spanish": "pan", "image": "images/páno.jpg", "category": "Comida y bebida" },	
-    { "id": 83, "raramuri": "basána", "spanish": "manzana", "image": "images/basána.jpg", "category": "Comida y bebida" }
+    { "id": 83, "raramuri": "basána", "spanish": "manzana", "image": "images/basána.jpg", "category": "Comida y bebida" },
     { "id": 84, "raramuri": "kusabí", "spanish": "cereza", "image": "images/kusabí.jpg", "category": "Comida y bebida" },	
     { "id": 85, "raramuri": "watónari", "spanish": "atole", "image": "images/watónari.jpg", "category": "Comida y bebida" }
   ],
