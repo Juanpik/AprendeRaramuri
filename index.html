@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ENLACE COMBINADO PARA Nunito (400, 600), Poppins (500, 700) y Darumadrop One (400) -->
     <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Nunito:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- NOTA: Se eliminó el enlace específico a Chelsea Market y Patrick Hand SC -->
+
     <!-- /Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -35,7 +37,7 @@
                 <h2>Sobre el Proyecto</h2>
                 <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del <em>idioma Rarámuri</em>.</p>
                 <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
-                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p>
+                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p> 
                      <p><em>Este recurso busca ofrecer un punto de partida útil, pero no reemplaza el conocimiento local ni las particularidades de cada variante.</em><p>
                 <p class="credits-line">Creditos:</p>
                 <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
@@ -57,32 +59,13 @@
                 <ul id="phrases-list"></ul>
             </section>
 
-            <!-- SECCIÓN MEMORAMA (CON SELECTOR DE CATEGORÍA) -->
             <section id="memorama" class="content-section">
                 <h2>Memorama</h2>
                 <div id="memorama-setup">
-                    <p>Elige la categoría y la dificultad (número de pares):</p>
-
-                    <!-- Selector de Categoría para Memorama -->
-                    <div class="memorama-setup-group">
-                        <label for="memorama-category">Categoría:</label>
-                        <select id="memorama-category">
-                            <!-- Opciones generadas por JS -->
-                        </select>
-                    </div>
-                    <!-- Fin del Selector de Categoría -->
-
-                    <!-- Contenedor para botones de dificultad -->
-                    <div class="difficulty-buttons-container">
-                        <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
-                        <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
-                        <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
-                        <!-- Puedes añadir más botones si quieres -->
-                    </div>
-
-                    <!-- Mensaje de error específico para datos/categoría -->
-                    <p id="memorama-data-error" style="color: var(--error-red); text-align: center; display: none; margin-top: var(--space-md);"></p>
-
+                    <p>Elige la dificultad (número de pares):</p>
+                    <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
+                    <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
+                    <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
                 </div>
                 <div id="memorama-game-area" style="display: none;">
                     <div id="memorama-controls">
@@ -92,42 +75,32 @@
                     <div id="memorama-grid"></div>
                     <div id="memorama-win-message" style="display: none;"></div>
                 </div>
+                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad.</p>
             </section>
-            <!-- FIN SECCIÓN MEMORAMA -->
 
-
-            <!-- SECCIÓN QUIZ (CON SELECTOR DE CATEGORÍA Y LAYOUT MEJORADO) -->
             <section id="quiz" class="content-section">
                 <h2>Quiz</h2>
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
-
-                        <!-- Wrapper para los Selectores -->
-                        <div class="quiz-selectors-wrapper">
-                            <!-- Grupo Categoría -->
-                            <div class="quiz-setup-group">
-                                <label for="quiz-category">Categoría:</label>
-                                <select id="quiz-category">
-                                    <!-- Opciones generadas por JS -->
-                                </select>
-                            </div>
-                            <!-- Grupo Número de Preguntas -->
-                            <div class="quiz-setup-group">
-                                <label for="quiz-length">Número de preguntas:</label>
-                                <select id="quiz-length">
-                                    <option value="5">5 Preguntas</option>
-                                    <option value="10">10 Preguntas</option>
-                                    <option value="all">Todas</option>
-                                </select>
-                            </div>
+                        <!-- NUEVO DIV PARA AGRUPAR CATEGORÍA -->
+                        <div class="quiz-setup-group">
+                            <label for="quiz-category">Categoría:</label>
+                            <select id="quiz-category">
+                                <!-- Opciones generadas por JS -->
+                            </select>
                         </div>
-                        <!-- FIN Wrapper para Selectores -->
-
-                        <!-- Botón Empezar Quiz -->
+                        <!-- NUEVO DIV PARA AGRUPAR NÚMERO DE PREGUNTAS -->
+                        <div class="quiz-setup-group">
+                            <label for="quiz-length">Número de preguntas:</label>
+                            <select id="quiz-length">
+                                <option value="5">5 Preguntas</option>
+                                <option value="10">10 Preguntas</option>
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        <!-- El botón irá abajo por defecto -->
                         <button id="start-quiz">Empezar Quiz</button>
-
-                        <!-- Mensaje de error (Ahora al final) -->
                          <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
                     </div>
 
@@ -151,22 +124,17 @@
                     </div>
                 </div>
             </section>
-            <!-- FIN SECCIÓN QUIZ -->
-
 
             <!-- SECCIÓN FLASHCARDS -->
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
-                     <div id="flashcards-setup-controls">
-                         <!-- Grupo para Label y Select -->
-                         <div class="flashcard-setup-group">
-                             <label for="flashcard-category">Categoría:</label>
-                             <select id="flashcard-category">
-                                 <!-- Opciones generadas por JS -->
-                             </select>
-                         </div>
-                         <p id="flashcards-data-error" style="color: var(--error-red); text-align: center; display: none; margin-top: var(--space-sm);"></p>
+                     <div id="flashcards-setup-controls" style="text-align: center; margin-bottom: var(--space-lg);">
+                        <label for="flashcard-category">Categoría:</label>
+                        <select id="flashcard-category">
+                            <!-- Opciones generadas por JS -->
+                        </select>
+                         <p id="flashcards-data-error" style="color: red; text-align: center; display: none; margin-top:var(--space-sm);">No hay datos para esta categoría.</p>
                      </div>
 
                     <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>

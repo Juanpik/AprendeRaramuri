@@ -67,9 +67,25 @@
     { "id": 65, "raramuri": "notsá", "spanish": "trabajar", "image": "images/notsá.jpg", "category": "Verbos" },
     { "id": 66, "raramuri": "rokó", "spanish": "noche", "image": "images/rokó.jpg", "category": "Naturaleza" },
     { "id": 67, "raramuri": "rémari", "spanish": "sangre", "image": "images/rémari.jpg", "category": "Partes del cuerpo" },
-    { "id": 68, "raramuri": "rimó", "spanish": "sapo", "image": "images/rimó.jpg", "category": "Animales" }
-
-
+    { "id": 68, "raramuri": "rimó", "spanish": "sapo", "image": "images/rimó.jpg", "category": "Animales" },
+    { "id": 68, "raramuri": "cha'méra", "spanish": "lengua", "image": "images/cha'méra.jpg", "category": "Partes del cuerpo" },
+    { "id": 69, "raramuri": "nakarópari", "spanish": "mariposa", "image": "images/nakarópari.jpg", "category": "Animales" },
+    { "id": 70, "raramuri": "ku", "spanish": "leña", "image": "images/ku.jpg", "category": "Objetos" },
+    { "id": 71, "raramuri": "rité", "spanish": "piedra", "image": "images/rité.jpg", "category": "Naturaleza" },
+    { "id": 72, "raramuri": "siyóname", "spanish": "azul", "image": "images/siyóname.jpg", "category": "Colores" },
+    { "id": 73, "raramuri": "siyonáwame", "spanish": "verde", "image": "images/siyonáwame.jpg", "category": "Colores" },
+    { "id": 74, "raramuri": "rosákame", "spanish": "blanco", "image": "images/rosákame.jpg", "category": "Colores" },
+    { "id": 75, "raramuri": "chókame", "spanish": "negro", "image": "images/chókame.jpg", "category": "Colores" },
+    { "id": 76, "raramuri": "sitákame", "spanish": "rojo", "image": "images/sitákame.jpg", "category": "Colores" },
+    { "id": 77, "raramuri": "sawarókame", "spanish": "amarillo", "image": "images/sawarókame.jpg", "category": "Colores" },
+    { "id": 78, "raramuri": "chomítuame", "spanish": "morado", "image": "images/chomítuame.jpg", "category": "Colores" },
+    { "id": 79, "raramuri": "cho'mágame", "spanish": "café", "image": "images/cho'mágame.jpg", "category": "Colores" },
+    { "id": 80, "raramuri": "rojuí", "spanish": "bellota", "image": "images/rojuí.jpg", "category": "Comida y bebida" },	
+    { "id": 81, "raramuri": "túrio", "spanish": "trigo", "image": "images/túrio.jpg", "category": "Comida y bebida" },
+    { "id": 82, "raramuri": "páno", "spanish": "pan", "image": "images/páno.jpg", "category": "Comida y bebida" },	
+    { "id": 83, "raramuri": "basána", "spanish": "manzana", "image": "images/basána.jpg", "category": "Comida y bebida" }
+    { "id": 84, "raramuri": "kusabí", "spanish": "cereza", "image": "images/kusabí.jpg", "category": "Comida y bebida" },	
+    { "id": 85, "raramuri": "watónari", "spanish": "atole", "image": "images/watónari.jpg", "category": "Comida y bebida" }
   ],
   "phrases": [
     { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
