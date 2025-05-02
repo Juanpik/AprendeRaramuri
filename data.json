@@ -84,12 +84,12 @@
     { "id": 82, "raramuri": "ukuí", "spanish": "lluvia", "image": "images/ukuí.jpg", "category": "Naturaleza" },
     { "id": 83, "raramuri": "watónari", "spanish": "atole", "image": "images/watónari.jpg", "category": "Comida y bebida" },
     { "id": 84, "raramuri": "we'e", "spanish": "tierra", "image": "images/we'e.jpg", "category": "Naturaleza" },
-    { "id": 85, "raramuri": "wikowí", "spanish": "hongo", "image": "images/wikowí.jpg", "category": "Naturaleza" }
+    { "id": 85, "raramuri": "wikowí", "spanish": "hongo", "image": "images/wikowí.jpg", "category": "Naturaleza" },
     { "id": 86, "raramuri": "tisora", "spanish": "bastón", "image": "images/tisora.jpg", "category": "Objetos" },
     { "id": 82, "raramuri": "burito", "spanish": "burro", "image": "images/burito.jpg", "category": "Animales" },
     { "id": 83, "raramuri": "ripagá", "spanish": "cuchillo", "image": "images/ripagá.jpg", "category": "Objetos" },
     { "id": 84, "raramuri": "sakiré", "spanish": "comal", "image": "images/sakiré.jpg", "category": "Objetos" },
-    { "id": 85, "raramuri": "pichirá", "spanish": "escoba", "image": "images/pichirá.jpg", "category": "Objetos" }
+    { "id": 85, "raramuri": "pichirá", "spanish": "escoba", "image": "images/pichirá.jpg", "category": "Objetos" },
     { "id": 86, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko'yachá.jpg", "category": "Objetos" },
     { "id": 87, "raramuri": "oserí", "spanish": "papel", "image": "images/oserí.jpg", "category": "Objetos" }
   ],
