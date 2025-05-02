@@ -92,6 +92,10 @@
     { "id": 90, "raramuri": "pichira", "spanish": "escoba", "image": "images/pichira.jpg", "category": "Objetos" },
     { "id": 91, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko’yachá.jpg", "category": "Objetos" },
     { "id": 92, "raramuri": "oserí", "spanish": "papel", "image": "images/oserí.jpg", "category": "Objetos" }
+    { "id": 93, "raramuri": "sirá", "spanish": "tijera", "image": "images/sirá.jpg", "category": "Objetos" },
+    { "id": 94, "raramuri": "chikurí", "spanish": "ratón", "image": "images/chikurí.jpg", "category": "Animales" },
+    { "id": 95, "raramuri": "kimá", "spanish": "cobija", "image": "images/kimá.jpg", "category": "Objetos" },
+    { "id": 96, "raramuri": "chumarí", "spanish": "venado", "image": "images/chumarí.jpg", "category": "Animales" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
