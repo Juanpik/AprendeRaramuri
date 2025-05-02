@@ -86,17 +86,17 @@
     { "id": 84, "raramuri": "we'e", "spanish": "tierra", "image": "images/we'e.jpg", "category": "Naturaleza" },
     { "id": 85, "raramuri": "wikowí", "spanish": "hongo", "image": "images/wikowí.jpg", "category": "Naturaleza" },
     { "id": 86, "raramuri": "tisora", "spanish": "bastón", "image": "images/tisora.jpg", "category": "Objetos" },
-    { "id": 82, "raramuri": "burito", "spanish": "burro", "image": "images/burito.jpg", "category": "Animales" },
-    { "id": 83, "raramuri": "ripagá", "spanish": "cuchillo", "image": "images/ripagá.jpg", "category": "Objetos" },
-    { "id": 84, "raramuri": "sakiré", "spanish": "comal", "image": "images/sakiré.jpg", "category": "Objetos" },
-    { "id": 85, "raramuri": "pichira", "spanish": "escoba", "image": "images/pichira.jpg", "category": "Objetos" },
-    { "id": 86, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko’yachá.jpg", "category": "Objetos" },
-    { "id": 87, "raramuri": "oserí", "spanish": "papel", "image": "images/oserí.jpg", "category": "Objetos" }
+    { "id": 87, "raramuri": "burito", "spanish": "burro", "image": "images/burito.jpg", "category": "Animales" },
+    { "id": 88, "raramuri": "ripagá", "spanish": "cuchillo", "image": "images/ripagá.jpg", "category": "Objetos" },
+    { "id": 89, "raramuri": "sakiré", "spanish": "comal", "image": "images/sakiré.jpg", "category": "Objetos" },
+    { "id": 90, "raramuri": "pichira", "spanish": "escoba", "image": "images/pichira.jpg", "category": "Objetos" },
+    { "id": 91, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko’yachá.jpg", "category": "Objetos" },
+    { "id": 92, "raramuri": "oserí", "spanish": "papel", "image": "images/oserí.jpg", "category": "Objetos" }
   ],
   "phrases": [
-    { "id": 101, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
-    { "id": 102, "raramuri": "Matetera ba.", "spanish": "Gracias." },
-    { "id": 103, "raramuri": "¿Chú mu rewé?", "spanish": "¿Como te llamas?" },
-    { "id": 104, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." }
+    { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
+    { "id": 1002, "raramuri": "Matetera ba.", "spanish": "Gracias." },
+    { "id": 1003, "raramuri": "¿Chú mu rewé?", "spanish": "¿Como te llamas?" },
+    { "id": 1004, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." }
   ]
 }
