@@ -95,7 +95,13 @@
     { "id": 93, "raramuri": "sirá", "spanish": "tijera", "image": "images/sirá.jpg", "category": "Objetos" },
     { "id": 94, "raramuri": "chikurí", "spanish": "ratón", "image": "images/chikurí.jpg", "category": "Animales" },
     { "id": 95, "raramuri": "kimá", "spanish": "cobija", "image": "images/kimá.jpg", "category": "Objetos" },
-    { "id": 96, "raramuri": "chumarí", "spanish": "venado", "image": "images/chumarí.jpg", "category": "Animales" }
+    { "id": 96, "raramuri": "chumarí", "spanish": "venado", "image": "images/chumarí.jpg", "category": "Animales" },
+    { "id": 97, "raramuri": "wasá", "spanish": "cocinar", "image": "images/wasá.jpg", "category": "Verbos" },
+    { "id": 98, "raramuri": "namí", "spanish": "oir", "image": "images/namí.jpg", "category": "Verbos" },
+    { "id": 99, "raramuri": "nigá", "spanish": "ver", "image": "images/nigá.jpg", "category": "Verbos" },
+    { "id": 100, "raramuri": "tékara", "spanish": "cuerda", "image": "images/tékara.jpg", "category": "Objetos" },
+    { "id": 101, "raramuri": "taámi", "spanish": "músico", "image": "images/taámi.jpg", "category": "Personas" },
+    { "id": 102, "raramuri": "ónami", "spanish": "doctor", "image": "images/ónami.jpg", "category": "Personas" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
