@@ -62,10 +62,19 @@
             <section id="memorama" class="content-section">
                 <h2>Memorama</h2>
                 <div id="memorama-setup">
+                    <!-- MODIFICADO: Selector de Categoría para Memorama -->
+                    <div class="memorama-setup-group">
+                        <label for="memorama-category">Categoría:</label>
+                        <select id="memorama-category">
+                            <!-- Opciones generadas por JS -->
+                        </select>
+                    </div>
                     <p>Elige la dificultad (número de pares):</p>
-                    <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
-                    <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
-                    <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
+                    <div> <!-- Contenedor para los botones de dificultad -->
+                        <button class="difficulty-btn" data-pairs="4">Fácil (4)</button>
+                        <button class="difficulty-btn" data-pairs="6">Medio (6)</button>
+                        <button class="difficulty-btn" data-pairs="8">Difícil (8)</button>
+                    </div>
                 </div>
                 <div id="memorama-game-area" style="display: none;">
                     <div id="memorama-controls">
@@ -75,7 +84,7 @@
                     <div id="memorama-grid"></div>
                     <div id="memorama-win-message" style="display: none;"></div>
                 </div>
-                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad.</p>
+                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad y categoría.</p>
             </section>
 
             <section id="quiz" class="content-section">
@@ -83,14 +92,12 @@
                 <div id="quiz-container">
                     <div id="quiz-setup">
                         <p>¡Ponte a prueba!</p>
-                        <!-- NUEVO DIV PARA AGRUPAR CATEGORÍA -->
                         <div class="quiz-setup-group">
                             <label for="quiz-category">Categoría:</label>
                             <select id="quiz-category">
                                 <!-- Opciones generadas por JS -->
                             </select>
                         </div>
-                        <!-- NUEVO DIV PARA AGRUPAR NÚMERO DE PREGUNTAS -->
                         <div class="quiz-setup-group">
                             <label for="quiz-length">Número de preguntas:</label>
                             <select id="quiz-length">
@@ -99,7 +106,6 @@
                                 <option value="all">Todas</option>
                             </select>
                         </div>
-                        <!-- El botón irá abajo por defecto -->
                         <button id="start-quiz">Empezar Quiz</button>
                          <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
                     </div>
@@ -125,15 +131,16 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN FLASHCARDS -->
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
-                     <div id="flashcards-setup-controls" style="text-align: center; margin-bottom: var(--space-lg);">
-                        <label for="flashcard-category">Categoría:</label>
-                        <select id="flashcard-category">
-                            <!-- Opciones generadas por JS -->
-                        </select>
+                     <div id="flashcards-setup-controls"> <!-- MODIFICADO CSS para ser flex column, similar a quiz-setup -->
+                        <div class="flashcard-setup-group"> <!-- Envoltura para label y select -->
+                            <label for="flashcard-category">Categoría:</label>
+                            <select id="flashcard-category">
+                                <!-- Opciones generadas por JS -->
+                            </select>
+                        </div>
                          <p id="flashcards-data-error" style="color: red; text-align: center; display: none; margin-top:var(--space-sm);">No hay datos para esta categoría.</p>
                      </div>
 
