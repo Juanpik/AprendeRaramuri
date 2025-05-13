@@ -101,7 +101,20 @@
     { "id": 99, "raramuri": "nigá", "spanish": "ver", "image": "images/nigá.jpg", "category": "Verbos" },
     { "id": 100, "raramuri": "tékara", "spanish": "cuerda", "image": "images/tékara.jpg", "category": "Objetos" },
     { "id": 101, "raramuri": "taámi", "spanish": "músico", "image": "images/taámi.jpg", "category": "Personas" },
-    { "id": 102, "raramuri": "ónami", "spanish": "doctor", "image": "images/ónami.jpg", "category": "Personas" }
+    { "id": 102, "raramuri": "ónami", "spanish": "doctor", "image": "images/ónami.jpg", "category": "Personas" },
+    { "id": 103, "raramuri": "carí", "spanish": "casa", "image": "images/carí.jpg", "category": "Lugares" },
+    { "id": 104, "raramuri": "ri'obá", "spanish": "iglesia", "image": "images/ri'obá.jpg", "category": "Lugares" },
+    { "id": 105, "raramuri": "chu'wechi", "spanish": "cementerio", "image": "images/chu'wechi.jpg", "category": "Lugares" },
+    { "id": 106, "raramuri": "eskuélachi", "spanish": "escuela", "image": "images/eskuélachi.jpg", "category": "Lugares" },
+    { "id": 107, "raramuri": "warúrachi", "spanish": "ciudad", "image": "images/warúrachi.jpg", "category": "Lugares" },
+    { "id": 108, "raramuri": "warú bawichí", "spanish": "mar", "image": "images/warú bawichí.jpg", "category": "Naturaleza" },
+    { "id": 109, "raramuri": "risó", "spanish": "cueva", "image": "images/risó.jpg", "category": "Naturaleza" },
+    { "id": 110, "raramuri": "tiéndachi", "spanish": "tienda", "image": "images/tiéndachi.jpg", "category": "Lugares" },
+    { "id": 111, "raramuri": "urí", "spanish": "barranca", "image": "images/urí.jpg", "category": "Naturaleza" },
+    { "id": 112, "raramuri": "pobóro", "spanish": "pueblo", "image": "images/pobóro.jpg", "category": "Lugares" },
+    { "id": 113, "raramuri": "namúti ichíru", "spanish": "huerta", "image": "images/namúti ichíru.jpg", "category": "Lugares" },
+    { "id": 114, "raramuri": "ba'jíchi", "spanish": "manantial", "image": "images/ba'jíchi.jpg", "category": "Naturaleza" },
+    { "id": 115, "raramuri": "ba'kochi", "spanish": "rio", "image": "images/ba'kochi.jpg", "category": "Naturaleza" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
