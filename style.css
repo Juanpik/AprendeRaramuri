@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Reset Margins for Setup Children) */
+/* style.css (Final, Complete, Verified - Button Centering & Setup Margins Corrected) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -36,7 +36,7 @@
     /* Typography - Darumadrop One for Title + Others */
     --font-body: 'Nunito', sans-serif;
     --font-heading: 'Poppins', sans-serif;
-    --font-title: 'Darumadrop One', cursive; /* Usar Darumadrop One para el título */
+    --font-title: 'Darumadrop One', cursive;
 
     /* Spacing */
     --space-xs: 0.5rem;
@@ -48,8 +48,8 @@
 
     /* Borders */
     --border-radius-sm: 5px;
-    --border-radius-md: 10px; /* Usado para imágenes léxico */
-    --border-radius-lg: 20px; /* Usado para flashcards */
+    --border-radius-md: 10px;
+    --border-radius-lg: 20px;
     --border-radius-pill: 50px;
 
     /* Shadows */
@@ -123,37 +123,21 @@ header {
     z-index: 1000;
 }
 
-nav {
-    margin-top: 0;
-}
+nav { margin-top: 0; }
 nav button {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.85);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    padding: var(--space-xs) var(--space-md);
-    margin: var(--space-xs) 5px;
-    cursor: pointer;
-    border-radius: var(--border-radius-pill);
-    transition: all 0.25s ease-in-out;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-family: var(--font-heading); font-weight: 500; background-color: transparent;
+    color: rgba(255, 255, 255, 0.85); border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: var(--space-xs) var(--space-md); margin: var(--space-xs) 5px; cursor: pointer;
+    border-radius: var(--border-radius-pill); transition: all 0.25s ease-in-out;
+    font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
 }
 nav button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: var(--white);
-    color: var(--white);
-    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.15); border-color: var(--white);
+    color: var(--white); transform: translateY(-1px);
 }
 nav button.active {
-    background-color: var(--white);
-    color: var(--blue-darker);
-    border-color: var(--white);
-    font-weight: 700;
-    box-shadow: var(--shadow-interactive);
-    transform: translateY(0);
+    background-color: var(--white); color: var(--blue-darker); border-color: var(--white);
+    font-weight: 700; box-shadow: var(--shadow-interactive); transform: translateY(0);
 }
 
 #loading-message { font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0; color: var(--text-secondary); }
@@ -182,16 +166,9 @@ nav button.active {
 #about ul.credits-list { list-style: none; padding: 0; margin-top: 0; font-size: 0.9em; color: var(--text-secondary); }
 #about ul.credits-list li { margin-bottom: var(--space-xs); }
 
-/* Léxico */
 .category-filter-container {
-    margin-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light); text-align: center;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); padding-bottom: var(--space-lg);
 }
 button.category-filter-btn {
     font-family: var(--font-body); background-color: var(--white); color: var(--blue-dark);
@@ -199,9 +176,7 @@ button.category-filter-btn {
     cursor: pointer; border-radius: var(--border-radius-pill); transition: all 0.2s ease-in-out;
     font-size: 0.9em; font-weight: 500; box-shadow: var(--shadow-sm);
 }
-button.category-filter-btn:hover {
-    background-color: var(--blue-light-bg); border-color: var(--blue-primary); transform: translateY(-1px);
-}
+button.category-filter-btn:hover { background-color: var(--blue-light-bg); border-color: var(--blue-primary); transform: translateY(-1px); }
 button.category-filter-btn.active {
     background-color: var(--blue-primary); color: var(--white); border-color: var(--blue-primary);
     font-weight: 700; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); transform: translateY(0);
@@ -214,9 +189,7 @@ button.category-filter-btn.active {
     box-shadow: var(--shadow-sm); background-color: var(--white);
 }
 #lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
-#lexicon-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl);
-}
+#lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-xl); }
 .lexicon-item {
     background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
     padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
@@ -236,8 +209,6 @@ button.category-filter-btn.active {
 .lexicon-item .spanish-word {
     font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
 }
-
-/* Frases */
 #phrases-list li {
     background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg);
     border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
@@ -256,22 +227,20 @@ button.category-filter-btn.active {
     border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-xl);
     display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
 }
-#memorama-setup p {
-    margin-top: 0; /* MODIFICADO */
+#memorama-setup > p,
+#memorama-setup > .memorama-setup-group,
+#memorama-setup > div:not(.memorama-setup-group), /* div de botones */
+#memorama-setup > #memorama-data-error {
+    margin-top: 0;
     margin-bottom: 0;
-    font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
 }
+#memorama-setup p { font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body); }
 .memorama-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
 #memorama-setup label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
 #memorama-setup select {
     padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm); background-color: var(--white);
     font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
-}
-#memorama-setup > .memorama-setup-group,
-#memorama-setup > div:not(.memorama-setup-group) { /* div de botones */
-    margin-top: 0; /* MODIFICADO */
-    margin-bottom: 0; /* MODIFICADO */
 }
 #memorama-setup > div:not(.memorama-setup-group) { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
 #memorama-controls {
@@ -354,39 +323,39 @@ button.category-filter-btn.active {
     border-bottom: 1px solid var(--border-light); text-align: center;
     display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
 }
-#quiz-setup p {
-    margin-top: 0; /* MODIFICADO */
+/* Anular márgenes verticales de hijos directos de #quiz-setup para que gap controle */
+#quiz-setup > p,
+#quiz-setup > .quiz-setup-group,
+#quiz-setup > #quiz-data-error {
+    margin-top: 0;
     margin-bottom: 0;
+}
+/* El botón #start-quiz ya tiene 'margin: 0 auto' que pone top/bottom a 0 */
+
+#quiz-setup p { /* Estilos para el párrafo específico dentro de #quiz-setup */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
+    /* margin-top: 0 y margin-bottom: 0 ya aplicados por el selector de hijos directos */
 }
 .quiz-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
-#quiz-setup label { margin-right: 0; color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
+#quiz-setup label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
 #quiz-setup select {
     padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm); background-color: var(--white);
-    font-family: var(--font-body); font-size: 1em; color: var(--text-primary); margin-right: 0;
-}
-/* MODIFICADO: Resetear márgenes verticales de hijos directos de #quiz-setup */
-#quiz-setup > p,
-#quiz-setup > .quiz-setup-group,
-#quiz-setup > button#start-quiz,
-#quiz-setup > #quiz-data-error { /* Incluir el mensaje de error si es hijo directo */
-    margin-top: 0;
-    margin-bottom: 0;
+    font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white);
     padding: var(--space-md) var(--space-xl); border: none; border-radius: var(--border-radius-sm);
     cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
     box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    display: block; /* margin: 0 auto; ya estaba, pero aquí se confirma */ max-width: 300px;
+    display: block; margin: 0 auto; max-width: 300px;
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
-    /* margin-top: 0; ya cubierto por el selector anterior */
     color: #721C24; background-color: var(--error-bg); padding: var(--space-sm);
     border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
     width: 100%; max-width: 500px; box-sizing: border-box;
+    /* margin-top: 0 y margin-bottom: 0 ya aplicados por el selector de hijos directos */
 }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
 #quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
@@ -449,21 +418,19 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
     padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-light);
 }
-.flashcard-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
-#flashcards-setup-controls label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); margin-right: 0; }
-#flashcards-setup-controls select {
-    padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm); background-color: var(--white);
-    font-family: var(--font-body); font-size: 1em; color: var(--text-primary); margin-right: 0;
-}
-/* MODIFICADO: Resetear márgenes verticales de hijos directos de #flashcards-setup-controls */
 #flashcards-setup-controls > .flashcard-setup-group,
 #flashcards-setup-controls > #flashcards-data-error {
     margin-top: 0;
     margin-bottom: 0;
 }
+.flashcard-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
+#flashcards-setup-controls label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
+#flashcards-setup-controls select {
+    padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-sm); background-color: var(--white);
+    font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+}
 #flashcards-data-error {
-    /* margin-top: 0; ya cubierto */
     color: var(--error-red); text-align: center; display: none; font-size: 0.95em;
     width: 100%; max-width: 400px;
 }
@@ -519,7 +486,6 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
 #flashcard-counter { font-family: var(--font-body); color: var(--text-secondary); font-size: 0.9em; }
 
-/* Footer */
 footer {
     text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg);
     background-color: var(--blue-light-bg); color: var(--text-secondary);
