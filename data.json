@@ -114,7 +114,7 @@
     { "id": 112, "raramuri": "pobóro", "spanish": "pueblo", "image": "images/pobóro.jpg", "category": "Lugares" },
     { "id": 113, "raramuri": "namúti ichíru", "spanish": "huerta", "image": "images/namúti ichíru.jpg", "category": "Lugares" },
     { "id": 114, "raramuri": "ba'jíchi", "spanish": "manantial", "image": "images/ba'jíchi.jpg", "category": "Naturaleza" },
-    { "id": 115, "raramuri": "ba'kochi", "spanish": "rio", "image": "images/ba'kochi.jpg", "category": ["Naturaleza", "Lugares"] }
+    { "id": 115, "raramuri": "ba'kochi", "spanish": "rio", "image": "images/ba'kochi.jpg", "category": "Naturaleza", "Lugares" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
