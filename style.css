@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Button Centering & Setup Margins Corrected) */
+/* style.css (Final, Complete, Verified - Adjusted Quiz Setup Spacing) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -107,7 +107,7 @@ h2 {
 }
 
 h3 { font-weight: 500; color: var(--blue-darker); font-size: 1.4em; margin-bottom: var(--space-lg); }
-p { margin-bottom: var(--space-lg); font-size: 1.05em; }
+p { margin-bottom: var(--space-lg); font-size: 1.05em; } /* Regla general para P */
 ul { list-style: none; padding: 0; }
 .text-center { text-align: center; }
 .text-secondary { color: var(--text-secondary); }
@@ -159,7 +159,7 @@ nav button.active {
 }
 #about p {
   font-size: 1.1em; max-width: 750px; margin-left: auto; margin-right: auto;
-  color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-lg);
+  color: var(--text-secondary); margin-top: var(--space-xl); /* margin-bottom ya está en la regla general de p */
 }
 #about em { color: var(--orange-accent); font-style: normal; font-weight: 600; }
 #about p.credits-line { font-size: 0.95em; color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-weight: 600; }
@@ -225,11 +225,11 @@ button.category-filter-btn.active {
 #memorama-setup {
     margin-bottom: var(--space-xl); text-align: center;
     border-bottom: 1px solid var(--border-light); padding-bottom: var(--space-xl);
-    display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-md); /* Ajustado a space-md para Memorama */
 }
 #memorama-setup > p,
 #memorama-setup > .memorama-setup-group,
-#memorama-setup > div:not(.memorama-setup-group), /* div de botones */
+#memorama-setup > div:not(.memorama-setup-group),
 #memorama-setup > #memorama-data-error {
     margin-top: 0;
     margin-bottom: 0;
@@ -321,20 +321,17 @@ button.category-filter-btn.active {
 #quiz-setup {
     margin-bottom: var(--space-xl); padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light); text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
+    display: flex; flex-direction: column; align-items: center;
+    gap: var(--space-md); /* MODIFICADO: Reducido el gap general a var(--space-md) */
 }
-/* Anular márgenes verticales de hijos directos de #quiz-setup para que gap controle */
 #quiz-setup > p,
 #quiz-setup > .quiz-setup-group,
 #quiz-setup > #quiz-data-error {
     margin-top: 0;
     margin-bottom: 0;
 }
-/* El botón #start-quiz ya tiene 'margin: 0 auto' que pone top/bottom a 0 */
-
-#quiz-setup p { /* Estilos para el párrafo específico dentro de #quiz-setup */
+#quiz-setup p {
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-    /* margin-top: 0 y margin-bottom: 0 ya aplicados por el selector de hijos directos */
 }
 .quiz-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
 #quiz-setup label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
@@ -349,13 +346,17 @@ button.category-filter-btn.active {
     cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
     box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
     display: block; margin: 0 auto; max-width: 300px;
+    /* margin-top: var(--space-sm); /* MODIFICADO: Añadir un pequeño margen superior si el gap general es muy pequeño */
+                                 /* O dejar que el gap del padre (ahora var(--space-md)) lo maneje.
+                                    Si var(--space-md) es suficiente entre el último selector y el botón, no se necesita esto.
+                                    Si se ve muy pegado, se puede añadir este margin-top.
+                                    Por ahora, se confía en el gap del padre. */
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-data-error {
     color: #721C24; background-color: var(--error-bg); padding: var(--space-sm);
     border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
     width: 100%; max-width: 500px; box-sizing: border-box;
-    /* margin-top: 0 y margin-bottom: 0 ya aplicados por el selector de hijos directos */
 }
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
 #quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
@@ -415,7 +416,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #flashcards-container { max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px; }
 #flashcards-setup-controls {
     text-align: center; margin-bottom: var(--space-lg);
-    display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-md); /* Ajustado a space-md */
     padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-light);
 }
 #flashcards-setup-controls > .flashcard-setup-group,
@@ -517,11 +518,14 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
     #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; }
-    #memorama-setup { gap: var(--space-lg); }
+    
+    /* Gaps for setups on tablet. If var(--space-md) is too tight, can increase to var(--space-lg) */
+    #memorama-setup, #quiz-setup, #flashcards-setup-controls {
+        gap: var(--space-md);
+    }
     .difficulty-btn { padding: var(--space-xs) var(--space-md); font-size: 0.85em; }
     #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); }
     .memorama-card { height: 130px; }
-    #flashcards-setup-controls { gap: var(--space-lg); }
     #flashcards-setup-controls select { padding: var(--space-sm) var(--space-md); }
     #flashcards-container { max-width: 95%; }
     .flashcard { height: 220px; }
@@ -529,7 +533,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .flashcard-face.card-back { font-size: 1.7em; }
     .flashcard-face img { max-height: 75%; }
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
-    #quiz-setup { gap: var(--space-lg); }
 }
 @media (max-width: 576px) {
     header > h1 { font-size: 2.2em; }
@@ -543,7 +546,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
     #lexicon-search { padding: var(--space-sm) var(--space-lg); font-size: 1em; }
-    #memorama-setup { gap: var(--space-md); }
     .difficulty-btn { font-size: 0.8em; }
     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .memorama-card { height: 110px; }
@@ -561,7 +563,10 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
     #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
-    #quiz-setup, #flashcards-setup-controls { gap: var(--space-lg); }
+    /* Gaps for setups on smaller mobile. var(--space-md) should be fine. */
+    #memorama-setup, #quiz-setup, #flashcards-setup-controls {
+        gap: var(--space-md);
+    }
 }
 @media (max-width: 420px) {
      header > h1 { font-size: 2em; }
@@ -578,5 +583,8 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
       .flashcard-face img { max-height: 65%; }
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
-     #quiz-setup, #flashcards-setup-controls, #memorama-setup { gap: var(--space-md); }
+     /* Gaps for setups on very small screens. var(--space-md) should still be okay, or could reduce to var(--space-sm) if needed. */
+     #memorama-setup, #quiz-setup, #flashcards-setup-controls {
+         gap: var(--space-md);
+     }
 }
