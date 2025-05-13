@@ -1,4 +1,4 @@
-{
+e{
   "lexicon": [
     { "id": 1, "raramuri": "aká", "spanish": "huarache", "image": "images/aka.jpg", "category": "Vestimenta" },
     { "id": 2, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida y bebida" },
@@ -90,7 +90,7 @@
     { "id": 88, "raramuri": "ripagá", "spanish": "cuchillo", "image": "images/ripagá.jpg", "category": "Objetos" },
     { "id": 89, "raramuri": "sakiré", "spanish": "comal", "image": "images/sakiré.jpg", "category": "Objetos" },
     { "id": 90, "raramuri": "pichira", "spanish": "escoba", "image": "images/pichira.jpg", "category": "Objetos" },
-    { "id": 91, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko’yachá.jpg", "category": "Objetos" },
+    { "id": 91, "raramuri": "ko'yachá", "spanish": "sombrero", "image": "images/ko’yachá.jpg", "category": "Vestimenta" },
     { "id": 92, "raramuri": "oserí", "spanish": "papel", "image": "images/oserí.jpg", "category": "Objetos" },
     { "id": 93, "raramuri": "sirá", "spanish": "tijera", "image": "images/sirá.jpg", "category": "Objetos" },
     { "id": 94, "raramuri": "chikurí", "spanish": "ratón", "image": "images/chikurí.jpg", "category": "Animales" },
