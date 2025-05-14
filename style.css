@@ -469,15 +469,15 @@ button.category-filter-btn.active {
     display: flex;
     flex-direction: column; /* APILADO: para que los grupos y el botón se apilen verticalmente */
     align-items: center; /* Centra los elementos apilados */
-    /* --- AJUSTA ESTE VALOR PARA MÁS SEPARACIÓN --- */
-    /* Puedes usar una variable mayor como --space-xl o un valor fijo como 30px */
-    gap: var(--space-lg); /* Valor actual, cámbialo aquí */
-    /* -------------------------------------------- */
+
+    /* --- VALOR DE GAP AUMENTADO PARA MÁS SEPARACIÓN VERTICAL --- */
+    /* Antes: gap: var(--space-lg); */
+    gap: var(--space-xl); /* <-- Aumentado de var(--space-lg) a var(--space-xl) */
+    /* -------------------------------------------------------- */
 }
 #quiz-setup p {
-    margin-bottom: 0; /* Quitar margen si gap lo maneja */
+    margin-bottom: 0; /* Correcto para que el gap maneje el espacio */
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-    /* flex-basis: 100%; no es necesario si es flex-direction: column */
 }
 
 /* Estilos para agrupar etiqueta y selector */
@@ -485,9 +485,8 @@ button.category-filter-btn.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm); /* Espacio entre label y select */
-    /* width: 100%; */ /* Opcional, si quieres que el grupo ocupe todo el ancho */
-    /* max-width: 400px; */ /* Opcional, para limitar el ancho máximo de cada grupo */
+    /* El gap horizontal entre label y select se mantiene */
+    gap: var(--space-sm);
 }
 
 #quiz-setup label {
@@ -768,9 +767,10 @@ footer img {
 
     /* Quiz setup ya es flex-column, los ajustes de gap son suficientes */
     #quiz-setup {
-        /* --- AJUSTA ESTE VALOR PARA MÁS SEPARACIÓN EN MÓVILES --- */
-        gap: var(--space-md); /* Valor actual en móvil, cámbialo aquí si quieres más */
-        /* ------------------------------------------------------ */
+        /* --- VALOR DE GAP AUMENTADO PARA MÁS SEPARACIÓN VERTICAL EN MÓVILES --- */
+        /* Antes: gap: var(--space-md); */
+        gap: var(--space-lg); /* <-- Aumentado de var(--space-md) a var(--space-lg) */
+        /* -------------------------------------------------------------------- */
     }
      /* Los quiz-setup-group y el botón ya se adaptan bien al ser centrados y apilados */
 }
@@ -816,9 +816,10 @@ footer img {
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
     #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
 
-    /* Quiz y Flashcards setup (ya son flex-column, gap ajustado en 768px) */
+    /* Quiz y Flashcards setup (ya son flex-column, gap ajustado) */
      #quiz-setup, #flashcards-setup-controls {
-         gap: var(--space-md); /* Mantener o ajustar si es necesario */
+         /* Este gap es el mismo que en 768px ahora. Puedes ajustarlo si lo necesitas */
+         gap: var(--space-lg);
      }
 }
 @media (max-width: 420px) {
@@ -843,6 +844,7 @@ footer img {
      .flashcard-face.card-front { font-size: 1.2em; }
      .flashcard-face.card-back { font-size: 1.4em; }
       .flashcard-face img { max-height: 65%; }
+     #flashcard-controls { gap: var(--space-sm); }
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
