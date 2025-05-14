@@ -472,7 +472,8 @@ button.category-filter-btn.active {
 
     /* --- VALOR DE GAP AUMENTADO PARA MÁS SEPARACIÓN VERTICAL --- */
     /* Antes: gap: var(--space-lg); */
-    gap: var(--space-xl); /* <-- Aumentado de var(--space-lg) a var(--space-xl) */
+    /* Hemos subido un nivel de espaciado, si aún no es suficiente, prueba con var(--space-xxl) o un valor fijo más grande como 30px o 40px */
+    gap: var(--space-xl); /* <-- Este es el valor que hemos incrementado */
     /* -------------------------------------------------------- */
 }
 #quiz-setup p {
@@ -765,10 +766,10 @@ footer img {
      .flashcard-face img { max-height: 75%; }
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
 
-    /* Quiz setup ya es flex-column, los ajustes de gap son suficientes */
     #quiz-setup {
         /* --- VALOR DE GAP AUMENTADO PARA MÁS SEPARACIÓN VERTICAL EN MÓVILES --- */
         /* Antes: gap: var(--space-md); */
+        /* Subimos un nivel de espaciado también en estas media queries */
         gap: var(--space-lg); /* <-- Aumentado de var(--space-md) a var(--space-lg) */
         /* -------------------------------------------------------------------- */
     }
@@ -816,8 +817,7 @@ footer img {
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
     #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
 
-    /* Quiz y Flashcards setup (ya son flex-column, gap ajustado) */
-     #quiz-setup, #flashcards-setup-controls {
+    #quiz-setup, #flashcards-setup-controls {
          /* Este gap es el mismo que en 768px ahora. Puedes ajustarlo si lo necesitas */
          gap: var(--space-lg);
      }
