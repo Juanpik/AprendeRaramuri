@@ -469,7 +469,10 @@ button.category-filter-btn.active {
     display: flex;
     flex-direction: column; /* APILADO: para que los grupos y el botón se apilen verticalmente */
     align-items: center; /* Centra los elementos apilados */
-    gap: var(--space-lg); /* AUMENTADO: Espacio entre el párrafo, los grupos, y el botón */
+    /* --- AJUSTA ESTE VALOR PARA MÁS SEPARACIÓN --- */
+    /* Puedes usar una variable mayor como --space-xl o un valor fijo como 30px */
+    gap: var(--space-lg); /* Valor actual, cámbialo aquí */
+    /* -------------------------------------------- */
 }
 #quiz-setup p {
     margin-bottom: 0; /* Quitar margen si gap lo maneja */
@@ -765,7 +768,9 @@ footer img {
 
     /* Quiz setup ya es flex-column, los ajustes de gap son suficientes */
     #quiz-setup {
-        gap: var(--space-md); /* Reducir gap en móvil para que no sea tan espaciado */
+        /* --- AJUSTA ESTE VALOR PARA MÁS SEPARACIÓN EN MÓVILES --- */
+        gap: var(--space-md); /* Valor actual en móvil, cámbialo aquí si quieres más */
+        /* ------------------------------------------------------ */
     }
      /* Los quiz-setup-group y el botón ya se adaptan bien al ser centrados y apilados */
 }
