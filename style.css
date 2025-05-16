@@ -1,4 +1,4 @@
-/* style.css (Final, with image border marking and consistent text spacing) */
+/* style.css (Final, including lexicon tip and image border marking) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -236,8 +236,12 @@ button.category-filter-btn.active {
 
 /* Barra de búsqueda */
 .search-container {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg); 
     text-align: center;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: var(--space-sm); 
 }
 
 #lexicon-search {
@@ -254,11 +258,19 @@ button.category-filter-btn.active {
 }
 #lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
 
+/* Estilos para la leyenda */
+.lexicon-tip {
+    font-size: 0.9em; 
+    color: var(--text-secondary); 
+    margin: 0; 
+}
+
 /* Grid de Léxico */
 #lexicon-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: var(--space-xl);
+    margin-top: var(--space-xl); /* Espacio entre el search-container y la grilla */
 }
 .lexicon-item {
     background-color: var(--white); 
@@ -282,20 +294,19 @@ button.category-filter-btn.active {
     height: 150px; 
     object-fit: cover; 
     display: block; 
-    margin-bottom: var(--space-lg); /* Space between image and rarámuri word */
-    border-radius: var(--border-radius-md); /* Mantener el radio */
+    margin-bottom: var(--space-lg); /* Espacio entre imagen y palabra rarámuri */
+    border-radius: var(--border-radius-md); 
     background-color: var(--blue-light-bg); 
     
-    /* Borde base para la imagen */
-    border: 4px solid var(--white); 
+    border: 4px solid var(--white); /* Borde base (puede ser visible o transparente) */
     box-shadow: var(--shadow-sm); 
-    cursor: pointer; /* Indicar que la imagen es clickeable */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el cambio de color/sombra del borde */
+    cursor: pointer; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición para el cambio de borde/sombra */
 }
 
 /* Estilo para la imagen marcada para repasar */
 .lexicon-item img.repasar-image-marked {
-    border-color: var(--orange-accent); 
+    border-color: var(--orange-accent); /* Borde naranja cuando está marcada */
     box-shadow: 0 0 8px rgba(232, 122, 63, 0.5); /* Sombra para resaltar */
 }
 
@@ -304,7 +315,7 @@ button.category-filter-btn.active {
     font-weight: 600; 
     color: var(--orange-accent); 
     font-size: 1.25em;
-    margin-bottom: var(--space-xs); /* Espacio entre rarámuri y español */
+    margin-bottom: var(--space-xs); /* Espacio entre rarámuri y español (consistent) */
     word-wrap: break-word;
 }
 .lexicon-item .spanish-word {
@@ -313,16 +324,14 @@ button.category-filter-btn.active {
     font-size: 1em; 
     word-wrap: break-word; 
     font-family: var(--font-body);
-    /* CAMBIO: Espacio entre español y el final del contenido/padding del item */
+    /* CAMBIO: Espacio entre español y el final del contenido/padding del item.
+       Establecerlo a var(--space-xs) hace que el espacio sea consistente
+       con el espacio entre rarámuri y español. */
     margin-bottom: var(--space-xs); 
 }
 
-/* Eliminamos las reglas de estilo del botón de estrella anterior */
-/* Puedes buscarlas y borrarlas completamente si no las vas a usar: */
-/* .lexicon-item-actions { ... } */
-/* .repasar-toggle-btn { ... } */
-/* .repasar-toggle-btn:hover { ... } */
-/* .repasar-toggle-btn.marked { ... } */
+/* Note: The styles for the star icon (.lexicon-item-actions, .repasar-toggle-btn)
+   should be removed from your CSS file entirely if you are using the image border method. */
 
 
 /* Frases */
@@ -605,7 +614,7 @@ button#restart-quiz:hover { background-color: var(--orange-dark); }
 button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
 button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
-/* (Opcional) Para el selector de categoría cuando "Repasar" está seleccionado */
+/* Para el selector de categoría cuando "Repasar" está seleccionado */
 #quiz-category option[value="repasar"],
 #memorama-category option[value="repasar"],
 #flashcard-category option[value="repasar"] {
@@ -772,13 +781,15 @@ footer img {
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
-    .repasar-toggle-btn { font-size: 2em; } /* Aunque se eliminó, algunos styles de esta clase podrían seguir afectando si no se borran */
     .category-filter-container { gap: var(--space-xs); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
     #lexicon-search {
         padding: var(--space-sm) var(--space-lg);
         width: 95%;
     }
+     .search-container { gap: var(--space-sm); } /* Maintain consistent gap */
+    #lexicon-grid { margin-top: var(--space-lg); /* Adjust top margin on mobile */ }
+
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
@@ -820,13 +831,14 @@ footer img {
     #about h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
-    .repasar-toggle-btn { font-size: 1.8em; } /* Aunque se eliminó */
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
     #lexicon-search {
         padding: var(--space-sm) var(--space-lg);
         font-size: 1em;
     }
+    .search-container { gap: var(--space-sm); } /* Maintain consistent gap */
+    #lexicon-grid { margin-top: var(--space-md); /* Adjust top margin on smaller mobile */ }
 
     #memorama-setup {
         gap: var(--space-sm); 
@@ -864,7 +876,6 @@ footer img {
          padding: var(--space-sm) var(--space-lg);
          font-size: 0.95em;
      }
-    .repasar-toggle-btn { font-size: 1.7em; } /* Aunque se eliminó */
 
     .difficulty-btn {
         padding: var(--space-xs) var(--space-xs); 
