@@ -293,23 +293,24 @@ button.category-filter-btn.active {
     font-weight: 600; 
     color: var(--orange-accent); 
     font-size: 1.25em;
-    margin-bottom: var(--space-xs); 
+    margin-bottom: var(--space-xs); /* <-- Este es el espacio que queremos replicar */
     word-wrap: break-word;
 }
+
 .lexicon-item .spanish-word {
     font-style: normal; 
     color: var(--text-secondary); 
     font-size: 1em; 
     word-wrap: break-word; 
     font-family: var(--font-body);
-    margin-bottom: var(--space-sm); 
+    margin-bottom: var(--space-xs); /* <-- CAMBIO AQUÍ: de --space-sm a --space-xs */
 }
 
 /* --- Estilos para "Palabras a Repasar" (Estrellas) --- */
 .lexicon-item-actions {
     width: 100%; 
     text-align: center; 
-    margin-top: var(--space-sm); 
+    margin-top: var(--space-xs); /* <-- CAMBIO AQUÍ: de --space-sm a --space-xs */
     margin-bottom: calc(var(--space-xs) * -1); 
 }
 
