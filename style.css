@@ -1,4 +1,4 @@
-/* style.css (Final, including lexicon tip and image border marking) */
+/* style.css (Final, with larger flashcard images) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -420,8 +420,6 @@ button.category-filter-btn.active {
 }
 .difficulty-btn:hover, #reset-memorama:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .difficulty-btn:active, #reset-memorama:active { transform: translateY(0); filter: brightness(0.95); }
-.difficulty-btn { background-color: var(--blue-primary); }
-.difficulty-btn:hover { background-color: var(--blue-dark); }
 .difficulty-btn.selected { background-color: var(--blue-darker); box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
 #reset-memorama { background-color: var(--orange-accent); }
 #reset-memorama:hover { background-color: var(--orange-dark); }
@@ -695,8 +693,9 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img {
-    max-width: 90%;
-    max-height: 80%;
+    /* MODIFIED: Increased size percentage */
+    max-width: 95%; 
+    max-height: 90%; 
     object-fit: contain;
     margin-bottom: var(--space-sm);
     display: block;
@@ -771,7 +770,10 @@ footer img {
     .memorama-card .card-front p { font-size: 1em; }
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
-    .flashcard-face img { max-height: 78%; }
+    .flashcard-face img {
+        max-width: 95%; /* MODIFIED */
+        max-height: 90%; /* MODIFIED */
+    }
 }
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
@@ -787,8 +789,8 @@ footer img {
         padding: var(--space-sm) var(--space-lg);
         width: 95%;
     }
-     .search-container { gap: var(--space-sm); } /* Maintain consistent gap */
-    #lexicon-grid { margin-top: var(--space-lg); /* Adjust top margin on mobile */ }
+     .search-container { gap: var(--space-sm); } 
+    #lexicon-grid { margin-top: var(--space-lg); }
 
     #quiz-options button { padding: var(--space-md); }
     #quiz-text-input-area { flex-direction: column; gap: var(--space-md); }
@@ -813,10 +815,10 @@ footer img {
      }
     #flashcards-container { max-width: 95%; }
     .flashcard { height: 220px; }
-    .flashcard-face.card-front { font-size: 1.5em; }
-    .flashcard-face.card-back { font-size: 1.7em; }
-     .flashcard-face img { max-height: 75%; }
-    #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
+    .flashcard-face img {
+        max-width: 95%; /* MODIFIED */
+        max-height: 90%; /* MODIFIED */
+    }
 
     #quiz-setup {
         gap: var(--space-md); 
@@ -837,8 +839,8 @@ footer img {
         padding: var(--space-sm) var(--space-lg);
         font-size: 1em;
     }
-    .search-container { gap: var(--space-sm); } /* Maintain consistent gap */
-    #lexicon-grid { margin-top: var(--space-md); /* Adjust top margin on smaller mobile */ }
+    .search-container { gap: var(--space-sm); } 
+    #lexicon-grid { margin-top: var(--space-md); }
 
     #memorama-setup {
         gap: var(--space-sm); 
@@ -858,7 +860,10 @@ footer img {
     .flashcard { height: 200px; }
     .flashcard-face.card-front { font-size: 1.3em; }
     .flashcard-face.card-back { font-size: 1.5em; }
-     .flashcard-face img { max-height: 70%; }
+     .flashcard-face img {
+        max-width: 95%; /* MODIFIED */
+        max-height: 90%; /* MODIFIED */
+    }
     #flashcard-controls { gap: var(--space-sm); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); }
@@ -887,9 +892,10 @@ footer img {
      .memorama-card .card-back::before { font-size: 2.5em; }
 
      .flashcard { height: 180px; }
-     .flashcard-face.card-front { font-size: 1.2em; }
-     .flashcard-face.card-back { font-size: 1.4em; }
-      .flashcard-face img { max-height: 65%; }
+     .flashcard-face img {
+        max-width: 95%; /* MODIFIED */
+        max-height: 90%; /* MODIFIED */
+     }
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
 }
