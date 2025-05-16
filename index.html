@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ramapp v.234</title>
-    <!-- Google Fonts (Incluye Nunito, Poppins Y AHORA Darumadrop One) -->
+    <!-- Google Fonts (Incluye Nunito, Poppins Y Darumadrop One) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- ENLACE COMBINADO PARA Nunito (400, 600), Poppins (500, 700) y Darumadrop One (400) -->
     <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Nunito:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-    <!-- NOTA: Se eliminó el enlace específico a Chelsea Market y Patrick Hand SC -->
 
-    <!-- /Google Fonts -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -50,6 +48,8 @@
                 </div>
                 <div class="search-container">
                     <input type="search" id="lexicon-search" placeholder="Buscar palabra (Rarámuri o Español)..." aria-label="Buscar en el léxico">
+                    <!-- NUEVA LEYENDA -->
+                    <p class="lexicon-tip">Presiona las imágenes para marcarlas como favoritas.</p>
                 </div>
                 <div id="lexicon-grid"></div>
             </section>
@@ -62,7 +62,6 @@
             <section id="memorama" class="content-section">
                 <h2>Memorama</h2>
                 <div id="memorama-setup">
-                    <!-- MODIFICADO: Selector de Categoría para Memorama -->
                     <div class="memorama-setup-group">
                         <label for="memorama-category">Categoría:</label>
                         <select id="memorama-category">
@@ -134,8 +133,8 @@
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
-                     <div id="flashcards-setup-controls"> <!-- MODIFICADO CSS para ser flex column, similar a quiz-setup -->
-                        <div class="flashcard-setup-group"> <!-- Envoltura para label y select -->
+                     <div id="flashcards-setup-controls">
+                        <div class="flashcard-setup-group">
                             <label for="flashcard-category">Categoría:</label>
                             <select id="flashcard-category">
                                 <!-- Opciones generadas por JS -->
