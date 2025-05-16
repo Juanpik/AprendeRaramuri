@@ -120,7 +120,7 @@
     { "id": 118, "raramuri": "napácha", "spanish": "blusa", "image": "images/napacha.jpg", "category": "Vestimenta" },
     { "id": 119, "raramuri": "coyéra", "spanish": "bandana", "image": "images/coyéra.jpg", "category": "Vestimenta" },
     { "id": 120, "raramuri": "pulá", "spanish": "faja", "image": "images/pulá.jpg", "category": "Vestimenta" },
-    { "id": 121, "raramuri": "tabichí", "spanish": "taparrabo", "image": "images/tabichí.jpg", "category": "Vestimenta }
+    { "id": 121, "raramuri": "tabichí", "spanish": "taparrabo", "image": "images/tabichí.jpg", "category": "Vestimenta" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
