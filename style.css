@@ -1,4 +1,4 @@
-/* style.css (Final version including all previous fixes and adjustments) */
+/* style.css (Final version with important margins for consistent mobile layout) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -27,11 +27,6 @@
     --text-primary: #212529;   /* Casi negro para texto principal */
     --text-secondary: #6C757D;  /* Gris oscuro para texto secundario */
     --white: #FFFFFF;
-
-    --success-green: #28A745;    /* Verde éxito (Bootstrap) */
-    --error-red: #DC3545;        /* Rojo error (Bootstrap) */
-    --success-bg: #D4EDDA;
-    --error-bg: #F8D7DA;
 
     /* Typography - Darumadrop One for Title + Others */
     --font-body: 'Nunito', sans-serif;
@@ -709,7 +704,11 @@ footer img {
     header > h1 { font-size: 2.5em; }
     nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
     /* MODIFIED: main padding and margin-top for consistency */
-    main { padding: var(--space-lg); margin: var(--space-lg) auto var(--space-lg) auto; width: 98%; }
+    main { 
+        padding: var(--space-lg); /* Use this for side padding */
+        margin: var(--space-lg) auto var(--space-lg) auto !important; /* Use this for top/bottom margins */
+        width: 98%; /* Keep width */
+    }
     h2 { font-size: 1.7em; }
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
@@ -760,7 +759,11 @@ footer img {
     header { padding: var(--space-xs) var(--space-sm); }
     nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
      /* MODIFIED: main padding and margin-top for consistency */
-    main { padding: var(--space-md); margin: var(--space-md) auto var(--space-md) auto; }
+    main { 
+        padding: var(--space-md); /* Use this for side padding */
+        margin: var(--space-md) auto var(--space-md) auto !important; /* Use this for top/bottom margins */
+        /* width: 95%; inherited from desktop or 768px */
+    }
     h2 { font-size: 1.5em; }
     #about h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
