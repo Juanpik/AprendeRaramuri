@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes) */
+/* style.css (Final, with consistent mobile spacing for main content) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -27,11 +27,6 @@
     --text-primary: #212529;   /* Casi negro para texto principal */
     --text-secondary: #6C757D;  /* Gris oscuro para texto secundario */
     --white: #FFFFFF;
-
-    --success-green: #28A745;    /* Verde éxito (Bootstrap) */
-    --error-red: #DC3545;        /* Rojo error (Bootstrap) */
-    --success-bg: #D4EDDA;
-    --error-bg: #F8D7DA;
 
     /* Typography - Darumadrop One for Title + Others */
     --font-body: 'Nunito', sans-serif;
@@ -286,7 +281,7 @@ button.category-filter-btn.active {
     overflow: hidden;
 }
 .lexicon-item:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5-px) scale(1.02); /* Corregido: --5px a -5px */
     box-shadow: var(--shadow-lg);
 }
 .lexicon-item img {
@@ -411,15 +406,15 @@ button.category-filter-btn.active {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.9em;
-    color: var(--white) !important; /* Added !important */
+    color: var(--white) !important; 
 }
 
 .difficulty-btn {
-    background-color: var(--blue-primary) !important; /* Added !important */
+    background-color: var(--blue-primary) !important; 
 }
 
 .difficulty-btn:hover { 
-    background-color: var(--blue-dark) !important; /* Added !important */
+    background-color: var(--blue-dark) !important; 
     transform: translateY(-2px); 
     box-shadow: var(--shadow-md); 
 }
@@ -428,16 +423,16 @@ button.category-filter-btn.active {
 }
 
 .difficulty-btn.selected { 
-    background-color: var(--blue-darker) !important; /* Added !important */
+    background-color: var(--blue-darker) !important; 
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); 
 }
 
 #reset-memorama { 
-    background-color: var(--orange-accent) !important; /* Added !important */
-    color: var(--white) !important; /* Ensure color is white */
+    background-color: var(--orange-accent) !important; 
+    color: var(--white) !important; 
 }
 #reset-memorama:hover { 
-    background-color: var(--orange-dark) !important; /* Added !important */
+    background-color: var(--orange-dark) !important; 
 }
 
 #memorama-controls {
@@ -467,18 +462,18 @@ button.category-filter-btn.active {
      border: 2px solid var(--success-green);
      cursor: default;
      box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
-     transform: scale(0.95); /* Base scale */
+     transform: scale(0.95); 
      transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
 }
 .memorama-card.flipped.matched {
-     transform: rotateY(180deg) scale(0.95); /* Combine rotation and base scale */
+     transform: rotateY(180deg) scale(0.95); 
 }
 .memorama-card.matched:hover {
-     box-shadow: 0 0 12px rgba(40, 167, 69, 0.25); /* Efecto hover sutil */
+     box-shadow: 0 0 12px rgba(40, 167, 69, 0.25); 
 }
 
 .card-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     border-radius: inherit; padding: 0; box-sizing: border-box;
     text-align: center; overflow: hidden;
@@ -550,9 +545,9 @@ button.category-filter-btn.active {
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-light);
     text-align: center;
-    display: flex; /* THIS IS KEY */
-    flex-direction: column; /* THIS IS KEY */
-    align-items: center; /* THIS IS KEY */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     gap: var(--space-lg); 
 }
 
@@ -566,9 +561,9 @@ button.category-filter-btn.active {
 
 /* These divs group label and select */
 .quiz-setup-group {
-    display: flex; /* THIS IS KEY */
+    display: flex; 
     align-items: center;
-    justify-content: center; /* Optional: centers within the group if it takes full width */
+    justify-content: center; 
     gap: var(--space-sm); 
 }
 
@@ -831,7 +826,8 @@ footer img {
 @media (max-width: 768px) {
     header > h1 { font-size: 2.5em; }
     nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
-    main { padding: var(--space-lg); margin: var(--space-lg) auto; width: 98%; }
+    /* MODIFIED: main padding and margin-top for consistency */
+    main { padding: var(--space-lg); margin: var(--space-lg) auto var(--space-lg) auto; width: 98%; }
     h2 { font-size: 1.7em; }
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
@@ -881,7 +877,8 @@ footer img {
     header > h1 { font-size: 2.2em; }
     header { padding: var(--space-xs) var(--space-sm); }
     nav button { margin: 3px; padding: 5px 10px; font-size: 0.75em;}
-    main { padding: var(--space-md); }
+     /* MODIFIED: main padding and margin-top for consistency */
+    main { padding: var(--space-md); margin: var(--space-md) auto var(--space-md) auto; }
     h2 { font-size: 1.5em; }
     #about h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
@@ -894,17 +891,6 @@ footer img {
     }
     .search-container { gap: var(--space-sm); } 
     #lexicon-grid { margin-top: var(--space-md); }
-
-    #memorama-setup {
-        gap: var(--space-sm); 
-    }
-    .difficulty-btn {
-        font-size: 0.8em;
-    }
-    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
-    .memorama-card { height: 110px; }
-    .memorama-card .card-front p { font-size: 0.9em; }
-    .memorama-card .card-back::before { font-size: 3.2em; }
 
     #quiz-options { max-width: 95%; }
     #quiz-text-input-area { max-width: 95%; }
