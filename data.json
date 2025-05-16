@@ -21,7 +21,7 @@
     { "id": 19, "raramuri": "irápata", "spanish": "abrir", "image": "images/irápata.jpg", "category": "Verbos" },
     { "id": 20, "raramuri": "kajé", "spanish": "café", "image": "images/kajé.jpg", "category": "Comida y bebida" },
     { "id": 21, "raramuri": "karisi", "spanish": "calabaza", "image": "images/karisí.jpg", "category": "Comida y bebida" },
-    { "id": 22, "raramuri": "kasíbacha", "spanish": "pantalones", "image": "images/kasíbacha.jpg", "category": "Vestimenta" },
+    { "id": 22, "raramuri": "bataróne", "spanish": "pantalones", "image": "images/kasíbacha.jpg", "category": "Vestimenta" },
     { "id": 23, "raramuri": "kawí", "spanish": "monte", "image": "images/kawí.jpg", "category": "Naturaleza" },
     { "id": 24, "raramuri": "kípare", "spanish": "nieve", "image": "images/kípare.jpg", "category": "Naturaleza" },
     { "id": 25, "raramuri": "kiribá", "spanish": "quelite", "image": "images/kiribá.jpg", "category": "Comida y bebida" },
