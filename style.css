@@ -1,4 +1,4 @@
-/* style.css (Final, with !important for button colors in Memorama Setup) */
+/* style.css (Final, with all features and layout fixes) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -542,6 +542,128 @@ button.category-filter-btn.active {
 
 
 /* ------------------------- */
+/* Quiz Section                */
+/* ------------------------- */
+#quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
+#quiz-setup {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+    display: flex; /* THIS IS KEY */
+    flex-direction: column; /* THIS IS KEY */
+    align-items: center; /* THIS IS KEY */
+    gap: var(--space-lg); 
+}
+
+#quiz-setup p {
+    font-weight: 400;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    margin-bottom: 0; 
+}
+
+/* These divs group label and select */
+.quiz-setup-group {
+    display: flex; /* THIS IS KEY */
+    align-items: center;
+    justify-content: center; /* Optional: centers within the group if it takes full width */
+    gap: var(--space-sm); 
+}
+
+#quiz-setup label {
+    margin-right: 0; 
+    color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
+}
+#quiz-setup select {
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+    margin-right: 0;
+}
+#quiz-setup button#start-quiz {
+    font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
+    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
+    display: block; 
+    margin: 0 auto; 
+    max-width: 300px;
+}
+#quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+#quiz-data-error {
+    margin-top: 0; 
+    color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
+    width: 100%; 
+    max-width: 500px; 
+    box-sizing: border-box; 
+}
+
+#quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
+#quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
+#quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
+#quiz-options button {
+    display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white);
+    color: var(--text-primary); padding: var(--space-md) var(--space-lg); border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out;
+    font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm);
+}
+#quiz-options button:hover:not(:disabled) { background-color: var(--blue-light-bg); border-color: var(--blue-primary); transform: translateX(4px); box-shadow: var(--shadow-interactive); }
+#quiz-options button:disabled { cursor: default; opacity: 0.8; }
+#quiz-options button.correct:disabled { background-color: var(--success-bg) !important; color: #155724 !important; border-color: var(--success-green) !important; font-weight: 700; opacity: 1; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
+#quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
+#quiz-text-input-area { display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px; }
+#quiz-text-answer {
+    flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    font-size: 1.1em; font-family: var(--font-body); box-shadow: var(--shadow-sm); transition: all 0.3s ease; background-color: var(--white);
+}
+#quiz-text-answer:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
+#quiz-text-input-area button#submit-text-answer {
+    font-family: var(--font-heading); padding: calc(var(--space-md) - 1px) var(--space-lg); background-color: var(--blue-primary);
+    color: var(--white); border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1em; white-space: nowrap;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
+}
+#quiz-text-input-area button#submit-text-answer:hover { background-color: var(--blue-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-text-answer.correct { border-color: var(--success-green); background-color: var(--success-bg); color: #155724; font-weight: 600; }
+#quiz-text-answer.incorrect { border-color: var(--error-red); background-color: var(--error-bg); color: #721C24; font-weight: 600;}
+#quiz-feedback { margin: var(--space-xl) 0; font-weight: 700; min-height: 1.5em; text-align: center; font-size: 1.2em; font-family: var(--font-heading);}
+#quiz-feedback.correct { color: var(--success-green); }
+#quiz-feedback.incorrect { color: var(--error-red); }
+#quiz-feedback strong { font-weight: 700; }
+button#next-question {
+    font-family: var(--font-heading); display: block; width: auto; min-width: 180px; margin: var(--space-lg) auto 0 auto;
+    padding: var(--space-md) var(--space-xl); background-color: var(--blue-dark); color: var(--white); border: none;
+    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
+    box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; text-transform: uppercase;
+}
+button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-results { text-align: center; padding: var(--space-xl) 0; }
+#quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; }
+#quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);}
+#quiz-results span { color: var(--text-primary); font-weight: 700; }
+#quiz-results button {
+    font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg);
+    border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500;
+    transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+#quiz-results button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+button#restart-quiz { background-color: var(--orange-accent); color: var(--white); }
+button#restart-quiz:hover { background-color: var(--orange-dark); }
+button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
+button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
+
+/* Para el selector de categoría cuando "Repasar" está seleccionado */
+#quiz-category option[value="repasar"],
+#memorama-category option[value="repasar"],
+#flashcard-category option[value="repasar"] {
+    font-weight: bold;
+    background-color: var(--yellow-light-bg) !important; 
+    color: var(--orange-dark) !important;
+}
+
+
+/* ------------------------- */
 /* Flashcards Section        */
 /* ------------------------- */
 #flashcards-container {
@@ -616,7 +738,7 @@ button.category-filter-btn.active {
     max-width: 95%; 
     max-height: 95%; 
     object-fit: contain;
-    margin-bottom: 0; /* Eliminated extra space below image */
+    margin-bottom: 0; 
     display: block;
     border-radius: var(--border-radius-md);
     border: 4px solid var(--white);
