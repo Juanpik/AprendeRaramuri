@@ -1,4 +1,4 @@
-/* style.css (Final, Complete, Verified - Quiz Setup Gap Increased, Memorama Category Selector Added) */
+/* style.css (Final, Complete, Verified - Quiz Setup Gap Increased, Memorama Category Selector Added, Repasar Stars Added) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -262,10 +262,16 @@ button.category-filter-btn.active {
 }
 .lexicon-item {
     background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-md);
-    padding: var(--space-lg); text-align: center; box-shadow: var(--shadow-md);
+    /* padding: var(--space-lg); Modificado abajo para Repasar */
+    text-align: center; box-shadow: var(--shadow-md);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex; flex-direction: column;
     align-items: center; position: relative; overflow: hidden;
+
+    /* NUEVO: Ajuste para la estrella de Repasar */
+    position: relative; /* Asegura que el posicionamiento absoluto de actions funcione */
+    padding: var(--space-lg);
+    padding-top: 40px; /* Espacio para la estrella, ajustar según tamaño de estrella */
 }
 .lexicon-item:hover {
     transform: translateY(-5px) scale(1.02);
@@ -275,6 +281,7 @@ button.category-filter-btn.active {
     width: 150px; height: 150px; object-fit: cover; display: block; margin-bottom: var(--space-lg);
     border-radius: var(--border-radius-md);
     background-color: var(--blue-light-bg); border: 4px solid var(--white); box-shadow: var(--shadow-sm);
+    margin-top: 0; /* Quitar margen si ya lo da el padding del item */
 }
 .lexicon-item .raramuri-word {
     font-family: var(--font-heading); font-weight: 600; color: var(--orange-accent); font-size: 1.25em;
@@ -283,6 +290,35 @@ button.category-filter-btn.active {
 .lexicon-item .spanish-word {
     font-style: normal; color: var(--text-secondary); font-size: 1em; word-wrap: break-word; font-family: var(--font-body);
 }
+
+/* --- Estilos para "Palabras a Repasar" (Estrellas) --- */
+.lexicon-item-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10; /* Asegura que esté por encima de la imagen si se superponen */
+}
+
+.repasar-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.8em; /* Tamaño de la estrella */
+    color: #ccc; /* Color de estrella vacía */
+    cursor: pointer;
+    padding: 5px; /* Área de clic un poco más grande */
+    line-height: 1; /* Para mejor alineación vertical de la estrella */
+    transition: color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.repasar-toggle-btn:hover {
+    transform: scale(1.2);
+}
+
+.repasar-toggle-btn.marked {
+    color: var(--yellow-highlight); /* Color de estrella llena/marcada */
+}
+/* --- Fin Estilos para "Palabras a Repasar" --- */
+
 
 /* Frases */
 #phrases-list li {
@@ -305,11 +341,10 @@ button.category-filter-btn.active {
     text-align: center;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: var(--space-xl);
-    /* MODIFICADO: Convertir a flex para mejor alineación y espaciado de los grupos de setup */
     display: flex;
-    flex-direction: column; /* Apila los elementos (grupo de categoría, párrafo, grupo de botones) */
-    align-items: center; /* Centra los elementos apilados */
-    gap: var(--space-lg); /* Espacio entre los elementos apilados */
+    flex-direction: column; 
+    align-items: center; 
+    gap: var(--space-lg); 
 }
 
 #memorama-setup p {
@@ -317,10 +352,9 @@ button.category-filter-btn.active {
     font-size: 1.1em;
     color: var(--text-secondary);
     font-family: var(--font-body);
-    margin-bottom: 0; /* Quitar margen inferior si el gap del flex container ya lo gestiona */
+    margin-bottom: 0; 
 }
 
-/* NUEVO: Estilos para el grupo del selector de categoría del Memorama */
 .memorama-setup-group {
     display: flex;
     align-items: center;
@@ -328,13 +362,13 @@ button.category-filter-btn.active {
     gap: var(--space-sm);
 }
 
-#memorama-setup label { /* Estilo general para labels en memorama-setup */
+#memorama-setup label { 
     color: var(--text-secondary);
     font-size: 0.95em;
     font-family: var(--font-body);
 }
 
-#memorama-setup select { /* Estilo general para selects en memorama-setup */
+#memorama-setup select { 
     padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
@@ -344,7 +378,6 @@ button.category-filter-btn.active {
     color: var(--text-primary);
 }
 
-/* Contenedor para los botones de dificultad para asegurar que estén agrupados visualmente */
 #memorama-setup > div:not(.memorama-setup-group) {
     display: flex;
     flex-wrap: wrap;
@@ -367,7 +400,7 @@ button.category-filter-btn.active {
 
 .difficulty-btn, #reset-memorama {
     font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none;
-    border-radius: var(--border-radius-pill); cursor: pointer; /* margin quitado, gap en contenedor padre */
+    border-radius: var(--border-radius-pill); cursor: pointer;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9em; color: var(--white);
 }
@@ -424,7 +457,7 @@ button.category-filter-btn.active {
      opacity: 1 !important; visibility: visible !important; z-index: 2;
 }
 .memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
-.memorama-card .card-front p { /* Added p selector for more specific styling */
+.memorama-card .card-front p { 
     font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0;
     padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
     text-align: center; box-sizing: border-box;
@@ -440,7 +473,7 @@ button.category-filter-btn.active {
  .memorama-card.matched .card-back {
      opacity: 0 !important; visibility: hidden !important; z-index: 1;
 }
-.memorama-card .card-back::before { /* Selector específico para el '?' del Memorama */
+.memorama-card .card-back::before { 
    content: '?';
    font-family: var(--font-heading);
    font-size: 4em;
@@ -467,28 +500,24 @@ button.category-filter-btn.active {
     border-bottom: 1px solid var(--border-light);
     text-align: center;
     display: flex;
-    flex-direction: column; /* APILADO: para que los grupos y el botón se apilen verticalmente */
-    align-items: center; /* Centra los elementos apilados */
-    gap: var(--space-lg); /* AUMENTADO: Espacio entre el párrafo, los grupos, y el botón */
+    flex-direction: column; 
+    align-items: center; 
+    gap: var(--space-lg); 
 }
 #quiz-setup p {
-    margin-bottom: 0; /* Quitar margen si gap lo maneja */
+    margin-bottom: 0; 
     font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body);
-    /* flex-basis: 100%; no es necesario si es flex-direction: column */
 }
 
-/* Estilos para agrupar etiqueta y selector */
 .quiz-setup-group {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm); /* Espacio entre label y select */
-    /* width: 100%; */ /* Opcional, si quieres que el grupo ocupe todo el ancho */
-    /* max-width: 400px; */ /* Opcional, para limitar el ancho máximo de cada grupo */
+    gap: var(--space-sm); 
 }
 
 #quiz-setup label {
-    margin-right: 0; /* No es necesario si usas gap en el grupo */
+    margin-right: 0; 
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
@@ -500,18 +529,18 @@ button.category-filter-btn.active {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    display: block; /* Asegura que sea bloque */
-    margin: 0 auto; /* Centrado, el gap del padre gestiona espacio vertical */
+    display: block; 
+    margin: 0 auto; 
     max-width: 300px;
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
 #quiz-data-error {
-    margin-top: 0; /* El gap del contenedor padre lo maneja */
+    margin-top: 0; 
     color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
-    width: 100%; /* Ocupa el ancho disponible */
-    max-width: 500px; /* Limita el ancho máximo */
-    box-sizing: border-box; /* Incluye padding en el width */
+    width: 100%; 
+    max-width: 500px; 
+    box-sizing: border-box; 
 }
 
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
@@ -568,24 +597,32 @@ button#restart-quiz:hover { background-color: var(--orange-dark); }
 button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
 button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
+/* (Opcional) Para el selector de categoría cuando "Repasar" está seleccionado */
+#quiz-category option[value="repasar"],
+#memorama-category option[value="repasar"],
+#flashcard-category option[value="repasar"] {
+    font-weight: bold;
+    background-color: var(--yellow-light-bg) !important; /* !important para asegurar que se aplique sobre otros estilos de select */
+    color: var(--orange-dark) !important;
+}
+
+
 /* ------------------------- */
 /* Flashcards Section        */
 /* ------------------------- */
 #flashcards-container {
     max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px;
 }
-/* Estilos para el contenedor de controles de setup de Flashcards */
 #flashcards-setup-controls {
     text-align: center;
     margin-bottom: var(--space-lg);
     display: flex;
-    flex-direction: column; /* APILADO */
-    align-items: center;   /* Centrado */
-    gap: var(--space-lg);  /* Espacio entre el grupo y el mensaje de error */
+    flex-direction: column; 
+    align-items: center;   
+    gap: var(--space-lg);  
     padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--border-light);
 }
-/* Estilos para agrupar etiqueta y selector en Flashcards */
 .flashcard-setup-group {
     display: flex;
     align-items: center;
@@ -612,7 +649,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     color: var(--error-red);
     text-align: center;
     display: none;
-    margin-top: 0; /* El gap del padre lo gestiona */
+    margin-top: 0; 
     font-size: 0.95em;
     width: 100%;
     max-width: 400px;
@@ -727,6 +764,8 @@ footer img {
     #about h2 { font-size: 1.7em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-lg);}
     .lexicon-item img { width: 110px; height: 110px; }
+    .lexicon-item { padding-top: 35px; /* Ajustar para estrella en móvil */ }
+    .repasar-toggle-btn { font-size: 1.6em; }
     .category-filter-container { gap: var(--space-xs); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
     #lexicon-search {
@@ -738,10 +777,10 @@ footer img {
     #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { width: 100%; }
     #quiz-results button { width: calc(50% - var(--space-lg)); min-width: 150px; }
     
-    #memorama-setup { /* El gap ya está en var(--space-lg) para desktop, puede ser mucho para móvil */
+    #memorama-setup { 
         gap: var(--space-md);
     }
-    .difficulty-btn { /* Reducir un poco los botones de dificultad si es necesario */
+    .difficulty-btn { 
         padding: var(--space-xs) var(--space-md);
         font-size: 0.85em;
     }
@@ -749,7 +788,7 @@ footer img {
     .memorama-card { height: 130px; }
 
     #flashcards-setup-controls {
-         gap: var(--space-md); /* Reducir gap en móvil */
+         gap: var(--space-md); 
     }
     #flashcards-setup-controls select {
          padding: var(--space-sm) var(--space-md);
@@ -761,11 +800,9 @@ footer img {
      .flashcard-face img { max-height: 75%; }
     #flashcard-controls button { font-size: 0.9em; min-width: 80px; padding: var(--space-xs) var(--space-sm); }
 
-    /* Quiz setup ya es flex-column, los ajustes de gap son suficientes */
     #quiz-setup {
-        gap: var(--space-md); /* Reducir gap en móvil para que no sea tan espaciado */
+        gap: var(--space-md); 
     }
-     /* Los quiz-setup-group y el botón ya se adaptan bien al ser centrados y apilados */
 }
 @media (max-width: 576px) {
     header > h1 { font-size: 2.2em; }
@@ -776,6 +813,8 @@ footer img {
     #about h2 { font-size: 1.5em; }
     #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
     .lexicon-item img { width: 90px; height: 90px; }
+    .lexicon-item { padding-top: 30px; /* Ajustar para estrella en móvil más pequeño */ }
+    .repasar-toggle-btn { font-size: 1.5em; top: 5px; right: 5px;}
     .category-filter-container { padding-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.8em; }
     #lexicon-search {
@@ -783,9 +822,8 @@ footer img {
         font-size: 1em;
     }
 
-    /* Memorama setup en pantallas pequeñas */
     #memorama-setup {
-        gap: var(--space-sm); /* Aún más pequeño el gap */
+        gap: var(--space-sm); 
     }
     .difficulty-btn {
         font-size: 0.8em;
@@ -809,9 +847,8 @@ footer img {
     #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
     #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); }
 
-    /* Quiz y Flashcards setup (ya son flex-column, gap ajustado en 768px) */
      #quiz-setup, #flashcards-setup-controls {
-         gap: var(--space-md); /* Mantener o ajustar si es necesario */
+         gap: var(--space-md); 
      }
 }
 @media (max-width: 420px) {
@@ -821,10 +858,11 @@ footer img {
          padding: var(--space-sm) var(--space-lg);
          font-size: 0.95em;
      }
+    .lexicon-item { padding-top: 28px; /* Ajustar para estrella en móvil muy pequeño */ }
+    .repasar-toggle-btn { font-size: 1.4em; }
 
-    /* Memorama setup en pantallas muy pequeñas */
     .difficulty-btn {
-        padding: var(--space-xs) var(--space-xs); /* Aún más pequeños */
+        padding: var(--space-xs) var(--space-xs); 
         font-size: 0.75em;
     }
      #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
