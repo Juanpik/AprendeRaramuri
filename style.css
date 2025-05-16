@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS) */
+/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Select arrow fix) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -389,6 +389,7 @@ button.category-filter-btn.active {
     font-family: var(--font-body);
     font-size: 1em;
     color: var(--text-primary);
+    margin-right: 0;
 }
 
 #memorama-setup > div:not(.memorama-setup-group) {
@@ -642,7 +643,7 @@ button#next-question {
     border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500; transition: all 0.3s ease;
     box-shadow: var(--shadow-interactive); letter-spacing: 0.5px; text-transform: uppercase;
 }
-button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+#quiz-question-area button#next-question:hover { background-color: var(--blue-darker); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 #quiz-results { text-align: center; padding: var(--space-xl) 0; }
 #quiz-results h3 { color: var(--blue-dark); margin-bottom: var(--space-lg); font-size: 2em; }
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);}
@@ -892,7 +893,7 @@ footer img {
 
 
     /* Quiz */
-    #quiz-setup { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-lg); }
+    #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
      .quiz-setup-group { gap: var(--space-xs); }
     #quiz-setup label { font-size: 0.9em; }
     #quiz-setup select { font-size: 0.95em; padding: var(--space-xs) var(--space-sm);}
@@ -1092,16 +1093,83 @@ footer img {
 
 /* Ensure select arrows are visible on various browsers */
 select {
-    -webkit-appearance: menulist;
-    -moz-appearance: menulist;
-    appearance: menulist;
+    /* --- INICIO CORRECCIÓN: Ocultar flecha nativa --- */
+    -webkit-appearance: none; /* Para Chrome, Safari, Opera */
+    -moz-appearance: none;    /* Para Firefox */
+    appearance: none;         /* Estándar */
+    /* --- FIN CORRECCIÓN --- */
+
+    /* Añadir flecha personalizada como imagen de fondo */
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287.9.953a19.883%2019.883%200%200%200-13.862-5.804L5.079%205.106a19.884%2019.884%200%200%200-13.862%205.804%2019.9%2019.9%200%200%200%200%2028.167l128.932%20128.936c7.758%207.758%2020.304%207.758%2028.061%200l128.932-128.936a19.9%2019.9%200%200%200%200-28.167z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
-    background-position: right 8px center;
-    background-size: 12px;
-    padding-right: 25px; /* make room for the arrow */
+    background-position: right 8px center; /* Posiciona la flecha a la derecha */
+    background-size: 12px; /* Define el tamaño de la flecha */
+    padding-right: 25px; /* Asegura que el texto no se solape con la flecha */
+
+    /* Estilos existentes para padding, borde, etc. */
+    /* Estos ya están definidos en los selectores específicos como #memorama-setup select, etc. */
+    /* Se mueven aquí para que apliquen a todos los selects */
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--white);
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    cursor: pointer; /* Añadir cursor pointer para indicar que es interactivo */
+
+    /* Añadido para asegurar que el padding/font size base sea consistente antes de los específicos */
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1em;
+
+    /* Evitar que el select se encoja demasiado en flexbox si es necesario */
+    flex-shrink: 0;
 }
 
+/* Mover estilos específicos de select DE VUELTA a sus selectores */
+/* Esto es para que las reglas más específicas de padding/font-size/etc. prevalezcan */
+#memorama-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
+#quiz-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
+#flashcards-setup-controls select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
+
+
+/* Regla específica para Internet Explorer 10 y 11 */
 select::-ms-expand {
-    display: none; /* Hide the default arrow in Internet Explorer 10 and 11 */
+    display: none;
+}
+
+/* Estilo para cuando el select está enfocado - opcional */
+select:focus {
+    outline: none;
+    border-color: var(--blue-primary);
+    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25);
+}
+
+/* Asegura que el padding-right se ajuste en tamaños más pequeños si es necesario */
+@media (max-width: 768px) {
+    select {
+       padding-right: 20px; /* Reducir un poco el padding derecho */
+       background-position: right 6px center; /* Mover la flecha un poco más a la izquierda */
+       background-size: 10px; /* Reducir un poco el tamaño de la flecha */
+    }
+    /* Ajustar padding/font size específicos en media query si es necesario */
+    #memorama-setup select,
+    #quiz-setup select,
+    #flashcards-setup-controls select {
+        padding: var(--space-xs) var(--space-sm); /* Ajustar padding */
+        font-size: 0.95em; /* Ajustar font size */
+    }
+}
+
+@media (max-width: 576px) {
+    select {
+        padding-right: 18px; /* Reducir un poco más */
+        background-position: right 5px center; /* Mover la flecha un poco más */
+        background-size: 9px; /* Reducir tamaño de flecha */
+    }
+     /* Ajustar padding/font size específicos en media query si es necesario */
+    #memorama-setup select,
+    #quiz-setup select,
+    #flashcards-setup-controls select {
+        padding: var(--space-xs) var(--space-sm); /* Puede que necesiten menos padding en móvil */
+        font-size: 0.9em; /* Puede que necesiten menos font size en móvil */
+    }
 }
