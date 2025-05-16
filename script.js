@@ -1,4 +1,4 @@
-// script.js (Con implementación de "Palabras a Repasar")
+// script.js (Con botón de estrella debajo de la palabra en español)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
@@ -347,52 +347,22 @@ document.addEventListener('DOMContentLoaded', () => {
         itemsToShow.forEach(item => {
             const div = document.createElement('div');
             div.classList.add('lexicon-item');
-            div.dataset.id = item.id; // Añadir data-id para referencia
+            div.dataset.id = item.id; 
 
             const imgSrc = item.image || 'images/placeholder.png';
             const spanishText = item.spanish || '???';
             const raramuriText = item.raramuri || '???';
-
-            // Contenedor para acciones (estrella)
-            const actionsDiv = document.createElement('div');
-            actionsDiv.classList.add('lexicon-item-actions');
-
-            // Botón de estrella para Repasar
-            const repasarBtn = document.createElement('button');
-            repasarBtn.classList.add('repasar-toggle-btn');
-            repasarBtn.innerHTML = '☆'; // Estrella vacía (☆)
-            repasarBtn.title = "Marcar para repasar";
-            if (isRepasarItem(item.id)) {
-                repasarBtn.classList.add('marked');
-                repasarBtn.innerHTML = '★'; // Estrella llena (★)
-                repasarBtn.title = "Quitar de repasar";
-            }
-            repasarBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Evitar que el clic se propague al lexicon-item si tiene otros listeners
-                toggleRepasarItem(item.id, repasarBtn);
-            });
-
-            actionsDiv.appendChild(repasarBtn);
-            div.appendChild(actionsDiv);
-
-            div.innerHTML += `
+            
+            // Construir el HTML del ítem. La estrella ahora va DESPUÉS del español.
+            div.innerHTML = `
                 <img src="${imgSrc}" alt="${spanishText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';">
                 <p class="raramuri-word">${raramuriText}</p>
-                <p class="spanish-word">${spanishText}</p>`;
-            
-            // Re-adjuntar el botón de estrella porque innerHTML lo sobrescribe
-            // Es mejor construir el DOM incrementalmente o al final adjuntar el botón.
-            // Vamos a reconstruir el div.innerHTML para incluir el botón:
-            
-            div.innerHTML = `
+                <p class="spanish-word">${spanishText}</p>
                 <div class="lexicon-item-actions">
                     <button class="repasar-toggle-btn ${isRepasarItem(item.id) ? 'marked' : ''}" title="${isRepasarItem(item.id) ? 'Quitar de repasar' : 'Marcar para repasar'}">
                         ${isRepasarItem(item.id) ? '★' : '☆'}
                     </button>
-                </div>
-                <img src="${imgSrc}" alt="${spanishText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';">
-                <p class="raramuri-word">${raramuriText}</p>
-                <p class="spanish-word">${spanishText}</p>`;
+                </div>`;
 
             lexiconGrid.appendChild(div);
 
@@ -400,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const starButtonInDOM = div.querySelector('.repasar-toggle-btn');
             if (starButtonInDOM) {
                 starButtonInDOM.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); // Evitar que el clic se propague al lexicon-item si tuviera otros listeners
                     toggleRepasarItem(item.id, starButtonInDOM);
                 });
             }
@@ -419,8 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonElement.innerHTML = '★';
             buttonElement.title = "Quitar de repasar";
         }
-        // No es necesario llamar a saveRepasarIds() aquí porque add/removeRepasarId ya lo hacen.
-        // saveRepasarIds() ya llama a updateAllRepasarOptions()
     }
 
 
@@ -745,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
     
-        if (categoryFilteredItems.length < 1) { // Necesita al menos 1 para alguna pregunta, 2 para opciones
+        if (categoryFilteredItems.length < 1) { 
             console.warn(`[Quiz] Datos insuficientes para "${selectedCategory}" (${categoryFilteredItems.length}).`);
             if (quizDataErrorEl) {
                 const catDisplay = selectedCategory === 'all' ? 'todas las categorías' :
@@ -801,28 +769,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (q.type === 'MC_SpRa' || q.type === 'MC_ImgRa') field = 'raramuri';
     
                 if (field && q.item) {
-                    // Usar availableLexiconItems (que ya está filtrado por categoría o "repasar") para las opciones incorrectas
                     const potentialWrongPool = availableLexiconItems.filter(item => item && item.id !== q.item.id);
                     wrongOptions = getWrongOptions(q.item, 3, potentialWrongPool, field);
                     const allOptions = [q.answer, ...wrongOptions];
-                    const uniqueOptions = Array.from(new Set(allOptions.filter(opt => opt && opt.trim() !== ''))); // Filtrar vacíos
+                    const uniqueOptions = Array.from(new Set(allOptions.filter(opt => opt && opt.trim() !== '')));
                     q.options = shuffleArray(uniqueOptions.slice(0, 4));
                 } else { q.options = [q.answer]; console.warn("No se pudieron generar opciones MC válidas para:", q); }
                 
-                // Si después de todo no hay suficientes opciones (ej. pocos datos en "repasar"), añadir placeholders
                 while(q.options.length < 2 && q.options.length < availableLexiconItems.length && availableLexiconItems.length >= 2) {
-                    // Buscar cualquier otra palabra de la lista de disponibles que no sea la respuesta.
                     let randomItem = availableLexiconItems[Math.floor(Math.random() * availableLexiconItems.length)];
                     if (randomItem && randomItem[field] && randomItem[field] !== q.answer && !q.options.includes(randomItem[field])) {
                         q.options.push(randomItem[field]);
-                    } else { // Si no encuentra, para evitar bucle infinito si hay muy pocos datos
+                    } else { 
                         break;
                     }
                 }
                  if (q.options.length < 2) {
                      console.warn("Pregunta MC con <2 opciones:", q);
-                     // Podrías añadir opciones genéricas si es necesario, o simplemente mostrar 1 opción
-                     // if (q.options.length === 1) q.options.push("Otra opción"); 
                  }
             }
         });
@@ -832,7 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function startQuiz(isRetry = false) {
         quizActive = true; score = 0; currentQuestionIndex = 0;
-        if(quizDataErrorEl) quizDataErrorEl.style.display = 'none'; // Ocultar error previo
+        if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
 
         if (!isRetry) {
             const selectedLength = quizLengthSelect ? quizLengthSelect.value : '5';
@@ -848,7 +811,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!currentQuizSet || currentQuizSet.length === 0) {
             console.log("[Quiz] No hay preguntas en el set actual.");
-            // El mensaje de error ya se muestra desde generateQuizQuestions
             if(quizQuestionArea) quizQuestionArea.style.display = 'none';
             if(quizSetup) quizSetup.style.display = 'flex'; 
             if(quizResultsEl) quizResultsEl.style.display = 'none';
@@ -895,10 +857,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (q.type.startsWith('MC_') && quizOptionsEl) {
             quizOptionsEl.style.display = 'block';
-            if (!Array.isArray(q.options) || q.options.length === 0 ) { // Cambio: Permite 1 opción si es necesario
+            if (!Array.isArray(q.options) || q.options.length === 0 ) { 
                 console.error("[Quiz Error] MC sin opciones válidas:", q);
                 quizOptionsEl.innerHTML = '<p style="color:var(--error-red);">Error opciones.</p>';
-                // Si solo hay una opción, mostrarla como texto y marcar como correcta automáticamente o pedir confirmación
                 if(q.options.length === 1) {
                     const button = document.createElement('button'); button.textContent = q.options[0]; button.disabled = false;
                     button.addEventListener('click', handleMCAnswer);
@@ -1018,11 +979,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(quizCategorySelect) {
             if(quizCategorySelect.options.length > 0) quizCategorySelect.value = 'all';
-            if(lexiconData.length > 0 && quizCategorySelect.options.length <= 1) { // Podría ser <3 si contamos "all" y "repasar"
+            if(lexiconData.length > 0 && quizCategorySelect.options.length <= 1) { 
                 const uniqueCategories = getUniqueCategories(lexiconData);
                 populateCategorySelect(quizCategorySelect, uniqueCategories);
             } else {
-                updateRepasarOptionInSelect(quizCategorySelect); // Solo actualizar repasar si ya está poblado
+                updateRepasarOptionInSelect(quizCategorySelect); 
             }
             quizCategorySelect.disabled = quizCategorySelect.options.length <= 1 && repasarLexiconIds.length === 0;
         }
@@ -1053,8 +1014,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter' && !submitTextAnswerBtn.disabled) handleTextAnswer();
         });
         quizCategorySelect.addEventListener('change', () => {
-            // No es necesario resetear la vista completa, solo asegurar que el mensaje de error se limpie
-            // si la nueva categoría tiene datos. La lógica de startQuiz manejará si hay datos o no.
             if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
         });
     }
@@ -1124,13 +1083,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!flashcardData || flashcardData.length === 0 || !flashcardAreaEl || flashcardAreaEl.style.display === 'none') {
             console.log("[Flashcards] No hay datos o área no visible.");
             if (flashcardCounterEl) flashcardCounterEl.textContent = '';
-            // Ocultar área de tarjeta si no hay datos
             if (flashcardAreaEl && (!flashcardData || flashcardData.length === 0)) {
                  flashcardAreaEl.style.display = 'none';
             }
             return;
         } else if (flashcardAreaEl && flashcardAreaEl.style.display === 'none') {
-            // Asegurarse de que el área sea visible si hay datos
             flashcardAreaEl.style.display = 'block';
         }
 
@@ -1163,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipFlashcard() {
-        if (!flashcardEl || !flashcardData || flashcardData.length === 0) return; // Añadido chequeo de datos
+        if (!flashcardEl || !flashcardData || flashcardData.length === 0) return; 
         flashcardEl.classList.toggle('flipped');
         isFlashcardFlipped = !isFlashcardFlipped;
     }
@@ -1187,8 +1144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prepareFlashcardData()) {
             displayCurrentFlashcard();
         } else {
-             // Si prepareFlashcardData devuelve false, displayCurrentFlashcard no se llamará.
-             // Nos aseguramos de que el mensaje de error (si existe) se muestre y el área de tarjetas se oculte.
             if (flashcardAreaEl) flashcardAreaEl.style.display = 'none';
             if (flashcardCounterEl) flashcardCounterEl.textContent = '';
         }
@@ -1213,8 +1168,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (prepareFlashcardData()) {
                 displayCurrentFlashcard();
             } else {
-                // Si prepareFlashcardData devuelve false, el mensaje de error ya se muestra.
-                // Ocultar el área de la tarjeta si no hay datos.
                 if (flashcardAreaEl) flashcardAreaEl.style.display = 'none';
                 if (flashcardCounterEl) flashcardCounterEl.textContent = '';
             }
@@ -1223,14 +1176,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeFlashcardsView() {
         console.log("[Flashcards] Inicializando vista...");
-        if(flashcardsDataErrorEl) flashcardsDataErrorEl.style.display = 'none'; // Limpiar error previo
+        if(flashcardsDataErrorEl) flashcardsDataErrorEl.style.display = 'none'; 
 
         if(lexiconData.length > 0 && flashcardCategorySelect) {
-            // Si el selector tiene pocas opciones (solo "all" o ninguna), poblarlo
             if (flashcardCategorySelect.options.length <=1 ) {
                 const uniqueCategories = getUniqueCategories(lexiconData);
                 populateCategorySelect(flashcardCategorySelect, uniqueCategories);
-            } else { // Si ya está poblado, solo actualizar la opción de repasar
+            } else { 
                 updateRepasarOptionInSelect(flashcardCategorySelect);
             }
             flashcardCategorySelect.disabled = flashcardCategorySelect.options.length <= 1 && repasarLexiconIds.length === 0;
@@ -1251,8 +1203,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(prepareFlashcardData()) {
             displayCurrentFlashcard();
         } else {
-            // Si prepareFlashcardData devuelve false, el error ya se está mostrando.
-            // Solo asegúrate de que el área de tarjetas esté oculta.
             if (flashcardAreaEl) flashcardAreaEl.style.display = 'none';
         }
     }
@@ -1272,7 +1222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populatePhrases();
         setupSearch();
         populateCategoryFilters();
-        filterAndDisplayLexicon(); // Esto mostrará las estrellas correctamente desde el inicio
+        filterAndDisplayLexicon(); 
 
         if(lexiconData.length > 0) {
             const uniqueCategories = getUniqueCategories(lexiconData);
@@ -1280,7 +1230,6 @@ document.addEventListener('DOMContentLoaded', () => {
             populateCategorySelect(flashcardCategorySelect, uniqueCategories);
             populateCategorySelect(memoramaCategorySelect, uniqueCategories);
 
-            // Habilitar/deshabilitar selectores basado en si hay opciones (más que solo "all" y "repasar (0)")
             [quizCategorySelect, flashcardCategorySelect, memoramaCategorySelect].forEach(sel => {
                 if (sel) sel.disabled = sel.options.length <= 1 && repasarLexiconIds.length === 0;
             });
@@ -1301,7 +1250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupQuizControls();
         setupFlashcardsControls();
         
-        updateAllRepasarOptions(); // Llamada final para asegurar que todo esté sincronizado
+        updateAllRepasarOptions(); 
 
         console.log("Aplicación inicializada.");
     }
