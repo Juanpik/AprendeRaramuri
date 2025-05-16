@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ramapp v.234</title>
+    <title>ramapp v.234 - Favoritos</title> <!-- Título actualizado -->
     <!-- Google Fonts (Incluye Nunito, Poppins Y AHORA Darumadrop One) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +21,7 @@
             <button data-section="about">Sobre el Proyecto</button>
             <button data-section="lexicon">Léxico</button>
             <button data-section="phrases">Frases</button>
+            <button data-section="favorites">Mis Favoritos ★</button> <!-- NUEVO BOTÓN -->
             <button data-section="memorama">Memorama</button>
             <button data-section="quiz">Quiz</button>
             <button data-section="flashcards">Flashcards</button>
@@ -37,7 +38,7 @@
                 <h2>Sobre el Proyecto</h2>
                 <p>Esta aplicación tiene como objetivo ayudar en el aprendizaje básico del <em>idioma Rarámuri</em>.</p>
                 <p>La lengua rarámuri, también conocida como tarahumara, pertenece a la familia yuto-nahua y es hablada por aproximadamente 85,000 personas en el estado de Chihuahua, México.</p>
-                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p> 
+                <p><em>NOTA: </em>El rarámuri es una lengua que presenta diversas variantes dialectales, como la central, occidental, norteña, sureste y suroeste, entre otras. Estas variantes pueden diferir en su ortografía, pronunciación, vocabulario y uso según la región. Por ello, algunas palabras o expresiones en esta aplicación pueden variar respecto a las que se utilizan en distintas comunidades.</p>
                      <p><em>Este recurso busca ofrecer un punto de partida útil, pero no reemplaza el conocimiento local ni las particularidades de cada variante.</em><p>
                 <p class="credits-line">Creditos:</p>
                 <!-- <ul class="credits-list"><li>Crédito 1</li><li>Crédito 2</li></ul> -->
@@ -59,6 +60,17 @@
                 <ul id="phrases-list"></ul>
             </section>
 
+            <!-- NUEVA SECCIÓN DE FAVORITOS -->
+            <section id="favorites" class="content-section">
+                <h2>Mis Favoritos ★</h2>
+                <p id="favorites-empty-message" style="text-align: center; color: var(--text-secondary); display: none;">
+                    Aún no has marcado ninguna palabra como favorita. Haz clic en la estrella (☆) junto a una palabra en el Léxico para añadirla aquí.
+                </p>
+                <div id="favorites-grid" class="lexicon-grid-style">
+                    <!-- Los favoritos se mostrarán aquí, usando un estilo similar al léxico -->
+                </div>
+            </section>
+
             <section id="memorama" class="content-section">
                 <h2>Memorama</h2>
                 <div id="memorama-setup">
@@ -68,6 +80,10 @@
                         <select id="memorama-category">
                             <!-- Opciones generadas por JS -->
                         </select>
+                    </div>
+                     <div class="memorama-setup-group"> <!-- NUEVO: Checkbox para favoritos en Memorama -->
+                        <input type="checkbox" id="memorama-use-favorites" style="margin-right: var(--space-xs);">
+                        <label for="memorama-use-favorites" style="font-size: 0.9em; color: var(--text-secondary);">Usar solo Favoritos ★</label>
                     </div>
                     <p>Elige la dificultad (número de pares):</p>
                     <div> <!-- Contenedor para los botones de dificultad -->
@@ -84,7 +100,7 @@
                     <div id="memorama-grid"></div>
                     <div id="memorama-win-message" style="display: none;"></div>
                 </div>
-                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad y categoría.</p>
+                 <p id="memorama-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos léxicos con imágenes para esta dificultad y categoría/favoritos.</p>
             </section>
 
             <section id="quiz" class="content-section">
@@ -98,6 +114,10 @@
                                 <!-- Opciones generadas por JS -->
                             </select>
                         </div>
+                        <div class="quiz-setup-group"> <!-- NUEVO: Checkbox para favoritos en Quiz -->
+                            <input type="checkbox" id="quiz-use-favorites" style="margin-right: var(--space-xs);">
+                            <label for="quiz-use-favorites" style="font-size: 0.9em; color: var(--text-secondary);">Usar solo Favoritos ★</label>
+                        </div>
                         <div class="quiz-setup-group">
                             <label for="quiz-length">Número de preguntas:</label>
                             <select id="quiz-length">
@@ -107,7 +127,7 @@
                             </select>
                         </div>
                         <button id="start-quiz">Empezar Quiz</button>
-                         <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz.</p>
+                         <p id="quiz-data-error" style="color: red; text-align: center; display: none;">No hay suficientes datos para generar el quiz con esta configuración.</p>
                     </div>
 
                     <div id="quiz-question-area" style="display: none;">
@@ -134,14 +154,18 @@
             <section id="flashcards" class="content-section">
                 <h2>Flashcards</h2>
                 <div id="flashcards-container">
-                     <div id="flashcards-setup-controls"> <!-- MODIFICADO CSS para ser flex column, similar a quiz-setup -->
-                        <div class="flashcard-setup-group"> <!-- Envoltura para label y select -->
+                     <div id="flashcards-setup-controls">
+                        <div class="flashcard-setup-group">
                             <label for="flashcard-category">Categoría:</label>
                             <select id="flashcard-category">
                                 <!-- Opciones generadas por JS -->
                             </select>
                         </div>
-                         <p id="flashcards-data-error" style="color: red; text-align: center; display: none; margin-top:var(--space-sm);">No hay datos para esta categoría.</p>
+                        <div class="flashcard-setup-group"> <!-- NUEVO: Checkbox para favoritos en Flashcards -->
+                            <input type="checkbox" id="flashcard-use-favorites" style="margin-right: var(--space-xs);">
+                            <label for="flashcard-use-favorites" style="font-size: 0.9em; color: var(--text-secondary);">Usar solo Favoritos ★</label>
+                        </div>
+                         <p id="flashcards-data-error" style="color: red; text-align: center; display: none; margin-top:var(--space-sm);">No hay datos para esta categoría o tus favoritos.</p>
                      </div>
 
                     <p id="flashcards-loading" style="display: none; text-align: center;">Cargando tarjetas...</p>
