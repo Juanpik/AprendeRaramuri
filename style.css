@@ -1,4 +1,4 @@
-/* style.css (Final, with larger flashcard images) */
+/* style.css (Final, with larger, better-centered flashcard images) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -680,11 +680,13 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 .flashcard-face {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: var(--space-lg); box-sizing: border-box; border-radius: inherit;
+    padding: var(--space-lg); /* Padding interno de la cara de la tarjeta */
+    box-sizing: border-box; border-radius: inherit;
     border: 1px solid var(--border-light); text-align: center; overflow-wrap: break-word;
 }
 .flashcard-face.card-front {
     background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
+    /* Ajusta el tamaño del texto si no hay imagen para que ocupe más espacio */
     font-size: 2em; color: var(--text-primary); font-family: var(--font-body);
 }
 .flashcard-face.card-back {
@@ -693,11 +695,11 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-weight: 600;
 }
 .flashcard-face img {
-    /* MODIFIED: Increased size percentage */
+    /* MODIFICADO: Aumentamos los porcentajes para que la imagen sea más grande */
     max-width: 95%; 
-    max-height: 90%; 
+    max-height: 95%; /* Ajustado para que la altura máxima sea igual al ancho */
     object-fit: contain;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 0; /* Eliminamos el margen inferior que creaba espacio extra */
     display: block;
     border-radius: var(--border-radius-md);
     border: 4px solid var(--white);
@@ -705,11 +707,26 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     box-shadow: var(--shadow-sm);
 }
 .flashcard-face p {
-    font-size: 0.8em;
+    /* Estilo para los párrafos dentro de la cara de la flashcard */
+    font-size: 0.8em; /* Base size, ajustado en .card-front if no image */
     margin-bottom: 0;
     color: var(--text-secondary);
     margin-top: var(--space-xs);
 }
+.flashcard-face.card-front p {
+    /* Estilo específico para el texto en la cara frontal si no hay imagen */
+    font-size: 1.8em; /* Haz el texto más grande si no hay imagen */
+    font-weight: bold;
+    color: var(--text-primary);
+    /* Centrar texto verticalmente si es lo único en la cara */
+    flex-grow: 1; /* Permite que el párrafo crezca para llenar el espacio */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 var(--space-sm); /* Pequeño padding horizontal */
+    margin-top: 0; /* Eliminar margin-top si flexbox ya centra */
+}
+
 
 #flashcard-controls {
     display: flex; flex-wrap: wrap; justify-content: center;
@@ -772,7 +789,7 @@ footer img {
     .flashcard { height: 250px; }
     .flashcard-face img {
         max-width: 95%; /* MODIFIED */
-        max-height: 90%; /* MODIFIED */
+        max-height: 95%; /* MODIFIED */
     }
 }
 @media (max-width: 768px) {
@@ -817,7 +834,7 @@ footer img {
     .flashcard { height: 220px; }
     .flashcard-face img {
         max-width: 95%; /* MODIFIED */
-        max-height: 90%; /* MODIFIED */
+        max-height: 95%; /* MODIFIED */
     }
 
     #quiz-setup {
@@ -862,7 +879,7 @@ footer img {
     .flashcard-face.card-back { font-size: 1.5em; }
      .flashcard-face img {
         max-width: 95%; /* MODIFIED */
-        max-height: 90%; /* MODIFIED */
+        max-height: 95%; /* MODIFIED */
     }
     #flashcard-controls { gap: var(--space-sm); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-sm) var(--space-md); }
@@ -894,7 +911,7 @@ footer img {
      .flashcard { height: 180px; }
      .flashcard-face img {
         max-width: 95%; /* MODIFIED */
-        max-height: 90%; /* MODIFIED */
+        max-height: 95%; /* MODIFIED */
      }
      #flashcard-controls button { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
      #flip-flashcard-btn { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
