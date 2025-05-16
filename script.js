@@ -1,4 +1,4 @@
-// script.js (Con botón de estrella debajo de la palabra en español)
+// script.js (Final version with image border marking for "Repasar")
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Animales': '🐾', 'Partes del cuerpo': '🖐️', 'Objetos': '🔨',
         'Personas': '🧍‍♀️', 'Vestimenta': '🧦', 'Colores': '🎨',
         'Lugares': '🏡', 'all': '',
-        'repasar': '⭐' // Icono para la categoría "Repasar"
+        'repasar': '⭐' // Icono para la categoría "Repasar" (usado en selectores, no en la tarjeta)
     };
     const defaultCategoryIcon = '🏷️';
 
@@ -197,6 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (sectionId === 'memorama') resetMemoramaView();
                 else if (sectionId === 'quiz') resetQuizView();
                 else if (sectionId === 'flashcards') initializeFlashcardsView();
+                // Al cambiar de sección, si estábamos en Léxico, asegurarnos de que las estrellas se refresquen si se marcaron cosas en otros modos
+                if (sectionId === 'lexicon') filterAndDisplayLexicon();
             });
         });
         const aboutButton = document.querySelector('nav button[data-section="about"]');
@@ -333,6 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filterAndDisplayLexicon();
     }
 
+    // MODIFICADA para usar click en la imagen
     function displayLexiconItems(itemsToShow) {
         if (!lexiconGrid) return;
         lexiconGrid.innerHTML = '';
@@ -347,48 +350,51 @@ document.addEventListener('DOMContentLoaded', () => {
         itemsToShow.forEach(item => {
             const div = document.createElement('div');
             div.classList.add('lexicon-item');
-            div.dataset.id = item.id; 
+            div.dataset.id = item.id; // Añadir data-id para referencia
 
             const imgSrc = item.image || 'images/placeholder.png';
             const spanishText = item.spanish || '???';
             const raramuriText = item.raramuri || '???';
             
-            // Construir el HTML del ítem. La estrella ahora va DESPUÉS del español.
+            // Construir el HTML del ítem. Ya NO incluye el div de acciones ni el botón de estrella separado.
             div.innerHTML = `
-                <img src="${imgSrc}" alt="${spanishText}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';">
+                <img src="${imgSrc}" 
+                     alt="${spanishText}" 
+                     loading="lazy" 
+                     onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';"
+                     class="${isRepasarItem(item.id) ? 'repasar-image-marked' : ''}" 
+                     title="${isRepasarItem(item.id) ? 'Quitar de repasar (clic en imagen)' : 'Marcar para repasar (clic en imagen)'}">
                 <p class="raramuri-word">${raramuriText}</p>
                 <p class="spanish-word">${spanishText}</p>
-                <div class="lexicon-item-actions">
-                    <button class="repasar-toggle-btn ${isRepasarItem(item.id) ? 'marked' : ''}" title="${isRepasarItem(item.id) ? 'Quitar de repasar' : 'Marcar para repasar'}">
-                        ${isRepasarItem(item.id) ? '★' : '☆'}
-                    </button>
-                </div>`;
+            `; // La clase 'repasar-image-marked' se añade condicionalmente aquí
 
             lexiconGrid.appendChild(div);
 
-            // Añadir el listener al botón de estrella DESPUÉS de que esté en el DOM
-            const starButtonInDOM = div.querySelector('.repasar-toggle-btn');
-            if (starButtonInDOM) {
-                starButtonInDOM.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Evitar que el clic se propague al lexicon-item si tuviera otros listeners
-                    toggleRepasarItem(item.id, starButtonInDOM);
+            // Añadir el listener a la imagen DESPUÉS de que esté en el DOM
+            const imageElementInDOM = div.querySelector('img');
+            if (imageElementInDOM) {
+                imageElementInDOM.addEventListener('click', (e) => {
+                    // No necesitamos e.stopPropagation() aquí a menos que el div tenga otros listeners
+                    toggleRepasarItemPorImagen(item.id, imageElementInDOM);
                 });
             }
         });
     }
 
-    function toggleRepasarItem(itemId, buttonElement) {
+    // NUEVA función para alternar el estado de repasar usando la imagen
+    function toggleRepasarItemPorImagen(itemId, imageElement) {
         if (isRepasarItem(itemId)) {
             removeRepasarId(itemId);
-            buttonElement.classList.remove('marked');
-            buttonElement.innerHTML = '☆';
-            buttonElement.title = "Marcar para repasar";
+            imageElement.classList.remove('repasar-image-marked');
+            imageElement.title = "Marcar para repasar (clic en imagen)";
         } else {
             addRepasarId(itemId);
-            buttonElement.classList.add('marked');
-            buttonElement.innerHTML = '★';
-            buttonElement.title = "Quitar de repasar";
+            imageElement.classList.add('repasar-image-marked');
+            imageElement.title = "Quitar de repasar (clic en imagen)";
         }
+        // saveRepasarIds() y updateAllRepasarOptions() ya son llamados por add/removeRepasarId
+        // No es necesario llamar a filterAndDisplayLexicon() aquí a menos que quieras que la vista se filtre automáticamente
+        // cuando desmarcas el último item en la vista filtrada por "repasar". Eso es una mejora opcional.
     }
 
 
@@ -398,6 +404,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let filteredItems = lexiconData;
 
         if (currentCategoryFilter !== 'all') {
+            // NOTA: Los botones de categoría del Léxico *no* incluyen la opción 'repasar'.
+            // Si quisieras un filtro de 'repasar' en la sección Léxico, tendrías que añadir
+            // un botón para 'repasar' en populateCategoryFilters y manejarlo aquí.
             filteredItems = filteredItems.filter(item => item.category && item.category === currentCategoryFilter);
         }
         if (searchTerm) {
@@ -488,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (itemsForCategory.length === 0) {
                 console.warn(`[Memorama] No hay palabras marcadas para repasar.`);
                 if (memoramaDataErrorEl) {
-                    memoramaDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas con la estrella ⭐.`;
+                    memoramaDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas haciendo clic en su imagen ⭐.`;
                     memoramaDataErrorEl.style.display = 'block';
                 }
                 if (memoramaGameArea) memoramaGameArea.style.display = 'none';
@@ -512,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                      `la categoría "${selectedCategory}"`;
             console.warn(`[Memorama] Datos insuficientes: ${validItems.length} items válidos con imagen en ${categoryDisplayName}, se necesitan ${requestedPairs} pares.`);
             if (memoramaDataErrorEl) {
-                memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) con imagen en ${categoryDisplayName} para ${requestedPairs} pares. Intenta otra categoría/dificultad o añade más léxico/palabras a repasar.`;
+                memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) con imagen en ${categoryDisplayName} para ${requestedPairs} pares. Intenta otra categoría/dificultad o marca más palabras para repasar.`;
                 memoramaDataErrorEl.style.display = 'block';
             }
             if (memoramaGameArea) memoramaGameArea.style.display = 'none';
@@ -699,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (categoryFilteredItems.length === 0) {
                 console.warn(`[Quiz] No hay palabras marcadas para repasar.`);
                 if (quizDataErrorEl) {
-                    quizDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas con la estrella ⭐.`;
+                    quizDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas haciendo clic en su imagen ⭐.`;
                     quizDataErrorEl.style.display = 'block';
                 }
                 return [];
@@ -985,7 +994,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 updateRepasarOptionInSelect(quizCategorySelect); 
             }
-            quizCategorySelect.disabled = quizCategorySelect.options.length <= 1 && repasarLexiconIds.length === 0;
+             // Deshabilitar si solo hay "all" Y no hay items para repasar
+            quizCategorySelect.disabled = (Array.from(quizCategorySelect.options).filter(opt => opt.value !== 'repasar').length <= 1) && repasarLexiconIds.length === 0;
         }
         if(quizDataErrorEl) quizDataErrorEl.style.display = 'none';
 
@@ -1035,7 +1045,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (categoryFilteredLexicon.length === 0) {
                 console.warn(`[Flashcards] No hay palabras marcadas para repasar.`);
                 if (flashcardsDataErrorEl) {
-                    flashcardsDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas con la estrella ⭐.`;
+                    flashcardsDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas haciendo clic en su imagen ⭐.`;
                     flashcardsDataErrorEl.style.display = 'block';
                 }
                 if (flashcardsLoadingEl) flashcardsLoadingEl.style.display = 'none';
@@ -1107,15 +1117,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (flashcardFrontEl) {
             flashcardFrontEl.innerHTML = '';
+            // En flashcards, la cara frontal SIEMPRE es español o imagen si existe
             if (cardData.image) {
                 const img = document.createElement('img'); img.src = cardData.image; img.alt = cardData.spanish || 'Flashcard Image'; img.loading = 'lazy';
                 img.onerror = function() { this.alt = 'Error img'; this.src='images/placeholder.png'; };
+                 // No añadimos listener click aquí para marcar, eso solo en la sección Léxico
                 flashcardFrontEl.appendChild(img);
             } else if (cardData.spanish) {
-                flashcardFrontEl.textContent = cardData.spanish;
+                 const p = document.createElement('p');
+                 p.textContent = cardData.spanish;
+                 // Estilo adicional para el texto en la cara frontal si no hay imagen
+                 p.style.fontSize = '1.8em'; // Haz el texto más grande si no hay imagen
+                 p.style.fontWeight = 'bold';
+                 p.style.color = 'var(--text-primary)';
+                 flashcardFrontEl.appendChild(p);
             } else { flashcardFrontEl.textContent = '???'; }
         }
+         // La cara trasera SIEMPRE es rarámuri
         if (flashcardBackEl) flashcardBackEl.textContent = cardData.raramuri || '???';
+        
         if (flashcardCounterEl) flashcardCounterEl.textContent = `Tarjeta ${currentFlashcardIndex + 1} de ${flashcardData.length}`;
     }
 
@@ -1157,7 +1177,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         console.log("[Flashcards] Configurando controles.");
-        flashcardEl.addEventListener('click', flipFlashcard);
+        // Añadido listener click al flashcardAreaEl para voltear, o podrías ponerlo en flashcardEl
+        if(flashcardAreaEl) flashcardAreaEl.addEventListener('click', (e) => {
+             // Asegúrate de no voltear si haces clic en los botones de control
+             if (!e.target.closest('#flashcard-controls')) {
+                  flipFlashcard();
+             }
+        });
         flipFlashcardBtn.addEventListener('click', flipFlashcard);
         nextFlashcardBtn.addEventListener('click', nextFlashcard);
         prevFlashcardBtn.addEventListener('click', prevFlashcard);
@@ -1185,7 +1211,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { 
                 updateRepasarOptionInSelect(flashcardCategorySelect);
             }
-            flashcardCategorySelect.disabled = flashcardCategorySelect.options.length <= 1 && repasarLexiconIds.length === 0;
+            // Deshabilitar si solo hay "all" Y no hay items para repasar
+            flashcardCategorySelect.disabled = (Array.from(flashcardCategorySelect.options).filter(opt => opt.value !== 'repasar').length <= 1) && repasarLexiconIds.length === 0;
 
         } else if (lexiconData.length === 0) {
             console.warn("[Flashcards] No hay datos léxicos. Flashcards no pueden inicializar.");
@@ -1222,7 +1249,8 @@ document.addEventListener('DOMContentLoaded', () => {
         populatePhrases();
         setupSearch();
         populateCategoryFilters();
-        filterAndDisplayLexicon(); 
+        // filterAndDisplayLexicon(); // Se llama al cargar la página y al cambiar filtro/buscar
+
 
         if(lexiconData.length > 0) {
             const uniqueCategories = getUniqueCategories(lexiconData);
@@ -1230,8 +1258,12 @@ document.addEventListener('DOMContentLoaded', () => {
             populateCategorySelect(flashcardCategorySelect, uniqueCategories);
             populateCategorySelect(memoramaCategorySelect, uniqueCategories);
 
-            [quizCategorySelect, flashcardCategorySelect, memoramaCategorySelect].forEach(sel => {
-                if (sel) sel.disabled = sel.options.length <= 1 && repasarLexiconIds.length === 0;
+            // Deshabilitar selectores si solo tienen "all" Y no hay items para repasar
+             [quizCategorySelect, flashcardCategorySelect, memoramaCategorySelect].forEach(sel => {
+                if (sel) {
+                    const nonRepasarOptionsCount = Array.from(sel.options).filter(opt => opt.value !== 'repasar').length;
+                     sel.disabled = nonRepasarOptionsCount <= 1 && repasarLexiconIds.length === 0;
+                }
             });
 
         } else {
@@ -1250,7 +1282,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setupQuizControls();
         setupFlashcardsControls();
         
-        updateAllRepasarOptions(); 
+        updateAllRepasarOptions(); // Asegura que los selectores muestren el conteo correcto al inicio
+        filterAndDisplayLexicon(); // Muestra el léxico inicial con los bordes correctos
+
 
         console.log("Aplicación inicializada.");
     }
