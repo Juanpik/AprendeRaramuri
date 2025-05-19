@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow + Increased mobile horizontal padding) */
+/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -76,7 +76,7 @@ main {
     max-width: 1140px;
     width: 95%;
     margin: var(--space-xl) auto var(--space-xxl) auto;
-    padding: var(--space-lg) var(--space-xl); /* Base/Desktop padding */
+    padding: var(--space-lg) var(--space-xl); /* Base padding */
     background-color: var(--content-bg);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
@@ -384,6 +384,7 @@ button.category-filter-btn.active {
 #memorama-setup select {
     /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
     background-color: var(--white);
@@ -414,6 +415,10 @@ button.category-filter-btn.active {
     letter-spacing: 0.5px;
     font-size: 0.9em;
     color: var(--white) !important;
+}
+
+.difficulty-btn {
+    background-color: var(--blue-primary) !important;
 }
 
 .difficulty-btn:hover {
@@ -577,6 +582,7 @@ button.category-filter-btn.active {
 #quiz-setup select {
     /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
     margin-right: 0;
     cursor: pointer; /* Asegurar cursor */
@@ -688,9 +694,10 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-family: var(--font-body);
     margin-right: 0;
 }
-#flashcard-category select {
+#flashcards-setup-controls select {
      /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
     background-color: var(--white);
@@ -835,9 +842,7 @@ footer img {
 }
 @media (max-width: 768px) {
     /* General adjustments */
-    /* CURRENT: padding: var(--space-md); -> horizontal is var(--space-md) (1.1rem) */
-    /* NEW: vertical var(--space-md), horizontal var(--space-md) * 2 = 2.2rem */
-    main { padding: var(--space-md) 2.2rem; margin: var(--space-lg) auto; width: 98%; }
+    main { padding: var(--space-md); margin: var(--space-lg) auto; width: 98%; }
     h2 { font-size: 1.7em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
     #about h2 { font-size: 1.7em; }
     #about p { margin-top: var(--space-md); margin-bottom: var(--space-md); font-size: 1em;}
@@ -877,6 +882,7 @@ footer img {
     #memorama-setup label { font-size: 0.9em; }
     #memorama-setup select {
         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+        /* No need for extra padding-right here now */
         font-size: 0.95em; /* Adjusted font size */
     }
     .difficulty-btn { padding: var(--space-xs) var(--space-md); font-size: 0.85em; }
@@ -896,6 +902,7 @@ footer img {
     #quiz-setup label { font-size: 0.9em; }
     #quiz-setup select {
         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+        /* No need for extra padding-right here now */
         font-size: 0.95em; /* Adjusted font size */
     }
     #quiz-setup button#start-quiz { padding: var(--space-sm) var(--space-md); font-size: 1em;}
@@ -929,8 +936,9 @@ footer img {
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-md); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.9em; }
-    #flashcard-category select {
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
          padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+         /* No need for extra padding-right here now */
          font-size: 0.95em; /* Adjusted font size */
     }
     #flashcard-display-area { margin-bottom: var(--space-md); }
@@ -965,9 +973,7 @@ footer img {
 }
 @media (max-width: 576px) {
     /* General adjustments */
-    /* CURRENT: padding: var(--space-sm); -> horizontal is var(--space-sm) (0.8rem) */
-    /* NEW: vertical var(--space-sm), horizontal var(--space-sm) * 2 = 1.6rem */
-    main { padding: var(--space-sm) 1.6rem; }
+     main { padding: var(--space-sm); }
      h2 { font-size: 1.5em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
      #about h2 { font-size: 1.5em; }
      #about p { font-size: 0.95em; }
@@ -990,7 +996,7 @@ footer img {
          gap: var(--space-md);
          margin-top: var(--space-sm);
      }
-      .lexicon-item {
+     .lexicon-item {
         padding: var(--space-sm); /* Reduced padding */
      }
      .lexicon-item img { width: 80px; height: 80px; margin-bottom: var(--space-sm);}
@@ -1002,6 +1008,7 @@ footer img {
     #memorama-setup label, #memorama-setup select { font-size: 0.9em; }
      #memorama-setup select {
          padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+         /* No need for extra padding-right here now */
          font-size: 0.9em; /* Adjusted font size */
      }
 
@@ -1021,6 +1028,7 @@ footer img {
     #quiz-setup label, #quiz-setup select { font-size: 0.9em; }
     #quiz-setup select {
         padding: var(--space-sm) var(--space-md); /* Note: Original had sm/md, maybe adjust */
+        /* No need for extra padding-right here now */
         font-size: 0.95em; /* Keeping slightly larger here */
     }
     #quiz-setup button#start-quiz { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
@@ -1044,8 +1052,9 @@ footer img {
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.9em; }
-    #flashcard-category select {
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
          padding: var(--space-sm) var(--space-md); /* Adjusted padding */
+         /* No need for extra padding-right here now */
          font-size: 0.95em; /* Keeping slightly larger here */
     }
     #flashcard-display-area { margin-bottom: var(--space-md); }
@@ -1071,9 +1080,7 @@ footer img {
 }
 @media (max-width: 420px) {
      /* General adjustments */
-     /* CURRENT: padding: var(--space-xs); -> horizontal is var(--space-xs) (0.5rem) */
-     /* NEW: vertical var(--space-xs), horizontal var(--space-xs) * 2 = 1.0rem */
-     main { padding: var(--space-xs) 1.0rem; }
+     main { padding: var(--space-xs); }
      h2 { font-size: 1.4em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
      #about h2 { font-size: 1.4em; }
      #about p { font-size: 0.9em; margin-bottom: var(--space-md);}
@@ -1106,6 +1113,7 @@ footer img {
     #memorama-setup label, #memorama-setup select { font-size: 0.85em; }
      #memorama-setup select {
          padding: var(--space-xs) var(--space-sm); /* Keep from 576 or adjust */
+         /* No need for extra padding-right here now */
      }
 
     .difficulty-btn { padding: 5px 8px; font-size: 0.75em; }
@@ -1124,6 +1132,7 @@ footer img {
     #quiz-setup label, #quiz-setup select { font-size: 0.85em; }
     #quiz-setup select {
         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        /* No need for extra padding-right here now */
         font-size: 0.9em; /* Adjust font size */
     }
     #quiz-setup button#start-quiz { font-size: 0.9em; padding: var(--space-sm) var(--space-md);}
@@ -1147,8 +1156,9 @@ footer img {
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.85em; }
-    #flashcard-category select {
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
          padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+         /* No need for extra padding-right here now */
          font-size: 0.9em; /* Adjust font size */
     }
     #flashcard-display-area { margin-bottom: var(--space-md); }
@@ -1190,27 +1200,14 @@ select {
     flex-shrink: 0; /* Useful in flex containers */
 
     /* Standard padding - native arrow doesn't need extra padding-right from us */
-    /* Padding is now defined in specific selectors and media queries */
-    /* padding: var(--space-xs) var(--space-md); */
-    /* font-size: 1em; */
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1em;
 }
 
-/* Regla específica para Internet Explorer 10 y 11 */
-select::-ms-expand {
-    display: none;
-}
-
-/* Estilo para cuando el select está enfocado */
-select:focus {
-    outline: none;
-    border-color: var(--blue-primary);
-    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25);
-}
-
-/* Specific select padding/font-size styles - NO custom padding-right needed */
-
+/* Keep specific select padding/font-size overrides where they were */
+/* These will now just set the overall padding, relying on the native arrow */
 #memorama-setup select {
-    padding: var(--space-xs) var(--space-md); /* Standard padding top/bottom, left/right */
+    padding: var(--space-xs) var(--space-md);
     font-size: 1em;
 }
 
@@ -1219,13 +1216,13 @@ select:focus {
     font-size: 1em;
 }
 
-#flashcard-category select { /* Corrected ID */
+#flashcard-category select {
     padding: var(--space-xs) var(--space-md);
     font-size: 1em;
 }
 
 
-/* Responsive adjustments for SPECIFIC SELECT PADDINGS */
+/* Responsive adjustments for SPECIFIC SELECT PADDINGS (no extra padding-right needed now) */
 @media (max-width: 768px) {
     #memorama-setup select {
         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
