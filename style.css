@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Select arrow fix) */
+/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -382,7 +382,9 @@ button.category-filter-btn.active {
 }
 
 #memorama-setup select {
+    /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
     background-color: var(--white);
@@ -390,6 +392,7 @@ button.category-filter-btn.active {
     font-size: 1em;
     color: var(--text-primary);
     margin-right: 0;
+    cursor: pointer; /* Asegurar cursor */
 }
 
 #memorama-setup > div:not(.memorama-setup-group) {
@@ -577,9 +580,12 @@ button.category-filter-btn.active {
     color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
 }
 #quiz-setup select {
+    /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
     margin-right: 0;
+    cursor: pointer; /* Asegurar cursor */
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
@@ -659,15 +665,6 @@ button#restart-quiz:hover { background-color: var(--orange-dark); }
 button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
 button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
-/* Para el selector de categoría cuando "Repasar" está seleccionado */
-#quiz-category option[value="repasar"],
-#memorama-category option[value="repasar"],
-#flashcard-category option[value="repasar"] {
-    font-weight: bold;
-    background-color: var(--yellow-light-bg) !important;
-    color: var(--orange-dark) !important;
-}
-
 
 /* ------------------------- */
 /* Flashcards Section        */
@@ -698,7 +695,9 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     margin-right: 0;
 }
 #flashcards-setup-controls select {
+     /* Estilos específicos para este select */
     padding: var(--space-xs) var(--space-md);
+    /* No necesitamos padding-right extra para flecha custom */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
     background-color: var(--white);
@@ -706,6 +705,7 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
     font-size: 1em;
     color: var(--text-primary);
     margin-right: 0;
+     cursor: pointer; /* Asegurar cursor */
 }
 #flashcards-data-error {
     color: var(--error-red);
@@ -880,9 +880,13 @@ footer img {
     #memorama-setup { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-lg); }
     .memorama-setup-group { gap: var(--space-xs); }
     #memorama-setup label { font-size: 0.9em; }
-    #memorama-setup select { font-size: 0.95em; padding: var(--space-xs) var(--space-sm);}
+    #memorama-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+        /* No need for extra padding-right here now */
+        font-size: 0.95em; /* Adjusted font size */
+    }
     .difficulty-btn { padding: var(--space-xs) var(--space-md); font-size: 0.85em; }
-    #memorama-controls { margin: var(--space-md) 0; padding: var(--space-md) 0; gap: var(--space-sm); }
+    #memorama-controls { margin: var(--space-md) 0; padding: var(--space-sm) 0; gap: var(--space-xs); }
     #memorama-controls p { font-size: 1em; }
     #reset-memorama { padding: var(--space-sm) var(--space-md); font-size: 0.85em;}
     #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Further reduced minmax */ gap: var(--space-md); margin-top: var(--space-md); }
@@ -896,45 +900,53 @@ footer img {
     #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
      .quiz-setup-group { gap: var(--space-xs); }
     #quiz-setup label { font-size: 0.9em; }
-    #quiz-setup select { font-size: 0.95em; padding: var(--space-xs) var(--space-sm);}
+    #quiz-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+        /* No need for extra padding-right here now */
+        font-size: 0.95em; /* Adjusted font size */
+    }
     #quiz-setup button#start-quiz { padding: var(--space-sm) var(--space-md); font-size: 1em;}
-    #quiz-image-container img { max-width: 160px; max-height: 160px; margin-bottom: var(--space-lg); }
-    #quiz-question { margin-bottom: var(--space-lg); font-size: 1.3em; }
-    #quiz-options { margin-top: var(--space-md); max-width: 95%; }
-    #quiz-options button { padding: var(--space-sm) var(--space-md); font-size: 1em; margin-bottom: var(--space-sm);}
-    #quiz-text-input-area {
+     #quiz-image-container img { max-width: 160px; max-height: 160px; margin-bottom: var(--space-lg); }
+    #quiz-question { margin-bottom: var(--space-md); font-size: 1.2em; }
+     #quiz-options { margin-top: var(--space-md); max-width: 95%; }
+     #quiz-options button { padding: var(--space-sm) var(--space-md); font-size: 1em; margin-bottom: var(--space-sm);}
+     #quiz-text-input-area {
         flex-direction: column; /* Stack input and button */
         align-items: stretch; /* Make them take full width */
         gap: var(--space-sm); /* Reduced gap when stacked */
         margin: var(--space-lg) auto;
         max-width: 95%;
     }
-    #quiz-text-answer { padding: var(--space-sm); font-size: 1em; }
+     #quiz-text-answer { padding: var(--space-sm); font-size: 1em; }
     #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm) var(--space-md); font-size: 1em; width: 100%;}
-    #quiz-feedback { margin: var(--space-lg) 0; font-size: 1.1em; }
-    button#next-question { padding: var(--space-sm) var(--space-md); font-size: 1em; min-width: 150px;}
-    #quiz-results { padding: var(--space-lg) 0; }
-    #quiz-results h3 { font-size: 1.8em; margin-bottom: var(--space-md); }
-    #quiz-results p { font-size: 1.1em; margin-bottom: var(--space-lg);}
-    #quiz-results button {
-        width: 90%; /* Stack buttons */
-        margin: var(--space-xs) auto; /* Center stacked buttons with small margin */
-        display: block;
-        padding: var(--space-sm) var(--space-md);
-        font-size: 1em;
-    }
+     #quiz-feedback { margin: var(--space-md) 0; font-size: 1.1em; }
+     button#next-question { padding: var(--space-sm) var(--space-md); font-size: 1em; min-width: 150px;}
+     #quiz-results { padding: var(--space-lg) 0; }
+     #quiz-results h3 { font-size: 1.8em; margin-bottom: var(--space-md); }
+     #quiz-results p { font-size: 1.1em; margin-bottom: var(--space-lg);}
+     #quiz-results button {
+         width: 90%; /* Stack buttons */
+         margin: var(--space-xs) auto; /* Center stacked buttons with small margin */
+         display: block;
+         padding: var(--space-sm) var(--space-md);
+         font-size: 1em;
+     }
 
     /* Flashcards */
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-md); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.9em; }
-    #flashcards-setup-controls select { font-size: 0.95em; padding: var(--space-xs) var(--space-sm);}
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
+         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+         /* No need for extra padding-right here now */
+         font-size: 0.95em; /* Adjusted font size */
+    }
     #flashcard-display-area { margin-bottom: var(--space-md); }
     .flashcard { height: 200px; /* Reduced height */ border-radius: var(--border-radius-md); }
-    .flashcard-face { padding: var(--space-md); /* Reduced padding */ }
-    .flashcard-face.card-front { font-size: 1.3em; /* Reduced font size */ }
-    .flashcard-face.card-back { font-size: 1.5em; /* Reduced font size */ }
-    .flashcard-face.card-front p { font-size: 1.3em; } /* Adjusted for text-only front */
+     .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
+    .flashcard-face.card-front { font-size: 1.2em; /* Reduced font size */ }
+    .flashcard-face.card-back { font-size: 1.4em; /* Reduced font size */ }
+    .flashcard-face.card-front p { font-size: 1.2em; } /* Adjusted for text-only front */
     #flashcard-controls {
         gap: var(--space-sm); /* Reduced gap */
         margin-top: var(--space-md);
@@ -994,7 +1006,13 @@ footer img {
     /* Memorama */
     #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #memorama-setup label, #memorama-setup select { font-size: 0.9em; }
-     .difficulty-btn { font-size: 0.8em; padding: 6px 10px; }
+     #memorama-setup select {
+         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
+         /* No need for extra padding-right here now */
+         font-size: 0.9em; /* Adjusted font size */
+     }
+
+    .difficulty-btn { padding: 6px 10px; font-size: 0.8em; }
      #memorama-controls { margin: var(--space-md) 0; padding: var(--space-sm) 0; gap: var(--space-xs); }
      #memorama-controls p { font-size: 0.95em; }
     #reset-memorama { padding: 6px 10px; font-size: 0.8em;}
@@ -1008,6 +1026,11 @@ footer img {
     /* Quiz */
     #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #quiz-setup label, #quiz-setup select { font-size: 0.9em; }
+    #quiz-setup select {
+        padding: var(--space-sm) var(--space-md); /* Note: Original had sm/md, maybe adjust */
+        /* No need for extra padding-right here now */
+        font-size: 0.95em; /* Keeping slightly larger here */
+    }
     #quiz-setup button#start-quiz { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
      #quiz-image-container img { max-width: 140px; max-height: 140px; margin-bottom: var(--space-md); }
     #quiz-question { margin-bottom: var(--space-md); font-size: 1.2em; }
@@ -1027,7 +1050,13 @@ footer img {
 
     /* Flashcards */
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
-    #flashcards-setup-controls label, #flashcards-setup-controls select { font-size: 0.9em; }
+    .flashcard-setup-group { gap: var(--space-xs); }
+    #flashcards-setup-controls label { font-size: 0.9em; }
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
+         padding: var(--space-sm) var(--space-md); /* Adjusted padding */
+         /* No need for extra padding-right here now */
+         font-size: 0.95em; /* Keeping slightly larger here */
+    }
     #flashcard-display-area { margin-bottom: var(--space-md); }
     .flashcard { height: 180px; /* Reduced height */ border-radius: var(--border-radius-md); }
      .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
@@ -1050,36 +1079,91 @@ footer img {
 
 }
 @media (max-width: 420px) {
+     /* General adjustments */
+     main { padding: var(--space-xs); }
+     h2 { font-size: 1.4em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
+     #about h2 { font-size: 1.4em; }
+     #about p { font-size: 0.9em; margin-bottom: var(--space-md);}
+     #phrases-list li { padding: var(--space-xs); margin-bottom: var(--space-sm); }
+      #phrases-list .raramuri-phrase { font-size: 0.95em; margin-bottom: var(--space-xs);}
+      #phrases-list .spanish-phrase { font-size: 0.9em; }
+
+
      /* Header */
-     header > h1 { font-size: 2em; }
+     header > h1 { font-size: 1.8em; }
      nav { gap: 2px;}
-     nav button { padding: 4px 8px; font-size: 0.7em;}
+     nav button { padding: 4px 6px; font-size: 0.65em;}
 
      /* Lexicon */
-     button.category-filter-btn { font-size: 0.75em; padding: 4px 6px; }
-      #lexicon-search { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
+     button.category-filter-btn { font-size: 0.75em; padding: 3px 5px; }
+      .search-container { margin-bottom: var(--space-sm); gap: var(--space-xs); }
+      #lexicon-search { padding: var(--space-xs) var(--space-sm); font-size: 0.85em; }
      #lexicon-grid {
-         grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Further reduced minmax */
+         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Further reduced minmax */
          gap: var(--space-sm);
+         margin-top: var(--space-sm);
      }
       .lexicon-item { padding: var(--space-sm); }
-     .lexicon-item img { width: 70px; height: 70px; margin-bottom: var(--space-sm); }
-     .lexicon-item .raramuri-word { font-size: 0.95em; }
-     .lexicon-item .spanish-word { font-size: 0.85em; }
+     .lexicon-item img { width: 60px; height: 60px; margin-bottom: var(--space-sm); }
+     .lexicon-item .raramuri-word { font-size: 0.9em; }
+     .lexicon-item .spanish-word { font-size: 0.8em; }
 
     /* Memorama */
+    #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
+    #memorama-setup label, #memorama-setup select { font-size: 0.85em; }
+     #memorama-setup select {
+         padding: var(--space-xs) var(--space-sm); /* Keep from 576 or adjust */
+         /* No need for extra padding-right here now */
+     }
+
     .difficulty-btn { padding: 5px 8px; font-size: 0.75em; }
-     #memorama-grid { gap: var(--space-xs); }
-     .memorama-card { height: 90px; /* Reduced height */ }
-     .memorama-card .card-front p { font-size: 0.8em; padding: 4px; }
-     .memorama-card .card-back::before { font-size: 2.8em; /* Reduced size */ }
+     #memorama-controls { margin: var(--space-md) 0; padding: var(--space-xs) 0; gap: var(--space-xs); }
+     #memorama-controls p { font-size: 0.9em; }
+    #reset-memorama { padding: 5px 8px; font-size: 0.75em;}
+     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); }
+     .memorama-card { height: 80px; /* Reduced height */ }
+     .memorama-card .card-front p { font-size: 0.8em; padding: 3px; }
+     .memorama-card .card-back::before { font-size: 2.5em; /* Reduced size */ }
+     #memorama-win-message { margin-top: var(--space-md); font-size: 0.9em; padding: var(--space-sm); }
+
 
     /* Quiz */
-     #quiz-options button { padding: var(--space-sm); font-size: 0.9em; }
-    #quiz-text-answer, #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm); font-size: 0.9em; }
+    #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
+    #quiz-setup label, #quiz-setup select { font-size: 0.85em; }
+    #quiz-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        /* No need for extra padding-right here now */
+        font-size: 0.9em; /* Adjust font size */
+    }
+    #quiz-setup button#start-quiz { font-size: 0.9em; padding: var(--space-sm) var(--space-md);}
+     #quiz-image-container img { max-width: 120px; max-height: 120px; margin-bottom: var(--space-md); }
+    #quiz-question { margin-bottom: var(--space-md); font-size: 1.1em; }
+     #quiz-options { margin-top: var(--space-md); }
+     #quiz-options button { padding: var(--space-sm); font-size: 0.9em; margin-bottom: var(--space-xs);}
+     #quiz-text-input-area { gap: var(--space-xs); margin: var(--space-md) auto; }
+     #quiz-text-answer { padding: var(--space-sm); font-size: 0.9em; }
+    #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm) var(--space-md); font-size: 0.9em;}
+     #quiz-feedback { margin: var(--space-md) 0; font-size: 0.95em; }
+     button#next-question { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
+     #quiz-results h3 { font-size: 1.4em; margin-bottom: var(--space-md); }
+     #quiz-results p { font-size: 0.95em; margin-bottom: var(--space-lg);}
+     #quiz-results button {
+         padding: var(--space-sm) var(--space-md);
+         font-size: 0.9em;
+     }
 
     /* Flashcards */
-    .flashcard { height: 160px; /* Reduced height */ }
+    #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
+    .flashcard-setup-group { gap: var(--space-xs); }
+    #flashcards-setup-controls label { font-size: 0.85em; }
+    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
+         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+         /* No need for extra padding-right here now */
+         font-size: 0.9em; /* Adjust font size */
+    }
+    #flashcard-display-area { margin-bottom: var(--space-md); }
+    .flashcard { height: 150px; /* Reduced height */ }
+    .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
     .flashcard-face.card-front { font-size: 1.1em; }
     .flashcard-face.card-back { font-size: 1.3em; }
     .flashcard-face.card-front p { font-size: 1.1em; }
@@ -1088,88 +1172,98 @@ footer img {
      #flip-flashcard-btn { font-size: 0.9em; padding: var(--space-sm); }
      #prev-flashcard-btn, #next-flashcard-btn { flex-basis: 48%; /* Adjust base width slightly */ }
      #shuffle-flashcards-btn { padding: 5px 8px; }
+    #flashcard-counter { font-size: 0.75em; margin-bottom: var(--space-md); }
 
 }
 
-/* Ensure select arrows are visible on various browsers */
+
+/* Reverted select styles to use native arrow */
 select {
-    /* --- INICIO CORRECCIÓN: Ocultar flecha nativa --- */
-    -webkit-appearance: none; /* Para Chrome, Safari, Opera */
-    -moz-appearance: none;    /* Para Firefox */
-    appearance: none;         /* Estándar */
-    /* --- FIN CORRECCIÓN --- */
+    /* Allow native appearance */
+    -webkit-appearance: menulist; /* For Chrome, Safari, Opera */
+    -moz-appearance: menulist;    /* For Firefox */
+    appearance: menulist;         /* Standard */
 
-    /* Añadir flecha personalizada como imagen de fondo */
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287.9.953a19.883%2019.883%200%200%200-13.862-5.804L5.079%205.106a19.884%2019.884%200%200%200-13.862%205.804%2019.9%2019.9%200%200%200%200%2028.167l128.932%20128.936c7.758%207.758%2020.304%207.758%2028.061%200l128.932-128.936a19.9%2019.9%200%200%200%200-28.167z%22%2F%3E%3C%2Fsvg%3E');
-    background-repeat: no-repeat;
-    background-position: right 8px center; /* Posiciona la flecha a la derecha */
-    background-size: 12px; /* Define el tamaño de la flecha */
-    padding-right: 25px; /* Asegura que el texto no se solape con la flecha */
+    /* REMOVE custom background image properties */
+    background-image: none;
+    background-repeat: initial;
+    background-position: initial;
+    background-size: initial;
 
-    /* Estilos existentes para padding, borde, etc. */
-    /* Estos ya están definidos en los selectores específicos como #memorama-setup select, etc. */
-    /* Se mueven aquí para que apliquen a todos los selects */
+    /* Base visual styles */
     border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-sm);
-    background-color: var(--white);
-    font-family: var(--font-body);
-    color: var(--text-primary);
-    cursor: pointer; /* Añadir cursor pointer para indicar que es interactivo */
+    background-color: var(--white); /* Ensure solid background */
+    font-family: var(--font-body); /* Default font */
+    color: var(--text-primary); /* Default color */
+    cursor: pointer; /* Indicate interactive */
+    flex-shrink: 0; /* Useful in flex containers */
 
-    /* Añadido para asegurar que el padding/font size base sea consistente antes de los específicos */
+    /* Standard padding - native arrow doesn't need extra padding-right from us */
     padding: var(--space-xs) var(--space-md);
     font-size: 1em;
-
-    /* Evitar que el select se encoja demasiado en flexbox si es necesario */
-    flex-shrink: 0;
 }
 
-/* Mover estilos específicos de select DE VUELTA a sus selectores */
-/* Esto es para que las reglas más específicas de padding/font-size/etc. prevalezcan */
-#memorama-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
-#quiz-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
-#flashcards-setup-controls select { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Mantener si quieres override */
-
-
-/* Regla específica para Internet Explorer 10 y 11 */
-select::-ms-expand {
-    display: none;
+/* Keep specific select padding/font-size overrides where they were */
+/* These will now just set the overall padding, relying on the native arrow */
+#memorama-setup select {
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1em;
 }
 
-/* Estilo para cuando el select está enfocado - opcional */
-select:focus {
-    outline: none;
-    border-color: var(--blue-primary);
-    box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25);
+#quiz-setup select {
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1em;
 }
 
-/* Asegura que el padding-right se ajuste en tamaños más pequeños si es necesario */
+#flashcard-category select {
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1em;
+}
+
+
+/* Responsive adjustments for SPECIFIC SELECT PADDINGS (no extra padding-right needed now) */
 @media (max-width: 768px) {
-    select {
-       padding-right: 20px; /* Reducir un poco el padding derecho */
-       background-position: right 6px center; /* Mover la flecha un poco más a la izquierda */
-       background-size: 10px; /* Reducir un poco el tamaño de la flecha */
+    #memorama-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        font-size: 0.95em; /* Adjust font size */
     }
-    /* Ajustar padding/font size específicos en media query si es necesario */
-    #memorama-setup select,
-    #quiz-setup select,
-    #flashcards-setup-controls select {
-        padding: var(--space-xs) var(--space-sm); /* Ajustar padding */
-        font-size: 0.95em; /* Ajustar font size */
+    #quiz-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        font-size: 0.95em; /* Adjust font size */
+    }
+    #flashcard-category select {
+        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        font-size: 0.95em; /* Adjust font size */
     }
 }
 
 @media (max-width: 576px) {
-    select {
-        padding-right: 18px; /* Reducir un poco más */
-        background-position: right 5px center; /* Mover la flecha un poco más */
-        background-size: 9px; /* Reducir tamaño de flecha */
+    #memorama-setup select {
+        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+        font-size: 0.9em; /* Adjust font size */
     }
-     /* Ajustar padding/font size específicos en media query si es necesario */
-    #memorama-setup select,
-    #quiz-setup select,
-    #flashcards-setup-controls select {
-        padding: var(--space-xs) var(--space-sm); /* Puede que necesiten menos padding en móvil */
-        font-size: 0.9em; /* Puede que necesiten menos font size en móvil */
+    #quiz-setup select {
+        padding: var(--space-sm) var(--space-md); /* Note: Original had sm/md, maybe adjust */
+        font-size: 0.95em; /* Keeping slightly larger here */
+    }
+     #flashcard-category select {
+         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+         font-size: 0.95em; /* Keeping slightly larger here */
+    }
+}
+
+@media (max-width: 420px) {
+     #memorama-setup select {
+         padding: var(--space-xs) var(--space-sm); /* Keep from 576 or adjust */
+         font-size: 0.85em; /* Adjust font size */
+    }
+     #quiz-setup select {
+         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+         font-size: 0.9em; /* Adjust font size */
+    }
+     #flashcard-category select {
+         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
+         font-size: 0.9em; /* Adjust font size */
     }
 }
