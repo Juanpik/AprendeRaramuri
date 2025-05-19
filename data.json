@@ -131,7 +131,12 @@
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
     { "id": 1002, "raramuri": "Matetera ba.", "spanish": "Gracias." },
-    { "id": 1003, "raramuri": "¿Chú mu rewé?", "spanish": "¿Como te llamas?" },
-    { "id": 1004, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." }
+    { "id": 1003, "raramuri": "¿Chú mu rewé?", "spanish": "¿Cómo te llamas?" },
+    { "id": 1004, "raramuri": "Nijé rewalá ko jú...", "spanish": "Mi nombre es..." },
+    { "id": 1005, "raramuri": "Ganíraba", "spanish": "Con mucho gusto" },
+    { "id": 1006, "raramuri": "Ariósaba", "spanish": "Adiós" },
+    { "id": 1007, "raramuri": "Rarámuri ra0ichaga beninare ne", "spanish": "Quiero aprender rarámuri." },
+    { "id": 1008, "raramuri": "Tabiré námane", "spanish": "No entiendo" },
+    { "id": 1009, "raramuri": "¿Cha anaríame ju ye tábiri?", "spanish": "¿Que nombre tiene esta cosa?" }
   ]
 }
