@@ -123,7 +123,10 @@
     { "id": 121, "raramuri": "tabichí", "spanish": "taparrabo", "image": "images/tabichí.jpg", "category": "Vestimenta" },
     { "id": 122, "raramuri": "binériami", "spanish": "maestro", "image": "images/binériami.jpg", "category": "Personas" },
     { "id": 123, "raramuri": "beté", "spanish": "habitar", "image": "images/beté.jpg", "category": "Verbos" },
-    { "id": 124, "raramuri": "osá", "spanish": "escribir", "image": "images/osá.jpg", "category": "Verbos" }
+    { "id": 124, "raramuri": "osá", "spanish": "escribir", "image": "images/osá.jpg", "category": "Verbos" },
+    { "id": 125, "raramuri": "sapá", "spanish": "carne", "image": "images/sapá.jpg", "category": "Comida y bebida" },
+    { "id": 126, "raramuri": "ripulá", "spanish": "hacha", "image": "images/ripulá.jpg", "category": "Objetos" },
+    { "id": 127, "raramuri": "ware", "spanish": "cesta", "image": "images/ware.jpg", "category": "Objetos" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
