@@ -1,4 +1,4 @@
-// script.js (Final version with image border marking for "Repasar" AND AUDIO PLAYBACK - Click on word)
+// script.js (Final version with image border marking for "Repasar" AND AUDIO PLAYBACK - Corrected dataset access)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
@@ -356,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const spanishText = item.spanish || '???';
             const raramuriText = item.raramuri || '???';
             
-            // Simplified HTML for lexicon item, P is now directly clickable
             div.innerHTML = `
                 <img src="${imgSrc}" 
                      alt="${spanishText}" 
@@ -364,9 +363,10 @@ document.addEventListener('DOMContentLoaded', () => {
                      onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';"
                      class="${isRepasarItem(item.id) ? 'repasar-image-marked' : ''}" 
                      title="${isRepasarItem(item.id) ? 'Quitar de repasar (clic en imagen)' : 'Marcar para repasar (clic en imagen)'}">
-                <p class="raramuri-word ${item.audio ? 'audio-clickable-word' : ''}" lang="rar" ${item.audio ? `data-audio-src="${item.audio}"` : ''}>
-                    ${raramuriText}
-                </p>
+                <div class="lexicon-word-container">
+                    <p class="raramuri-word" lang="rar">${raramuriText}</p>
+                    ${item.audio ? `<button class="play-audio-btn lexicon-audio-btn" data-audio-src="${item.audio}" aria-label="Reproducir audio de ${raramuriText}">🔊</button>` : ''}
+                </div>
                 <p class="spanish-word">${spanishText}</p>
             `;
             lexiconGrid.appendChild(div);
@@ -378,12 +378,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Listener for clicking the Rarámuri word to play audio
-            const raramuriWordEl = div.querySelector('.raramuri-word');
-            if (raramuriWordEl && item.audio) { // Only add listener if audio exists
-                raramuriWordEl.addEventListener('click', (e) => {
-                    playAudio(e.currentTarget.dataset.audioSrc);
-                });
+            if (item.audio) {
+                const audioButtonInDOM = div.querySelector('.play-audio-btn.lexicon-audio-btn');
+                if (audioButtonInDOM) {
+                    audioButtonInDOM.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // CORRECTED: Use dataset.audioSrc (camelCase)
+                        playAudio(e.currentTarget.dataset.audioSrc);
+                    });
+                }
             }
         });
     }
@@ -950,7 +953,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
         } else if (selectedCategory === 'all') {
-            // Ensure items have either spanish or image for the front face
             categoryFilteredLexicon = lexiconData.filter(item =>
                 item && item.id != null && item.raramuri && (item.spanish || item.image)
             );
@@ -1026,18 +1028,18 @@ document.addEventListener('DOMContentLoaded', () => {
          // La cara trasera SIEMPRE es rarámuri
         if (flashcardBackEl) {
             flashcardBackEl.innerHTML = '';
-            // P is now directly clickable
-            let backHTML = `<p class="flashcard-text-content ${cardData.audio ? 'audio-clickable-word' : ''}" lang="rar" ${cardData.audio ? `data-audio-src="${cardData.audio}"` : ''}>
-                                ${cardData.raramuri || '???'}
-                            </p>`;
+            let backHTML = `<p class="flashcard-text-content" lang="rar">${cardData.raramuri || '???'}</p>`;
+            if (cardData.audio) {
+                backHTML += `<button class="play-audio-btn flashcard-audio-btn" data-audio-src="${cardData.audio}" aria-label="Reproducir audio de ${cardData.raramuri}">🔊</button>`;
+            }
             flashcardBackEl.innerHTML = backHTML;
 
-            // Listener for clicking the Rarámuri word on flashcard back
             if (cardData.audio) {
-                const flashcardRaramuriWordEl = flashcardBackEl.querySelector('.flashcard-text-content');
-                if (flashcardRaramuriWordEl) {
-                    flashcardRaramuriWordEl.addEventListener('click', (e) => {
-                        e.stopPropagation(); // VERY IMPORTANT: Prevent card from flipping
+                const audioButtonInDOM = flashcardBackEl.querySelector('.play-audio-btn.flashcard-audio-btn');
+                if (audioButtonInDOM) {
+                    audioButtonInDOM.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent card from flipping when clicking the audio button
+                        // CORRECTED: Use dataset.audioSrc (camelCase)
                         playAudio(e.currentTarget.dataset.audioSrc);
                     });
                 }
@@ -1085,10 +1087,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         console.log("[Flashcards] Configurando controles.");
-        // Add listener to the flashcard area for flipping (unless specific elements are clicked)
+        // Añadido listener click al flashcardAreaEl para voltear, o podrías ponerlo en flashcardEl
         if(flashcardAreaEl) flashcardAreaEl.addEventListener('click', (e) => {
-             // Ensure not to flip if a control button OR an audio-clickable-word is clicked
-             if (!e.target.closest('#flashcard-controls') && !e.target.classList.contains('audio-clickable-word')) {
+             // Asegúrate de no voltear si haces clic en los botones de control o en el botón de audio
+             if (!e.target.closest('#flashcard-controls') && !e.target.classList.contains('play-audio-btn')) {
                   flipFlashcard();
              }
         });
