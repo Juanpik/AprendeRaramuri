@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow) */
+/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow + AUDIO BUTTONS) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -129,11 +129,10 @@ header {
 
 nav {
     margin-top: 0;
-    /* Asegura que los botones envuelvan en pantallas pequeñas */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5px; /* Espacio entre botones de navegación */
+    gap: 5px; 
 }
 nav button {
     font-family: var(--font-heading);
@@ -142,7 +141,7 @@ nav button {
     color: rgba(255, 255, 255, 0.85);
     border: 2px solid rgba(255, 255, 255, 0.4);
     padding: var(--space-xs) var(--space-md);
-    margin: 0; /* Eliminar margin para usar gap en flexbox */
+    margin: 0; 
     cursor: pointer;
     border-radius: var(--border-radius-pill);
     transition: all 0.25s ease-in-out;
@@ -170,7 +169,7 @@ nav button.active {
 #error-message { background-color: var(--error-bg); border: 1px solid var(--error-red); color: #721C24; font-family: var(--font-heading); font-size: 1.1em; font-weight: 500; padding: var(--space-lg); border-radius: var(--border-radius-md); text-align: center; margin: var(--space-xl) 0;}
 
 /* Sections */
-.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); /* Base padding */ }
+.content-section { display: none; animation: fadeIn 0.5s ease-out; padding-top: var(--space-lg); }
 .content-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -193,11 +192,30 @@ nav button.active {
 #about p.credits-line { font-size: 0.95em; color: var(--text-secondary); margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-weight: 600; }
 #about ul.credits-list { list-style: none; padding: 0; margin-top: 0; font-size: 0.9em; color: var(--text-secondary); }
 #about ul.credits-list li { margin-bottom: var(--space-xs); }
-/* --- End of About Section Specific Styles --- */
+
+/* --- Play Audio Button General Styles --- */
+.play-audio-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--blue-primary);
+    cursor: pointer;
+    font-size: 1.2em; 
+    padding: 0.1em 0.3em;
+    margin-left: var(--space-xs);
+    vertical-align: middle;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    border-radius: var(--border-radius-sm);
+}
+.play-audio-btn:hover {
+    color: var(--orange-accent);
+    transform: scale(1.15);
+}
+.play-audio-btn:active {
+    transform: scale(0.9);
+}
 
 /* Léxico */
-
-/* Filtros de Categoría */
 .category-filter-container {
     margin-bottom: var(--space-lg);
     border-bottom: 1px solid var(--border-light);
@@ -205,10 +223,9 @@ nav button.active {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-sm); /* Base gap */
-    padding-bottom: var(--space-lg); /* Base padding */
+    gap: var(--space-sm); 
+    padding-bottom: var(--space-lg); 
 }
-
 button.category-filter-btn {
     font-family: var(--font-body);
     background-color: var(--white);
@@ -223,13 +240,11 @@ button.category-filter-btn {
     font-weight: 500;
     box-shadow: var(--shadow-sm);
 }
-
 button.category-filter-btn:hover {
     background-color: var(--blue-light-bg);
     border-color: var(--blue-primary);
     transform: translateY(-1px);
 }
-
 button.category-filter-btn.active {
     background-color: var(--blue-primary);
     color: var(--white);
@@ -238,17 +253,14 @@ button.category-filter-btn.active {
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
     transform: translateY(0);
 }
-
-/* Barra de búsqueda */
 .search-container {
     margin-bottom: var(--space-lg);
     text-align: center;
     display: flex;
-    flex-direction: column; /* Ya está en columna, bueno para mobile */
+    flex-direction: column; 
     align-items: center;
     gap: var(--space-sm);
 }
-
 #lexicon-search {
     font-family: var(--font-body);
     padding: var(--space-sm) var(--space-lg);
@@ -262,26 +274,18 @@ button.category-filter-btn.active {
     background-color: var(--white);
 }
 #lexicon-search:focus { outline: none; border-color: var(--blue-primary); box-shadow: 0 0 0 3px rgba(74, 126, 187, 0.25); }
-
-/* Estilos para la leyenda */
-.lexicon-tip {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-/* Grid de Léxico */
+.lexicon-tip { font-size: 0.9em; color: var(--text-secondary); margin: 0; }
 #lexicon-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); /* Base minmax */
-    gap: var(--space-xl); /* Base gap */
-    margin-top: var(--space-xl); /* Espacio entre el search-container y la grilla */
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); 
+    gap: var(--space-xl); 
+    margin-top: var(--space-xl); 
 }
 .lexicon-item {
     background-color: var(--white);
     border: 1px solid var(--border-light);
     border-radius: var(--border-radius-md);
-    padding: var(--space-lg); /* Base padding */
+    padding: var(--space-lg); 
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -290,39 +294,48 @@ button.category-filter-btn.active {
     align-items: center;
     overflow: hidden;
 }
-.lexicon-item:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-lg);
-}
+.lexicon-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
 .lexicon-item img {
-    width: 150px; /* Base size */
-    height: 150px; /* Base size */
+    width: 150px; 
+    height: 150px; 
     object-fit: cover;
     display: block;
-    margin-bottom: var(--space-lg); /* Espacio entre imagen y palabra rarámuri */
+    margin-bottom: var(--space-lg); 
     border-radius: var(--border-radius-md);
     background-color: var(--blue-light-bg);
-
-    border: 4px solid var(--white); /* Borde base (puede ser visible o transparente) */
+    border: 4px solid var(--white); 
     box-shadow: var(--shadow-sm);
     cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición para el cambio de borde/sombra */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Estilo para la imagen marcada para repasar */
 .lexicon-item img.repasar-image-marked {
-    border-color: var(--orange-accent); /* Borde naranja cuando está marcada */
-    box-shadow: 0 0 8px rgba(232, 122, 63, 0.5); /* Sombra para resaltar */
+    border-color: var(--orange-accent); 
+    box-shadow: 0 0 8px rgba(232, 122, 63, 0.5); 
 }
 
-.lexicon-item .raramuri-word {
+/* Container for Rarámuri word and its audio button */
+.lexicon-word-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-xs); /* Space after the container */
+    flex-wrap: wrap; /* Allow button to wrap below if word is long */
+    min-height: 1.5em; /* Ensure some height even if word is short for alignment */
+}
+.lexicon-item .raramuri-word { /* Style for the <p> tag inside the container */
     font-family: var(--font-heading);
     font-weight: 600;
     color: var(--orange-accent);
     font-size: 1.25em;
-    margin-bottom: var(--space-xs); /* Espacio entre rarámuri y español (consistent) */
+    margin-bottom: 0; /* Margin is handled by container */
+    margin-right: 0; /* Button has margin-left */
     word-wrap: break-word;
+    line-height: 1.3;
 }
+.lexicon-audio-btn {
+    font-size: 1em; /* Relative to parent's font-size */
+}
+
 .lexicon-item .spanish-word {
     font-style: normal;
     color: var(--text-secondary);
@@ -332,10 +345,9 @@ button.category-filter-btn.active {
     margin-bottom: var(--space-xs);
 }
 
-
 /* Frases */
 #phrases-list li {
-    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg); /* Base padding */
+    background-color: var(--white); margin-bottom: var(--space-lg); padding: var(--space-lg); 
     border: 1px solid var(--border-light); border-left: 5px solid var(--blue-primary);
     border-radius: var(--border-radius-sm); transition: box-shadow 0.2s ease; box-shadow: var(--shadow-sm);
 }
@@ -346,187 +358,73 @@ button.category-filter-btn.active {
 }
 #phrases-list .spanish-phrase { color: var(--text-secondary); font-size: 1.05em; }
 
-/* ------------------------- */
-/* Memorama Section           */
-/* ------------------------- */
+/* Memorama Section */
 #memorama-setup {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg); /* Base gap */
+    margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light);
+    text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-lg); 
 }
-
-#memorama-setup p {
-    font-weight: 400;
-    font-size: 1.1em;
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    margin-bottom: 0;
-}
-
-.memorama-setup-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-}
-
-#memorama-setup label {
-    color: var(--text-secondary);
-    font-size: 0.95em;
-    font-family: var(--font-body);
-}
-
+#memorama-setup p { font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body); margin-bottom: 0; }
+.memorama-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
+#memorama-setup label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
 #memorama-setup select {
-    /* Estilos específicos para este select */
-    padding: var(--space-xs) var(--space-md);
-    /* No necesitamos padding-right extra para flecha custom */
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--white);
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--text-primary);
-    margin-right: 0;
-    cursor: pointer; /* Asegurar cursor */
+    padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+    margin-right: 0; cursor: pointer; 
 }
-
-#memorama-setup > div:not(.memorama-setup-group) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-sm); /* Base gap for difficulty buttons */
-}
-
+#memorama-setup > div:not(.memorama-setup-group) { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
 .difficulty-btn, #reset-memorama {
-    font-family: var(--font-heading);
-    padding: var(--space-sm) var(--space-lg);
-    border: none;
-    border-radius: var(--border-radius-pill);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-interactive);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.9em;
-    color: var(--white) !important;
+    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none; border-radius: var(--border-radius-pill);
+    cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-interactive); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9em; color: var(--white) !important;
 }
-
-.difficulty-btn {
-    background-color: var(--blue-primary) !important;
-}
-
-.difficulty-btn:hover {
-    background-color: var(--blue-dark) !important;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-.difficulty-btn:active {
-    transform: translateY(0); filter: brightness(0.95);
-}
-
-.difficulty-btn.selected {
-    background-color: var(--blue-darker) !important;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0);
-}
-
-#reset-memorama {
-    background-color: var(--orange-accent) !important;
-    color: var(--white) !important;
-}
-#reset-memorama:hover {
-    background-color: var(--orange-dark) !important;
-}
-
+.difficulty-btn { background-color: var(--blue-primary) !important; }
+.difficulty-btn:hover { background-color: var(--blue-dark) !important; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.difficulty-btn:active { transform: translateY(0); filter: brightness(0.95); }
+.difficulty-btn.selected { background-color: var(--blue-darker) !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); transform: translateY(0); }
+#reset-memorama { background-color: var(--orange-accent) !important; color: var(--white) !important; }
+#reset-memorama:hover { background-color: var(--orange-dark) !important; }
 #memorama-controls {
-    margin: var(--space-lg) 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-md); /* Base gap */
-    padding: var(--space-lg) 0;
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
+    margin: var(--space-lg) 0; display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: var(--space-md); padding: var(--space-lg) 0;
+    border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
 }
 #memorama-controls p { margin: 0; font-weight: 600; color: var(--text-primary); font-size: 1.1em; font-family: var(--font-body);}
-
-#memorama-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Base minmax */ gap: var(--space-lg); /* Base gap */ perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto; }
+#memorama-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); perspective: 1200px; max-width: 900px; margin: var(--space-lg) auto 0 auto; }
 .memorama-card {
-    height: 160px; /* Base height */ aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer; position: relative;
+    height: 160px; aspect-ratio: 1 / 1; border-radius: var(--border-radius-md); cursor: pointer; position: relative;
     transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     box-shadow: var(--shadow-md); border: 1px solid var(--border-light); background-color: transparent; overflow: hidden;
 }
- .memorama-card:hover:not(.matched) { box-shadow: var(--shadow-lg); transform: scale(1.03); }
+.memorama-card:hover:not(.matched) { box-shadow: var(--shadow-lg); transform: scale(1.03); }
 .memorama-card.flipped { transform: rotateY(180deg); }
 .memorama-card.flipped:hover:not(.matched) { transform: rotateY(180deg) scale(1.05); }
 .memorama-card.matched {
-     opacity: 0.8;
-     border: 2px solid var(--success-green);
-     cursor: default;
-     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
-     transform: scale(0.95); /* Base scale */
-     transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+     opacity: 0.8; border: 2px solid var(--success-green); cursor: default; box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
+     transform: scale(0.95); transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
 }
-.memorama-card.flipped.matched {
-     transform: rotateY(180deg) scale(0.95); /* Combine rotation and base scale */
-}
-.memorama-card.matched:hover {
-     box-shadow: 0 0 12px rgba(40, 167, 69, 0.25); /* Efecto hover sutil */
-}
-
+.memorama-card.flipped.matched { transform: rotateY(180deg) scale(0.95); }
+.memorama-card.matched:hover { box-shadow: 0 0 12px rgba(40, 167, 69, 0.25); }
 .card-face {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    border-radius: inherit; padding: 0; box-sizing: border-box;
-    text-align: center; overflow: hidden;
-    transition: opacity 0.1s linear 0.15s;
-    transform: translateZ(0);
-    will-change: opacity;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; border-radius: inherit; padding: 0; box-sizing: border-box;
+    text-align: center; overflow: hidden; transition: opacity 0.1s linear 0.15s; transform: translateZ(0); will-change: opacity;
 }
-.memorama-card .card-front {
-    background-color: var(--white); color: var(--text-primary);
-    transform: rotateY(180deg); border: 1px solid var(--border-light);
-    z-index: 1; opacity: 0; visibility: hidden;
-}
-.memorama-card.flipped .card-front {
-    opacity: 1; visibility: visible; z-index: 2; transition-delay: 0.15s;
-}
-.memorama-card.matched .card-front {
-     opacity: 1 !important; visibility: visible !important; z-index: 2;
-}
+.memorama-card .card-front { background-color: var(--white); color: var(--text-primary); transform: rotateY(180deg); border: 1px solid var(--border-light); z-index: 1; opacity: 0; visibility: hidden; }
+.memorama-card.flipped .card-front { opacity: 1; visibility: visible; z-index: 2; transition-delay: 0.15s; }
+.memorama-card.matched .card-front { opacity: 1 !important; visibility: visible !important; z-index: 2; }
 .memorama-card .card-front img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: inherit; }
 .memorama-card .card-front p {
-    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0; /* Base font size */
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.1em; line-height: 1.3; margin: 0; 
     padding: var(--space-sm); width: 100%; word-wrap: break-word; color: var(--orange-dark); flex-shrink: 0;
     text-align: center; box-sizing: border-box;
 }
-.memorama-card .card-back {
-    background-color: var(--blue-dark); color: white;
-    transform: rotateY(0deg); z-index: 2; opacity: 1; visibility: visible;
-    display: flex; justify-content: center; align-items: center;
-}
-.memorama-card.flipped .card-back {
-    opacity: 0; visibility: hidden; z-index: 1; transition-delay: 0s;
-}
- .memorama-card.matched .card-back {
-     opacity: 0 !important; visibility: hidden !important; z-index: 1;
-}
+.memorama-card .card-back { background-color: var(--blue-dark); color: white; transform: rotateY(0deg); z-index: 2; opacity: 1; visibility: visible; display: flex; justify-content: center; align-items: center; }
+.memorama-card.flipped .card-back { opacity: 0; visibility: hidden; z-index: 1; transition-delay: 0s; }
+.memorama-card.matched .card-back { opacity: 0 !important; visibility: hidden !important; z-index: 1; }
 .memorama-card .card-back::before {
-   content: '?';
-   font-family: var(--font-heading);
-   font-size: 4em; /* Base font size */
-   font-weight: 700;
-   color: var(--yellow-highlight);
-   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-   line-height: 1;
+   content: '?'; font-family: var(--font-heading); font-size: 4em; font-weight: 700;
+   color: var(--yellow-highlight); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); line-height: 1;
 }
-
 #memorama-win-message, #memorama-data-error {
     font-family: var(--font-heading); font-weight: 600; padding: var(--space-md) var(--space-lg);
     border-radius: var(--border-radius-md); margin-top: var(--space-xl); font-size: 1.1em; text-align: center; box-shadow: var(--shadow-sm);
@@ -534,83 +432,44 @@ button.category-filter-btn.active {
 #memorama-win-message { background-color: var(--success-bg); border: 1px solid var(--success-green); color: #155724; }
 #memorama-data-error { background-color: var(--error-bg); border: 1px solid var(--error-red); color: var(--error-red); font-family: var(--font-body); font-weight: 400; }
 
-/* Para el selector de categoría cuando "Repasar" está seleccionado */
 #quiz-category option[value="repasar"],
 #memorama-category option[value="repasar"],
 #flashcard-category option[value="repasar"] {
-    font-weight: bold;
-    background-color: var(--yellow-light-bg) !important;
-    color: var(--orange-dark) !important;
+    font-weight: bold; background-color: var(--yellow-light-bg) !important; color: var(--orange-dark) !important;
 }
 
-
-/* ------------------------- */
-/* Quiz Section                */
-/* ------------------------- */
+/* Quiz Section */
 #quiz-container { background-color: transparent; padding: 0; border: none; box-shadow: none; }
 #quiz-setup {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg); /* Base gap */
+    margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light);
+    text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-lg); 
 }
-
-#quiz-setup p {
-    font-weight: 400;
-    font-size: 1.1em;
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    margin-bottom: 0;
-}
-
-/* These divs group label and select */
-.quiz-setup-group {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Optional: centers within the group if it takes full width */
-    gap: var(--space-sm);
-}
-
-#quiz-setup label {
-    margin-right: 0;
-    color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body);
-}
+#quiz-setup p { font-weight: 400; font-size: 1.1em; color: var(--text-secondary); font-family: var(--font-body); margin-bottom: 0; }
+.quiz-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
+#quiz-setup label { margin-right: 0; color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); }
 #quiz-setup select {
-    /* Estilos específicos para este select */
-    padding: var(--space-xs) var(--space-md);
-    /* No necesitamos padding-right extra para flecha custom */
-    border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm); background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
-    margin-right: 0;
-    cursor: pointer; /* Asegurar cursor */
+    padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+    margin-right: 0; cursor: pointer; 
 }
 #quiz-setup button#start-quiz {
     font-family: var(--font-heading); background-color: var(--orange-accent); color: var(--white); padding: var(--space-md) var(--space-xl);
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.1em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); text-transform: uppercase; letter-spacing: 0.5px;
-    display: block;
-    margin: 0 auto;
-    max-width: 300px;
+    display: block; margin: 0 auto; max-width: 300px;
 }
 #quiz-setup button#start-quiz:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
 #quiz-data-error {
-    margin-top: 0;
-    color: #721C24; background-color: var(--error-bg); padding: var(--space-sm); border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
-    width: 100%;
-    max-width: 500px;
-    box-sizing: border-box;
+    margin-top: 0; color: #721C24; background-color: var(--error-bg); padding: var(--space-sm);
+    border-radius: var(--border-radius-sm); font-weight: 500; font-family: var(--font-body);
+    width: 100%; max-width: 500px; box-sizing: border-box;
 }
-
 #quiz-image-container img { max-width: 200px; max-height: 200px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); background-color: var(--white); margin: 0 auto var(--space-xl) auto; display: block; box-shadow: var(--shadow-md); padding: 5px; }
 #quiz-question { text-align: center; margin-bottom: var(--space-xl); font-size: 1.4em; font-weight: 500; color: var(--text-primary); line-height: 1.5; font-family: var(--font-heading); }
 #quiz-options { margin-top: var(--space-lg); max-width: 650px; margin-left: auto; margin-right: auto; }
 #quiz-options button {
     display: block; width: 100%; margin-bottom: var(--space-md); text-align: left; background-color: var(--white);
-    color: var(--text-primary); padding: var(--space-md) var(--space-lg); /* Base padding */ border: 1px solid var(--border-medium);
+    color: var(--text-primary); padding: var(--space-md) var(--space-lg); border: 1px solid var(--border-medium);
     border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.2s ease-in-out;
     font-size: 1.05em; font-family: var(--font-body); box-shadow: var(--shadow-sm);
 }
@@ -620,11 +479,7 @@ button.category-filter-btn.active {
 #quiz-options button.incorrect:disabled { background-color: var(--error-bg) !important; color: #721C24 !important; border-color: var(--error-red) !important; font-weight: 600; opacity: 1; text-decoration: line-through; text-decoration-thickness: 1px; box-shadow: var(--shadow-sm); transform: translateX(0); }
 #quiz-options button:disabled:not(.correct):not(.incorrect) { opacity: 0.6; background-color: var(--blue-light-bg); border-color: var(--border-medium); box-shadow: none; transform: translateX(0); }
 #quiz-text-input-area {
-    display: flex;
-    gap: var(--space-md);
-    align-items: center; /* Align items horizontally on desktop */
-    margin: var(--space-xl) auto;
-    max-width: 650px;
+    display: flex; gap: var(--space-md); align-items: center; margin: var(--space-xl) auto; max-width: 650px;
 }
 #quiz-text-answer {
     flex-grow: 1; padding: var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
@@ -655,7 +510,7 @@ button#next-question {
 #quiz-results p { margin-bottom: var(--space-xl); font-size: 1.3em; color: var(--text-secondary); font-family: var(--font-body);}
 #quiz-results span { color: var(--text-primary); font-weight: 700; }
 #quiz-results button {
-    font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg); /* Base padding */
+    font-family: var(--font-heading); margin: var(--space-sm) var(--space-md); padding: var(--space-md) var(--space-lg); 
     border: none; border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1.05em; font-weight: 500;
     transition: all 0.3s ease; box-shadow: var(--shadow-interactive); min-width: 200px; letter-spacing: 0.5px; text-transform: uppercase;
 }
@@ -665,61 +520,26 @@ button#restart-quiz:hover { background-color: var(--orange-dark); }
 button#retry-missed-quiz { background-color: var(--blue-primary); color: var(--white); }
 button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 
-
-/* ------------------------- */
-/* Flashcards Section        */
-/* ------------------------- */
-#flashcards-container {
-    max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px;
-}
+/* Flashcards Section */
+#flashcards-container { max-width: 500px; margin: var(--space-lg) auto; perspective: 1000px; }
 #flashcards-setup-controls {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg); /* Base gap */
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid var(--border-light);
+    text-align: center; margin-bottom: var(--space-lg); display: flex; flex-direction: column;
+    align-items: center; gap: var(--space-lg); padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-light);
 }
-.flashcard-setup-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-}
-#flashcards-setup-controls label {
-    color: var(--text-secondary);
-    font-size: 0.95em;
-    font-family: var(--font-body);
-    margin-right: 0;
-}
+.flashcard-setup-group { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
+#flashcards-setup-controls label { color: var(--text-secondary); font-size: 0.95em; font-family: var(--font-body); margin-right: 0; }
 #flashcards-setup-controls select {
-     /* Estilos específicos para este select */
-    padding: var(--space-xs) var(--space-md);
-    /* No necesitamos padding-right extra para flecha custom */
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--white);
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--text-primary);
-    margin-right: 0;
-     cursor: pointer; /* Asegurar cursor */
+    padding: var(--space-xs) var(--space-md); border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    background-color: var(--white); font-family: var(--font-body); font-size: 1em; color: var(--text-primary);
+    margin-right: 0; cursor: pointer; 
 }
 #flashcards-data-error {
-    color: var(--error-red);
-    text-align: center;
-    display: none;
-    margin-top: 0;
-    font-size: 0.95em;
-    width: 100%;
-    max-width: 400px;
+    color: var(--error-red); text-align: center; display: none; margin-top: 0;
+    font-size: 0.95em; width: 100%; max-width: 400px;
 }
-
 #flashcard-display-area { margin-bottom: var(--space-lg); }
 .flashcard {
-    width: 100%; height: 300px; /* Base height */ position: relative; transform-style: preserve-3d;
+    width: 100%; height: 300px; position: relative; transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md);
 }
@@ -727,57 +547,48 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 .flashcard-face {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: var(--space-lg);
-    box-sizing: border-box; border-radius: inherit;
+    padding: var(--space-lg); box-sizing: border-box; border-radius: inherit;
     border: 1px solid var(--border-light); text-align: center; overflow-wrap: break-word;
 }
 .flashcard-face.card-front {
     background-color: var(--content-bg); z-index: 2; transform: rotateY(0deg);
-    font-size: 2em; color: var(--text-primary); font-family: var(--font-body); /* Base font size */
+    font-size: 2em; color: var(--text-primary); font-family: var(--font-body); 
 }
 .flashcard-face.card-back {
     background-color: var(--blue-light-bg); transform: rotateY(180deg); z-index: 1;
-    font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading); /* Base font size */
-    font-weight: 600;
+    /* Font styles will be primarily on .flashcard-text-content inside */
 }
 .flashcard-face img {
-    max-width: 95%;
-    max-height: 95%;
-    object-fit: contain;
-    margin-bottom: 0;
-    display: block;
-    border-radius: var(--border-radius-md);
-    border: 4px solid var(--white);
-    background-color: var(--blue-light-bg);
-    box-shadow: var(--shadow-sm);
+    max-width: 95%; max-height: 95%; object-fit: contain; margin-bottom: 0; display: block;
+    border-radius: var(--border-radius-md); border: 4px solid var(--white);
+    background-color: var(--blue-light-bg); box-shadow: var(--shadow-sm);
 }
-.flashcard-face p {
-    font-size: 0.8em;
+.flashcard-face p.flashcard-text-content { /* Target the <p> elements specifically */
     margin-bottom: 0;
-    color: var(--text-secondary);
-    margin-top: var(--space-xs);
-}
-.flashcard-face.card-front p {
-    font-size: 1.8em; /* Base font size for text-only front */
-    font-weight: bold;
-    color: var(--text-primary);
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 0 var(--space-sm);
-    margin-top: 0;
+    line-height: 1.3; /* Improved line height for text content */
 }
-
+.flashcard-face.card-front p.flashcard-text-content { /* For text-only front */
+    font-size: 1.8em; font-weight: bold; color: var(--text-primary);
+    flex-grow: 1; display: flex; justify-content: center; align-items: center;
+}
+#flashcard-back .flashcard-text-content { /* For text on back */
+    font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
+    font-weight: 600; margin-bottom: var(--space-sm); /* Space before audio button */
+}
+.flashcard-audio-btn {
+    font-size: 1.5em; /* Larger for easier tapping on flashcard */
+    color: var(--blue-primary);
+    margin-top: var(--space-xs); /* Small space if text is short, or use flex gap */
+}
 
 #flashcard-controls {
     display: flex; flex-wrap: wrap; justify-content: center;
-    align-items: center; gap: var(--space-md); /* Base gap */
-    margin-top: var(--space-lg);
+    align-items: center; gap: var(--space-md); margin-top: var(--space-lg);
 }
 #flashcard-controls button {
-    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none; /* Base padding */
-    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500; /* Base font size */
+    font-family: var(--font-heading); padding: var(--space-sm) var(--space-lg); border: none; 
+    border-radius: var(--border-radius-sm); cursor: pointer; font-size: 0.95em; font-weight: 500; 
     transition: all 0.2s ease-out; box-shadow: var(--shadow-interactive); min-width: auto;
     text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); vertical-align: middle;
     margin: 0; flex-grow: 0; flex-shrink: 1;
@@ -788,60 +599,36 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 #prev-flashcard-btn:hover, #next-flashcard-btn:hover { background-color: var(--blue-dark); }
 #flip-flashcard-btn {
     background-color: var(--orange-accent); font-weight: 700;
-    padding: var(--space-md) var(--space-xl); /* Base padding */ font-size: 1em; /* Base font size */ order: 0; /* Control order in flex */
+    padding: var(--space-md) var(--space-xl); font-size: 1em; order: 0; 
 }
 #flip-flashcard-btn:hover { background-color: var(--orange-dark); }
 #shuffle-flashcards-btn {
-    background-color: var(--text-secondary); font-size: 0.85em; /* Base font size */
-    padding: var(--space-xs) var(--space-sm); /* Base padding */
+    background-color: var(--text-secondary); font-size: 0.85em; 
+    padding: var(--space-xs) var(--space-sm); 
 }
 #shuffle-flashcards-btn:hover { background-color: var(--text-primary); }
 #shuffle-flashcards-btn svg { margin-bottom: -2px; }
 #flashcard-counter { font-family: var(--font-body); color: var(--text-secondary); font-size: 0.9em; }
 
-/* ------------------------- */
-/* Footer                    */
-/* ------------------------- */
+/* Footer */
 footer {
-    text-align: center;
-    margin-top: var(--space-xxl);
-    padding: var(--space-lg);
-    background-color: var(--blue-light-bg);
-    color: var(--text-secondary);
-    border-top: 1px solid var(--border-light);
+    text-align: center; margin-top: var(--space-xxl); padding: var(--space-lg);
+    background-color: var(--blue-light-bg); color: var(--text-secondary); border-top: 1px solid var(--border-light);
 }
+footer img { display: block; margin-left: auto; margin-right: auto; max-height: 45px; max-width: 100%; height: auto; }
 
-footer img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 45px;
-    max-width: 100%;
-    height: auto;
-}
-
-/* ------------------------- */
-/* Responsive Adjustments    */
-/* ------------------------- */
+/* Responsive Adjustments */
 @media (max-width: 992px) {
-    /* Memorama */
     #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     .memorama-card { height: 145px; }
     .memorama-card .card-front p { font-size: 1em; }
-    /* Flashcards */
     #flashcards-container { max-width: 90%; }
     .flashcard { height: 250px; }
-    .flashcard-face img {
-        max-width: 95%;
-        max-height: 95%;
-    }
-     .flashcard-face.card-front { font-size: 1.6em; }
-     .flashcard-face.card-back { font-size: 1.8em; }
-     .flashcard-face.card-front p { font-size: 1.6em; } /* Adjusted for text-only front */
-
+    .flashcard-face img { max-width: 95%; max-height: 95%; }
+    .flashcard-face.card-front p.flashcard-text-content { font-size: 1.6em; } 
+    #flashcard-back .flashcard-text-content { font-size: 1.8em; }
 }
 @media (max-width: 768px) {
-    /* General adjustments */
     main { padding: var(--space-md); margin: var(--space-lg) auto; width: 98%; }
     h2 { font-size: 1.7em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
     #about h2 { font-size: 1.7em; }
@@ -849,421 +636,228 @@ footer img {
     #phrases-list li { padding: var(--space-md); margin-bottom: var(--space-md); }
     #phrases-list .raramuri-phrase { font-size: 1.1em; margin-bottom: var(--space-xs); }
     #phrases-list .spanish-phrase { font-size: 1em; }
-
-
-    /* Header */
     header > h1 { font-size: 2.5em; margin-bottom: var(--space-xs); }
     nav { gap: 4px; margin-top: var(--space-xs); }
     nav button { padding: var(--space-xs) var(--space-sm); font-size: 0.8em; letter-spacing: 0.5px;}
-
-
-    /* Lexicon */
     .category-filter-container { gap: var(--space-xs); padding-bottom: var(--space-md); margin-bottom: var(--space-md); }
     button.category-filter-btn { font-size: 0.85em; padding: var(--space-xs) var(--space-sm); }
     .search-container { margin-bottom: var(--space-md); gap: var(--space-xs); }
-    #lexicon-search { padding: var(--space-sm) var(--space-md); font-size: 1em; width: 95%; max-width: none;} /* Allow search to take more width */
+    #lexicon-search { padding: var(--space-sm) var(--space-md); font-size: 1em; width: 95%; max-width: none;} 
     .lexicon-tip { font-size: 0.85em; }
-    #lexicon-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Reduced minmax */
-        gap: var(--space-md); /* Reduced gap */
-        margin-top: var(--space-md); /* Adjusted margin */
-    }
-    .lexicon-item {
-        padding: var(--space-md); /* Reduced padding */
-    }
-    .lexicon-item img { width: 100px; height: 100px; margin-bottom: var(--space-md); /* Adjusted margin */ }
-    .lexicon-item .raramuri-word { font-size: 1.1em; margin-bottom: var(--space-xs);}
-    .lexicon-item .spanish-word { font-size: 0.95em; margin-bottom: var(--space-xs);}
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+    .lexicon-item { padding: var(--space-md); }
+    .lexicon-item img { width: 100px; height: 100px; margin-bottom: var(--space-md); }
+    .lexicon-item .raramuri-word { font-size: 1.1em; }
+    .lexicon-item .spanish-word { font-size: 0.95em; }
+    .lexicon-audio-btn { font-size: 0.9em; }
 
-
-    /* Memorama */
     #memorama-setup { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-lg); }
     .memorama-setup-group { gap: var(--space-xs); }
     #memorama-setup label { font-size: 0.9em; }
-    #memorama-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
-        /* No need for extra padding-right here now */
-        font-size: 0.95em; /* Adjusted font size */
-    }
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
     .difficulty-btn { padding: var(--space-xs) var(--space-md); font-size: 0.85em; }
     #memorama-controls { margin: var(--space-md) 0; padding: var(--space-sm) 0; gap: var(--space-xs); }
     #memorama-controls p { font-size: 1em; }
     #reset-memorama { padding: var(--space-sm) var(--space-md); font-size: 0.85em;}
-    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Further reduced minmax */ gap: var(--space-md); margin-top: var(--space-md); }
-    .memorama-card { height: 125px; /* Reduced height */ }
+    #memorama-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+    .memorama-card { height: 125px; }
     .memorama-card .card-front p { font-size: 0.95em; }
-    .memorama-card .card-back::before { font-size: 3.5em; /* Reduced size */ }
+    .memorama-card .card-back::before { font-size: 3.5em; }
     #memorama-win-message { margin-top: var(--space-lg); font-size: 1em; padding: var(--space-md); }
-
-
-    /* Quiz */
     #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
      .quiz-setup-group { gap: var(--space-xs); }
     #quiz-setup label { font-size: 0.9em; }
-    #quiz-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
-        /* No need for extra padding-right here now */
-        font-size: 0.95em; /* Adjusted font size */
-    }
+    #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
     #quiz-setup button#start-quiz { padding: var(--space-sm) var(--space-md); font-size: 1em;}
-     #quiz-image-container img { max-width: 160px; max-height: 160px; margin-bottom: var(--space-lg); }
+    #quiz-image-container img { max-width: 160px; max-height: 160px; margin-bottom: var(--space-lg); }
     #quiz-question { margin-bottom: var(--space-md); font-size: 1.2em; }
-     #quiz-options { margin-top: var(--space-md); max-width: 95%; }
-     #quiz-options button { padding: var(--space-sm) var(--space-md); font-size: 1em; margin-bottom: var(--space-sm);}
-     #quiz-text-input-area {
-        flex-direction: column; /* Stack input and button */
-        align-items: stretch; /* Make them take full width */
-        gap: var(--space-sm); /* Reduced gap when stacked */
-        margin: var(--space-lg) auto;
-        max-width: 95%;
-    }
-     #quiz-text-answer { padding: var(--space-sm); font-size: 1em; }
+    #quiz-options { margin-top: var(--space-md); max-width: 95%; }
+    #quiz-options button { padding: var(--space-sm) var(--space-md); font-size: 1em; margin-bottom: var(--space-sm);}
+    #quiz-text-input-area { flex-direction: column; align-items: stretch; gap: var(--space-sm); margin: var(--space-lg) auto; max-width: 95%; }
+    #quiz-text-answer { padding: var(--space-sm); font-size: 1em; }
     #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm) var(--space-md); font-size: 1em; width: 100%;}
-     #quiz-feedback { margin: var(--space-md) 0; font-size: 1.1em; }
-     button#next-question { padding: var(--space-sm) var(--space-md); font-size: 1em; min-width: 150px;}
-     #quiz-results { padding: var(--space-lg) 0; }
-     #quiz-results h3 { font-size: 1.8em; margin-bottom: var(--space-md); }
-     #quiz-results p { font-size: 1.1em; margin-bottom: var(--space-lg);}
-     #quiz-results button {
-         width: 90%; /* Stack buttons */
-         margin: var(--space-xs) auto; /* Center stacked buttons with small margin */
-         display: block;
-         padding: var(--space-sm) var(--space-md);
-         font-size: 1em;
-     }
-
-    /* Flashcards */
+    #quiz-feedback { margin: var(--space-md) 0; font-size: 1.1em; }
+    button#next-question { padding: var(--space-sm) var(--space-md); font-size: 1em; min-width: 150px;}
+    #quiz-results { padding: var(--space-lg) 0; }
+    #quiz-results h3 { font-size: 1.8em; margin-bottom: var(--space-md); }
+    #quiz-results p { font-size: 1.1em; margin-bottom: var(--space-lg);}
+    #quiz-results button { width: 90%; margin: var(--space-xs) auto; display: block; padding: var(--space-sm) var(--space-md); font-size: 1em; }
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-md); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.9em; }
-    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
-         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
-         /* No need for extra padding-right here now */
-         font-size: 0.95em; /* Adjusted font size */
-    }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
     #flashcard-display-area { margin-bottom: var(--space-md); }
-    .flashcard { height: 200px; /* Reduced height */ border-radius: var(--border-radius-md); }
-     .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
-    .flashcard-face.card-front { font-size: 1.2em; /* Reduced font size */ }
-    .flashcard-face.card-back { font-size: 1.4em; /* Reduced font size */ }
-    .flashcard-face.card-front p { font-size: 1.2em; } /* Adjusted for text-only front */
-    #flashcard-controls {
-        gap: var(--space-sm); /* Reduced gap */
-        margin-top: var(--space-md);
-    }
+    .flashcard { height: 200px; border-radius: var(--border-radius-md); }
+    .flashcard-face { padding: var(--space-sm); }
+    .flashcard-face.card-front p.flashcard-text-content { font-size: 1.2em; }
+    #flashcard-back .flashcard-text-content { font-size: 1.4em; }
+    .flashcard-audio-btn { font-size: 1.3em; }
+    #flashcard-controls { gap: var(--space-sm); margin-top: var(--space-md); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-xs) var(--space-sm); }
-    #flip-flashcard-btn {
-         order: -1; /* Move flip button to the start */
-         flex-basis: 100%; /* Make flip button take full width */
-         margin-bottom: var(--space-sm); /* Add space below flip button */
-         padding: var(--space-sm) var(--space-md); /* Adjusted padding for stacked button */
-         font-size: 1em;
-     }
-     #prev-flashcard-btn, #next-flashcard-btn {
-         flex-grow: 1; /* Allow prev/next to grow */
-         flex-basis: 40%; /* Give them a base width */
-     }
-    #shuffle-flashcards-btn {
-        flex-basis: 100%; /* Make shuffle take full width */
-        margin-top: var(--space-sm); /* Add space above shuffle button */
-        padding: var(--space-xs) var(--space-sm); /* Keep smaller padding */
-    }
+    #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); padding: var(--space-sm) var(--space-md); font-size: 1em; }
+    #prev-flashcard-btn, #next-flashcard-btn { flex-grow: 1; flex-basis: 40%; }
+    #shuffle-flashcards-btn { flex-basis: 100%; margin-top: var(--space-sm); padding: var(--space-xs) var(--space-sm); }
     #flashcard-counter { font-size: 0.85em; margin-bottom: var(--space-md); }
-
 }
 @media (max-width: 576px) {
-    /* General adjustments */
-     main { padding: var(--space-sm); }
-     h2 { font-size: 1.5em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
-     #about h2 { font-size: 1.5em; }
-     #about p { font-size: 0.95em; }
-     #phrases-list li { padding: var(--space-sm); margin-bottom: var(--space-sm); }
-      #phrases-list .raramuri-phrase { font-size: 1em; }
-      #phrases-list .spanish-phrase { font-size: 0.95em; }
+    main { padding: var(--space-sm); }
+    h2 { font-size: 1.5em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
+    #about h2 { font-size: 1.5em; }
+    #about p { font-size: 0.95em; }
+    #phrases-list li { padding: var(--space-sm); margin-bottom: var(--space-sm); }
+    #phrases-list .raramuri-phrase { font-size: 1em; }
+    #phrases-list .spanish-phrase { font-size: 0.95em; }
+    header > h1 { font-size: 2.2em; }
+    nav { gap: 3px; margin-top: var(--space-xs);}
+    nav button { margin: 0; padding: 5px 10px; font-size: 0.75em;}
+    .category-filter-container { padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); gap: 3px;}
+    button.category-filter-btn { font-size: 0.8em; padding: 4px 8px; }
+    .search-container { margin-bottom: var(--space-sm); gap: var(--space-xs); }
+    #lexicon-search { padding: var(--space-sm); font-size: 0.95em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-md); margin-top: var(--space-sm); }
+    .lexicon-item { padding: var(--space-sm); }
+    .lexicon-item img { width: 80px; height: 80px; margin-bottom: var(--space-sm);}
+    .lexicon-item .raramuri-word { font-size: 1em; }
+    .lexicon-item .spanish-word { font-size: 0.9em; }
+    .lexicon-audio-btn { font-size: 0.8em; }
 
-    /* Header */
-     header > h1 { font-size: 2.2em; }
-     nav { gap: 3px; margin-top: var(--space-xs);}
-     nav button { margin: 0; padding: 5px 10px; font-size: 0.75em;}
-
-     /* Lexicon */
-     .category-filter-container { padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); gap: 3px;}
-     button.category-filter-btn { font-size: 0.8em; padding: 4px 8px; }
-     .search-container { margin-bottom: var(--space-sm); gap: var(--space-xs); }
-     #lexicon-search { padding: var(--space-sm); font-size: 0.95em; }
-     #lexicon-grid {
-         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Further reduced minmax */
-         gap: var(--space-md);
-         margin-top: var(--space-sm);
-     }
-     .lexicon-item {
-        padding: var(--space-sm); /* Reduced padding */
-     }
-     .lexicon-item img { width: 80px; height: 80px; margin-bottom: var(--space-sm);}
-      .lexicon-item .raramuri-word { font-size: 1em; margin-bottom: var(--space-xs); }
-     .lexicon-item .spanish-word { font-size: 0.9em; margin-bottom: var(--space-xs);}
-
-    /* Memorama */
     #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #memorama-setup label, #memorama-setup select { font-size: 0.9em; }
-     #memorama-setup select {
-         padding: var(--space-xs) var(--space-sm); /* Adjusted padding */
-         /* No need for extra padding-right here now */
-         font-size: 0.9em; /* Adjusted font size */
-     }
-
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
     .difficulty-btn { padding: 6px 10px; font-size: 0.8em; }
-     #memorama-controls { margin: var(--space-md) 0; padding: var(--space-sm) 0; gap: var(--space-xs); }
-     #memorama-controls p { font-size: 0.95em; }
+    #memorama-controls { margin: var(--space-md) 0; padding: var(--space-sm) 0; gap: var(--space-xs); }
+    #memorama-controls p { font-size: 0.95em; }
     #reset-memorama { padding: 6px 10px; font-size: 0.8em;}
-     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
-     .memorama-card { height: 100px; /* Reduced height */ border-radius: var(--border-radius-sm); }
-     .memorama-card .card-front p { font-size: 0.85em; }
-     .memorama-card .card-back::before { font-size: 3em; /* Reduced size */ }
-     #memorama-win-message { margin-top: var(--space-md); font-size: 0.95em; padding: var(--space-sm); }
-
-
-    /* Quiz */
+    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
+    .memorama-card { height: 100px; border-radius: var(--border-radius-sm); }
+    .memorama-card .card-front p { font-size: 0.85em; }
+    .memorama-card .card-back::before { font-size: 3em; }
+    #memorama-win-message { margin-top: var(--space-md); font-size: 0.95em; padding: var(--space-sm); }
     #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #quiz-setup label, #quiz-setup select { font-size: 0.9em; }
-    #quiz-setup select {
-        padding: var(--space-sm) var(--space-md); /* Note: Original had sm/md, maybe adjust */
-        /* No need for extra padding-right here now */
-        font-size: 0.95em; /* Keeping slightly larger here */
-    }
+    #quiz-setup select { padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
     #quiz-setup button#start-quiz { font-size: 0.95em; padding: var(--space-sm) var(--space-md);}
-     #quiz-image-container img { max-width: 140px; max-height: 140px; margin-bottom: var(--space-md); }
+    #quiz-image-container img { max-width: 140px; max-height: 140px; margin-bottom: var(--space-md); }
     #quiz-question { margin-bottom: var(--space-md); font-size: 1.2em; }
-     #quiz-options { margin-top: var(--space-md); }
-     #quiz-options button { padding: var(--space-sm); font-size: 0.95em; margin-bottom: var(--space-xs);}
-     #quiz-text-input-area { gap: var(--space-xs); margin: var(--space-md) auto; }
-     #quiz-text-answer { padding: var(--space-sm); font-size: 0.95em; }
+    #quiz-options { margin-top: var(--space-md); }
+    #quiz-options button { padding: var(--space-sm); font-size: 0.95em; margin-bottom: var(--space-xs);}
+    #quiz-text-input-area { gap: var(--space-xs); margin: var(--space-md) auto; }
+    #quiz-text-answer { padding: var(--space-sm); font-size: 0.95em; }
     #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
-     #quiz-feedback { margin: var(--space-md) 0; font-size: 1em; }
-     button#next-question { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
-     #quiz-results h3 { font-size: 1.5em; margin-bottom: var(--space-md); }
-     #quiz-results p { font-size: 1em; margin-bottom: var(--space-lg);}
-     #quiz-results button {
-         padding: var(--space-sm) var(--space-md);
-         font-size: 0.95em;
-     }
-
-    /* Flashcards */
+    #quiz-feedback { margin: var(--space-md) 0; font-size: 1em; }
+    button#next-question { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
+    #quiz-results h3 { font-size: 1.5em; margin-bottom: var(--space-md); }
+    #quiz-results p { font-size: 1em; margin-bottom: var(--space-lg);}
+    #quiz-results button { padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.9em; }
-    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
-         padding: var(--space-sm) var(--space-md); /* Adjusted padding */
-         /* No need for extra padding-right here now */
-         font-size: 0.95em; /* Keeping slightly larger here */
-    }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
     #flashcard-display-area { margin-bottom: var(--space-md); }
-    .flashcard { height: 180px; /* Reduced height */ border-radius: var(--border-radius-md); }
-     .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
-    .flashcard-face.card-front { font-size: 1.2em; /* Reduced font size */ }
-    .flashcard-face.card-back { font-size: 1.4em; /* Reduced font size */ }
-    .flashcard-face.card-front p { font-size: 1.2em; } /* Adjusted for text-only front */
-    #flashcard-controls {
-        gap: var(--space-xs); /* Further reduced gap */
-        margin-top: var(--space-md);
-    }
+    .flashcard { height: 180px; border-radius: var(--border-radius-md); }
+    .flashcard-face { padding: var(--space-sm); }
+    .flashcard-face.card-front p.flashcard-text-content { font-size: 1.2em; }
+    #flashcard-back .flashcard-text-content { font-size: 1.4em; }
+    .flashcard-audio-btn { font-size: 1.2em; }
+    #flashcard-controls { gap: var(--space-xs); margin-top: var(--space-md); }
     #flashcard-controls button { font-size: 0.85em; padding: 6px 10px; }
-     #flip-flashcard-btn {
-         margin-bottom: var(--space-sm);
-         padding: var(--space-sm) var(--space-md);
-         font-size: 0.95em;
-     }
-     #prev-flashcard-btn, #next-flashcard-btn { flex-basis: 45%; /* Adjust base width */ }
+    #flip-flashcard-btn { margin-bottom: var(--space-sm); padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
+    #prev-flashcard-btn, #next-flashcard-btn { flex-basis: 45%; }
     #shuffle-flashcards-btn { margin-top: var(--space-sm); padding: 6px 10px; }
     #flashcard-counter { font-size: 0.8em; margin-bottom: var(--space-md); }
-
 }
 @media (max-width: 420px) {
-     /* General adjustments */
-     main { padding: var(--space-xs); }
-     h2 { font-size: 1.4em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
-     #about h2 { font-size: 1.4em; }
-     #about p { font-size: 0.9em; margin-bottom: var(--space-md);}
-     #phrases-list li { padding: var(--space-xs); margin-bottom: var(--space-sm); }
-      #phrases-list .raramuri-phrase { font-size: 0.95em; margin-bottom: var(--space-xs);}
-      #phrases-list .spanish-phrase { font-size: 0.9em; }
+    main { padding: var(--space-xs); }
+    h2 { font-size: 1.4em; margin-bottom: var(--space-md); padding-bottom: var(--space-sm); }
+    #about h2 { font-size: 1.4em; }
+    #about p { font-size: 0.9em; margin-bottom: var(--space-md);}
+    #phrases-list li { padding: var(--space-xs); margin-bottom: var(--space-sm); }
+    #phrases-list .raramuri-phrase { font-size: 0.95em; margin-bottom: var(--space-xs);}
+    #phrases-list .spanish-phrase { font-size: 0.9em; }
+    header > h1 { font-size: 1.8em; }
+    nav { gap: 2px;}
+    nav button { padding: 4px 6px; font-size: 0.65em;}
+    button.category-filter-btn { font-size: 0.75em; padding: 3px 5px; }
+    .search-container { margin-bottom: var(--space-sm); gap: var(--space-xs); }
+    #lexicon-search { padding: var(--space-xs) var(--space-sm); font-size: 0.85em; }
+    #lexicon-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--space-sm); margin-top: var(--space-sm); }
+    .lexicon-item { padding: var(--space-sm); }
+    .lexicon-item img { width: 60px; height: 60px; margin-bottom: var(--space-sm); }
+    .lexicon-item .raramuri-word { font-size: 0.9em; }
+    .lexicon-item .spanish-word { font-size: 0.8em; }
+    .lexicon-audio-btn { font-size: 0.75em; }
 
-
-     /* Header */
-     header > h1 { font-size: 1.8em; }
-     nav { gap: 2px;}
-     nav button { padding: 4px 6px; font-size: 0.65em;}
-
-     /* Lexicon */
-     button.category-filter-btn { font-size: 0.75em; padding: 3px 5px; }
-      .search-container { margin-bottom: var(--space-sm); gap: var(--space-xs); }
-      #lexicon-search { padding: var(--space-xs) var(--space-sm); font-size: 0.85em; }
-     #lexicon-grid {
-         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Further reduced minmax */
-         gap: var(--space-sm);
-         margin-top: var(--space-sm);
-     }
-      .lexicon-item { padding: var(--space-sm); }
-     .lexicon-item img { width: 60px; height: 60px; margin-bottom: var(--space-sm); }
-     .lexicon-item .raramuri-word { font-size: 0.9em; }
-     .lexicon-item .spanish-word { font-size: 0.8em; }
-
-    /* Memorama */
     #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #memorama-setup label, #memorama-setup select { font-size: 0.85em; }
-     #memorama-setup select {
-         padding: var(--space-xs) var(--space-sm); /* Keep from 576 or adjust */
-         /* No need for extra padding-right here now */
-     }
-
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); }
     .difficulty-btn { padding: 5px 8px; font-size: 0.75em; }
-     #memorama-controls { margin: var(--space-md) 0; padding: var(--space-xs) 0; gap: var(--space-xs); }
-     #memorama-controls p { font-size: 0.9em; }
+    #memorama-controls { margin: var(--space-md) 0; padding: var(--space-xs) 0; gap: var(--space-xs); }
+    #memorama-controls p { font-size: 0.9em; }
     #reset-memorama { padding: 5px 8px; font-size: 0.75em;}
-     #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); }
-     .memorama-card { height: 80px; /* Reduced height */ }
-     .memorama-card .card-front p { font-size: 0.8em; padding: 3px; }
-     .memorama-card .card-back::before { font-size: 2.5em; /* Reduced size */ }
-     #memorama-win-message { margin-top: var(--space-md); font-size: 0.9em; padding: var(--space-sm); }
-
-
-    /* Quiz */
+    #memorama-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); }
+    .memorama-card { height: 80px; }
+    .memorama-card .card-front p { font-size: 0.8em; padding: 3px; }
+    .memorama-card .card-back::before { font-size: 2.5em; }
+    #memorama-win-message { margin-top: var(--space-md); font-size: 0.9em; padding: var(--space-sm); }
     #quiz-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #quiz-setup label, #quiz-setup select { font-size: 0.85em; }
-    #quiz-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-        /* No need for extra padding-right here now */
-        font-size: 0.9em; /* Adjust font size */
-    }
+    #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
     #quiz-setup button#start-quiz { font-size: 0.9em; padding: var(--space-sm) var(--space-md);}
-     #quiz-image-container img { max-width: 120px; max-height: 120px; margin-bottom: var(--space-md); }
+    #quiz-image-container img { max-width: 120px; max-height: 120px; margin-bottom: var(--space-md); }
     #quiz-question { margin-bottom: var(--space-md); font-size: 1.1em; }
-     #quiz-options { margin-top: var(--space-md); }
-     #quiz-options button { padding: var(--space-sm); font-size: 0.9em; margin-bottom: var(--space-xs);}
-     #quiz-text-input-area { gap: var(--space-xs); margin: var(--space-md) auto; }
-     #quiz-text-answer { padding: var(--space-sm); font-size: 0.9em; }
+    #quiz-options { margin-top: var(--space-md); }
+    #quiz-options button { padding: var(--space-sm); font-size: 0.9em; margin-bottom: var(--space-xs);}
+    #quiz-text-input-area { gap: var(--space-xs); margin: var(--space-md) auto; }
+    #quiz-text-answer { padding: var(--space-sm); font-size: 0.9em; }
     #quiz-text-input-area button#submit-text-answer { padding: var(--space-sm) var(--space-md); font-size: 0.9em;}
-     #quiz-feedback { margin: var(--space-md) 0; font-size: 0.95em; }
-     button#next-question { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
-     #quiz-results h3 { font-size: 1.4em; margin-bottom: var(--space-md); }
-     #quiz-results p { font-size: 0.95em; margin-bottom: var(--space-lg);}
-     #quiz-results button {
-         padding: var(--space-sm) var(--space-md);
-         font-size: 0.9em;
-     }
-
-    /* Flashcards */
+    #quiz-feedback { margin: var(--space-md) 0; font-size: 0.95em; }
+    button#next-question { padding: var(--space-sm) var(--space-md); font-size: 0.95em;}
+    #quiz-results h3 { font-size: 1.4em; margin-bottom: var(--space-md); }
+    #quiz-results p { font-size: 0.95em; margin-bottom: var(--space-lg);}
+    #quiz-results button { padding: var(--space-sm) var(--space-md); font-size: 0.9em; }
     #flashcards-setup-controls { gap: var(--space-md); padding-bottom: var(--space-sm); margin-bottom: var(--space-sm); }
     .flashcard-setup-group { gap: var(--space-xs); }
     #flashcards-setup-controls label { font-size: 0.85em; }
-    #flashcard-category select { /* Note: This ID was flashcards-setup-controls select before, corrected */
-         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-         /* No need for extra padding-right here now */
-         font-size: 0.9em; /* Adjust font size */
-    }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
     #flashcard-display-area { margin-bottom: var(--space-md); }
-    .flashcard { height: 150px; /* Reduced height */ }
-    .flashcard-face { padding: var(--space-sm); /* Reduced padding */ }
-    .flashcard-face.card-front { font-size: 1.1em; }
-    .flashcard-face.card-back { font-size: 1.3em; }
-    .flashcard-face.card-front p { font-size: 1.1em; }
-     #flashcard-controls { gap: var(--space-xs); }
-     #flashcard-controls button { font-size: 0.8em; padding: 5px 8px; }
-     #flip-flashcard-btn { font-size: 0.9em; padding: var(--space-sm); }
-     #prev-flashcard-btn, #next-flashcard-btn { flex-basis: 48%; /* Adjust base width slightly */ }
-     #shuffle-flashcards-btn { padding: 5px 8px; }
+    .flashcard { height: 150px; }
+    .flashcard-face { padding: var(--space-sm); }
+    .flashcard-face.card-front p.flashcard-text-content { font-size: 1.1em; }
+    #flashcard-back .flashcard-text-content { font-size: 1.3em; }
+    .flashcard-audio-btn { font-size: 1.1em; }
+    #flashcard-controls { gap: var(--space-xs); }
+    #flashcard-controls button { font-size: 0.8em; padding: 5px 8px; }
+    #flip-flashcard-btn { font-size: 0.9em; padding: var(--space-sm); }
+    #prev-flashcard-btn, #next-flashcard-btn { flex-basis: 48%; }
+    #shuffle-flashcards-btn { padding: 5px 8px; }
     #flashcard-counter { font-size: 0.75em; margin-bottom: var(--space-md); }
-
 }
 
-
-/* Reverted select styles to use native arrow */
 select {
-    /* Allow native appearance */
-    -webkit-appearance: menulist; /* For Chrome, Safari, Opera */
-    -moz-appearance: menulist;    /* For Firefox */
-    appearance: menulist;         /* Standard */
-
-    /* REMOVE custom background image properties */
-    background-image: none;
-    background-repeat: initial;
-    background-position: initial;
-    background-size: initial;
-
-    /* Base visual styles */
-    border: 1px solid var(--border-medium);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--white); /* Ensure solid background */
-    font-family: var(--font-body); /* Default font */
-    color: var(--text-primary); /* Default color */
-    cursor: pointer; /* Indicate interactive */
-    flex-shrink: 0; /* Useful in flex containers */
-
-    /* Standard padding - native arrow doesn't need extra padding-right from us */
-    padding: var(--space-xs) var(--space-md);
-    font-size: 1em;
+    -webkit-appearance: menulist; 
+    -moz-appearance: menulist;    
+    appearance: menulist;         
+    background-image: none; background-repeat: initial; background-position: initial; background-size: initial;
+    border: 1px solid var(--border-medium); border-radius: var(--border-radius-sm);
+    background-color: var(--white); font-family: var(--font-body); color: var(--text-primary);
+    cursor: pointer; flex-shrink: 0; padding: var(--space-xs) var(--space-md); font-size: 1em;
 }
+#memorama-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; }
+#quiz-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; }
+#flashcard-category { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Corrected selector */
 
-/* Keep specific select padding/font-size overrides where they were */
-/* These will now just set the overall padding, relying on the native arrow */
-#memorama-setup select {
-    padding: var(--space-xs) var(--space-md);
-    font-size: 1em;
-}
-
-#quiz-setup select {
-    padding: var(--space-xs) var(--space-md);
-    font-size: 1em;
-}
-
-#flashcard-category select {
-    padding: var(--space-xs) var(--space-md);
-    font-size: 1em;
-}
-
-
-/* Responsive adjustments for SPECIFIC SELECT PADDINGS (no extra padding-right needed now) */
 @media (max-width: 768px) {
-    #memorama-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-        font-size: 0.95em; /* Adjust font size */
-    }
-    #quiz-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-        font-size: 0.95em; /* Adjust font size */
-    }
-    #flashcard-category select {
-        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-        font-size: 0.95em; /* Adjust font size */
-    }
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
+    #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; } /* Corrected selector */
 }
-
 @media (max-width: 576px) {
-    #memorama-setup select {
-        padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-        font-size: 0.9em; /* Adjust font size */
-    }
-    #quiz-setup select {
-        padding: var(--space-sm) var(--space-md); /* Note: Original had sm/md, maybe adjust */
-        font-size: 0.95em; /* Keeping slightly larger here */
-    }
-     #flashcard-category select {
-         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-         font-size: 0.95em; /* Keeping slightly larger here */
-    }
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
+    #quiz-setup select { padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; } /* Corrected selector */
 }
-
 @media (max-width: 420px) {
-     #memorama-setup select {
-         padding: var(--space-xs) var(--space-sm); /* Keep from 576 or adjust */
-         font-size: 0.85em; /* Adjust font size */
-    }
-     #quiz-setup select {
-         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-         font-size: 0.9em; /* Adjust font size */
-    }
-     #flashcard-category select {
-         padding: var(--space-xs) var(--space-sm); /* Adjust base padding */
-         font-size: 0.9em; /* Adjust font size */
-    }
+    #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.85em; }
+    #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; } /* Corrected selector */
 }
