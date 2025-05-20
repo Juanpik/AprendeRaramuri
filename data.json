@@ -1,7 +1,7 @@
 {
 "lexicon": [
     { "id": 1, "raramuri": "aká", "spanish": "huarache", "image": "images/aka.jpg", "category": "Vestimenta" },
-    { "id": 2, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida y bebida" },
+    { "id": 2, "raramuri": "ba'wí", "spanish": "agua", "image": "images/bawi.jpg", "category": "Comida y bebida", "audio": "audio/bawí.mp3" },
     { "id": 3, "raramuri": "basána", "spanish": "manzana", "image": "images/basána.jpg", "category": "Comida y bebida" },
     { "id": 4, "raramuri": "bo'wá", "spanish": "borrego", "image": "images/bo'wá.jpg", "category": "Animales" },
     { "id": 5, "raramuri": "busí", "spanish": "ojos", "image": "images/busí.jpg", "category": "Partes del cuerpo" },
