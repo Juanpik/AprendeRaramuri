@@ -1,4 +1,4 @@
-// script.js (Final version with image border marking for "Repasar" AND AUDIO PLAYBACK)
+// script.js (Final version with image border marking for "Repasar" AND AUDIO PLAYBACK - Corrected dataset access)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizTextAnswerInput = document.getElementById('quiz-text-answer');
     const submitTextAnswerBtn = document.getElementById('submit-text-answer');
     const quizFeedbackEl = document.getElementById('quiz-feedback');
-    const nextQuestionBtn = document = document.getElementById('next-question');
+    const nextQuestionBtn = document.getElementById('next-question'); 
     const quizResultsEl = document.getElementById('quiz-results');
     const quizScoreEl = document.getElementById('quiz-score');
     const quizTotalEl = document.getElementById('quiz-total');
@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function playAudio(audioSrc) {
         if (!audioSrc) {
             console.warn("No audio source provided.");
-            // Aquí podrías mostrar un mensaje al usuario si lo deseas
             return;
         }
 
@@ -384,7 +383,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (audioButtonInDOM) {
                     audioButtonInDOM.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        playAudio(e.currentTarget.dataset.audio-src);
+                        // CORRECTED: Use dataset.audioSrc (camelCase)
+                        playAudio(e.currentTarget.dataset.audioSrc);
                     });
                 }
             }
@@ -1039,7 +1039,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (audioButtonInDOM) {
                     audioButtonInDOM.addEventListener('click', (e) => {
                         e.stopPropagation(); // Prevent card from flipping when clicking the audio button
-                        playAudio(e.currentTarget.dataset.audio-src);
+                        // CORRECTED: Use dataset.audioSrc (camelCase)
+                        playAudio(e.currentTarget.dataset.audioSrc);
                     });
                 }
             }
@@ -1049,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipFlashcard() {
-        if (!flashcardEl || !flashcardData || flashcardData.length === 0) return; 
+        if (!flashcardData || flashcardData.length === 0) return; 
         flashcardEl.classList.toggle('flipped');
         isFlashcardFlipped = !isFlashcardFlipped;
     }
