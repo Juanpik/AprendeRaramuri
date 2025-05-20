@@ -133,8 +133,8 @@
     { "id": 131, "raramuri": "re'pa wirí", "spanish": "alto", "image": "images/re'pa wirí.jpg", "category": "Adjetivos" },
     { "id": 132, "raramuri": "o'mónami", "spanish": "triste", "image": "images/o'mónami.jpg", "category": "Adjetivos" },
     { "id": 133, "raramuri": "kanili", "spanish": "alegre", "image": "images/kanili.jpg", "category": "Adjetivos" },
-    { "id": 134, "raramuri": "chátiri", "spanish": "feo", "image": "images/chatirí.jpg", "category": "Adjetivos" },
-    { "id": 135, "raramuri": "simati", "spanish": "bonito", "image": "images/simatí.jpg", "category": "Adjetivos" },
+    { "id": 134, "raramuri": "chátiri", "spanish": "feo", "image": "images/chátiri.jpg", "category": "Adjetivos" },
+    { "id": 135, "raramuri": "simati", "spanish": "bonito", "image": "images/simati.jpg", "category": "Adjetivos" },
     { "id": 136, "raramuri": "rulaami", "spanish": "frio", "image": "images/rulaami.jpg", "category": "Adjetivos" },
     { "id": 137, "raramuri": "ratáame", "spanish": "caliente", "image": "images/ratáame.jpg", "category": "Adjetivos" }
   ],
