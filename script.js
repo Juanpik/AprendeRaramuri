@@ -1,4 +1,4 @@
-// script.js (Final version with image border marking for "Repasar")
+// script.js (Final version with image border marking for "Repasar" AND AUDIO PLAYBACK)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DECLARACIÓN DE VARIABLES PARA DATOS ---
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let phrasesData = [];
     let currentCategoryFilter = 'all';
     let repasarLexiconIds = []; // Para guardar IDs de palabras a repasar
+    let currentAudio = null; // Para gestionar la reproducción de audio
 
     // --- MAPEO DE ICONOS PARA CATEGORÍAS ---
     const categoryIcons = {
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Animales': '🐾', 'Partes del cuerpo': '🖐️', 'Objetos': '🔨',
         'Personas': '🧍‍♀️', 'Vestimenta': '🧦', 'Colores': '🎨',
         'Lugares': '🏡', 'Adjetivos': '✨','all': '',
-        'repasar': '⭐' // Icono para la categoría "Repasar" (usado en selectores, no en la tarjeta)
+        'repasar': '⭐'
     };
     const defaultCategoryIcon = '🏷️';
 
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizTextAnswerInput = document.getElementById('quiz-text-answer');
     const submitTextAnswerBtn = document.getElementById('submit-text-answer');
     const quizFeedbackEl = document.getElementById('quiz-feedback');
-    const nextQuestionBtn = document.getElementById('next-question');
+    const nextQuestionBtn = document = document.getElementById('next-question');
     const quizResultsEl = document.getElementById('quiz-results');
     const quizScoreEl = document.getElementById('quiz-score');
     const quizTotalEl = document.getElementById('quiz-total');
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function saveRepasarIds() {
         localStorage.setItem(REPASAR_STORAGE_KEY, JSON.stringify(repasarLexiconIds));
-        updateAllRepasarOptions(); // Actualizar todos los selectores de categoría
+        updateAllRepasarOptions();
     }
 
     function addRepasarId(id) {
@@ -132,6 +133,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // --- FIN FUNCIONES "PALABRAS A REPASAR" ---
 
+    // --- FUNCIÓN DE REPRODUCCIÓN DE AUDIO ---
+    function playAudio(audioSrc) {
+        if (!audioSrc) {
+            console.warn("No audio source provided.");
+            // Aquí podrías mostrar un mensaje al usuario si lo deseas
+            return;
+        }
+
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0; // Rebobina el audio
+        }
+
+        currentAudio = new Audio(audioSrc);
+        currentAudio.play().catch(error => {
+            console.error(`Error playing audio: ${audioSrc}`, error);
+            // Opcional: alert(`No se pudo reproducir el audio: ${audioSrc.split('/').pop()}.\nAsegúrate que el archivo existe en la carpeta 'audio'.`);
+        });
+    }
+    // --- FIN FUNCIÓN DE AUDIO ---
+
+
     async function loadData() {
         try {
             loadingMessageEl.style.display = 'block';
@@ -152,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             phrasesData = data.phrases;
             console.log("Datos cargados:", { lexicon: lexiconData.length, phrases: phrasesData.length });
             
-            loadRepasarIds(); // Cargar IDs de repaso después de cargar datos del lexicon
+            loadRepasarIds();
 
             loadingMessageEl.style.display = 'none';
             mainContentEl.style.display = 'block';
@@ -194,10 +217,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 else console.error(`Sección ${sectionId} no encontrada.`);
                 button.classList.add('active');
 
+                if (currentAudio) { // Detener audio al cambiar de sección
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+
                 if (sectionId === 'memorama') resetMemoramaView();
                 else if (sectionId === 'quiz') resetQuizView();
                 else if (sectionId === 'flashcards') initializeFlashcardsView();
-                // Al cambiar de sección, si estábamos en Léxico, asegurarnos de que las estrellas se refresquen si se marcaron cosas en otros modos
                 if (sectionId === 'lexicon') filterAndDisplayLexicon();
             });
         });
@@ -212,81 +239,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función para actualizar la opción "Palabras a Repasar" en un selector específico
     function updateRepasarOptionInSelect(selectElement) {
         if (!selectElement) return;
-
         let repasarOption = selectElement.querySelector('option[value="repasar"]');
         const repasarCount = repasarLexiconIds.length;
-
         if (repasarCount > 0) {
             if (!repasarOption) {
                 repasarOption = document.createElement('option');
                 repasarOption.value = 'repasar';
-                // Insertar después de la opción "Todas las categorías" si existe, sino al principio
                 const allOption = selectElement.querySelector('option[value="all"]');
-                if (allOption && allOption.nextSibling) {
-                    selectElement.insertBefore(repasarOption, allOption.nextSibling);
-                } else if (allOption) {
-                     selectElement.appendChild(repasarOption); // Si "all" es la última
-                }
-                else {
-                    selectElement.insertBefore(repasarOption, selectElement.firstChild);
-                }
+                if (allOption && allOption.nextSibling) selectElement.insertBefore(repasarOption, allOption.nextSibling);
+                else if (allOption) selectElement.appendChild(repasarOption);
+                else selectElement.insertBefore(repasarOption, selectElement.firstChild);
             }
             repasarOption.textContent = `Palabras a Repasar (${repasarCount})`;
             repasarOption.disabled = false;
         } else {
             if (repasarOption) {
-                // Si es la opción seleccionada, cambiar a 'all' antes de deshabilitar/quitar
-                if (selectElement.value === 'repasar') {
-                    selectElement.value = 'all';
-                }
-                repasarOption.disabled = true; // O selectElement.remove(repasarOption.index);
+                if (selectElement.value === 'repasar') selectElement.value = 'all';
+                repasarOption.disabled = true;
                 repasarOption.textContent = `Palabras a Repasar (0) - Marca algunas`;
             }
         }
     }
 
-    // Función para actualizar la opción "Palabras a Repasar" en TODOS los selectores relevantes
     function updateAllRepasarOptions() {
         [quizCategorySelect, memoramaCategorySelect, flashcardCategorySelect].forEach(sel => {
             updateRepasarOptionInSelect(sel);
         });
     }
 
-
     function populateCategorySelect(selectElement, categories) {
         if (!selectElement || !categories) { console.warn("Selector o categorías no disponibles para poblar."); return; }
-        const currentValue = selectElement.value; // Guardar valor actual
+        const currentValue = selectElement.value;
         selectElement.innerHTML = '';
-
         const allOption = document.createElement('option');
         allOption.value = 'all';
         allOption.textContent = 'Todas las categorías';
         selectElement.appendChild(allOption);
-
-        // La opción "Repasar" se manejará por updateRepasarOptionInSelect
-
         categories.filter(cat => cat !== 'all' && cat !== 'repasar').forEach(category => {
             const option = document.createElement('option');
             option.value = category;
             option.textContent = category;
             selectElement.appendChild(option);
         });
-        
-        updateRepasarOptionInSelect(selectElement); // Asegurarse de que la opción Repasar esté correcta
-
-        // Restaurar valor si aún es válido
+        updateRepasarOptionInSelect(selectElement);
         if (Array.from(selectElement.options).some(opt => opt.value === currentValue)) {
             selectElement.value = currentValue;
         } else if (selectElement.options.length > 0) {
-             selectElement.value = selectElement.options[0].value; // Default al primero si el anterior no existe
+             selectElement.value = selectElement.options[0].value;
         }
-
         console.log(`Selector ${selectElement.id} poblado. Opción Repasar actualizada.`);
     }
-
 
     function getUniqueCategories(data) {
         const categories = new Set();
@@ -306,7 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const uniqueCategories = getUniqueCategories(lexiconData);
         const categoriesForButtons = ['all', ...uniqueCategories];
-
         categoryFiltersContainer.innerHTML = '';
         if (categoriesForButtons.length <= 1) {
             console.log("No hay categorías definidas para mostrar filtros de Léxico.");
@@ -314,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         categoryFiltersContainer.style.display = 'flex';
-
         categoriesForButtons.forEach(category => {
             const button = document.createElement('button');
             const categoryName = category === 'all' ? 'Todos' : category;
@@ -335,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
         filterAndDisplayLexicon();
     }
 
-    // MODIFICADA para usar click en la imagen
     function displayLexiconItems(itemsToShow) {
         if (!lexiconGrid) return;
         lexiconGrid.innerHTML = '';
@@ -350,13 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
         itemsToShow.forEach(item => {
             const div = document.createElement('div');
             div.classList.add('lexicon-item');
-            div.dataset.id = item.id; // Añadir data-id para referencia
+            div.dataset.id = item.id;
 
             const imgSrc = item.image || 'images/placeholder.png';
             const spanishText = item.spanish || '???';
             const raramuriText = item.raramuri || '???';
             
-            // Construir el HTML del ítem. Ya NO incluye el div de acciones ni el botón de estrella separado.
             div.innerHTML = `
                 <img src="${imgSrc}" 
                      alt="${spanishText}" 
@@ -364,24 +364,33 @@ document.addEventListener('DOMContentLoaded', () => {
                      onerror="this.onerror=null; this.src='images/placeholder.png'; this.alt='Error al cargar: ${raramuriText}';"
                      class="${isRepasarItem(item.id) ? 'repasar-image-marked' : ''}" 
                      title="${isRepasarItem(item.id) ? 'Quitar de repasar (clic en imagen)' : 'Marcar para repasar (clic en imagen)'}">
-                <p class="raramuri-word">${raramuriText}</p>
+                <div class="lexicon-word-container">
+                    <p class="raramuri-word" lang="rar">${raramuriText}</p>
+                    ${item.audio ? `<button class="play-audio-btn lexicon-audio-btn" data-audio-src="${item.audio}" aria-label="Reproducir audio de ${raramuriText}">🔊</button>` : ''}
+                </div>
                 <p class="spanish-word">${spanishText}</p>
-            `; // La clase 'repasar-image-marked' se añade condicionalmente aquí
-
+            `;
             lexiconGrid.appendChild(div);
 
-            // Añadir el listener a la imagen DESPUÉS de que esté en el DOM
             const imageElementInDOM = div.querySelector('img');
             if (imageElementInDOM) {
                 imageElementInDOM.addEventListener('click', (e) => {
-                    // No necesitamos e.stopPropagation() aquí a menos que el div tenga otros listeners
                     toggleRepasarItemPorImagen(item.id, imageElementInDOM);
                 });
+            }
+
+            if (item.audio) {
+                const audioButtonInDOM = div.querySelector('.play-audio-btn.lexicon-audio-btn');
+                if (audioButtonInDOM) {
+                    audioButtonInDOM.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        playAudio(e.currentTarget.dataset.audio-src);
+                    });
+                }
             }
         });
     }
 
-    // NUEVA función para alternar el estado de repasar usando la imagen
     function toggleRepasarItemPorImagen(itemId, imageElement) {
         if (isRepasarItem(itemId)) {
             removeRepasarId(itemId);
@@ -392,11 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
             imageElement.classList.add('repasar-image-marked');
             imageElement.title = "Quitar de repasar (clic en imagen)";
         }
-        // saveRepasarIds() y updateAllRepasarOptions() ya son llamados por add/removeRepasarId
-        // No es necesario llamar a filterAndDisplayLexicon() aquí a menos que quieras que la vista se filtre automáticamente
-        // cuando desmarcas el último item en la vista filtrada por "repasar". Eso es una mejora opcional.
     }
-
 
     function filterAndDisplayLexicon() {
         if (!lexiconData) return;
@@ -404,9 +409,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let filteredItems = lexiconData;
 
         if (currentCategoryFilter !== 'all') {
-            // NOTA: Los botones de categoría del Léxico *no* incluyen la opción 'repasar'.
-            // Si quisieras un filtro de 'repasar' en la sección Léxico, tendrías que añadir
-            // un botón para 'repasar' en populateCategoryFilters y manejarlo aquí.
             filteredItems = filteredItems.filter(item => item.category && item.category === currentCategoryFilter);
         }
         if (searchTerm) {
@@ -436,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         phrasesData.forEach(phrase => {
             if (phrase.raramuri && phrase.spanish) {
                 const li = document.createElement('li');
-                li.innerHTML = `<span class="raramuri-phrase">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`;
+                li.innerHTML = `<span class="raramuri-phrase" lang="rar">${phrase.raramuri}</span><span class="spanish-phrase">${phrase.spanish}</span>`;
                 phrasesList.appendChild(li);
             }
         });
@@ -449,17 +451,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (memoramaWinMessage) memoramaWinMessage.style.display = 'none';
         if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
         if (memoramaGrid) memoramaGrid.innerHTML = '';
-
         difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-        updateRepasarOptionInSelect(memoramaCategorySelect); // Asegurar que la opción Repasar esté actualizada
-
-        memoramaActive = false;
-        mCards = [];
-        mFlippedElements = [];
-        mMatchedPairsCount = 0;
-        mTotalPairs = 0;
-        mAttempts = 0;
-        mLockBoard = false;
+        updateRepasarOptionInSelect(memoramaCategorySelect);
+        memoramaActive = false; mCards = []; mFlippedElements = []; mMatchedPairsCount = 0; mTotalPairs = 0; mAttempts = 0; mLockBoard = false;
         if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = '0';
     }
 
@@ -468,16 +462,11 @@ document.addEventListener('DOMContentLoaded', () => {
         faceElement.innerHTML = '';
         try {
             if (cardInfo.type === 'image' && cardInfo.value) {
-                const img = document.createElement('img');
-                img.src = cardInfo.value;
-                img.alt = cardInfo.altText || "Imagen Memorama";
-                img.loading = 'lazy';
+                const img = document.createElement('img'); img.src = cardInfo.value; img.alt = cardInfo.altText || "Imagen Memorama"; img.loading = 'lazy';
                 img.onerror = function() { this.style.display = 'none'; const eP = document.createElement('p'); eP.textContent = 'Error Img!'; eP.style.color='red'; faceElement.appendChild(eP); };
                 faceElement.appendChild(img);
             } else if (cardInfo.type === 'text' && cardInfo.value) {
-                const textP = document.createElement('p');
-                textP.textContent = cardInfo.value;
-                faceElement.appendChild(textP);
+                const textP = document.createElement('p'); textP.textContent = cardInfo.value; textP.setAttribute('lang', 'rar'); faceElement.appendChild(textP);
             } else {
                 const fallbackP = document.createElement('p'); fallbackP.textContent = '??'; fallbackP.style.opacity='0.5'; faceElement.appendChild(fallbackP);
             }
@@ -490,47 +479,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function prepareCardData(requestedPairs) {
         const selectedCategory = memoramaCategorySelect ? memoramaCategorySelect.value : 'all';
         console.log(`[Memorama] Preparando datos para categoría: "${selectedCategory}", pares: ${requestedPairs}`);
-
         let itemsForCategory;
         if (selectedCategory === 'repasar') {
             itemsForCategory = getRepasarItems();
             if (itemsForCategory.length === 0) {
                 console.warn(`[Memorama] No hay palabras marcadas para repasar.`);
-                if (memoramaDataErrorEl) {
-                    memoramaDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas haciendo clic en su imagen ⭐.`;
-                    memoramaDataErrorEl.style.display = 'block';
-                }
-                if (memoramaGameArea) memoramaGameArea.style.display = 'none';
-                if (memoramaSetup) memoramaSetup.style.display = 'flex';
-                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-                return null;
+                if (memoramaDataErrorEl) { memoramaDataErrorEl.textContent = `No has marcado palabras para repasar. Ve a la sección Léxico y marca algunas haciendo clic en su imagen ⭐.`; memoramaDataErrorEl.style.display = 'block'; }
+                if (memoramaGameArea) memoramaGameArea.style.display = 'none'; if (memoramaSetup) memoramaSetup.style.display = 'flex';
+                difficultyButtons.forEach(btn => btn.classList.remove('selected')); return null;
             }
         } else if (selectedCategory !== 'all') {
             itemsForCategory = lexiconData.filter(item => item.category && item.category === selectedCategory);
-        } else {
-            itemsForCategory = lexiconData;
-        }
-
-        const validItems = itemsForCategory.filter(item =>
-            item && item.id != null && item.image && item.raramuri && item.spanish
-        );
-
+        } else { itemsForCategory = lexiconData; }
+        const validItems = itemsForCategory.filter(item => item && item.id != null && item.image && item.raramuri && item.spanish);
         if (validItems.length < requestedPairs) {
-            const categoryDisplayName = selectedCategory === 'all' ? "todas las categorías" :
-                                     selectedCategory === 'repasar' ? "tus palabras a repasar" :
-                                     `la categoría "${selectedCategory}"`;
+            const categoryDisplayName = selectedCategory === 'all' ? "todas las categorías" : selectedCategory === 'repasar' ? "tus palabras a repasar" : `la categoría "${selectedCategory}"`;
             console.warn(`[Memorama] Datos insuficientes: ${validItems.length} items válidos con imagen en ${categoryDisplayName}, se necesitan ${requestedPairs} pares.`);
-            if (memoramaDataErrorEl) {
-                memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) con imagen en ${categoryDisplayName} para ${requestedPairs} pares. Intenta otra categoría/dificultad o marca más palabras para repasar.`;
-                memoramaDataErrorEl.style.display = 'block';
-            }
-            if (memoramaGameArea) memoramaGameArea.style.display = 'none';
-            if (memoramaSetup) memoramaSetup.style.display = 'flex';
-            difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-            return null;
+            if (memoramaDataErrorEl) { memoramaDataErrorEl.textContent = `Datos insuficientes (${validItems.length}) con imagen en ${categoryDisplayName} para ${requestedPairs} pares. Intenta otra categoría/dificultad o marca más palabras para repasar.`; memoramaDataErrorEl.style.display = 'block'; }
+            if (memoramaGameArea) memoramaGameArea.style.display = 'none'; if (memoramaSetup) memoramaSetup.style.display = 'flex';
+            difficultyButtons.forEach(btn => btn.classList.remove('selected')); return null;
         }
         if (memoramaDataErrorEl) memoramaDataErrorEl.style.display = 'none';
-
         const shuffledValidItems = shuffleArray(validItems);
         const itemsForGame = shuffledValidItems.slice(0, requestedPairs);
         return itemsForGame;
@@ -539,61 +508,31 @@ document.addEventListener('DOMContentLoaded', () => {
     function buildMemoramaGrid() {
         if (!memoramaGrid) { console.error("[Memorama Error] #memorama-grid no encontrado."); return; }
         memoramaGrid.innerHTML = '';
-
         mCards.forEach((cardData, index) => {
-            const cardElement = document.createElement('div');
-            cardElement.classList.add('memorama-card');
+            const cardElement = document.createElement('div'); cardElement.classList.add('memorama-card');
             if (cardData.id === undefined || cardData.id === null) { console.error(`[Memorama Error] ID indefinido carta ${index}`, cardData); return; }
-            cardElement.dataset.id = cardData.id;
-            cardElement.dataset.index = index;
-
-            const frontFace = document.createElement('div');
-            frontFace.classList.add('card-face', 'card-front');
-            createMemoramaFaceContent(cardData, frontFace);
-
-            const backFace = document.createElement('div');
-            backFace.classList.add('card-face', 'card-back');
-
-            cardElement.appendChild(frontFace);
-            cardElement.appendChild(backFace);
-            cardElement.addEventListener('click', handleMemoramaCardClick);
+            cardElement.dataset.id = cardData.id; cardElement.dataset.index = index;
+            const frontFace = document.createElement('div'); frontFace.classList.add('card-face', 'card-front'); createMemoramaFaceContent(cardData, frontFace);
+            const backFace = document.createElement('div'); backFace.classList.add('card-face', 'card-back');
+            cardElement.appendChild(frontFace); cardElement.appendChild(backFace); cardElement.addEventListener('click', handleMemoramaCardClick);
             memoramaGrid.appendChild(cardElement);
         });
-
-        let columns = Math.ceil(Math.sqrt(mCards.length));
-        columns = Math.max(2, Math.min(columns, 5));
+        let columns = Math.ceil(Math.sqrt(mCards.length)); columns = Math.max(2, Math.min(columns, 5));
         memoramaGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
         console.log(`[Memorama] Grid construido con ${columns} columnas.`);
     }
 
     function startMemorama(numPairs) {
-        console.log(`[Memorama] Iniciando con ${numPairs} pares.`);
-        resetMemoramaView(); // Asegura que el error se limpie si es un reinicio
-        const itemsForGame = prepareCardData(numPairs);
-
-        if (!itemsForGame) { memoramaActive = false; return; }
-
-        mTotalPairs = itemsForGame.length;
-        memoramaActive = true;
-        mCards = [];
-        mAttempts = 0;
-        mMatchedPairsCount = 0;
-        mFlippedElements = [];
-        mLockBoard = false;
-
-        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts;
-        if (memoramaWinMessage) memoramaWinMessage.style.display = 'none';
-
+        console.log(`[Memorama] Iniciando con ${numPairs} pares.`); resetMemoramaView();
+        const itemsForGame = prepareCardData(numPairs); if (!itemsForGame) { memoramaActive = false; return; }
+        mTotalPairs = itemsForGame.length; memoramaActive = true; mCards = []; mAttempts = 0; mMatchedPairsCount = 0; mFlippedElements = []; mLockBoard = false;
+        if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; if (memoramaWinMessage) memoramaWinMessage.style.display = 'none';
         itemsForGame.forEach(item => {
             mCards.push({ id: item.id, type: 'image', value: item.image, altText: item.spanish });
             mCards.push({ id: item.id, type: 'text', value: item.raramuri });
         });
-
-        mCards = shuffleArray(mCards);
-        buildMemoramaGrid();
-
-        if (memoramaSetup) memoramaSetup.style.display = 'none';
-        if (memoramaGameArea) memoramaGameArea.style.display = 'block';
+        mCards = shuffleArray(mCards); buildMemoramaGrid();
+        if (memoramaSetup) memoramaSetup.style.display = 'none'; if (memoramaGameArea) memoramaGameArea.style.display = 'block';
         console.log(`[Memorama] Juego listo con ${mTotalPairs} pares y ${mCards.length} cartas.`);
     }
 
@@ -601,98 +540,58 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!memoramaActive || mLockBoard || !event.currentTarget) return;
         const clickedCardElement = event.currentTarget;
         if (clickedCardElement.classList.contains('flipped') || clickedCardElement.classList.contains('matched')) return;
-
-        clickedCardElement.classList.add('flipped');
-        mFlippedElements.push(clickedCardElement);
-
-        if (mFlippedElements.length === 2) {
-            mLockBoard = true;
-            mAttempts++;
-            if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts;
-            checkMemoramaMatch();
-        }
+        clickedCardElement.classList.add('flipped'); mFlippedElements.push(clickedCardElement);
+        if (mFlippedElements.length === 2) { mLockBoard = true; mAttempts++; if (memoramaAttemptsEl) memoramaAttemptsEl.textContent = mAttempts; checkMemoramaMatch(); }
     }
 
     function checkMemoramaMatch() {
         const [card1, card2] = mFlippedElements;
         if (!card1 || !card2) { console.error("[Memorama Critico] Faltan cartas en checkMemoramaMatch."); mFlippedElements = []; mLockBoard = false; return; }
-
         const isMatch = card1.dataset.id === card2.dataset.id;
         if (isMatch) {
             mMatchedPairsCount++;
             setTimeout(() => {
-                card1.classList.add('matched'); card2.classList.add('matched');
-                mFlippedElements = []; mLockBoard = false;
+                card1.classList.add('matched'); card2.classList.add('matched'); mFlippedElements = []; mLockBoard = false;
                 if (mMatchedPairsCount === mTotalPairs) {
                     console.log("[Memorama] ¡Juego Ganado!");
-                    if (memoramaWinMessage) {
-                        memoramaWinMessage.textContent = `¡Felicidades! ${mTotalPairs} pares en ${mAttempts} intentos.`;
-                        memoramaWinMessage.style.display = 'block';
-                    }
+                    if (memoramaWinMessage) { memoramaWinMessage.textContent = `¡Felicidades! ${mTotalPairs} pares en ${mAttempts} intentos.`; memoramaWinMessage.style.display = 'block'; }
                     memoramaActive = false;
                 }
             }, 300);
         } else {
-            setTimeout(() => {
-                card1.classList.remove('flipped'); card2.classList.remove('flipped');
-                mFlippedElements = []; mLockBoard = false;
-            }, 1000);
+            setTimeout(() => { card1.classList.remove('flipped'); card2.classList.remove('flipped'); mFlippedElements = []; mLockBoard = false; }, 1000);
         }
     }
 
     function setupMemoramaControls() {
-        if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0 || !memoramaCategorySelect) {
-            console.error("[Memorama Critico] Faltan elementos HTML para controles de Memorama.");
-            return;
-        }
+        if (!memoramaSetup || !resetMemoramaBtn || difficultyButtons.length === 0 || !memoramaCategorySelect) { console.error("[Memorama Critico] Faltan elementos HTML para controles de Memorama."); return; }
         console.log("[Memorama] Configurando controles.");
-
         difficultyButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const pairs = parseInt(button.getAttribute('data-pairs'));
                 if (isNaN(pairs) || pairs <= 0) { console.error("[Memorama Error] data-pairs inválido:", button); return; }
-                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-                startMemorama(pairs);
+                difficultyButtons.forEach(btn => btn.classList.remove('selected')); button.classList.add('selected'); startMemorama(pairs);
             });
         });
-
         resetMemoramaBtn.addEventListener('click', () => {
             console.log("[Memorama] Botón Reset presionado.");
             const selectedBtn = document.querySelector('#memorama-setup .difficulty-btn.selected');
-            if (selectedBtn) {
-                const pairs = parseInt(selectedBtn.getAttribute('data-pairs'));
-                if (!isNaN(pairs) && pairs > 0) { startMemorama(pairs); }
-                else { resetMemoramaView(); }
-            } else { resetMemoramaView(); }
+            if (selectedBtn) { const pairs = parseInt(selectedBtn.getAttribute('data-pairs')); if (!isNaN(pairs) && pairs > 0) { startMemorama(pairs); } else { resetMemoramaView(); } }
+            else { resetMemoramaView(); }
         });
-
-        memoramaCategorySelect.addEventListener('change', () => {
-            console.log("[Memorama] Categoría cambiada. Reseteando vista para que el usuario elija dificultad.");
-            resetMemoramaView();
-        });
+        memoramaCategorySelect.addEventListener('change', () => { console.log("[Memorama] Categoría cambiada. Reseteando vista para que el usuario elija dificultad."); resetMemoramaView(); });
     }
-
 
     function getWrongOptions(correctItem, count, sourceData, field) {
         if (!correctItem || !field || !sourceData) return [];
         const correctValueNorm = normalizeAnswer(correctItem[field]);
-        const wrongAnswerPool = sourceData.filter(item =>
-            item && item.id !== correctItem.id && item[field] &&
-            normalizeAnswer(item[field]) !== correctValueNorm
-        );
-        const shuffledWrongs = shuffleArray([...wrongAnswerPool]);
-        let options = new Set();
-        for (const item of shuffledWrongs) {
-            if (options.size >= count) break;
-            options.add(item[field]);
-        }
+        const wrongAnswerPool = sourceData.filter(item => item && item.id !== correctItem.id && item[field] && normalizeAnswer(item[field]) !== correctValueNorm);
+        const shuffledWrongs = shuffleArray([...wrongAnswerPool]); let options = new Set();
+        for (const item of shuffledWrongs) { if (options.size >= count) break; options.add(item[field]); }
         let attempts = 0; const maxAttempts = sourceData.length * 2;
         while (options.size < count && attempts < maxAttempts) {
             const randomItem = sourceData[Math.floor(Math.random() * sourceData.length)];
-            if (randomItem && randomItem[field] && normalizeAnswer(randomItem[field]) !== correctValueNorm) {
-                options.add(randomItem[field]);
-            }
+            if (randomItem && randomItem[field] && normalizeAnswer(randomItem[field]) !== correctValueNorm) { options.add(randomItem[field]); }
             attempts++;
         }
         return Array.from(options);
@@ -886,6 +785,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (q.type.startsWith('TXT_') && quizTextInputArea && quizTextAnswerInput && submitTextAnswerBtn) {
             quizTextInputArea.style.display = 'flex';
+            if (q.answer) quizTextAnswerInput.setAttribute('lang', 'rar'); else quizTextAnswerInput.removeAttribute('lang');
             setTimeout(() => { if (quizTextAnswerInput) quizTextAnswerInput.focus(); }, 100);
         } else {
             console.error("[Quiz Error] Tipo de pregunta desconocido o elementos faltantes:", q.type, q);
@@ -917,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct';
         } else {
             selectedButton.classList.add('incorrect');
-            quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${correctAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
+            quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong lang="${currentQuestion.answer.includes(' ') ? 'es' : 'rar'}">${correctAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
             if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) {
                 missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion)));
             }
@@ -950,7 +850,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quizFeedbackEl.textContent = '¡Correcto!'; quizFeedbackEl.className = 'correct';
         } else {
             if (quizTextAnswerInput) quizTextAnswerInput.classList.add('incorrect');
-            quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong>${originalCorrectAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
+            quizFeedbackEl.innerHTML = `Incorrecto. Correcto: <strong lang="rar">${originalCorrectAnswer}</strong>`; quizFeedbackEl.className = 'incorrect';
             if (currentQuestion.item && !missedQuestions.some(mq => mq.item.id === currentQuestion.item.id)) {
                 missedQuestions.push(JSON.parse(JSON.stringify(currentQuestion)));
             }
@@ -1003,7 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(quizFeedbackEl) { quizFeedbackEl.textContent = ''; quizFeedbackEl.className = ''; }
         if(quizOptionsEl) quizOptionsEl.innerHTML = '';
         if(quizTextInputArea) quizTextInputArea.style.display = 'none';
-        if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; }
+        if(quizTextAnswerInput) { quizTextAnswerInput.value = ''; quizTextAnswerInput.className = ''; quizTextAnswerInput.removeAttribute('lang'); }
         if(quizQuestionEl) quizQuestionEl.textContent = '';
         if(quizLengthSelect) quizLengthSelect.value = "5";
         console.log("[Quiz] Vista reseteada.");
@@ -1117,24 +1017,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (flashcardFrontEl) {
             flashcardFrontEl.innerHTML = '';
-            // En flashcards, la cara frontal SIEMPRE es español o imagen si existe
+            let frontContentHTML = '';
             if (cardData.image) {
-                const img = document.createElement('img'); img.src = cardData.image; img.alt = cardData.spanish || 'Flashcard Image'; img.loading = 'lazy';
-                img.onerror = function() { this.alt = 'Error img'; this.src='images/placeholder.png'; };
-                 // No añadimos listener click aquí para marcar, eso solo en la sección Léxico
-                flashcardFrontEl.appendChild(img);
+                frontContentHTML += `<img src="${cardData.image}" alt="${cardData.spanish || 'Flashcard Image'}" loading="lazy" onerror="this.onerror=null; this.src='images/placeholder.png';">`;
             } else if (cardData.spanish) {
-                 const p = document.createElement('p');
-                 p.textContent = cardData.spanish;
-                 // Estilo adicional para el texto en la cara frontal si no hay imagen
-                 p.style.fontSize = '1.8em'; // Haz el texto más grande si no hay imagen
-                 p.style.fontWeight = 'bold';
-                 p.style.color = 'var(--text-primary)';
-                 flashcardFrontEl.appendChild(p);
-            } else { flashcardFrontEl.textContent = '???'; }
+                 frontContentHTML += `<p class="flashcard-text-content">${cardData.spanish}</p>`;
+            } else { frontContentHTML += '<p class="flashcard-text-content">???</p>'; }
+            flashcardFrontEl.innerHTML = frontContentHTML;
         }
          // La cara trasera SIEMPRE es rarámuri
-        if (flashcardBackEl) flashcardBackEl.textContent = cardData.raramuri || '???';
+        if (flashcardBackEl) {
+            flashcardBackEl.innerHTML = '';
+            let backHTML = `<p class="flashcard-text-content" lang="rar">${cardData.raramuri || '???'}</p>`;
+            if (cardData.audio) {
+                backHTML += `<button class="play-audio-btn flashcard-audio-btn" data-audio-src="${cardData.audio}" aria-label="Reproducir audio de ${cardData.raramuri}">🔊</button>`;
+            }
+            flashcardBackEl.innerHTML = backHTML;
+
+            if (cardData.audio) {
+                const audioButtonInDOM = flashcardBackEl.querySelector('.play-audio-btn.flashcard-audio-btn');
+                if (audioButtonInDOM) {
+                    audioButtonInDOM.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent card from flipping when clicking the audio button
+                        playAudio(e.currentTarget.dataset.audio-src);
+                    });
+                }
+            }
+        }
         
         if (flashcardCounterEl) flashcardCounterEl.textContent = `Tarjeta ${currentFlashcardIndex + 1} de ${flashcardData.length}`;
     }
@@ -1179,8 +1088,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("[Flashcards] Configurando controles.");
         // Añadido listener click al flashcardAreaEl para voltear, o podrías ponerlo en flashcardEl
         if(flashcardAreaEl) flashcardAreaEl.addEventListener('click', (e) => {
-             // Asegúrate de no voltear si haces clic en los botones de control
-             if (!e.target.closest('#flashcard-controls')) {
+             // Asegúrate de no voltear si haces clic en los botones de control o en el botón de audio
+             if (!e.target.closest('#flashcard-controls') && !e.target.classList.contains('play-audio-btn')) {
                   flipFlashcard();
              }
         });
