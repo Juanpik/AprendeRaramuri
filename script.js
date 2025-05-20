@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Naturaleza': '🌳', 'Comida y bebida': '🍎', 'Verbos': '🏃‍♂️',
         'Animales': '🐾', 'Partes del cuerpo': '🖐️', 'Objetos': '🔨',
         'Personas': '🧍‍♀️', 'Vestimenta': '🧦', 'Colores': '🎨',
-        'Lugares': '🏡', 'all': '',
+        'Lugares': '🏡', 'Adjetivos': '✨','all': '',
         'repasar': '⭐' // Icono para la categoría "Repasar" (usado en selectores, no en la tarjeta)
     };
     const defaultCategoryIcon = '🏷️';
