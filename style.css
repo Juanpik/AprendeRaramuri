@@ -1,4 +1,4 @@
-/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow + AUDIO BUTTONS) */
+/* style.css (Final, with all features and layout fixes + MOBILE OPTIMIZATIONS + Reverted to native select arrow + AUDIO CLICKABLE WORDS) */
 
 /* ------------------------- */
 /* Reset & Base Styles       */
@@ -193,26 +193,19 @@ nav button.active {
 #about ul.credits-list { list-style: none; padding: 0; margin-top: 0; font-size: 0.9em; color: var(--text-secondary); }
 #about ul.credits-list li { margin-bottom: var(--space-xs); }
 
-/* --- Play Audio Button General Styles --- */
-.play-audio-btn {
-    background-color: transparent;
-    border: none;
-    color: var(--blue-primary);
+/* --- Styles for clickable audio words (instead of separate button) --- */
+.audio-clickable-word {
     cursor: pointer;
-    font-size: 1.2em; 
-    padding: 0.1em 0.3em;
-    margin-left: var(--space-xs);
-    vertical-align: middle;
-    line-height: 1;
-    transition: color 0.2s ease, transform 0.2s ease;
-    border-radius: var(--border-radius-sm);
+    text-decoration: underline;
+    text-decoration-color: rgba(74, 126, 187, 0.3); /* Lighter blue underline */
+    text-underline-offset: 3px;
+    transition: all 0.2s ease;
 }
-.play-audio-btn:hover {
-    color: var(--orange-accent);
-    transform: scale(1.15);
-}
-.play-audio-btn:active {
-    transform: scale(0.9);
+
+.audio-clickable-word:hover {
+    text-decoration-color: var(--orange-accent); /* Highlight on hover */
+    color: var(--orange-dark); /* Optional: change text color on hover */
+    transform: translateY(-1px); /* Slight lift for interaction */
 }
 
 /* Léxico */
@@ -313,27 +306,15 @@ button.category-filter-btn.active {
     box-shadow: 0 0 8px rgba(232, 122, 63, 0.5); 
 }
 
-/* Container for Rarámuri word and its audio button */
-.lexicon-word-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--space-xs); /* Space after the container */
-    flex-wrap: wrap; /* Allow button to wrap below if word is long */
-    min-height: 1.5em; /* Ensure some height even if word is short for alignment */
-}
-.lexicon-item .raramuri-word { /* Style for the <p> tag inside the container */
+/* Lexicon word styling */
+.lexicon-item .raramuri-word { 
     font-family: var(--font-heading);
     font-weight: 600;
     color: var(--orange-accent);
     font-size: 1.25em;
-    margin-bottom: 0; /* Margin is handled by container */
-    margin-right: 0; /* Button has margin-left */
+    margin-bottom: var(--space-xs); /* Space below Rarámuri word */
     word-wrap: break-word;
     line-height: 1.3;
-}
-.lexicon-audio-btn {
-    font-size: 1em; /* Relative to parent's font-size */
 }
 
 .lexicon-item .spanish-word {
@@ -574,13 +555,9 @@ button#retry-missed-quiz:hover { background-color: var(--blue-dark); }
 }
 #flashcard-back .flashcard-text-content { /* For text on back */
     font-size: 2.2em; color: var(--orange-dark); font-family: var(--font-heading);
-    font-weight: 600; margin-bottom: var(--space-sm); /* Space before audio button */
+    font-weight: 600; 
 }
-.flashcard-audio-btn {
-    font-size: 1.5em; /* Larger for easier tapping on flashcard */
-    color: var(--blue-primary);
-    margin-top: var(--space-xs); /* Small space if text is short, or use flex gap */
-}
+
 
 #flashcard-controls {
     display: flex; flex-wrap: wrap; justify-content: center;
@@ -649,7 +626,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .lexicon-item img { width: 100px; height: 100px; margin-bottom: var(--space-md); }
     .lexicon-item .raramuri-word { font-size: 1.1em; }
     .lexicon-item .spanish-word { font-size: 0.95em; }
-    .lexicon-audio-btn { font-size: 0.9em; }
 
     #memorama-setup { gap: var(--space-md); padding-bottom: var(--space-md); margin-bottom: var(--space-lg); }
     .memorama-setup-group { gap: var(--space-xs); }
@@ -691,7 +667,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .flashcard-face { padding: var(--space-sm); }
     .flashcard-face.card-front p.flashcard-text-content { font-size: 1.2em; }
     #flashcard-back .flashcard-text-content { font-size: 1.4em; }
-    .flashcard-audio-btn { font-size: 1.3em; }
     #flashcard-controls { gap: var(--space-sm); margin-top: var(--space-md); }
     #flashcard-controls button { font-size: 0.9em; padding: var(--space-xs) var(--space-sm); }
     #flip-flashcard-btn { order: -1; flex-basis: 100%; margin-bottom: var(--space-sm); padding: var(--space-sm) var(--space-md); font-size: 1em; }
@@ -719,7 +694,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .lexicon-item img { width: 80px; height: 80px; margin-bottom: var(--space-sm);}
     .lexicon-item .raramuri-word { font-size: 1em; }
     .lexicon-item .spanish-word { font-size: 0.9em; }
-    .lexicon-audio-btn { font-size: 0.8em; }
 
     #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #memorama-setup label, #memorama-setup select { font-size: 0.9em; }
@@ -758,7 +732,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .flashcard-face { padding: var(--space-sm); }
     .flashcard-face.card-front p.flashcard-text-content { font-size: 1.2em; }
     #flashcard-back .flashcard-text-content { font-size: 1.4em; }
-    .flashcard-audio-btn { font-size: 1.2em; }
     #flashcard-controls { gap: var(--space-xs); margin-top: var(--space-md); }
     #flashcard-controls button { font-size: 0.85em; padding: 6px 10px; }
     #flip-flashcard-btn { margin-bottom: var(--space-sm); padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
@@ -785,7 +758,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .lexicon-item img { width: 60px; height: 60px; margin-bottom: var(--space-sm); }
     .lexicon-item .raramuri-word { font-size: 0.9em; }
     .lexicon-item .spanish-word { font-size: 0.8em; }
-    .lexicon-audio-btn { font-size: 0.75em; }
 
     #memorama-setup { gap: var(--space-sm); padding-bottom: var(--space-sm); margin-bottom: var(--space-md); }
     #memorama-setup label, #memorama-setup select { font-size: 0.85em; }
@@ -824,7 +796,6 @@ footer img { display: block; margin-left: auto; margin-right: auto; max-height: 
     .flashcard-face { padding: var(--space-sm); }
     .flashcard-face.card-front p.flashcard-text-content { font-size: 1.1em; }
     #flashcard-back .flashcard-text-content { font-size: 1.3em; }
-    .flashcard-audio-btn { font-size: 1.1em; }
     #flashcard-controls { gap: var(--space-xs); }
     #flashcard-controls button { font-size: 0.8em; padding: 5px 8px; }
     #flip-flashcard-btn { font-size: 0.9em; padding: var(--space-sm); }
@@ -844,20 +815,20 @@ select {
 }
 #memorama-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; }
 #quiz-setup select { padding: var(--space-xs) var(--space-md); font-size: 1em; }
-#flashcard-category { padding: var(--space-xs) var(--space-md); font-size: 1em; } /* Corrected selector */
+#flashcard-category { padding: var(--space-xs) var(--space-md); font-size: 1em; }
 
 @media (max-width: 768px) {
     #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
     #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
-    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; } /* Corrected selector */
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
 }
 @media (max-width: 576px) {
     #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
     #quiz-setup select { padding: var(--space-sm) var(--space-md); font-size: 0.95em; }
-    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; } /* Corrected selector */
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.95em; }
 }
 @media (max-width: 420px) {
     #memorama-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.85em; }
     #quiz-setup select { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
-    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; } /* Corrected selector */
+    #flashcard-category { padding: var(--space-xs) var(--space-sm); font-size: 0.9em; }
 }
