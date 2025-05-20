@@ -126,7 +126,17 @@
     { "id": 124, "raramuri": "osá", "spanish": "escribir", "image": "images/osá.jpg", "category": "Verbos" },
     { "id": 125, "raramuri": "sapá", "spanish": "carne", "image": "images/sapá.jpg", "category": "Comida y bebida" },
     { "id": 126, "raramuri": "ripulá", "spanish": "hacha", "image": "images/ripulá.jpg", "category": "Objetos" },
-    { "id": 127, "raramuri": "ware", "spanish": "cesta", "image": "images/ware.jpg", "category": "Objetos" }
+    { "id": 127, "raramuri": "ware", "spanish": "cesta", "image": "images/ware.jpg", "category": "Objetos" },
+    { "id": 128, "raramuri": "natéami", "spanish": "caro", "image": "images/natéami.jpg", "category": "Adjetivos" },
+    { "id": 129, "raramuri": "sapéami", "spanish": "gordo", "image": "images/sapéami.jpg", "category": "Adjetivos" },
+    { "id": 130, "raramuri": "tá", "spanish": "chaparro", "image": "images/tá.jpg", "category": "Adjetivos" },
+    { "id": 131, "raramuri": "re'pa wirí", "spanish": "alto", "image": "images/re'pa wirí.jpg", "category": "Adjetivos" },
+    { "id": 132, "raramuri": "o'mónami", "spanish": "triste", "image": "images/o'mónami.jpg", "category": "Adjetivos" },
+    { "id": 133, "raramuri": "kanili", "spanish": "alegre", "image": "images/kanili.jpg", "category": "Adjetivos" },
+    { "id": 134, "raramuri": "chátiri", "spanish": "feo", "image": "images/chatirí.jpg", "category": "Adjetivos" },
+    { "id": 135, "raramuri": "simati", "spanish": "bonito", "image": "images/simatí.jpg", "category": "Adjetivos" },
+    { "id": 136, "raramuri": "rulaami", "spanish": "frio", "image": "images/rulaami.jpg", "category": "Adjetivos" },
+    { "id": 137, "raramuri": "ratáame", "spanish": "caliente", "image": "images/ratáame.jpg", "category": "Adjetivos" }
   ],
   "phrases": [
     { "id": 1001, "raramuri": "Kuira ba!", "spanish": "¡Hola! / ¡Buenos días!" },
